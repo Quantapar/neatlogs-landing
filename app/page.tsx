@@ -1,65 +1,49 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="relative flex min-h-screen w-full flex-col overflow-hidden bg-[#EAF3F6]">
+      <Image
+        src="/hero-sf.png"
+        alt=""
+        fill
+        priority
+        unoptimized
+        sizes="100vw"
+        className="object-contain object-bottom"
+      />
+
+      <section className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-20 pb-28 sm:pt-24 md:pt-28">
+        <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-700">
+          For teams building AI agents
+        </span>
+
+        <h1 className="mt-5 max-w-3xl text-center text-4xl font-semibold leading-[1.05] tracking-tight text-zinc-950 sm:text-5xl md:text-6xl lg:text-7xl">
+          from feedback to fix
+          <br className="hidden sm:block" />
+          <span className="text-zinc-500"> in minutes.</span>
+        </h1>
+
+        <p className="mt-6 max-w-xl text-center text-base leading-relaxed text-zinc-700 sm:text-lg">
+          Surface the issue, align on what broke, and fix it with AI.
+        </p>
+
+        <div className="mt-9 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+          <Link
+            href="/demo"
+            className="inline-flex h-11 items-center justify-center rounded-full bg-zinc-950 px-6 text-sm font-medium text-white shadow-[0_1px_0_0_rgba(255,255,255,0.12)_inset,0_1px_2px_rgba(0,0,0,0.18)] transition-[transform,background-color] duration-150 ease-out hover:bg-zinc-800 active:scale-[0.97]"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Book a demo
+          </Link>
+          <Link
+            href="/start"
+            className="inline-flex h-11 items-center justify-center rounded-full border border-zinc-900/10 bg-white/80 px-6 text-sm font-medium text-zinc-900 backdrop-blur-sm transition-[transform,background-color,border-color] duration-150 ease-out hover:border-zinc-900/20 hover:bg-white active:scale-[0.97]"
           >
-            Documentation
-          </a>
+            Get started
+          </Link>
         </div>
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }
