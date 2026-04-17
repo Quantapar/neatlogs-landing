@@ -55,7 +55,9 @@ export function MediaPlayer() {
       <div className="mx-auto w-full max-w-5xl">
         <div
           ref={frameRef}
-          className="relative rounded-[28px] bg-white/90 p-3 shadow-[0_40px_80px_-24px_rgba(12,20,40,0.35),0_16px_32px_-16px_rgba(12,20,40,0.22)] ring-1 ring-zinc-900/5 backdrop-blur-sm sm:p-4"
+          className={`relative rounded-[28px] bg-white/90 p-3 shadow-[0_40px_80px_-24px_rgba(12,20,40,0.35),0_16px_32px_-16px_rgba(12,20,40,0.22)] ring-1 ring-zinc-900/5 backdrop-blur-sm sm:p-4 ${
+            isFullscreen ? "flex flex-col" : ""
+          }`}
         >
           <div className="relative aspect-video overflow-hidden rounded-[20px] bg-[#EAF3F6]">
             <video
@@ -109,7 +111,11 @@ export function MediaPlayer() {
             )}
           </div>
 
-          <div className="mt-3 flex items-center justify-between gap-2 px-1 sm:mt-4 sm:px-2">
+          <div
+            className={`flex items-center justify-between gap-2 px-1 sm:px-2 ${
+              isFullscreen ? "my-auto" : "mt-3 sm:mt-4"
+            }`}
+          >
             <div className="flex items-center gap-2 sm:gap-3">
               <ControlButton
                 round
