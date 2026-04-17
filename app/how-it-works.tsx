@@ -147,15 +147,9 @@ export function HowItWorks() {
       <div className="lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center">
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
           <div className="mb-12 lg:mb-14">
-            <div className="flex items-center gap-3">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-60" />
-                <span className="relative inline-flex size-2 rounded-full bg-red-500" />
-              </span>
-              <span className="font-pixel text-[11px] uppercase tracking-[0.18em] text-zinc-600">
-                How it works · live
-              </span>
-            </div>
+            <span className="font-pixel text-[11px] uppercase tracking-[0.18em] text-zinc-600">
+              How it works
+            </span>
             <h2 className="font-pixel mt-5 max-w-3xl text-balance text-4xl font-medium leading-[1.05] tracking-[-0.01em] text-zinc-950 sm:text-5xl lg:text-[52px]">
               From broken agent{" "}
               <span className="text-zinc-500">to shipped fix.</span>
@@ -319,7 +313,7 @@ function Device({ activeIndex }: { activeIndex: number }) {
               translate="no"
               className="font-pixel text-[10px] uppercase tracking-[0.18em] text-zinc-500"
             >
-              neatlogs · trace live
+              neatlogs · trace
             </span>
           </div>
           <span className="font-pixel text-[10px] uppercase tracking-[0.16em] text-zinc-400 [font-variant-numeric:tabular-nums]">

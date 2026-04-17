@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { HowItWorks } from "./how-it-works";
 import { MediaPlayer } from "./media-player";
+import { MeetNeatlogs } from "./meet-neatlogs";
 
 export default function Home() {
   return (
@@ -57,6 +58,7 @@ export default function Home() {
       </div>
 
       <MediaPlayer />
+      <MeetNeatlogs />
       <HowItWorks />
     </main>
   );
