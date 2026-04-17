@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { HowItWorks } from "./how-it-works";
 import { MediaPlayer } from "./media-player";
 
 export default function Home() {
@@ -56,6 +57,7 @@ export default function Home() {
       </div>
 
       <MediaPlayer />
+      <HowItWorks />
     </main>
   );
 }
