@@ -28,7 +28,7 @@ export default function Home() {
 
           <h1 className="font-pixel mt-4 max-w-4xl text-balance text-center text-4xl font-medium leading-[1.08] tracking-[-0.01em] text-zinc-950 sm:text-5xl md:text-6xl lg:text-7xl">
             From feedback to fix.
-            <br className="hidden sm:block" />
+            <br />
             <span className="text-zinc-500">In minutes, not weeks.</span>
           </h1>
 
