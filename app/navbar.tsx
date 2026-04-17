@@ -32,7 +32,7 @@ export function Navbar() {
             className="size-10 rounded-[10px] shadow-[0_1px_2px_rgba(0,0,0,0.08)] ring-1 ring-black/5 transition-transform duration-200 ease-out group-hover:-rotate-3 motion-reduce:transition-none"
             priority
           />
-          <span className="font-pixel text-sm tracking-tight text-zinc-950 hidden sm:inline">
+          <span className="font-pixel text-lg font-medium tracking-tight text-zinc-950 hidden sm:inline sm:text-xl">
             neatlogs
           </span>
           <span className="sr-only sm:hidden">Neatlogs</span>
