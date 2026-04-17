@@ -207,57 +207,96 @@ function StepTile({
   active: boolean;
   onSelect: () => void;
 }) {
+  const easing = "cubic-bezier(0.22, 1, 0.36, 1)";
+  const duration = active ? 600 : 320;
+
   return (
     <button
       type="button"
       onClick={onSelect}
       aria-pressed={active}
-      className={`group relative overflow-hidden rounded-2xl border text-left outline-none transition-[border-color,background-color,transform,box-shadow] duration-[260ms] ease-[cubic-bezier(0.32,0.72,0,1)] focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#EAF3F6] motion-reduce:transition-none ${
+      className={`group relative overflow-hidden rounded-2xl border border-zinc-900/10 bg-white/70 text-left outline-none transition-[border-color,transform,box-shadow] focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#EAF3F6] motion-reduce:transition-none ${
         active
-          ? "cursor-default border-zinc-950 bg-zinc-950 text-white shadow-[0_20px_48px_-24px_rgba(0,0,0,0.35)]"
-          : "cursor-pointer border-zinc-900/10 bg-white/70 text-zinc-900 hover:-translate-y-0.5 hover:border-zinc-900/20 hover:bg-white hover:shadow-[0_12px_32px_-20px_rgba(0,0,0,0.18)]"
+          ? "cursor-default border-zinc-950 shadow-[0_20px_48px_-24px_rgba(0,0,0,0.35)]"
+          : "cursor-pointer hover:-translate-y-0.5 hover:border-zinc-900/20 hover:bg-white hover:shadow-[0_12px_32px_-20px_rgba(0,0,0,0.18)]"
       }`}
+      style={{
+        transitionDuration: `${duration}ms`,
+        transitionTimingFunction: easing,
+      }}
     >
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 rounded-[inherit] bg-zinc-950 will-change-[opacity] motion-reduce:transition-none"
+        style={{
+          opacity: active ? 1 : 0,
+          transition: `opacity ${duration}ms ${easing}`,
+        }}
+      />
       <div className="relative p-5 sm:p-6">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <span
-              className={`font-pixel text-[11px] uppercase tracking-[0.2em] transition-colors ${
-                active ? "text-white/60" : "text-zinc-400"
-              }`}
+              className="font-pixel text-[11px] uppercase tracking-[0.2em] motion-reduce:transition-none"
+              style={{
+                color: active
+                  ? "rgba(255,255,255,0.6)"
+                  : "rgb(161, 161, 170)",
+                transition: `color ${duration}ms ${easing}`,
+              }}
             >
               0{index + 1}
             </span>
             <span
-              className={`rounded-full px-2 py-[3px] text-[10px] font-medium uppercase tracking-[0.14em] transition-colors ${
-                active
-                  ? "bg-white/10 text-white"
-                  : "bg-zinc-900/[0.04] text-zinc-700"
-              }`}
+              className="rounded-full px-2 py-[3px] text-[10px] font-medium uppercase tracking-[0.14em] motion-reduce:transition-none"
+              style={{
+                backgroundColor: active
+                  ? "rgba(255,255,255,0.1)"
+                  : "rgba(24, 24, 27, 0.04)",
+                color: active ? "#ffffff" : "rgb(63, 63, 70)",
+                transition: `color ${duration}ms ${easing}, background-color ${duration}ms ${easing}`,
+              }}
             >
               {tag}
             </span>
           </div>
           <span
             aria-hidden="true"
-            className={`transition-[transform,opacity] duration-300 ease-out ${
+            className={`motion-reduce:transition-none ${
               active
                 ? "translate-x-0 opacity-100"
                 : "-translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-70"
             }`}
+            style={{
+              transition: `transform ${duration}ms ${easing}, opacity ${duration}ms ${easing}`,
+            }}
           >
             <IconArrowRight
-              className={`size-4 ${active ? "text-white" : "text-zinc-700"}`}
+              className="size-4"
+              style={{
+                color: active ? "#ffffff" : "rgb(63, 63, 70)",
+                transition: `color ${duration}ms ${easing}`,
+              }}
             />
           </span>
         </div>
-        <h3 className="mt-4 text-[17px] font-medium leading-snug text-balance sm:text-lg">
+        <h3
+          className="mt-4 text-[17px] font-medium leading-snug text-balance sm:text-lg motion-reduce:transition-none"
+          style={{
+            color: active ? "#ffffff" : "rgb(9, 9, 11)",
+            transition: `color ${duration}ms ${easing}`,
+          }}
+        >
           {title}
         </h3>
         <p
-          className={`mt-2 text-[13.5px] leading-relaxed ${
-            active ? "text-white/70" : "text-zinc-600"
-          }`}
+          className="mt-2 text-[13.5px] leading-relaxed motion-reduce:transition-none"
+          style={{
+            color: active
+              ? "rgba(255,255,255,0.7)"
+              : "rgb(82, 82, 91)",
+            transition: `color ${duration}ms ${easing}`,
+          }}
         >
           {body}
         </p>
@@ -324,10 +363,10 @@ function FrameLayer({
   return (
     <div
       aria-hidden={!active}
-      className={`absolute inset-0 p-5 transition-opacity ease-[cubic-bezier(0.32,0.72,0,1)] will-change-[opacity] motion-reduce:transition-none sm:p-6 ${
+      className={`absolute inset-0 p-5 transition-opacity ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[opacity] motion-reduce:transition-none sm:p-6 ${
         active
-          ? "opacity-100 duration-[260ms]"
-          : "pointer-events-none opacity-0 duration-[160ms]"
+          ? "opacity-100 duration-[480ms]"
+          : "pointer-events-none opacity-0 duration-[260ms]"
       }`}
     >
       <div key={replayKey}>{children}</div>
