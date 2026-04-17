@@ -5,11 +5,10 @@ import {
   type SVGProps,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
-
-const AUTO_ADVANCE_MS = 7000;
 
 const STEPS = [
   {
@@ -28,82 +27,164 @@ const STEPS = [
     id: "ship",
     tag: "Ship",
     title: "One thread, broken to shipped.",
-    body: "Trace, feedback, and fix live side-by-side. No more channel archaeology.",
+    body: "Trace, feedback, and the shipped fix all live in one context. No more forwarded messages or channel archaeology.",
   },
 ] as const;
 
+const STEP_LOCK_MS = 850;
+
 export function HowItWorks() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const startRef = useRef(Date.now());
-
-  const selectIndex = useCallback((i: number) => {
-    setActiveIndex(i);
-    setProgress(0);
-    startRef.current = Date.now();
-  }, []);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const tileRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const activeRef = useRef(0);
+  const lastChangeAtRef = useRef(0);
+  const pendingTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (isPaused) return;
-    startRef.current = Date.now() - (progress / 100) * AUTO_ADVANCE_MS;
-    const id = window.setInterval(() => {
-      const elapsed = Date.now() - startRef.current;
-      const pct = Math.min(100, (elapsed / AUTO_ADVANCE_MS) * 100);
-      setProgress(pct);
-      if (pct >= 100) {
-        setActiveIndex((i) => (i + 1) % STEPS.length);
-        setProgress(0);
-        startRef.current = Date.now();
+    activeRef.current = activeIndex;
+  }, [activeIndex]);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const clearPending = () => {
+      if (pendingTimeoutRef.current != null) {
+        window.clearTimeout(pendingTimeoutRef.current);
+        pendingTimeoutRef.current = null;
       }
-    }, 60);
-    return () => clearInterval(id);
-    // progress intentionally omitted: we snapshot it once on unpause
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPaused]);
+    };
+
+    const tryUpdate = () => {
+      const rect = section.getBoundingClientRect();
+      const viewportH = window.innerHeight;
+      const scrollable = rect.height - viewportH;
+      if (scrollable <= 0) return;
+      const scrolled = Math.max(0, -rect.top);
+      const progress = Math.max(0, Math.min(0.9999, scrolled / scrollable));
+      const target = Math.min(
+        STEPS.length - 1,
+        Math.floor(progress * STEPS.length)
+      );
+      const current = activeRef.current;
+      if (target === current) return;
+
+      const now = Date.now();
+      const sinceLast = now - lastChangeAtRef.current;
+
+      if (sinceLast < STEP_LOCK_MS) {
+        clearPending();
+        pendingTimeoutRef.current = window.setTimeout(
+          tryUpdate,
+          STEP_LOCK_MS - sinceLast + 16
+        );
+        return;
+      }
+
+      const step = target > current ? 1 : -1;
+      const next = current + step;
+      activeRef.current = next;
+      lastChangeAtRef.current = now;
+      setActiveIndex(next);
+
+      if (next !== target) {
+        clearPending();
+        pendingTimeoutRef.current = window.setTimeout(
+          tryUpdate,
+          STEP_LOCK_MS + 16
+        );
+      }
+    };
+
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        tryUpdate();
+      });
+    };
+
+    tryUpdate();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      clearPending();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  const selectIndex = useCallback((i: number) => {
+    const section = sectionRef.current;
+    if (section && typeof window !== "undefined" && window.innerWidth >= 1024) {
+      const rect = section.getBoundingClientRect();
+      const scrollable = rect.height - window.innerHeight;
+      if (scrollable > 0) {
+        const targetProgress = (i + 0.5) / STEPS.length;
+        const targetY = window.scrollY + rect.top + targetProgress * scrollable;
+        window.scrollTo({ top: targetY, behavior: "smooth" });
+        return;
+      }
+    }
+    activeRef.current = i;
+    lastChangeAtRef.current = Date.now();
+    setActiveIndex(i);
+    tileRefs.current[i]?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }, []);
 
   return (
     <section
+      ref={sectionRef}
       id="how-it-works"
-      className="relative bg-[#EAF3F6] py-24 sm:py-28 lg:py-36"
+      className="relative bg-[#EAF3F6] py-24 sm:py-28 lg:h-[280vh] lg:py-0"
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="mb-14 lg:mb-20">
-          <div className="flex items-center gap-3">
-            <span className="relative flex size-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-60" />
-              <span className="relative inline-flex size-2 rounded-full bg-red-500" />
-            </span>
-            <span className="font-pixel text-[11px] uppercase tracking-[0.18em] text-zinc-600">
-              How it works · live
-            </span>
+      <div className="lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
+          <div className="mb-12 lg:mb-14">
+            <div className="flex items-center gap-3">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-60" />
+                <span className="relative inline-flex size-2 rounded-full bg-red-500" />
+              </span>
+              <span className="font-pixel text-[11px] uppercase tracking-[0.18em] text-zinc-600">
+                How it works · live
+              </span>
+            </div>
+            <h2 className="font-pixel mt-5 max-w-3xl text-balance text-4xl font-medium leading-[1.05] tracking-[-0.01em] text-zinc-950 sm:text-5xl lg:text-[52px]">
+              From broken agent{" "}
+              <span className="text-zinc-500">to shipped fix.</span>
+            </h2>
           </div>
-          <h2 className="font-pixel mt-5 max-w-3xl text-balance text-4xl font-medium leading-[1.05] tracking-[-0.01em] text-zinc-950 sm:text-5xl lg:text-6xl">
-            From broken agent{" "}
-            <span className="text-zinc-500">to shipped fix.</span>
-          </h2>
-        </div>
 
-        <div
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          className="grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12"
-        >
-          <Device activeIndex={activeIndex} />
+          <div className="grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12">
+            <Device activeIndex={activeIndex} />
 
-          <div className="flex flex-col gap-3">
-            {STEPS.map((step, i) => (
-              <StepTile
-                key={step.id}
-                index={i}
-                tag={step.tag}
-                title={step.title}
-                body={step.body}
-                active={activeIndex === i}
-                progress={activeIndex === i ? progress : 0}
-                onSelect={() => selectIndex(i)}
-              />
-            ))}
+            <div className="flex flex-col gap-3">
+              {STEPS.map((step, i) => (
+                <div
+                  key={step.id}
+                  ref={(el) => {
+                    tileRefs.current[i] = el;
+                  }}
+                  data-step-index={i}
+                >
+                  <StepTile
+                    index={i}
+                    tag={step.tag}
+                    title={step.title}
+                    body={step.body}
+                    active={activeIndex === i}
+                    onSelect={() => selectIndex(i)}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -117,7 +198,6 @@ function StepTile({
   title,
   body,
   active,
-  progress,
   onSelect,
 }: {
   index: number;
@@ -125,7 +205,6 @@ function StepTile({
   title: string;
   body: string;
   active: boolean;
-  progress: number;
   onSelect: () => void;
 }) {
   return (
@@ -133,7 +212,7 @@ function StepTile({
       type="button"
       onClick={onSelect}
       aria-pressed={active}
-      className={`group relative overflow-hidden rounded-2xl border text-left outline-none transition-[border-color,background-color,transform,box-shadow] duration-300 ease-out focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#EAF3F6] motion-reduce:transition-none ${
+      className={`group relative overflow-hidden rounded-2xl border text-left outline-none transition-[border-color,background-color,transform,box-shadow] duration-[260ms] ease-[cubic-bezier(0.32,0.72,0,1)] focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#EAF3F6] motion-reduce:transition-none ${
         active
           ? "cursor-default border-zinc-950 bg-zinc-950 text-white shadow-[0_20px_48px_-24px_rgba(0,0,0,0.35)]"
           : "cursor-pointer border-zinc-900/10 bg-white/70 text-zinc-900 hover:-translate-y-0.5 hover:border-zinc-900/20 hover:bg-white hover:shadow-[0_12px_32px_-20px_rgba(0,0,0,0.18)]"
@@ -183,13 +262,6 @@ function StepTile({
           {body}
         </p>
       </div>
-      <span
-        aria-hidden="true"
-        className={`absolute bottom-0 left-0 h-[3px] bg-white/90 transition-[width] duration-100 ease-linear ${
-          active ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ width: `${progress}%` }}
-      />
     </button>
   );
 }
@@ -216,20 +288,49 @@ function Device({ activeIndex }: { activeIndex: number }) {
           </span>
         </div>
 
-        <div className="relative min-h-[440px] overflow-hidden p-5 sm:p-6">
-          <FrameSwitch activeIndex={activeIndex} />
+        <div className="relative min-h-[440px] overflow-hidden">
+          <FrameLayer active={activeIndex === 0}>
+            <BreakFrame />
+          </FrameLayer>
+          <FrameLayer active={activeIndex === 1}>
+            <ReadFrame />
+          </FrameLayer>
+          <FrameLayer active={activeIndex === 2}>
+            <ShipFrame />
+          </FrameLayer>
         </div>
       </div>
     </div>
   );
 }
 
-function FrameSwitch({ activeIndex }: { activeIndex: number }) {
+function FrameLayer({
+  active,
+  children,
+}: {
+  active: boolean;
+  children: ReactNode;
+}) {
+  const [replayKey, setReplayKey] = useState(0);
+  const wasActive = useRef(active);
+
+  useLayoutEffect(() => {
+    if (active && !wasActive.current) {
+      setReplayKey((k) => k + 1);
+    }
+    wasActive.current = active;
+  }, [active]);
+
   return (
-    <div key={activeIndex} className="animate-[frame-in_420ms_ease-out_both]">
-      {activeIndex === 0 && <BreakFrame />}
-      {activeIndex === 1 && <ReadFrame />}
-      {activeIndex === 2 && <ShipFrame />}
+    <div
+      aria-hidden={!active}
+      className={`absolute inset-0 p-5 transition-opacity ease-[cubic-bezier(0.32,0.72,0,1)] will-change-[opacity] motion-reduce:transition-none sm:p-6 ${
+        active
+          ? "opacity-100 duration-[260ms]"
+          : "pointer-events-none opacity-0 duration-[160ms]"
+      }`}
+    >
+      <div key={replayKey}>{children}</div>
     </div>
   );
 }
