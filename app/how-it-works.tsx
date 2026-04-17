@@ -46,6 +46,7 @@ export function HowItWorks() {
   const activeRef = useRef(0);
   const lastChangeAtRef = useRef(0);
   const pendingTimeoutRef = useRef<number | null>(null);
+  const navLockUntilRef = useRef(0);
 
   useEffect(() => {
     activeRef.current = activeIndex;
@@ -63,6 +64,7 @@ export function HowItWorks() {
     };
 
     const tryUpdate = () => {
+      if (Date.now() < navLockUntilRef.current) return;
       const rect = section.getBoundingClientRect();
       const viewportH = window.innerHeight;
       const scrollable = rect.height - viewportH;
@@ -125,6 +127,10 @@ export function HowItWorks() {
 
   const selectIndex = useCallback((i: number) => {
     const section = sectionRef.current;
+    activeRef.current = i;
+    lastChangeAtRef.current = Date.now();
+    navLockUntilRef.current = Date.now() + 900;
+    setActiveIndex(i);
     if (section && typeof window !== "undefined" && window.innerWidth >= 1024) {
       const rect = section.getBoundingClientRect();
       const scrollable = rect.height - window.innerHeight;
@@ -135,9 +141,6 @@ export function HowItWorks() {
         return;
       }
     }
-    activeRef.current = i;
-    lastChangeAtRef.current = Date.now();
-    setActiveIndex(i);
     tileRefs.current[i]?.scrollIntoView({
       behavior: "smooth",
       block: "center",
@@ -148,7 +151,7 @@ export function HowItWorks() {
     <section
       ref={sectionRef}
       id="how-it-works"
-      className="relative bg-[#EAF3F6] py-24 sm:py-28 lg:h-[280vh] lg:py-0"
+      className="relative bg-[#EAF3F6] py-24 sm:py-28 lg:h-[360vh] lg:py-0"
     >
       <div className="lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center">
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
@@ -162,7 +165,7 @@ export function HowItWorks() {
             </h2>
           </div>
 
-          <div className="grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12">
+          <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12">
             <Device activeIndex={activeIndex} />
 
             <div className="flex flex-col gap-3">
@@ -248,37 +251,19 @@ function StepTile({
               0{index + 1}
             </span>
             <span
-              className="rounded-full px-2 py-[3px] text-[10px] font-medium uppercase tracking-[0.14em] motion-reduce:transition-none"
+              className="font-pixel text-[11px] font-medium uppercase tracking-[0.18em] motion-reduce:transition-none"
               style={{
-                backgroundColor: active
-                  ? "rgba(255,255,255,0.1)"
-                  : "rgba(24, 24, 27, 0.04)",
-                color: active ? "#ffffff" : "rgb(63, 63, 70)",
-                transition: `color ${duration}ms ${easing}, background-color ${duration}ms ${easing}`,
+                color: active ? "#ffffff" : "rgb(24, 24, 27)",
+                textDecoration: "underline wavy",
+                textDecorationColor: active ? "#ffffff" : "rgb(24, 24, 27)",
+                textDecorationThickness: "1.5px",
+                textUnderlineOffset: "2px",
+                transition: `color ${duration}ms ${easing}, text-decoration-color ${duration}ms ${easing}`,
               }}
             >
               {tag}
             </span>
           </div>
-          <span
-            aria-hidden="true"
-            className={`motion-reduce:transition-none ${
-              active
-                ? "translate-x-0 opacity-100"
-                : "-translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-70"
-            }`}
-            style={{
-              transition: `transform ${duration}ms ${easing}, opacity ${duration}ms ${easing}`,
-            }}
-          >
-            <IconArrowRight
-              className="size-4"
-              style={{
-                color: active ? "#ffffff" : "rgb(63, 63, 70)",
-                transition: `color ${duration}ms ${easing}`,
-              }}
-            />
-          </span>
         </div>
         <h3
           className="mt-4 text-[17px] font-medium leading-snug text-balance sm:text-lg motion-reduce:transition-none"
@@ -327,7 +312,7 @@ function Device({ activeIndex }: { activeIndex: number }) {
           </span>
         </div>
 
-        <div className="relative min-h-[440px] overflow-hidden">
+        <div className="relative min-h-[540px] overflow-hidden">
           <FrameLayer active={activeIndex === 0}>
             <BreakFrame />
           </FrameLayer>
@@ -335,6 +320,9 @@ function Device({ activeIndex }: { activeIndex: number }) {
             <ReadFrame />
           </FrameLayer>
           <FrameLayer active={activeIndex === 2}>
+            <FixFrame />
+          </FrameLayer>
+          <FrameLayer active={activeIndex === 3}>
             <ShipFrame />
           </FrameLayer>
         </div>
@@ -488,6 +476,84 @@ function ReadFrame() {
   );
 }
 
+function FixFrame() {
+  return (
+    <div className="space-y-3">
+      <Stagger delay={0}>
+        <div className="flex items-center justify-between">
+          <span
+            translate="no"
+            className="font-pixel text-[10px] uppercase tracking-[0.16em] text-zinc-500"
+          >
+            suggested fix
+          </span>
+          <span className="rounded-full bg-emerald-50 px-2 py-[3px] text-[10px] font-medium uppercase tracking-[0.12em] text-emerald-700">
+            AI-generated
+          </span>
+        </div>
+      </Stagger>
+
+      <Stagger delay={100}>
+        <div className="overflow-hidden rounded-xl border border-zinc-900/10 bg-white">
+          <div className="flex items-center justify-between border-b border-zinc-900/5 px-3.5 py-2">
+            <span
+              translate="no"
+              className="font-mono text-[11px] text-zinc-700"
+            >
+              # source-picker.ts · research-agent
+            </span>
+            <span className="font-mono text-[10px] text-zinc-400">
+              +12 −4
+            </span>
+          </div>
+          <pre
+            translate="no"
+            className="overflow-x-auto bg-zinc-950 px-4 py-3 font-mono text-[11px] leading-[1.65] text-zinc-100"
+          >
+            <code>
+              <span className="text-zinc-500">try</span>:{"\n"}
+              {"  "}result = <span className="text-sky-300">fetch_context</span>
+              (query, timeout=<span className="text-amber-200">30</span>){"\n"}
+              <span className="text-zinc-500">except</span>{" "}
+              <span className="text-rose-300">TimeoutError</span>:{"\n"}
+              {"  "}result ={" "}
+              <span className="text-sky-300">get_cached_context</span>(query)
+              {"\n"}
+              {"  "}log.warning(
+              <span className="text-emerald-300">
+                &quot;Fallback: using cache&quot;
+              </span>
+              )
+            </code>
+          </pre>
+        </div>
+      </Stagger>
+
+      <Stagger delay={200}>
+        <div className="rounded-xl border border-zinc-900/10 bg-white/80 p-3.5">
+          <h4 className="text-[12px] font-medium text-zinc-900">
+            Why this fix
+          </h4>
+          <p className="mt-1 text-[12px] leading-relaxed text-zinc-600">
+            <span translate="no">fetch_context</span> exceeds 30s on 4% of
+            runs. Adds a graceful fallback to cached data so the agent never
+            returns empty.
+          </p>
+        </div>
+      </Stagger>
+
+      <Stagger delay={300}>
+        <div className="flex items-center gap-2 rounded-lg bg-zinc-900 px-3 py-2.5 text-white">
+          <IconBranch className="size-3.5" />
+          <span className="font-mono text-[11px]">
+            Open in Cursor &nbsp;·&nbsp; review &amp; ship
+          </span>
+        </div>
+      </Stagger>
+    </div>
+  );
+}
+
 function ShipFrame() {
   return (
     <div className="space-y-3">
@@ -533,6 +599,40 @@ function ShipFrame() {
           done
         />
       </Stagger>
+
+      <Stagger delay={400}>
+        <div className="rounded-xl border border-zinc-900/10 bg-white/80 p-4">
+          <div className="flex items-center justify-between">
+            <span
+              translate="no"
+              className="font-pixel text-[10px] uppercase tracking-[0.18em] text-zinc-500"
+            >
+              Broken &rarr; Shipped
+            </span>
+            <span className="font-pixel text-[10px] uppercase tracking-[0.16em] text-emerald-700">
+              29 min
+            </span>
+          </div>
+          <div className="mt-3 grid grid-cols-3 gap-3">
+            <Metric label="Trace to fix" value="29m" />
+            <Metric label="People" value="3" />
+            <Metric label="Channels" value="1" />
+          </div>
+        </div>
+      </Stagger>
+    </div>
+  );
+}
+
+function Metric({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <div className="font-pixel text-[9px] uppercase tracking-[0.14em] text-zinc-400">
+        {label}
+      </div>
+      <div className="mt-1 text-[15px] font-medium text-zinc-900 [font-variant-numeric:tabular-nums]">
+        {value}
+      </div>
     </div>
   );
 }
@@ -656,18 +756,6 @@ function Stagger({
     >
       {children}
     </div>
-  );
-}
-
-function IconArrowRight(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" {...props}>
-      <path
-        fillRule="evenodd"
-        d="M4 10a.75.75 0 0 1 .75-.75h8.69l-2.22-2.22a.75.75 0 1 1 1.06-1.06l3.5 3.5a.75.75 0 0 1 0 1.06l-3.5 3.5a.75.75 0 1 1-1.06-1.06l2.22-2.22H4.75A.75.75 0 0 1 4 10Z"
-        clipRule="evenodd"
-      />
-    </svg>
   );
 }
 
