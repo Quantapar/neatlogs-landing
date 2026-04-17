@@ -24,6 +24,12 @@ const STEPS = [
     body: "Plain-English summary of what the agent did. No JSON, no spans, no token math.",
   },
   {
+    id: "fix",
+    tag: "Fix",
+    title: "From trace to fix in minutes.",
+    body: "Neatlogs drafts the fix — pulling context from the trace, the thread, and your codebase. You review and ship.",
+  },
+  {
     id: "ship",
     tag: "Ship",
     title: "One thread, broken to shipped.",

@@ -21,7 +21,7 @@ export function MeetNeatlogs() {
     <section
       ref={sectionRef}
       style={{ position: "relative" }}
-      className="bg-[#EAF3F6] py-24 sm:py-28 lg:py-36"
+      className="bg-[#EAF3F6] pt-10 pb-24 sm:pt-14 sm:pb-28 lg:pt-16 lg:pb-36"
     >
       <div className="mx-auto max-w-6xl px-6 text-center">
         <span
@@ -34,21 +34,35 @@ export function MeetNeatlogs() {
           </Reveal>
         </span>
 
-        <h2 className="font-pixel mt-4 text-balance text-4xl font-medium leading-[1.08] tracking-[-0.01em] text-zinc-950 sm:text-5xl md:text-6xl lg:text-[64px]">
-          <Reveal progress={scrollYProgress} from={0.2} to={0.3}>
-            Code got GitHub.
-          </Reveal>
-          <br />
-          <Reveal progress={scrollYProgress} from={0.3} to={0.38}>
-            Design got Figma.
-          </Reveal>
+        <h2 className="font-pixel mt-4 text-balance text-4xl font-medium leading-[1.08] tracking-[-0.01em] sm:text-5xl md:text-6xl lg:text-[64px]">
+          <span className="text-zinc-500">
+            <Reveal
+              progress={scrollYProgress}
+              from={0.2}
+              to={0.3}
+              style={{ color: "rgb(113,113,122)" }}
+            >
+              Code got GitHub.
+            </Reveal>
+          </span>
           <br />
           <span className="text-zinc-500">
             <Reveal
               progress={scrollYProgress}
+              from={0.3}
+              to={0.38}
+              style={{ color: "rgb(113,113,122)" }}
+            >
+              Design got Figma.
+            </Reveal>
+          </span>
+          <br />
+          <span className="text-zinc-950">
+            <Reveal
+              progress={scrollYProgress}
               from={0.38}
               to={0.46}
-              style={{ color: "rgb(113,113,122)" }}
+              style={{ color: "rgb(9,9,11)" }}
             >
               Agents get Neatlogs.
             </Reveal>
@@ -131,12 +145,7 @@ function Reveal({
         const threshold = from + ((wordIdx + 0.5) / wordCount) * range;
         wordIdx += 1;
         return (
-          <Word
-            key={i}
-            threshold={threshold}
-            progress={progress}
-            style={style}
-          >
+          <Word key={i} threshold={threshold} progress={progress} style={style}>
             {part}
           </Word>
         );
@@ -200,24 +209,12 @@ function Era({
             {year}
           </Reveal>
         </span>
-        {active && (
-          <span className="relative flex size-1.5">
-            <span
-              className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60"
-              style={{ backgroundColor: ACCENT }}
-            />
-            <span
-              className="relative inline-flex size-1.5 rounded-full"
-              style={{ backgroundColor: ACCENT }}
-            />
-          </span>
-        )}
       </div>
 
       <div
         className={`relative w-full rounded-[18px] bg-zinc-950 p-1.5 ring-1 ring-black/10 transition-shadow duration-500 sm:p-2 ${
           active
-            ? "shadow-[0_30px_60px_-30px_rgba(232,70,47,0.45),0_12px_24px_-16px_rgba(12,20,40,0.25)]"
+            ? "shadow-[0_24px_50px_-28px_rgba(12,20,40,0.35),0_12px_24px_-16px_rgba(12,20,40,0.25)]"
             : "shadow-[0_18px_40px_-24px_rgba(12,20,40,0.25)]"
         }`}
       >
