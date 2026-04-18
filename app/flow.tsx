@@ -94,7 +94,7 @@ export function Flow() {
 
         <div className="mt-16 grid items-start gap-10 lg:mt-20 lg:grid-cols-[1fr_1fr] lg:gap-16">
           <div className="order-2 lg:order-1">
-            <StackViz active={active} />
+            <StackViz active={active} onSelect={setActive} />
           </div>
 
           <div className="order-1 lg:order-2">

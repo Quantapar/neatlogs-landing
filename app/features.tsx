@@ -1,12 +1,20 @@
 "use client";
 
-import { useEffect, useState, type ReactNode, type SVGProps } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useEffect, useState, type ReactNode, type SVGProps, useRef } from "react";
+import { motion, AnimatePresence, useScroll } from "motion/react";
+import { Reveal } from "./reveal";
 
 export function Features() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start 85%", "start 0%"],
+  });
+
   return (
     <section
       id="features"
+      ref={sectionRef}
       className="relative bg-[#EAF3F6] pt-8 pb-20 sm:pt-12 sm:pb-24 lg:pt-16 lg:pb-28"
     >
       <div className="mx-auto max-w-6xl px-6">
@@ -16,15 +24,20 @@ export function Features() {
           </span>
           <h2 className="mt-5 text-balance text-4xl leading-[1.08] tracking-[-0.03em] text-zinc-950 sm:text-5xl md:text-[58px]">
             <span className="font-semibold">
-              Most teams don&rsquo;t have a visibility problem.
+              <Reveal progress={scrollYProgress} from={0} to={0.4} style={{ color: "rgb(9,9,11)" }} baseColor="#ADB2B7">
+                Most teams don't have a visibility problem.
+              </Reveal>
             </span>{" "}
             <span className="text-zinc-500 font-medium tracking-tight">
-              They have a handoff problem.
+              <Reveal progress={scrollYProgress} from={0.4} to={0.7} style={{ color: "rgb(113,113,122)" }} baseColor="#ADB2B7">
+                They have a handoff problem.
+              </Reveal>
             </span>
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-pretty text-[15px] leading-relaxed text-zinc-600 sm:text-base">
-            The issue gets spotted in one place, discussed in another, and fixed
-            in a third. Neatlogs closes that loop.
+            <Reveal progress={scrollYProgress} from={0.6} to={1.0} style={{ color: "rgb(82,82,91)" }} baseColor="#ADB2B7">
+              The issue gets spotted in one place, discussed in another, and fixed in a third. Neatlogs closes that loop.
+            </Reveal>
           </p>
         </div>
 
