@@ -42,15 +42,30 @@ export function Navbar() {
           aria-label="Primary"
           className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 md:flex lg:gap-9"
         >
-          {NAV_LINKS.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className="cursor-pointer text-sm font-medium text-zinc-700 transition-colors duration-150 hover:text-zinc-950"
-            >
-              {label}
-            </Link>
-          ))}
+          {NAV_LINKS.map(({ href, label }) => {
+            const isAnchor = href.startsWith("#");
+            return isAnchor ? (
+              <a
+                key={href}
+                href={href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="cursor-pointer text-sm font-medium text-zinc-700 transition-colors duration-150 hover:text-zinc-950"
+              >
+                {label}
+              </a>
+            ) : (
+              <Link
+                key={href}
+                href={href}
+                className="cursor-pointer text-sm font-medium text-zinc-700 transition-colors duration-150 hover:text-zinc-950"
+              >
+                {label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="hidden shrink-0 items-center gap-2 md:flex">
@@ -120,16 +135,32 @@ export function Navbar() {
         className="border-t border-zinc-900/5 bg-[#F4FAFD] md:hidden"
       >
         <div className="mx-auto flex max-w-7xl flex-col px-4 py-3 sm:px-6">
-          {NAV_LINKS.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              onClick={() => setOpen(false)}
-              className="cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-white/60 hover:text-zinc-950"
-            >
-              {label}
-            </Link>
-          ))}
+          {NAV_LINKS.map(({ href, label }) => {
+            const isAnchor = href.startsWith("#");
+            return isAnchor ? (
+              <a
+                key={href}
+                href={href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpen(false);
+                  document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-white/60 hover:text-zinc-950"
+              >
+                {label}
+              </a>
+            ) : (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setOpen(false)}
+                className="cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-white/60 hover:text-zinc-950"
+              >
+                {label}
+              </Link>
+            );
+          })}
           <div className="mt-3 flex flex-col gap-2 border-t border-zinc-900/5 pt-3">
             <Link
               href="/demo"

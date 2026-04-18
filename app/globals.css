@@ -7,6 +7,10 @@ body {
   font-weight: 500;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .font-serif-display {
   font-family: var(--font-instrument-serif), ui-serif, Georgia, Cambria,
     "Times New Roman", Times, serif;

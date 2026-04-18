@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ReactNode, type SVGProps } from "react";
+import { motion, AnimatePresence } from "motion/react";
 
 export function Features() {
   return (
@@ -27,7 +28,7 @@ export function Features() {
           </p>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:mt-20 lg:grid-cols-3 lg:gap-6">
+        <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-24 lg:grid-cols-3">
           <FeatureCard
             tone="dark"
             className="sm:col-span-2 lg:col-span-2"
@@ -35,30 +36,35 @@ export function Features() {
             title="Surface the issue"
             body="Detection triggers instantly. Alerts hit Slack and email before your team notices something's wrong."
             visual={<AlertVisual />}
+            delay={0.1}
           />
           <FeatureCard
             icon={<IconUsers />}
             title="Shared context, always"
             body="Domain experts and developers see the same thread — no re-explaining what broke or why it matters."
             visual={<AvatarVisual />}
+            delay={0.2}
           />
           <FeatureCard
             icon={<IconBolt />}
             title="Move fast"
             body="From alert to aligned fix in minutes, not hours. No handoff lag. No context lost in translation."
             visual={<TimerVisual />}
+            delay={0.3}
           />
           <FeatureCard
             icon={<IconSparkle />}
             title="Fix it with AI"
             body="Filter the relevant context, generate fix suggestions, and orchestrate your coding agent to ship."
             visual={<DiffVisual />}
+            delay={0.4}
           />
           <FeatureCard
             icon={<IconPulse />}
             title="Monitor for recurrence"
             body="After the fix ships, Neatlogs watches for the same pattern so you know if it comes back."
             visual={<SparklineVisual />}
+            delay={0.5}
           />
           <FeatureCard
             className="sm:col-span-2 lg:col-span-3"
@@ -67,6 +73,7 @@ export function Features() {
             body="Purpose-built tracing for LangGraph, CrewAI, LangChain, and any agentic workflow your team ships."
             visual={<FrameworksVisual />}
             horizontal
+            delay={0.6}
           />
         </div>
       </div>
@@ -82,6 +89,7 @@ function FeatureCard({
   body,
   visual,
   horizontal,
+  delay = 0,
 }: {
   tone?: "light" | "dark";
   className?: string;
@@ -90,17 +98,22 @@ function FeatureCard({
   body: string;
   visual?: ReactNode;
   horizontal?: boolean;
+  delay?: number;
 }) {
   const isDark = tone === "dark";
   return (
-    <article
-      className={`group relative flex flex-col overflow-hidden rounded-2xl p-6 ring-1 transition-[transform,box-shadow,background-color] duration-200 ease will-change-transform motion-reduce:transition-none hover:-translate-y-0.5 ${
+    <motion.article
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: delay, ease: [0.215, 0.61, 0.355, 1] }}
+      className={`group relative flex flex-col overflow-hidden rounded-[32px] p-8 sm:p-10 ring-1 transition-[background-color,shadow] duration-[400ms] ease will-change-transform ${
         isDark
-          ? "bg-zinc-950 text-white ring-black/10 hover:shadow-[0_22px_52px_-22px_rgba(0,0,0,0.55)]"
-          : "bg-white/80 text-zinc-950 ring-zinc-900/5 hover:bg-white hover:shadow-[0_14px_36px_-20px_rgba(12,20,40,0.25)]"
-      } ${horizontal ? "lg:flex-row lg:items-center lg:gap-10" : ""} ${className}`}
+          ? "bg-zinc-950 text-white ring-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1),0_18px_40px_-24px_rgba(0,0,0,0.5)] hover:bg-[#0f0f12]"
+          : "bg-white/60 backdrop-blur-3xl text-zinc-950 ring-zinc-900/5 shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_14px_36px_-20px_rgba(12,20,40,0.08)] hover:bg-white/90"
+      } ${horizontal ? "lg:flex-row lg:items-center lg:gap-14" : ""} ${className}`}
     >
-      <div className={horizontal ? "lg:max-w-sm" : ""}>
+      <div className={`relative z-10 ${horizontal ? "lg:max-w-sm" : ""}`}>
         <span
           className={`inline-flex size-9 items-center justify-center rounded-xl ring-1 transition-transform duration-200 ease group-hover:scale-[1.04] motion-reduce:transition-none ${
             isDark
@@ -127,12 +140,12 @@ function FeatureCard({
       </div>
       {visual && (
         <div
-          className={`${horizontal ? "mt-6 lg:mt-0 lg:flex-1" : "mt-7 flex-1"}`}
+          className={`relative z-10 transition-[transform] duration-[500ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.02] ${horizontal ? "mt-8 lg:mt-0 lg:flex-1" : "mt-10 flex-1"}`}
         >
           {visual}
         </div>
       )}
-    </article>
+    </motion.article>
   );
 }
 
@@ -147,7 +160,7 @@ function AlertVisual() {
       {rows.map((r, i) => (
         <div
           key={r.title}
-          className={`flex items-center gap-3 rounded-lg px-3 py-2.5 ring-1 transition-transform duration-200 ease will-change-transform group-hover:translate-x-1 motion-reduce:transition-none ${
+          className={`flex items-center gap-3 rounded-lg px-3 py-2.5 ring-1 transition-all duration-[500ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform group-hover:translate-x-1.5 motion-reduce:transition-none ${
             i === 0
               ? "bg-white/[0.07] ring-white/15"
               : "bg-white/[0.02] ring-white/10"
@@ -177,14 +190,13 @@ function AvatarVisual() {
     initials: string;
     role: string;
     quote: string;
-    bg: string;
   }[] = [
-    { initials: "MK", role: "Product", quote: "Caught the wrong source early.", bg: "#18181B" },
-    { initials: "AR", role: "Engineering", quote: "Shipped the fix before lunch.", bg: "#27272A" },
-    { initials: "SJ", role: "Support", quote: "Told the user within minutes.", bg: "#3F3F46" },
-    { initials: "DK", role: "Research", quote: "Saw the exact same trace.", bg: "#52525B" },
-    { initials: "LM", role: "Ops", quote: "Zero back-and-forth in Slack.", bg: "#71717A" },
-    { initials: "JT", role: "Compliance", quote: "Audited the fix in context.", bg: "#A1A1AA" },
+    { initials: "MK", role: "Product", quote: "Caught the wrong source early." },
+    { initials: "AR", role: "Engineering", quote: "Shipped the fix before lunch." },
+    { initials: "SJ", role: "Support", quote: "Told the user within minutes." },
+    { initials: "DK", role: "Research", quote: "Saw the exact same trace." },
+    { initials: "LM", role: "Ops", quote: "Zero back-and-forth in Slack." },
+    { initials: "JT", role: "Compliance", quote: "Audited the fix in context." },
   ];
   const [active, setActive] = useState(0);
 
@@ -203,12 +215,11 @@ function AvatarVisual() {
           return (
             <span
               key={m.initials}
-              className={`flex size-8 items-center justify-center rounded-full text-[10.5px] font-semibold transition-[transform,opacity,box-shadow] duration-250 ease will-change-transform motion-reduce:transition-none ${
+              className={`flex size-9 items-center justify-center rounded-full text-[11px] font-semibold transition-all duration-[300ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform motion-reduce:transition-none ${
                 isActive
-                  ? "scale-[1.12] opacity-100 shadow-[0_0_0_2px_rgb(9,9,11)]"
-                  : "opacity-45 shadow-[0_0_0_1px_rgba(24,24,27,0.1)]"
+                  ? "z-10 scale-[1.12] bg-zinc-950 text-white shadow-[0_4px_12px_rgba(0,0,0,0.15)] ring-1 ring-black/10"
+                  : "z-0 scale-100 bg-black/[0.04] text-zinc-500 ring-1 ring-black/5"
               }`}
-              style={{ backgroundColor: m.bg, color: "#ffffff" }}
             >
               {m.initials}
             </span>
@@ -216,25 +227,24 @@ function AvatarVisual() {
         })}
       </div>
       <div className="relative min-h-[40px]">
-        {MEMBERS.map((m, i) => (
-          <div
-            key={m.initials}
-            aria-hidden={i !== active}
-            className={`absolute inset-0 flex items-center gap-2 text-[12.5px] leading-snug transition-[opacity,transform] duration-500 ease-out motion-reduce:transition-none ${
-              i === active
-                ? "translate-y-0 opacity-100"
-                : "pointer-events-none translate-y-1 opacity-0"
-            }`}
+        <AnimatePresence>
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 8, filter: "blur(2px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -8, filter: "blur(2px)" }}
+            transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
+            className="absolute inset-x-0 flex items-center gap-2 text-[12.5px] leading-snug"
           >
             <span className="text-[10px] font-mono tracking-widest uppercase text-zinc-900">
-              {m.role}
+              {MEMBERS[active].role}
             </span>
             <span className="text-zinc-300">—</span>
             <span className="truncate italic text-zinc-600">
-              &ldquo;{m.quote}&rdquo;
+              &ldquo;{MEMBERS[active].quote}&rdquo;
             </span>
-          </div>
-        ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
@@ -246,7 +256,7 @@ function TimerVisual() {
       <div className="relative h-1.5 overflow-hidden rounded-full bg-zinc-200/80">
         <span
           aria-hidden="true"
-          className="absolute inset-y-0 left-0 w-[35%] rounded-full bg-zinc-950 transition-[width] duration-[450ms] ease-out group-hover:w-[78%] motion-reduce:transition-none"
+          className="absolute inset-y-0 left-0 w-[35%] rounded-full bg-zinc-950 transition-all duration-[500ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:w-[78%] motion-reduce:transition-none"
         />
       </div>
       <div className="mt-3 flex items-center justify-between text-[11px] font-mono tracking-widest uppercase text-zinc-500 [font-variant-numeric:tabular-nums]">
@@ -276,7 +286,7 @@ function DiffVisual() {
         {lines.map((l) => (
           <div
             key={l.text}
-            className="flex items-center gap-2 rounded bg-zinc-900/[0.03] px-2 py-1 transition-transform duration-[200ms] ease-out will-change-transform group-hover:translate-x-0.5 motion-reduce:transition-none"
+            className="flex items-center gap-2 rounded bg-zinc-900/[0.03] px-2 py-1 transition-all duration-[500ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform group-hover:translate-x-1 motion-reduce:transition-none"
             style={{ transitionDelay: `${l.delay}ms` }}
           >
             <span className="w-2 text-zinc-400">{l.mark}</span>
@@ -311,7 +321,7 @@ function SparklineVisual() {
           strokeWidth="1.6"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="transition-[stroke-width] duration-[300ms] ease-out group-hover:[stroke-width:2.2] motion-reduce:transition-none"
+          className="transition-all duration-[500ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:[stroke-width:2.2] motion-reduce:transition-none"
         />
       </svg>
       <div className="mt-1 flex items-center justify-between text-[11px] font-mono tracking-widest uppercase text-zinc-500">
@@ -338,8 +348,7 @@ function FrameworksVisual() {
       {FRAMEWORKS.map((f, i) => (
         <span
           key={f}
-          className="inline-flex h-9 cursor-default items-center rounded-full border border-zinc-900/10 bg-white/90 px-3.5 text-[12.5px] font-medium text-zinc-800 shadow-[0_1px_2px_rgba(12,20,40,0.04)] transition-[transform,border-color,background-color,box-shadow] duration-[250ms] ease will-change-transform group-hover:-translate-y-[2px] group-hover:border-zinc-900/20 group-hover:bg-white group-hover:shadow-[0_6px_16px_-8px_rgba(12,20,40,0.2)] motion-reduce:transition-none"
-          style={{ transitionDelay: `${i * 30}ms` }}
+          className="inline-flex h-9 cursor-default items-center rounded-full border border-zinc-900/10 bg-white/90 px-3.5 text-[12.5px] font-medium text-zinc-800 shadow-[0_1px_2px_rgba(12,20,40,0.04)] transition-all duration-[400ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform hover:-translate-y-0.5 hover:border-zinc-900/20 hover:bg-white hover:shadow-[0_6px_16px_-8px_rgba(12,20,40,0.2)] motion-reduce:transition-none"
         >
           {f}
         </span>
