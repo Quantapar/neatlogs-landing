@@ -220,8 +220,8 @@ function StepTile({
       aria-pressed={active}
       className={`group relative overflow-hidden rounded-2xl border border-zinc-900/10 bg-white/70 text-left outline-none transition-[border-color,transform,box-shadow] focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#EAF3F6] motion-reduce:transition-none ${
         active
-          ? "cursor-default border-zinc-950 shadow-[0_20px_48px_-24px_rgba(0,0,0,0.35)]"
-          : "cursor-pointer hover:-translate-y-0.5 hover:border-zinc-900/20 hover:bg-white hover:shadow-[0_12px_32px_-20px_rgba(0,0,0,0.18)]"
+          ? "cursor-default border-zinc-950 shadow-md shadow-zinc-900/5"
+          : "cursor-pointer hover:-translate-y-0.5 hover:border-zinc-900/20 hover:bg-white hover:shadow-sm hover:shadow-zinc-900/5"
       }`}
       style={{
         transitionDuration: `${duration}ms`,
@@ -292,7 +292,7 @@ function StepTile({
 
 function Device({ activeIndex }: { activeIndex: number }) {
   return (
-    <div className="relative rounded-[22px] bg-zinc-950 p-1.5 shadow-[0_32px_80px_-32px_rgba(12,20,40,0.35),0_16px_32px_-16px_rgba(12,20,40,0.22)] ring-1 ring-black/10 sm:p-2">
+    <div className="relative rounded-[22px] bg-zinc-950 p-1.5 shadow-xl shadow-zinc-900/10 ring-1 ring-black/10 sm:p-2">
       <div className="relative overflow-hidden rounded-[16px] bg-zinc-50">
         <div className="flex h-10 items-center justify-between border-b border-black/5 bg-white/80 px-4 backdrop-blur-sm">
           <div className="flex items-center gap-2.5">
