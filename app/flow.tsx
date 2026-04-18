@@ -423,9 +423,7 @@ function Slab({
         fill="none"
       />
 
-      <g transform={`translate(${topCx}, ${topCy}) scale(${glyphScale})`}>
-        <BoxGlyph icon={step.icon} active={active} />
-      </g>
+
 
       <text
         x={labelX}
@@ -446,56 +444,4 @@ function Slab({
   );
 }
 
-function BoxGlyph({
-  icon,
-  active,
-}: {
-  icon: IconName;
-  active: boolean;
-}) {
-  const common = {
-    fill: "none" as const,
-    stroke: active ? "#ffffff" : "#09090b",
-    strokeWidth: 1.2,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    style: { transition: "stroke 200ms ease-out" },
-  };
-  if (icon === "agent") {
-    return (
-      <g {...common}>
-        <rect x="-7" y="-6" width="14" height="10" rx="2" />
-        <path d="M -4 -1 h 3" />
-        <path d="M -4 2 h 6" />
-      </g>
-    );
-  }
-  if (icon === "trace") {
-    return (
-      <g {...common}>
-        <path d="M -9 2 L -6 2 L -4 -3 L -1 3 L 1 -1 L 4 1 L 7 -2 L 9 -2" />
-      </g>
-    );
-  }
-  if (icon === "team") {
-    return (
-      <g {...common}>
-        <circle cx="-5" cy="-2" r="2" />
-        <circle cx="0" cy="-3" r="1.8" />
-        <circle cx="5" cy="-1" r="1.6" />
-        <path d="M -9 4 c 0 -2.2 1.8 -3.8 4 -3.8 s 4 1.6 4 3.8" />
-        <path d="M -1 4 c 0.2 -1.8 1.6 -2.9 3 -2.9 s 2.8 1 2.8 2.9" />
-      </g>
-    );
-  }
-  return (
-    <g {...common}>
-      <circle cx="-6" cy="-4" r="1.6" />
-      <circle cx="-6" cy="4" r="1.6" />
-      <circle cx="6" cy="0" r="1.6" />
-      <path d="M -6 -2.4 v 4.8" />
-      <path d="M 6 -1.6 a 5 5 0 0 0 -5 -5 h -3.2" />
-      <path d="M 6 1.6 a 5 5 0 0 1 -5 5 h -3.2" />
-    </g>
-  );
-}
+
