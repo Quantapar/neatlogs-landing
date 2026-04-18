@@ -109,7 +109,7 @@ export function Integrations() {
   const COLS = 7;
   
   return (
-    <section className="relative overflow-hidden bg-[#EAF3F6] py-24 sm:py-32">
+    <section id="integrations" className="relative overflow-hidden bg-[#EAF3F6] pt-8 pb-24 sm:pt-12 sm:pb-32">
       {/* Decorative background grid (optional but gives that Tailark feel) */}
       <div 
         className="pointer-events-none absolute inset-0 mix-blend-multiply opacity-[0.03]"
@@ -123,7 +123,7 @@ export function Integrations() {
       <div className="relative mx-auto max-w-5xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
-            [03] INTEGRATIONS
+          INTEGRATIONS
           </span>
           <h2 className="mt-4 text-balance text-4xl font-medium tracking-tight text-zinc-950 sm:text-5xl">
             Fits into the way your team works
