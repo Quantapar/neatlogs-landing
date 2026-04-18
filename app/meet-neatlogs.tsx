@@ -27,7 +27,7 @@ export function MeetNeatlogs() {
       <div className="mx-auto max-w-6xl px-6 text-center">
         <span
           translate="no"
-          className="text-2xl sm:text-3xl font-semibold tracking-tight"
+          className="font-ui text-2xl sm:text-3xl font-semibold tracking-tight"
           style={{ color: ACCENT }}
         >
           <Reveal progress={scrollYProgress} from={0.14} to={0.2}>
@@ -35,7 +35,7 @@ export function MeetNeatlogs() {
           </Reveal>
         </span>
 
-        <h2 className="mt-5 text-balance text-4xl font-semibold leading-[1.04] tracking-[-0.03em] sm:text-5xl md:text-6xl lg:text-[72px]">
+        <h2 className="mt-5 text-balance text-4xl font-semibold leading-[1.04] tracking-tighter sm:text-5xl md:text-6xl lg:text-[72px]">
           <span className="text-zinc-500">
             <Reveal
               progress={scrollYProgress}
@@ -79,7 +79,7 @@ export function MeetNeatlogs() {
               number="#1"
               label="Code got"
               brand="GITHUB"
-              image="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop"
+              image="/github-profile.png"
               icon="https://cdn-icons-png.flaticon.com/512/25/25231.png"
             />
             <FolderCard
@@ -99,7 +99,7 @@ export function MeetNeatlogs() {
           </div>
         </div>
 
-        <p className="mx-auto mt-14 max-w-xl text-balance text-[15px] leading-relaxed text-zinc-600 sm:mt-16 sm:text-base">
+        <p className="font-ui mx-auto mt-14 max-w-xl text-balance text-[15px] leading-relaxed text-zinc-600 sm:mt-16 sm:text-base">
           <Reveal progress={scrollYProgress} from={0.66} to={0.8}>
             One shared room for the people who build agents and the people who
             know what they&rsquo;re supposed to do.

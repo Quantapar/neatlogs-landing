@@ -156,10 +156,10 @@ export function HowItWorks() {
       <div className="lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center">
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
           <div className="mb-12 lg:mb-14">
-            <span className="text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
+            <span className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
               How it works
             </span>
-            <h2 className="mt-5 max-w-3xl text-balance text-4xl font-semibold leading-[1.04] tracking-[-0.03em] text-zinc-950 sm:text-5xl lg:text-[56px]">
+            <h2 className="mt-5 max-w-3xl text-balance text-4xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl lg:text-[56px]">
               From broken agent{" "}
               <span className="text-zinc-500">to shipped fix.</span>
             </h2>
@@ -266,7 +266,7 @@ function StepTile({
           </div>
         </div>
         <h3
-          className="mt-4 text-[17px] font-medium leading-snug text-balance sm:text-lg motion-reduce:transition-none"
+          className="font-ui mt-4 text-[17px] font-medium leading-snug text-balance sm:text-lg motion-reduce:transition-none"
           style={{
             color: active ? "#ffffff" : "rgb(9, 9, 11)",
             transition: `color ${duration}ms ${easing}`,
@@ -275,7 +275,7 @@ function StepTile({
           {title}
         </h3>
         <p
-          className="mt-2 text-[13.5px] leading-relaxed motion-reduce:transition-none"
+          className="font-ui mt-2 text-[13.5px] leading-relaxed motion-reduce:transition-none"
           style={{
             color: active
               ? "rgba(255,255,255,0.7)"

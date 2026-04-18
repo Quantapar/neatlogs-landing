@@ -79,14 +79,14 @@ export function Flow() {
     <section className="relative bg-[#EAF3F6] py-20 sm:py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="text-[12px] font-medium uppercase tracking-[0.15em] text-zinc-600">
+          <span className="font-ui text-[12px] font-medium uppercase tracking-[0.15em] text-zinc-600">
             Built for both sides of the table
           </span>
-          <h2 className="mt-5 text-balance text-4xl font-semibold leading-[1.04] tracking-[-0.03em] text-zinc-950 sm:text-5xl md:text-[56px]">
+          <h2 className="mt-5 text-balance text-4xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
             Built for the people who spot the problem{" "}
             <span className="text-zinc-500">— and the people who fix it.</span>
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-pretty text-[15px] leading-relaxed text-zinc-600 sm:text-base">
+          <p className="font-ui mx-auto mt-6 max-w-2xl text-pretty text-[15px] leading-relaxed text-zinc-600 sm:text-base">
             Different depth for domain experts and devs. Shared context all the
             way through.
           </p>

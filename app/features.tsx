@@ -19,10 +19,10 @@ export function Features() {
     >
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-4xl text-center">
-          <span className="text-[12px] font-medium uppercase tracking-[0.15em] text-zinc-600">
+          <span className="font-ui text-[12px] font-medium uppercase tracking-[0.15em] text-zinc-600">
             Why Neatlogs
           </span>
-          <h2 className="mt-5 text-balance text-4xl leading-[1.08] tracking-[-0.03em] text-zinc-950 sm:text-5xl md:text-[58px]">
+          <h2 className="mt-5 text-balance text-4xl leading-[1.08] tracking-tighter text-zinc-950 sm:text-5xl md:text-[58px]">
             <span className="font-semibold">
               <Reveal progress={scrollYProgress} from={0} to={0.4} style={{ color: "rgb(9,9,11)" }} baseColor="#ADB2B7">
                 Most teams don't have a visibility problem.
@@ -34,7 +34,7 @@ export function Features() {
               </Reveal>
             </span>
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-pretty text-[15px] leading-relaxed text-zinc-600 sm:text-base">
+          <p className="font-ui mx-auto mt-6 max-w-2xl text-pretty text-[15px] leading-relaxed text-zinc-600 sm:text-base">
             <Reveal progress={scrollYProgress} from={0.6} to={1.0} style={{ color: "rgb(82,82,91)" }} baseColor="#ADB2B7">
               The issue gets spotted in one place, discussed in another, and fixed in a third. Neatlogs closes that loop.
             </Reveal>

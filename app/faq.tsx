@@ -132,15 +132,15 @@ export const FAQ = () => {
             <div className="mx-auto max-w-6xl px-6 flex flex-col lg:flex-row gap-12 lg:gap-24">
                 {/* Desktop Sidebar */}
                 <div className="lg:w-1/3 lg:sticky lg:top-32 h-fit">
-                    <span className="text-[12px] font-medium uppercase tracking-[0.15em] text-zinc-600">
+                    <span className="font-ui text-[12px] font-medium uppercase tracking-[0.15em] text-zinc-600">
                       FAQ
                     </span>
-                    <h2 className="mt-5 -ml-[2px] text-4xl font-semibold leading-[1.04] tracking-[-0.03em] text-zinc-950 sm:text-5xl md:text-[52px]">
+                    <h2 className="mt-5 -ml-[2px] text-4xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl md:text-[52px]">
                         Common <br />
                         <span className="text-zinc-500">Questions.</span>
                     </h2>
 
-                    <p className="mt-6 max-w-[300px] text-pretty text-[15px] leading-relaxed text-zinc-600 sm:text-base">
+                    <p className="font-ui mt-6 max-w-[300px] text-pretty text-[15px] leading-relaxed text-zinc-600 sm:text-base">
                         You've got questions about how Neatlogs drops into your workflow. Here are the answers.
                     </p>
                 </div>
@@ -163,16 +163,16 @@ export const FAQ = () => {
 
                     <div className="mt-12 rounded-[32px] ring-1 ring-zinc-900/5 bg-white/60 backdrop-blur-xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_14px_36px_-20px_rgba(12,20,40,0.08)]">
                         <div>
-                            <h3 className="text-[20px] font-semibold text-zinc-950 tracking-tight">
+                            <h3 className="font-ui text-[20px] font-semibold text-zinc-950 tracking-tight">
                                 Still need help?
                             </h3>
-                            <p className="mt-1.5 text-[14.5px] text-zinc-600">
+                            <p className="font-ui mt-1.5 text-[14.5px] text-zinc-600">
                                 We're happy to jump on a call and dive into your stack.
                             </p>
                         </div>
                         <Link
                             href="/contact"
-                            className="group inline-flex h-11 shrink-0 cursor-pointer items-center justify-center rounded-full bg-zinc-950 px-6 text-[14.5px] font-medium text-white shadow-[0_1px_0_0_rgba(255,255,255,0.12)_inset,0_1px_2px_rgba(0,0,0,0.18)] transition-all duration-[200ms] ease-out hover:bg-zinc-800 active:scale-[0.97]"
+                            className="font-ui group inline-flex h-11 shrink-0 cursor-pointer items-center justify-center rounded-full bg-zinc-950 px-6 text-[14.5px] font-medium text-white shadow-[0_1px_0_0_rgba(255,255,255,0.12)_inset,0_1px_2px_rgba(0,0,0,0.18)] transition-all duration-[200ms] ease-out hover:bg-zinc-800 active:scale-[0.97]"
                         >
                             Contact Support
                         </Link>

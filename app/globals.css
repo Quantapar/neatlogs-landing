@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+@theme inline {
+  --font-sans: var(--font-inter), "Inter", "Helvetica Neue", Helvetica,
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial,
+    sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, Cambria,
+    "Times New Roman", Times, serif;
+}
+
+html,
 body {
   font-family: var(--font-inter), "Inter", "Helvetica Neue", Helvetica,
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial,
@@ -16,6 +27,14 @@ html {
     system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
     sans-serif;
   font-weight: 500;
+}
+
+@layer utilities {
+  .font-ui {
+    font-family: var(--font-space-grotesk), "Space Grotesk", sans-serif !important;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
 }
 
 .font-serif-display {
@@ -46,6 +65,32 @@ html {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes heroReveal {
+  0% {
+    opacity: 0;
+    filter: blur(14px);
+    transform: translateY(14px);
+  }
+  60% {
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.hero-reveal {
+  animation: heroReveal 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-reveal {
+    animation: none;
   }
 }
 

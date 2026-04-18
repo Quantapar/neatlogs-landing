@@ -122,13 +122,13 @@ export function Integrations() {
 
       <div className="relative mx-auto max-w-5xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
+          <span className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
           INTEGRATIONS
           </span>
-          <h2 className="mt-4 text-balance text-4xl font-medium tracking-tight text-zinc-950 sm:text-5xl">
+          <h2 className="mt-4 text-balance text-4xl font-medium tracking-tighter text-zinc-950 sm:text-5xl">
             Fits into the way your team works
           </h2>
-          <p className="mt-4 text-pretty text-zinc-600 sm:text-lg">
+          <p className="font-ui mt-4 text-pretty text-zinc-600 sm:text-lg">
             Neatlogs plugs into your existing stack — from agent frameworks and notifications to tickets and coding agents.
           </p>
         </div>

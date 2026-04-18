@@ -21,13 +21,13 @@ export function Pricing() {
   return (
     <section id="pricing" className="w-full bg-[#EAF3F6] pt-12 pb-24 sm:pt-16 sm:pb-32 px-4 md:px-8 flex flex-col items-center">
       <div className="mx-auto max-w-2xl text-center mb-16 sm:mb-20">
-        <span className="text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
+        <span className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
           PRICING
         </span>
-        <h2 className="mt-4 text-balance text-4xl font-semibold tracking-tight text-zinc-950 sm:text-5xl">
+        <h2 className="mt-4 text-balance text-4xl font-semibold tracking-tighter text-zinc-950 sm:text-5xl">
           Start free. Scale when ready.
         </h2>
-        <p className="mt-4 text-pretty text-lg text-zinc-600">
+        <p className="font-ui mt-4 text-pretty text-lg text-zinc-600">
           Every team gets full access to start. Upgrade when your AI agents are in production.
         </p>
       </div>
@@ -43,7 +43,7 @@ export function Pricing() {
               </div>
               <p className="mt-4 text-[15px] font-medium text-zinc-600">No credit card required</p>
             </div>
-            <button className="mt-auto w-full rounded-[14px] bg-zinc-950 py-3.5 px-4 text-[15px] font-semibold text-white transition-all duration-200 ease-out hover:bg-zinc-800 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 active:scale-[0.98]">
+            <button className="font-ui mt-auto w-full rounded-[14px] bg-zinc-950 py-3.5 px-4 text-[15px] font-semibold text-white transition-all duration-200 ease-out hover:bg-zinc-800 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 active:scale-[0.98]">
               Get Started
             </button>
           </div>
@@ -82,7 +82,7 @@ export function Pricing() {
               </div>
               <p className="mt-4 text-[15px] font-medium text-zinc-400">For large teams</p>
             </div>
-            <button className="mt-auto w-full rounded-[14px] bg-white py-3.5 px-4 text-[15px] font-semibold text-zinc-950 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+            <button className="font-ui mt-auto w-full rounded-[14px] bg-white py-3.5 px-4 text-[15px] font-semibold text-zinc-950 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
               Book a Call
             </button>
           </div>

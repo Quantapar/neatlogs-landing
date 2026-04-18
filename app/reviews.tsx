@@ -84,10 +84,10 @@ export const Reviews = () => {
   return (
       <section className="w-full bg-[#EAF3F6] pt-12 pb-24 sm:pt-16 sm:pb-32 px-4 md:px-8 flex flex-col items-center overflow-hidden border-t border-zinc-900/5">
           <div className="mx-auto max-w-2xl text-center mb-16 sm:mb-20">
-              <span className="text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
+              <span className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
                 REVIEWS
               </span>
-              <h2 className="mt-4 text-balance text-4xl font-medium tracking-tight text-zinc-950 sm:text-5xl">
+              <h2 className="mt-4 text-balance text-4xl font-medium tracking-tighter text-zinc-950 sm:text-5xl">
                   Don't just take our word for it
               </h2>
           </div>

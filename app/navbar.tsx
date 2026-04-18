@@ -52,7 +52,7 @@ export function Navbar() {
                   e.preventDefault();
                   document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="cursor-pointer text-sm font-medium text-zinc-700 transition-colors duration-150 hover:text-zinc-950"
+                className="font-ui cursor-pointer text-sm font-medium text-zinc-700 transition-colors duration-150 hover:text-zinc-950"
               >
                 {label}
               </a>
@@ -60,7 +60,7 @@ export function Navbar() {
               <Link
                 key={href}
                 href={href}
-                className="cursor-pointer text-sm font-medium text-zinc-700 transition-colors duration-150 hover:text-zinc-950"
+                className="font-ui cursor-pointer text-sm font-medium text-zinc-700 transition-colors duration-150 hover:text-zinc-950"
               >
                 {label}
               </Link>
@@ -71,7 +71,7 @@ export function Navbar() {
         <div className="hidden shrink-0 items-center gap-2 md:flex">
           <Link
             href="/demo"
-            className="group inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-full px-4 text-sm font-medium text-zinc-800 transition-[transform,color,background-color] duration-150 ease-out touch-manipulation hover:bg-zinc-900/5 hover:text-zinc-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4FAFD] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
+            className="font-ui group inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-full px-4 text-sm font-medium text-zinc-800 transition-[transform,color,background-color] duration-150 ease-out touch-manipulation hover:bg-zinc-900/5 hover:text-zinc-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4FAFD] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
           >
             Book a Demo
             <svg
@@ -89,7 +89,7 @@ export function Navbar() {
           </Link>
           <Link
             href="/signup"
-            className="inline-flex h-10 cursor-pointer items-center justify-center rounded-full bg-zinc-950 px-5 text-sm font-medium text-white shadow-[0_1px_0_0_rgba(255,255,255,0.12)_inset,0_1px_2px_rgba(0,0,0,0.18)] transition-[transform,background-color] duration-150 ease-out touch-manipulation hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4FAFD] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
+            className="font-ui inline-flex h-10 cursor-pointer items-center justify-center rounded-full bg-zinc-950 px-5 text-sm font-medium text-white shadow-[0_1px_0_0_rgba(255,255,255,0.12)_inset,0_1px_2px_rgba(0,0,0,0.18)] transition-[transform,background-color] duration-150 ease-out touch-manipulation hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4FAFD] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
           >
             Sign Up
           </Link>
@@ -146,7 +146,7 @@ export function Navbar() {
                   setOpen(false);
                   document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-white/60 hover:text-zinc-950"
+                className="font-ui cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-white/60 hover:text-zinc-950"
               >
                 {label}
               </a>
@@ -155,7 +155,7 @@ export function Navbar() {
                 key={href}
                 href={href}
                 onClick={() => setOpen(false)}
-                className="cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-white/60 hover:text-zinc-950"
+                className="font-ui cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-white/60 hover:text-zinc-950"
               >
                 {label}
               </Link>
@@ -165,7 +165,7 @@ export function Navbar() {
             <Link
               href="/demo"
               onClick={() => setOpen(false)}
-              className="inline-flex h-11 cursor-pointer items-center justify-center gap-1.5 rounded-full border border-zinc-900/10 bg-white/80 px-5 text-sm font-medium text-zinc-900 hover:bg-white"
+              className="font-ui inline-flex h-11 cursor-pointer items-center justify-center gap-1.5 rounded-full border border-zinc-900/10 bg-white/80 px-5 text-sm font-medium text-zinc-900 hover:bg-white"
             >
               Book a Demo
               <svg
@@ -184,7 +184,7 @@ export function Navbar() {
             <Link
               href="/signup"
               onClick={() => setOpen(false)}
-              className="inline-flex h-11 cursor-pointer items-center justify-center rounded-full bg-zinc-950 px-5 text-sm font-medium text-white hover:bg-zinc-800"
+              className="font-ui inline-flex h-11 cursor-pointer items-center justify-center rounded-full bg-zinc-950 px-5 text-sm font-medium text-white hover:bg-zinc-800"
             >
               Sign Up
             </Link>
