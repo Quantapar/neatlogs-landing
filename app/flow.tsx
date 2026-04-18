@@ -167,6 +167,15 @@ export function Flow() {
                 );
               })}
             </ol>
+            
+            <div className="mt-12 flex items-center justify-center pt-4">
+              {/* Added image pixel art below the steps to fill vertical space */}
+              <img 
+                src="/tree2.png" 
+                alt="Pixel art palm trees with San Francisco skyline" 
+                className="w-full max-w-sm object-contain mix-blend-multiply opacity-90"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -482,7 +491,8 @@ function Slab({
         />
         <path
           d={top}
-          fill={active ? "url(#slabTopActive)" : "url(#slabTop)"}
+          fill={active ? "url(#slabTopActive)" : 
+            "url(#slabTop)"}
           stroke={active ? "#000000" : "#52525b"}
           strokeOpacity={active ? 0.65 : 0.34}
           strokeWidth="1"
