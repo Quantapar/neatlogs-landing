@@ -86,7 +86,7 @@ export function MeetNeatlogs() {
               number="#2"
               label="Design got"
               brand="FIGMA"
-              image="https://images.unsplash.com/photo-1616140683647-81bd2cd7dccc?q=80&w=600&auto=format&fit=crop"
+              image="https://res.cloudinary.com/dbvotc5ja/image/upload/fl_preserve_transparency/v1776513982/figma_2_n9uqaf.jpg?_s=public-apps"
               icon="https://cdn.iconscout.com/icon/free/png-256/free-figma-3521426-2944870.png"
             />
             <FolderCard
