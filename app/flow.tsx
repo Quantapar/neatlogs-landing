@@ -372,13 +372,25 @@ function Slab({
 
       <ellipse
         cx={shadowCx}
+        cy={shadowCy + 8}
+        rx={shadowRx * 1.15}
+        ry={shadowRy * 1.15}
+        fill="#09090b"
+        opacity={index === 3 ? (active ? 0.28 : 0) : 0}
+        filter="url(#slabBlur)"
+        style={{ transition: "all 300ms cubic-bezier(0.22, 1, 0.36, 1)" }}
+      />
+
+      {/* Resting shadow */}
+      <ellipse
+        cx={shadowCx}
         cy={shadowCy}
         rx={shadowRx}
         ry={shadowRy}
         fill="#09090b"
-        opacity={active ? 0.2 : 0.1}
+        opacity={index === 3 ? (active ? 0 : 0.16) : 0}
         filter="url(#slabBlur)"
-        style={{ transition: "opacity 300ms ease-out" }}
+        style={{ transition: "all 300ms cubic-bezier(0.22, 1, 0.36, 1)" }}
       />
 
       <path
