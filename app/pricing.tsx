@@ -34,20 +34,21 @@ export function Pricing() {
 
       <div className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 antialiased">
         {/* OPEN Plan (Free) */}
-        <div className="flex flex-col rounded-[32px] bg-white ring-1 ring-zinc-200/60 shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
-          <div className="flex flex-col px-8 py-8 sm:px-10 sm:pt-10 sm:pb-10 h-[312px]">
+        <div className="flex flex-col rounded-[32px] bg-[#F4F4F5] p-2 ring-1 ring-zinc-900/5 shadow-sm">
+          <div className="flex flex-col px-6 py-6 sm:px-10 sm:pt-8 sm:pb-10 h-[304px] rounded-[24px] bg-white ring-1 ring-zinc-200/80 shadow-sm relative">
             <div>
               <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">OPEN</h3>
-              <div className="mt-5 flex items-baseline leading-none">
+              <div className="mt-4 flex items-baseline leading-none">
                 <span className="text-[40px] sm:text-[48px] font-bold tracking-tight text-zinc-950">Free</span>
               </div>
               <p className="mt-4 text-[15px] font-medium text-zinc-600">No credit card required</p>
             </div>
-            <button className="mt-auto w-full rounded-[14px] bg-white ring-1 ring-inset ring-zinc-200 py-3.5 px-4 text-[15px] font-semibold text-zinc-950 transition-all duration-200 ease-out hover:bg-zinc-50 hover:ring-zinc-300 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 active:scale-[0.98]">
+            <button className="mt-auto w-full rounded-[14px] bg-zinc-950 py-3.5 px-4 text-[15px] font-semibold text-white transition-all duration-200 ease-out hover:bg-zinc-800 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 active:scale-[0.98]">
               Get Started
             </button>
           </div>
-          <div className="flex-1 rounded-b-[32px] border-t border-zinc-100/80 bg-white px-8 sm:px-10 py-8 sm:py-10">
+          
+          <div className="flex-1 mt-2 rounded-[24px] bg-white ring-1 ring-zinc-200/80 shadow-sm px-6 py-8 sm:px-10 sm:py-10">
             <ul className="flex flex-col gap-y-4">
               {[
                 "All platform features (with limits)",
