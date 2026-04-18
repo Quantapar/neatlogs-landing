@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "motion/react";
+import { useState, useRef } from "react";
+import { motion, useInView } from "motion/react";
 
 const COS30 = 0.8660254;
 const SIN30 = 0.5;
@@ -177,11 +177,23 @@ export function Flow() {
   );
 }
 
-function StackViz({ active }: { active: number }) {
+function StackViz({ active, onSelect }: { active: number; onSelect: (index: number) => void; }) {
+  const ref = useRef<SVGSVGElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
   const positions = computeSlabLayout();
   const lastPos = positions[positions.length - 1];
   const viewH = lastPos.oy + slabVisHeight(lastPos.step) + 36;
   const viewW = 500;
+
+  // Compute building stack initial Ys
+  const stackedYs: number[] = new Array(positions.length);
+  stackedYs[positions.length - 1] = positions[positions.length - 1].oy;
+  for (let i = positions.length - 2; i >= 0; i--) {
+    const belowStep = positions[i + 1].step;
+    const currentStep = positions[i].step;
+    stackedYs[i] = stackedYs[i + 1] + 0.5 * (belowStep.w - currentStep.w) - belowStep.h - SLAB_BASE_H;
+  }
 
   const connections = positions.slice(0, -1).map((pos, i) => {
     const nextPos = positions[i + 1];
@@ -199,6 +211,7 @@ function StackViz({ active }: { active: number }) {
 
   return (
     <svg
+      ref={ref}
       viewBox={`0 0 ${viewW} ${viewH}`}
       role="img"
       aria-label="Neatlogs end-to-end flow: agent runs, trace captured, team aligned, fix shipped"
@@ -228,8 +241,12 @@ function StackViz({ active }: { active: number }) {
 
       {connections.map((c, i) => {
         return (
-          <g key={`connection-${c.key}`}>
-            {/* The physical dotted pipeline */}
+          <motion.g 
+            key={`connection-${c.key}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isInView ? 1 : 0 }}
+            transition={{ duration: 0.8, delay: 0.7 + i * 0.15 }}
+          >
             <line
               x1={c.cx}
               y1={c.y1}
@@ -241,7 +258,6 @@ function StackViz({ active }: { active: number }) {
               strokeDasharray="2 5"
               strokeLinecap="round"
             />
-            {/* The reactive progress line */}
             <motion.line
               x1={c.cx}
               y1={c.y1}
@@ -254,7 +270,7 @@ function StackViz({ active }: { active: number }) {
               animate={{ pathLength: active > i ? 1 : 0, opacity: active > i ? 1 : 0 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             />
-          </g>
+          </motion.g>
         );
       })}
 
@@ -262,31 +278,39 @@ function StackViz({ active }: { active: number }) {
         <Slab
           key={pos.step.id}
           ox={SLAB_OX}
-          oy={pos.oy}
+          targetY={pos.oy}
+          stackedY={stackedYs[i]}
           step={pos.step}
           index={i}
           active={i === active}
+          onClick={() => onSelect(i)}
+          isInView={isInView}
         />
-      ))}
-
-
+      )).reverse()}
     </svg>
   );
 }
 
 function Slab({
   ox,
-  oy,
+  targetY,
+  stackedY,
   step,
   index,
   active,
+  onClick,
+  isInView,
 }: {
   ox: number;
-  oy: number;
+  targetY: number;
+  stackedY: number;
   step: Step;
   index: number;
   active: boolean;
+  onClick: () => void;
+  isInView: boolean;
 }) {
+  const oy = 0;
   const W = step.w;
   const D = step.w;
   const H = step.h;
@@ -321,16 +345,20 @@ function Slab({
   const glowRx = COS30 * W * 1.45;
   const glowRy = SIN30 * (W + D) * 0.85;
 
-  const glyphScale = W / 80;
-
   return (
-    <g
-      style={{
-        transform: active ? "translateY(-9px)" : "translateY(0)",
-        transition: "transform 420ms cubic-bezier(0.22, 1, 0.36, 1)",
-        animation: `slabIn 540ms cubic-bezier(0.22, 1, 0.36, 1) ${index * 110}ms backwards`,
+    <motion.g
+      onClick={onClick}
+      initial={{ x: 0, y: stackedY, opacity: 0 }}
+      animate={{ 
+        x: 0,
+        y: isInView ? targetY + (active ? -9 : 0) : stackedY, 
+        opacity: isInView ? 1 : 0 
       }}
-      className="motion-reduce:!animate-none motion-reduce:transition-none"
+      transition={{
+        y: { type: "spring", duration: 1.2, bounce: 0.22, delay: 0.3 + index * 0.15 },
+        opacity: { duration: 0.5, delay: 0 }
+      }}
+      className="group cursor-pointer"
     >
       <ellipse
         cx={topCx}
@@ -440,7 +468,7 @@ function Slab({
       >
         {`0${index + 1} · ${step.label}`}
       </text>
-    </g>
+    </motion.g>
   );
 }
 
