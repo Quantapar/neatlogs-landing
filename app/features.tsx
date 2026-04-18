@@ -121,10 +121,10 @@ export const Features = () => {
       id="features"
       className="w-full bg-[#EAF3F6] flex flex-col pt-8 pb-20 sm:pt-12 sm:pb-24 lg:pt-16 lg:pb-28"
     >
-      <LayoutWrapper showBorderAccents={false} className="py-10 flex-1">
+      <LayoutWrapper showBorderAccents={false} className="pb-10 pt-2 flex-1">
         <div
           ref={containerRef}
-          className="relative w-full mx-auto backdrop-blur-2xl overflow-hidden p-6 md:p-8 reveal-element"
+          className="relative w-full mx-auto backdrop-blur-2xl overflow-hidden px-6 md:px-8 pb-6 md:pb-8 pt-2 md:pt-4 reveal-element"
         >
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-darken pointer-events-none" />
 
