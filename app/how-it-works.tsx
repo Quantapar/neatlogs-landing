@@ -358,10 +358,10 @@ function StepTile({
       type="button"
       onClick={onSelect}
       aria-pressed={active}
-      className={`group relative overflow-hidden rounded-2xl border border-zinc-900/10 bg-white/70 text-left outline-none transition-[border-color,transform,box-shadow] focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#EAF3F6] motion-reduce:transition-none ${
+      className={`group relative overflow-hidden rounded-2xl border text-left outline-none transition-[border-color,background-color,transform,box-shadow] focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#EAF3F6] motion-reduce:transition-none ${
         active
-          ? "cursor-default border-zinc-950 shadow-md shadow-zinc-900/5"
-          : "cursor-pointer hover:-translate-y-0.5 hover:border-zinc-900/20 hover:bg-white hover:shadow-sm hover:shadow-zinc-900/5"
+          ? "cursor-default border-zinc-950 bg-zinc-950 shadow-md shadow-zinc-900/5"
+          : "cursor-pointer border-zinc-900/10 bg-white/70 hover:-translate-y-0.5 hover:border-zinc-900/20 hover:bg-white hover:shadow-sm hover:shadow-zinc-900/5"
       }`}
       style={{
         transitionDuration: `${duration}ms`,
