@@ -41,6 +41,7 @@ export function MeetNeatlogs() {
               from={0.2}
               to={0.3}
               style={{ color: "rgb(113,113,122)" }}
+              baseColor="#ADB2B7"
             >
               Code got GitHub.
             </Reveal>
@@ -52,6 +53,7 @@ export function MeetNeatlogs() {
               from={0.3}
               to={0.38}
               style={{ color: "rgb(113,113,122)" }}
+              baseColor="#ADB2B7"
             >
               Design got Figma.
             </Reveal>
@@ -63,6 +65,7 @@ export function MeetNeatlogs() {
               from={0.38}
               to={0.46}
               style={{ color: "rgb(9,9,11)" }}
+              baseColor="#ADB2B7"
             >
               Agents get Neatlogs.
             </Reveal>
@@ -126,12 +129,14 @@ function Reveal({
   from,
   to,
   style,
+  baseColor,
 }: {
   children: string;
   progress: MotionValue<number>;
   from: number;
   to: number;
   style?: React.CSSProperties;
+  baseColor?: string;
 }) {
   const parts = children.split(/(\s+)/).filter((p) => p.length > 0);
   const wordCount = parts.filter((p) => !/^\s+$/.test(p)).length;
@@ -145,7 +150,13 @@ function Reveal({
         const threshold = from + ((wordIdx + 0.5) / wordCount) * range;
         wordIdx += 1;
         return (
-          <Word key={i} threshold={threshold} progress={progress} style={style}>
+          <Word
+            key={i}
+            threshold={threshold}
+            progress={progress}
+            style={style}
+            baseColor={baseColor}
+          >
             {part}
           </Word>
         );
@@ -159,14 +170,29 @@ function Word({
   progress,
   threshold,
   style,
+  baseColor,
 }: {
   children: ReactNode;
   progress: MotionValue<number>;
   threshold: number;
   style?: React.CSSProperties;
+  baseColor?: string;
 }) {
   const opacity = useTransform(progress, (v) => (v >= threshold ? 1 : 0.5));
-  return <motion.span style={{ ...style, opacity }}>{children}</motion.span>;
+  const finalColor = (style?.color as string | undefined) ?? "";
+  const color = useTransform(progress, (v) =>
+    v >= threshold ? finalColor : baseColor ?? finalColor
+  );
+  const useColor = Boolean(baseColor && finalColor);
+  return (
+    <motion.span
+      style={
+        useColor ? { ...style, color, opacity } : { ...style, opacity }
+      }
+    >
+      {children}
+    </motion.span>
+  );
 }
 
 function Era({
