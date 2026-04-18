@@ -29,8 +29,8 @@ const APPS = [
     col: 5, row: 0,
     name: "OpenAI",
     icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2v20M17 5l-10 14M22 12H2M19 19L5 5M12 2a10 10 0 0 1 10 10H12z"/>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="#000" xmlns="http://www.w3.org/2000/svg">
+         <path fillRule="evenodd" clipRule="evenodd" d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.2157-2.1228 6.0096 6.0096 0 0 0-8.5614-3.1539A5.98 5.98 0 0 0 11.9686 2c-3.3283 0-6.027 2.6987-6.027 6.027a5.982 5.982 0 0 0 .2157 2.1228 6.0096 6.0096 0 0 0-2.3168 1.4878 6.0096 6.0096 0 0 0-1.488 2.3169c-.1404.693-.2132 1.4052-.2157 2.1228A6.027 6.027 0 0 0 8.1638 22a5.98 5.98 0 0 0 2.535-2.535 6.0096 6.0096 0 0 0 8.5614 3.1539 5.98 5.98 0 0 0 1.5367-2.5351c.1404-.693.2132-1.4052.2157-2.1228a6.027 6.027 0 0 0-6.027-6.027h8.8687a6.027 6.027 0 0 0-1.6033-2.112z"/>
       </svg>
     )
   },
@@ -99,7 +99,7 @@ const APPS = [
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M21.35 11.1h-9.17v2.73h5.51c-.33 1.64-1.87 2.73-3.64 2.73-2.19 0-3.96-1.74-3.96-3.96s1.77-3.96 3.96-3.96c.94 0 1.8.34 2.45.92l2.09-2.09A6.74 6.74 0 0 0 12.18 5c-3.8 0-6.88 3.08-6.88 6.88s3.08 6.88 6.88 6.88c3.55 0 6.45-2.58 6.88-6.04h.02c.07-.46.12-.93.12-1.4 0-.41-.05-.81-.13-1.22z" fill="#4285F4"/>
-      </svg>
+        </svg>
     )
   }
 ];
@@ -107,11 +107,11 @@ const APPS = [
 export function Integrations() {
   const ROWS = 3;
   const COLS = 7;
-  
+
   return (
     <section id="integrations" className="relative overflow-hidden bg-[#EAF3F6] pt-8 pb-24 sm:pt-12 sm:pb-32">
       {/* Decorative background grid (optional but gives that Tailark feel) */}
-      <div 
+      <div
         className="pointer-events-none absolute inset-0 mix-blend-multiply opacity-[0.03]"
         style={{
           backgroundImage: `linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)`,
@@ -119,7 +119,7 @@ export function Integrations() {
         }}
         aria-hidden="true"
       />
-      
+
       <div className="relative mx-auto max-w-5xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
@@ -135,7 +135,7 @@ export function Integrations() {
 
         <div className="mt-20 flex justify-center">
           <div className="relative isolate">
-            <div 
+            <div
               className="grid gap-px bg-zinc-900/5 p-px"
               style={{
                 gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`,
@@ -147,10 +147,10 @@ export function Integrations() {
                 const r = Math.floor(i / COLS);
                 const c = i % COLS;
                 const app = APPS.find(a => a.col === c && a.row === r);
-                
+
                 return (
-                  <div 
-                    key={i} 
+                  <div
+                    key={i}
                     className="relative flex aspect-square items-center justify-center bg-[#EAF3F6] sm:w-[80px]"
                   >
                     {app ? (

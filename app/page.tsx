@@ -6,6 +6,7 @@ import { HowItWorks } from "./how-it-works";
 import { MediaPlayer } from "./media-player";
 import { MeetNeatlogs } from "./meet-neatlogs";
 import { Integrations } from "./integrations";
+import { Reviews } from "./reviews";
 
 export default function Home() {
   return (
@@ -66,6 +67,7 @@ export default function Home() {
       <HowItWorks />
       <Flow />
       <Integrations />
+      <Reviews />
     </main>
   );
 }
