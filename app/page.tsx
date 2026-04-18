@@ -5,6 +5,7 @@ import { Flow } from "./flow";
 import { HowItWorks } from "./how-it-works";
 import { MediaPlayer } from "./media-player";
 import { MeetNeatlogs } from "./meet-neatlogs";
+import { Integrations } from "./integrations";
 
 export default function Home() {
   return (
@@ -64,6 +65,7 @@ export default function Home() {
       <Features />
       <HowItWorks />
       <Flow />
+      <Integrations />
     </main>
   );
 }

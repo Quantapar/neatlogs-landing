@@ -186,7 +186,7 @@ function StackViz({
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 75%", "end 25%"],
+    offset: ["start 80%", "start 15%"]
   });
 
   const positions = computeSlabLayout();
@@ -252,15 +252,15 @@ function StackViz({
       </defs>
 
       {connections.map((c, i) => {
-        // Fade in and out dynamically based on scroll with identical holding zones
-        const startO = 0.2 + i * 0.05;
-        const endO = startO + 0.1;
-        const closeStartO = 0.55 + i * 0.05;
-        const closeEndO = closeStartO + 0.1;
+        // Aggressively fast fade bounds to maximize reading dwell time
+        const startO = 0.02 + i * 0.06;
+        const endO = startO + 0.2;
+        const closeStartO = 0.65 + i * 0.05;
+        const closeEndO = closeStartO + 0.2;
         const lineOpacity = useTransform(
-          scrollYProgress,
-          [0, startO, endO, closeStartO, closeEndO, 1],
-          [0, 0, 1, 1, 0, 0],
+          scrollYProgress, 
+          [0, startO, endO, closeStartO, closeEndO, 1], 
+          [0, 0, 1, 1, 0, 0]
         );
 
         return (
@@ -374,16 +374,16 @@ function Slab({
   const glowRx = COS30 * W * 1.45;
   const glowRy = SIN30 * (W + D) * 0.85;
 
-  // Insert deliberate 'dwell times' so the closed stack is fully visible before opening
-  const openStart = 0.15 + index * 0.05;
-  const openEnd = openStart + 0.15;
-  const closeStart = 0.55 + (3 - index) * 0.05;
-  const closeEnd = closeStart + 0.15;
-
+  // Heavily bias the keyframes to the strict edges (0.0-0.35 and 0.7-1.0) so it holds completely open at 0.5 center.
+  const openStart = 0.02 + index * 0.06;
+  const openEnd = openStart + 0.3;
+  const closeStart = 0.6 + (3 - index) * 0.05;
+  const closeEnd = closeStart + 0.25;
+  
   const scrollY = useTransform(
-    progress,
-    [0, openStart, openEnd, closeStart, closeEnd, 1],
-    [stackedY, stackedY, targetY, targetY, stackedY, stackedY],
+    progress, 
+    [0, openStart, openEnd, closeStart, closeEnd, 1], 
+    [stackedY, stackedY, targetY, targetY, stackedY, stackedY]
   );
 
   return (
