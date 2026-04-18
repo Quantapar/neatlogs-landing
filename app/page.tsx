@@ -9,8 +9,9 @@ import { Integrations } from "./integrations";
 import { Reviews } from "./reviews";
 import { Pricing } from "./pricing";
 import { FAQ } from "./faq";
+import Footer2 from "./footer";
 
-export default function Home() {
+export default function () {
   return (
     <main className="relative flex min-h-screen w-full flex-col bg-[#EAF3F6]">
       <div className="relative w-full aspect-3/2 overflow-hidden">
@@ -72,6 +73,7 @@ export default function Home() {
       <Reviews />
       <Pricing />
       <FAQ />
+      <Footer2 />
     </main>
   );
 }
