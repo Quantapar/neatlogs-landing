@@ -26,7 +26,7 @@ const FEATURES: Feature[] = [
   {
     id: "surface-issue",
     icon: (
-      <AlertCircle className="w-6 h-6 text-blue-500 group-hover:text-blue-600 transition-colors" />
+      <AlertCircle className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors" strokeWidth={1.5} />
     ),
     title: "Surface the issue",
     description:
@@ -35,7 +35,7 @@ const FEATURES: Feature[] = [
   {
     id: "shared-context",
     icon: (
-      <Users className="w-6 h-6 text-emerald-500 group-hover:text-emerald-600 transition-colors" />
+      <Users className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors" strokeWidth={1.5} />
     ),
     title: "Shared context, always",
     description:
@@ -44,7 +44,7 @@ const FEATURES: Feature[] = [
   {
     id: "move-fast",
     icon: (
-      <Zap className="w-6 h-6 text-purple-500 group-hover:text-purple-600 transition-colors" />
+      <Zap className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors" strokeWidth={1.5} />
     ),
     title: "Move fast",
     description:
@@ -53,7 +53,7 @@ const FEATURES: Feature[] = [
   {
     id: "fix-with-ai",
     icon: (
-      <Sparkles className="w-6 h-6 text-amber-500 group-hover:text-amber-600 transition-colors" />
+      <Sparkles className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors" strokeWidth={1.5} />
     ),
     title: "Fix it with AI",
     description:
@@ -63,7 +63,7 @@ const FEATURES: Feature[] = [
   {
     id: "monitor-recurrence",
     icon: (
-      <RefreshCw className="w-6 h-6 text-rose-500 group-hover:text-rose-600 transition-colors" />
+      <RefreshCw className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors" strokeWidth={1.5} />
     ),
     title: "Monitor for recurrence",
     description:
@@ -72,7 +72,7 @@ const FEATURES: Feature[] = [
   {
     id: "built-for-ai",
     icon: (
-      <Cpu className="w-6 h-6 text-teal-500 group-hover:text-teal-600 transition-colors" />
+      <Cpu className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors" strokeWidth={1.5} />
     ),
     title: "Built for AI agents",
     description:
@@ -82,15 +82,15 @@ const FEATURES: Feature[] = [
 
 const TRUST_BADGES = [
   {
-    icon: <CheckCircle2 className="w-4 h-4 text-blue-700" />,
+    icon: <CheckCircle2 className="w-4 h-4 text-zinc-700" strokeWidth={1.5} />,
     text: "Instantly Surfaces Bugs",
   },
   {
-    icon: <ShieldCheck className="w-4 h-4 text-green-400" />,
+    icon: <ShieldCheck className="w-4 h-4 text-zinc-700" strokeWidth={1.5} />,
     text: "Secure Auditing Context",
   },
   {
-    icon: <Clock className="w-4 h-4 text-blue-400" />,
+    icon: <Clock className="w-4 h-4 text-zinc-700" strokeWidth={1.5} />,
     text: "Minutes to Resolution",
   },
 ];

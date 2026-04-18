@@ -10,6 +10,7 @@ import { Reviews } from "./reviews";
 import { Pricing } from "./pricing";
 import { FAQ } from "./faq";
 import Footer2 from "./footer";
+import { HeroHeadline } from "./hero-headline";
 
 export default function () {
   return (
@@ -35,11 +36,7 @@ export default function () {
             For teams building <span translate="no">AI</span> agents
           </span>
 
-          <h1 className="hero-reveal mt-5 max-w-4xl text-balance text-center text-5xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-6xl md:text-7xl lg:text-[80px]">
-            From feedback to fix.
-            <br />
-            <span className="text-zinc-500">In minutes, not weeks.</span>
-          </h1>
+          <HeroHeadline />
 
           <p className="font-ui mt-6 max-w-xl text-pretty text-center text-base leading-relaxed text-zinc-700 sm:text-lg">
             The shared workspace where your team debugs{" "}
