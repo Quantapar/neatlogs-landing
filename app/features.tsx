@@ -1,491 +1,188 @@
 "use client";
 
-import { useEffect, useState, type ReactNode, type SVGProps, useRef } from "react";
-import { motion, AnimatePresence, useScroll } from "motion/react";
-import { Reveal } from "./reveal";
+import { useEffect, useRef } from "react";
+import {
+  AlertCircle,
+  Users,
+  Zap,
+  Sparkles,
+  RefreshCw,
+  Cpu,
+  CheckCircle2,
+  ShieldCheck,
+  Clock,
+} from "lucide-react";
+import { LayoutWrapper } from "./layoutWrapper";
 
-export function Features() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 85%", "start 0%"],
-  });
+interface Feature {
+  id: string;
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  hasVisual?: boolean;
+}
+
+const FEATURES: Feature[] = [
+  {
+    id: "surface-issue",
+    icon: (
+      <AlertCircle className="w-6 h-6 text-blue-500 group-hover:text-blue-600 transition-colors" />
+    ),
+    title: "Surface the issue",
+    description:
+      "Detection triggers instantly. Alerts hit Slack and email before your team notices something's wrong.",
+  },
+  {
+    id: "shared-context",
+    icon: (
+      <Users className="w-6 h-6 text-emerald-500 group-hover:text-emerald-600 transition-colors" />
+    ),
+    title: "Shared context, always",
+    description:
+      "Domain experts and developers see the same thread — no re-explaining what broke or why it matters.",
+  },
+  {
+    id: "move-fast",
+    icon: (
+      <Zap className="w-6 h-6 text-purple-500 group-hover:text-purple-600 transition-colors" />
+    ),
+    title: "Move fast",
+    description:
+      "From alert to aligned fix in minutes, not hours. No handoff lag. No context lost in translation.",
+  },
+  {
+    id: "fix-with-ai",
+    icon: (
+      <Sparkles className="w-6 h-6 text-amber-500 group-hover:text-amber-600 transition-colors" />
+    ),
+    title: "Fix it with AI",
+    description:
+      "Filter the relevant context, generate fix suggestions, and orchestrate your coding agent to ship.",
+    hasVisual: true,
+  },
+  {
+    id: "monitor-recurrence",
+    icon: (
+      <RefreshCw className="w-6 h-6 text-rose-500 group-hover:text-rose-600 transition-colors" />
+    ),
+    title: "Monitor for recurrence",
+    description:
+      "After the fix ships, Neatlogs watches for the same pattern so you know if it comes back.",
+  },
+  {
+    id: "built-for-ai",
+    icon: (
+      <Cpu className="w-6 h-6 text-teal-500 group-hover:text-teal-600 transition-colors" />
+    ),
+    title: "Built for AI agents",
+    description:
+      "Purpose-built tracing for LangGraph, CrewAI, LangChain, and any agentic workflow your team ships.",
+  },
+];
+
+const TRUST_BADGES = [
+  {
+    icon: <CheckCircle2 className="w-4 h-4 text-blue-700" />,
+    text: "Instantly Surfaces Bugs",
+  },
+  {
+    icon: <ShieldCheck className="w-4 h-4 text-green-400" />,
+    text: "Secure Auditing Context",
+  },
+  {
+    icon: <Clock className="w-4 h-4 text-blue-400" />,
+    text: "Minutes to Resolution",
+  },
+];
+
+export const Features = () => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    observer.observe(containerRef.current);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
       id="features"
-      ref={sectionRef}
-      className="relative bg-[#EAF3F6] pt-8 pb-20 sm:pt-12 sm:pb-24 lg:pt-16 lg:pb-28"
+      className="w-full bg-[#EAF3F6] flex flex-col pt-8 pb-20 sm:pt-12 sm:pb-24 lg:pt-16 lg:pb-28"
     >
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="mx-auto max-w-4xl text-center">
-          <span className="font-ui text-[12px] font-medium uppercase tracking-[0.15em] text-zinc-600">
-            Why Neatlogs
-          </span>
-          <h2 className="mt-5 text-balance text-4xl leading-[1.08] tracking-tighter text-zinc-950 sm:text-5xl md:text-[58px]">
-            <span className="font-semibold">
-              <Reveal progress={scrollYProgress} from={0} to={0.4} style={{ color: "rgb(9,9,11)" }} baseColor="#ADB2B7">
-                Most teams don't have a visibility problem.
-              </Reveal>
-            </span>{" "}
-            <span className="text-zinc-500 font-medium tracking-tight">
-              <Reveal progress={scrollYProgress} from={0.4} to={0.7} style={{ color: "rgb(113,113,122)" }} baseColor="#ADB2B7">
-                They have a handoff problem.
-              </Reveal>
-            </span>
-          </h2>
-          <p className="font-ui mx-auto mt-6 max-w-2xl text-pretty text-[15px] leading-relaxed text-zinc-600 sm:text-base">
-            <Reveal progress={scrollYProgress} from={0.6} to={1.0} style={{ color: "rgb(82,82,91)" }} baseColor="#ADB2B7">
-              The issue gets spotted in one place, discussed in another, and fixed in a third. Neatlogs closes that loop.
-            </Reveal>
-          </p>
-        </div>
+      <LayoutWrapper showBorderAccents={false} className="py-10 flex-1">
+        <div
+          ref={containerRef}
+          className="relative w-full mx-auto backdrop-blur-2xl overflow-hidden p-6 md:p-8 reveal-element"
+        >
+          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-darken pointer-events-none" />
 
-        <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-24 lg:grid-cols-3">
-          <FeatureCard
-            tone="dark"
-            className="sm:col-span-2 lg:col-span-2"
-            icon={<IconSearch />}
-            title="Surface the issue"
-            body="Detection triggers instantly. Alerts hit Slack and email before your team notices something's wrong."
-            visual={<AlertVisual />}
-            delay={0.1}
-          />
-          <FeatureCard
-            icon={<IconUsers />}
-            title="Shared context, always"
-            body="Domain experts and developers see the same thread — no re-explaining what broke or why it matters."
-            visual={<AvatarVisual />}
-            delay={0.2}
-          />
-          <FeatureCard
-            icon={<IconBolt />}
-            title="Move fast"
-            body="From alert to aligned fix in minutes, not hours. No handoff lag. No context lost in translation."
-            visual={<TimerVisual />}
-            delay={0.3}
-          />
-          <FeatureCard
-            icon={<IconSparkle />}
-            title="Fix it with AI"
-            body="Filter the relevant context, generate fix suggestions, and orchestrate your coding agent to ship."
-            visual={<DiffVisual />}
-            delay={0.4}
-          />
-          <FeatureCard
-            icon={<IconPulse />}
-            title="Monitor for recurrence"
-            body="After the fix ships, Neatlogs watches for the same pattern so you know if it comes back."
-            visual={<SparklineVisual />}
-            delay={0.5}
-          />
-          <FeatureCard
-            className="sm:col-span-2 lg:col-span-3"
-            icon={<IconBrain />}
-            title="Built for AI agents"
-            body="Purpose-built tracing for LangGraph, CrewAI, LangChain, and any agentic workflow your team ships."
-            visual={<FrameworksVisual />}
-            horizontal
-            delay={0.6}
-          />
+          <div className="relative z-10 max-w-4xl mx-auto mb-10 sm:mb-16 text-center">
+            <span className="font-ui text-[12px] font-medium uppercase tracking-[0.15em] text-zinc-600">
+              Why Neatlogs
+            </span>
+            <h2 className="mt-5 text-balance text-4xl sm:text-5xl md:text-[58px] leading-[1.08] tracking-tighter text-zinc-950 mx-auto font-sans">
+              <span className="font-semibold">
+                Most teams don't have a visibility problem.
+              </span>{" "}
+              <span className="text-zinc-500 font-medium tracking-tight">
+                They have a handoff problem.
+              </span>
+            </h2>
+            <p className="font-ui mx-auto mt-6 max-w-2xl text-pretty text-[15px] leading-relaxed text-zinc-600 sm:text-base px-4">
+              The issue gets spotted in one place, discussed in another, and
+              fixed in a third. Neatlogs closes that loop.
+            </p>
+          </div>
+
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            {FEATURES.map((feature, index) => (
+              <div
+                key={feature.id}
+                className="group relative p-2 rounded-[32px] bg-white/20 border border-black/5 hover:bg-white/40 transition-colors duration-500"
+                style={{ transitionDelay: `${index * 50}ms` }}
+              >
+                <div className="h-full bg-white/60 backdrop-blur-3xl rounded-[24px] ring-1 ring-zinc-900/5 p-5 sm:p-6 flex flex-col shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_14px_36px_-20px_rgba(12,20,40,0.08)] group-hover:bg-white/90 group-hover:ring-zinc-900/10 transition-all duration-500">
+                  <div className="mb-6 flex p-3 rounded-2xl w-fit bg-zinc-50 border border-black/5 shadow-sm group-hover:scale-105 transition-transform duration-200 ease-out">
+                    {feature.icon}
+                  </div>
+
+                  <h3 className="text-xl sm:text-[22px] font-ui font-medium tracking-tight text-zinc-950 mb-2 sm:mb-3">
+                    {feature.title}
+                  </h3>
+
+                  <p className="text-sm sm:text-[15px] text-zinc-600 font-sans leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 sm:mt-12 pt-5 sm:pt-6 border-t border-black/5 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
+            {TRUST_BADGES.map((badge, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-2 text-zinc-600 font-ui text-sm"
+              >
+                {badge.icon}
+                <span>{badge.text}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </LayoutWrapper>
     </section>
   );
-}
-
-function FeatureCard({
-  tone = "light",
-  className = "",
-  icon,
-  title,
-  body,
-  visual,
-  horizontal,
-  delay = 0,
-}: {
-  tone?: "light" | "dark";
-  className?: string;
-  icon: ReactNode;
-  title: string;
-  body: string;
-  visual?: ReactNode;
-  horizontal?: boolean;
-  delay?: number;
-}) {
-  const isDark = tone === "dark";
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: delay, ease: [0.215, 0.61, 0.355, 1] }}
-      className={`group relative flex flex-col overflow-hidden rounded-[32px] p-8 sm:p-10 ring-1 transition-[background-color,shadow] duration-[400ms] ease will-change-transform ${
-        isDark
-          ? "bg-zinc-950 text-white ring-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1),0_18px_40px_-24px_rgba(0,0,0,0.5)] hover:bg-[#0f0f12]"
-          : "bg-white/60 backdrop-blur-3xl text-zinc-950 ring-zinc-900/5 shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_14px_36px_-20px_rgba(12,20,40,0.08)] hover:bg-white/90"
-      } ${horizontal ? "lg:flex-row lg:items-center lg:gap-14" : ""} ${className}`}
-    >
-      <div className={`relative z-10 ${horizontal ? "lg:max-w-sm" : ""}`}>
-        <span
-          className={`inline-flex size-9 items-center justify-center rounded-xl ring-1 transition-transform duration-200 ease group-hover:scale-[1.04] motion-reduce:transition-none ${
-            isDark
-              ? "bg-white/5 text-white ring-white/10"
-              : "bg-zinc-900/[0.03] text-zinc-900 ring-zinc-900/10"
-          }`}
-        >
-          {icon}
-        </span>
-        <h3
-          className={`mt-6 text-[20px] font-semibold tracking-tight leading-[1.18] sm:text-[22px] ${
-            isDark ? "text-white" : "text-zinc-950"
-          }`}
-        >
-          {title}
-        </h3>
-        <p
-          className={`mt-2.5 max-w-md text-[14px] leading-relaxed ${
-            isDark ? "text-zinc-400" : "text-zinc-600"
-          }`}
-        >
-          {body}
-        </p>
-      </div>
-      {visual && (
-        <div
-          className={`relative z-10 transition-[transform] duration-[500ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.02] ${horizontal ? "mt-8 lg:mt-0 lg:flex-1" : "mt-10 flex-1"}`}
-        >
-          {visual}
-        </div>
-      )}
-    </motion.article>
-  );
-}
-
-function AlertVisual() {
-  const rows: { title: string; meta: string; delay: number }[] = [
-    { title: "Tool call timeout", meta: "serpapi · 28.3s", delay: 0 },
-    { title: "Unexpected output", meta: "summarise · score 0.34", delay: 60 },
-    { title: "All clear", meta: "classify · 3 runs · 1.2s", delay: 120 },
-  ];
-  return (
-    <div className="flex flex-col gap-1.5">
-      {rows.map((r, i) => (
-        <div
-          key={r.title}
-          className={`flex items-center gap-3 rounded-lg px-3 py-2.5 ring-1 transition-all duration-[500ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform group-hover:translate-x-1.5 motion-reduce:transition-none ${
-            i === 0
-              ? "bg-white/[0.07] ring-white/15"
-              : "bg-white/[0.02] ring-white/10"
-          }`}
-          style={{ transitionDelay: `${r.delay}ms` }}
-        >
-          <span className="text-[10px] uppercase font-mono tracking-widest text-white/35">
-            0{i + 1}
-          </span>
-          <span className="flex-1 truncate text-[12px] font-medium text-white/90">
-            {r.title}
-          </span>
-          <span
-            translate="no"
-            className="hidden truncate font-mono text-[10px] text-white/40 sm:inline"
-          >
-            {r.meta}
-          </span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function AvatarVisual() {
-  const MEMBERS: {
-    initials: string;
-    role: string;
-    quote: string;
-  }[] = [
-    { initials: "MK", role: "Product", quote: "Caught the wrong source early." },
-    { initials: "AR", role: "Engineering", quote: "Shipped the fix before lunch." },
-    { initials: "SJ", role: "Support", quote: "Told the user within minutes." },
-    { initials: "DK", role: "Research", quote: "Saw the exact same trace." },
-    { initials: "LM", role: "Ops", quote: "Zero back-and-forth in Slack." },
-    { initials: "JT", role: "Compliance", quote: "Audited the fix in context." },
-  ];
-  const [active, setActive] = useState(0);
-
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      setActive((a) => (a + 1) % MEMBERS.length);
-    }, 2600);
-    return () => window.clearInterval(id);
-  }, [MEMBERS.length]);
-
-  return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-1.5">
-        {MEMBERS.map((m, i) => {
-          const isActive = i === active;
-          return (
-            <span
-              key={m.initials}
-              className={`flex size-9 items-center justify-center rounded-full text-[11px] font-semibold transition-all duration-[300ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform motion-reduce:transition-none ${
-                isActive
-                  ? "z-10 scale-[1.12] bg-zinc-950 text-white shadow-[0_4px_12px_rgba(0,0,0,0.15)] ring-1 ring-black/10"
-                  : "z-0 scale-100 bg-black/[0.04] text-zinc-500 ring-1 ring-black/5"
-              }`}
-            >
-              {m.initials}
-            </span>
-          );
-        })}
-      </div>
-      <div className="relative min-h-[40px]">
-        <AnimatePresence>
-          <motion.div
-            key={active}
-            initial={{ opacity: 0, y: 8, filter: "blur(2px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: -8, filter: "blur(2px)" }}
-            transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-            className="absolute inset-x-0 flex items-center gap-2 text-[12.5px] leading-snug"
-          >
-            <span className="text-[10px] font-mono tracking-widest uppercase text-zinc-900">
-              {MEMBERS[active].role}
-            </span>
-            <span className="text-zinc-300">—</span>
-            <span className="truncate italic text-zinc-600">
-              &ldquo;{MEMBERS[active].quote}&rdquo;
-            </span>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </div>
-  );
-}
-
-function TimerVisual() {
-  return (
-    <div className="relative">
-      <div className="relative h-1.5 overflow-hidden rounded-full bg-zinc-200/80">
-        <span
-          aria-hidden="true"
-          className="absolute inset-y-0 left-0 w-[35%] rounded-full bg-zinc-950 transition-all duration-[500ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:w-[78%] motion-reduce:transition-none"
-        />
-      </div>
-      <div className="mt-3 flex items-center justify-between text-[11px] font-mono tracking-widest uppercase text-zinc-500 [font-variant-numeric:tabular-nums]">
-        <span>Alert</span>
-        <span className="text-zinc-900">7m 42s</span>
-        <span>Shipped</span>
-      </div>
-    </div>
-  );
-}
-
-function DiffVisual() {
-  const lines: { mark: "−" | "+"; text: string; delay: number }[] = [
-    { mark: "−", text: "use_source(\"2019-prices\")", delay: 0 },
-    { mark: "+", text: "use_source(current())", delay: 80 },
-    { mark: "+", text: "log.info(\"resolved\")", delay: 160 },
-  ];
-  return (
-    <div className="overflow-hidden rounded-xl border border-zinc-900/10 bg-white">
-      <div className="flex items-center justify-between border-b border-zinc-900/5 px-3 py-1.5">
-        <span translate="no" className="font-mono text-[10px] text-zinc-600">
-          source-picker.ts
-        </span>
-        <span className="font-mono text-[10px] text-zinc-500">+12 −4</span>
-      </div>
-      <div className="flex flex-col gap-1 p-3 font-mono text-[10.5px]">
-        {lines.map((l) => (
-          <div
-            key={l.text}
-            className="flex items-center gap-2 rounded bg-zinc-900/[0.03] px-2 py-1 transition-all duration-[500ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform group-hover:translate-x-1 motion-reduce:transition-none"
-            style={{ transitionDelay: `${l.delay}ms` }}
-          >
-            <span className="w-2 text-zinc-400">{l.mark}</span>
-            <span className="truncate text-zinc-700">{l.text}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function SparklineVisual() {
-  const d = "M4 44 L24 40 L46 44 L68 30 L90 34 L112 18 L134 26 L156 12 L176 20 L194 10";
-  return (
-    <div className="relative">
-      <svg
-        viewBox="0 0 200 60"
-        className="h-[60px] w-full"
-        aria-hidden="true"
-      >
-        <defs>
-          <linearGradient id="sparkFill" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="rgb(24,24,27)" stopOpacity="0.1" />
-            <stop offset="100%" stopColor="rgb(24,24,27)" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <path d={`${d} L194 60 L4 60 Z`} fill="url(#sparkFill)" />
-        <path
-          d={d}
-          fill="none"
-          stroke="rgb(9,9,11)"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="transition-all duration-[500ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:[stroke-width:2.2] motion-reduce:transition-none"
-        />
-      </svg>
-      <div className="mt-1 flex items-center justify-between text-[11px] font-mono tracking-widest uppercase text-zinc-500">
-        <span>30 days</span>
-        <span className="text-zinc-900">Stable</span>
-      </div>
-    </div>
-  );
-}
-
-function FrameworksVisual() {
-  const FRAMEWORKS = [
-    "LangGraph",
-    "CrewAI",
-    "LangChain",
-    "OpenAI Agents",
-    "Vercel AI SDK",
-    "Claude",
-    "LlamaIndex",
-    "Mastra",
-  ];
-  return (
-    <div className="flex flex-wrap gap-2">
-      {FRAMEWORKS.map((f, i) => (
-        <span
-          key={f}
-          className="inline-flex h-9 cursor-default items-center rounded-full border border-zinc-900/10 bg-white/90 px-3.5 text-[12.5px] font-medium text-zinc-800 shadow-[0_1px_2px_rgba(12,20,40,0.04)] transition-all duration-[400ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform hover:-translate-y-0.5 hover:border-zinc-900/20 hover:bg-white hover:shadow-[0_6px_16px_-8px_rgba(12,20,40,0.2)] motion-reduce:transition-none"
-        >
-          {f}
-        </span>
-      ))}
-    </div>
-  );
-}
-
-function IconSearch(p: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="size-[18px]"
-      aria-hidden="true"
-      {...p}
-    >
-      <circle cx="11" cy="11" r="7" />
-      <path d="m16.5 16.5 4 4" />
-    </svg>
-  );
-}
-
-function IconUsers(p: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="size-[18px]"
-      aria-hidden="true"
-      {...p}
-    >
-      <circle cx="10" cy="8" r="3" />
-      <path d="M4 18c0-2.5 2.5-4.5 6-4.5s6 2 6 4.5" />
-      <circle cx="17.5" cy="9" r="2.2" />
-      <path d="M15.5 18c.2-1.8 1.4-2.8 3.6-2.8" />
-    </svg>
-  );
-}
-
-function IconBolt(p: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="size-[18px]"
-      aria-hidden="true"
-      {...p}
-    >
-      <path d="M13 3 5 14h5l-1 7 8-11h-5l1-7Z" />
-    </svg>
-  );
-}
-
-function IconSparkle(p: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="size-[18px]"
-      aria-hidden="true"
-      {...p}
-    >
-      <path d="M12 3v4" />
-      <path d="M12 17v4" />
-      <path d="M3 12h4" />
-      <path d="M17 12h4" />
-      <path d="M6 6l2.5 2.5" />
-      <path d="M15.5 15.5 18 18" />
-      <path d="M6 18l2.5-2.5" />
-      <path d="M15.5 8.5 18 6" />
-    </svg>
-  );
-}
-
-function IconPulse(p: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="size-[18px]"
-      aria-hidden="true"
-      {...p}
-    >
-      <path d="M3 12h4l2-5 4 10 2-5h6" />
-    </svg>
-  );
-}
-
-function IconBrain(p: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="size-[18px]"
-      aria-hidden="true"
-      {...p}
-    >
-      <path d="M9.5 4a2.5 2.5 0 0 0-2.5 2.5V7a3 3 0 0 0-2 5.2A3 3 0 0 0 7 17v.5A2.5 2.5 0 0 0 9.5 20 2.5 2.5 0 0 0 12 17.5V4Z" />
-      <path d="M14.5 4A2.5 2.5 0 0 1 17 6.5V7a3 3 0 0 1 2 5.2 3 3 0 0 1-2 4.8v.5a2.5 2.5 0 0 1-2.5 2.5A2.5 2.5 0 0 1 12 17.5V4Z" />
-    </svg>
-  );
-}
+};
