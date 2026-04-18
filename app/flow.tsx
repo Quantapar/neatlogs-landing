@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { motion, useInView } from "motion/react";
+import { motion, useInView, useScroll, useTransform } from "motion/react";
 
 const COS30 = 0.8660254;
 const SIN30 = 0.5;
@@ -102,10 +102,7 @@ export function Flow() {
               {STEPS.map((s, i) => {
                 const isActive = i === active;
                 return (
-                  <li
-                    key={s.id}
-                    className="border-b border-zinc-900/10"
-                  >
+                  <li key={s.id} className="border-b border-zinc-900/10">
                     <div
                       className={`relative transition-colors duration-200 ${
                         isActive ? "bg-white/50" : ""
@@ -177,9 +174,19 @@ export function Flow() {
   );
 }
 
-function StackViz({ active, onSelect }: { active: number; onSelect: (index: number) => void; }) {
-  const ref = useRef<SVGSVGElement>(null);
+function StackViz({
+  active,
+  onSelect,
+}: {
+  active: number;
+  onSelect: (index: number) => void;
+}) {
+  const ref = useRef<any>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const { scrollYProgress } = useScroll({
+    offset: ["start 75%", "end 25%"],
+  });
 
   const positions = computeSlabLayout();
   const lastPos = positions[positions.length - 1];
@@ -192,7 +199,11 @@ function StackViz({ active, onSelect }: { active: number; onSelect: (index: numb
   for (let i = positions.length - 2; i >= 0; i--) {
     const belowStep = positions[i + 1].step;
     const currentStep = positions[i].step;
-    stackedYs[i] = stackedYs[i + 1] + 0.5 * (belowStep.w - currentStep.w) - belowStep.h - SLAB_BASE_H;
+    stackedYs[i] =
+      stackedYs[i + 1] +
+      0.5 * (belowStep.w - currentStep.w) -
+      belowStep.h -
+      SLAB_BASE_H;
   }
 
   const connections = positions.slice(0, -1).map((pos, i) => {
@@ -240,12 +251,21 @@ function StackViz({ active, onSelect }: { active: number; onSelect: (index: numb
       </defs>
 
       {connections.map((c, i) => {
+        // Fade in and out dynamically based on scroll with identical holding zones
+        const startO = 0.2 + i * 0.05;
+        const endO = startO + 0.1;
+        const closeStartO = 0.55 + i * 0.05;
+        const closeEndO = closeStartO + 0.1;
+        const lineOpacity = useTransform(
+          scrollYProgress,
+          [0, startO, endO, closeStartO, closeEndO, 1],
+          [0, 0, 1, 1, 0, 0],
+        );
+
         return (
-          <motion.g 
+          <motion.g
             key={`connection-${c.key}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isInView ? 1 : 0 }}
-            transition={{ duration: 0.8, delay: 0.7 + i * 0.15 }}
+            style={{ opacity: lineOpacity }}
           >
             <line
               x1={c.cx}
@@ -267,26 +287,32 @@ function StackViz({ active, onSelect }: { active: number; onSelect: (index: numb
               strokeWidth="2.5"
               strokeLinecap="round"
               initial={false}
-              animate={{ pathLength: active > i ? 1 : 0, opacity: active > i ? 1 : 0 }}
+              animate={{
+                pathLength: active > i ? 1 : 0,
+                opacity: active > i ? 1 : 0,
+              }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             />
           </motion.g>
         );
       })}
 
-      {positions.map((pos, i) => (
-        <Slab
-          key={pos.step.id}
-          ox={SLAB_OX}
-          targetY={pos.oy}
-          stackedY={stackedYs[i]}
-          step={pos.step}
-          index={i}
-          active={i === active}
-          onClick={() => onSelect(i)}
-          isInView={isInView}
-        />
-      )).reverse()}
+      {positions
+        .map((pos, i) => (
+          <Slab
+            key={pos.step.id}
+            ox={SLAB_OX}
+            targetY={pos.oy}
+            stackedY={stackedYs[i]}
+            step={pos.step}
+            index={i}
+            active={i === active}
+            onClick={() => onSelect(i)}
+            isInView={isInView}
+            progress={scrollYProgress}
+          />
+        ))
+        .reverse()}
     </svg>
   );
 }
@@ -300,6 +326,7 @@ function Slab({
   active,
   onClick,
   isInView,
+  progress,
 }: {
   ox: number;
   targetY: number;
@@ -309,6 +336,7 @@ function Slab({
   active: boolean;
   onClick: () => void;
   isInView: boolean;
+  progress: any;
 }) {
   const oy = 0;
   const W = step.w;
@@ -345,143 +373,152 @@ function Slab({
   const glowRx = COS30 * W * 1.45;
   const glowRy = SIN30 * (W + D) * 0.85;
 
+  // Insert deliberate 'dwell times' so the closed stack is fully visible before opening
+  const openStart = 0.15 + index * 0.05;
+  const openEnd = openStart + 0.15;
+  const closeStart = 0.55 + (3 - index) * 0.05;
+  const closeEnd = closeStart + 0.15;
+
+  const scrollY = useTransform(
+    progress,
+    [0, openStart, openEnd, closeStart, closeEnd, 1],
+    [stackedY, stackedY, targetY, targetY, stackedY, stackedY],
+  );
+
   return (
-    <motion.g
-      onClick={onClick}
-      initial={{ x: 0, y: stackedY, opacity: 0 }}
-      animate={{ 
-        x: 0,
-        y: isInView ? targetY + (active ? -9 : 0) : stackedY, 
-        opacity: isInView ? 1 : 0 
-      }}
-      transition={{
-        y: { type: "spring", duration: 1.2, bounce: 0.22, delay: 0.3 + index * 0.15 },
-        opacity: { duration: 0.5, delay: 0 }
-      }}
-      className="group cursor-pointer"
-    >
-      <ellipse
-        cx={topCx}
-        cy={topCy + SIN30 * W / 2 + 4}
-        rx={glowRx}
-        ry={glowRy}
-        fill="url(#slabGlow)"
-        opacity={active ? 1 : 0}
-        style={{ transition: "opacity 420ms ease-out" }}
-      />
-
-      <ellipse
-        cx={shadowCx}
-        cy={shadowCy + 8}
-        rx={shadowRx * 1.15}
-        ry={shadowRy * 1.15}
-        fill="#09090b"
-        opacity={index === 3 ? (active ? 0.28 : 0) : 0}
-        filter="url(#slabBlur)"
-        style={{ transition: "all 300ms cubic-bezier(0.22, 1, 0.36, 1)" }}
-      />
-
-      {/* Resting shadow */}
-      <ellipse
-        cx={shadowCx}
-        cy={shadowCy}
-        rx={shadowRx}
-        ry={shadowRy}
-        fill="#09090b"
-        opacity={index === 3 ? (active ? 0 : 0.16) : 0}
-        filter="url(#slabBlur)"
-        style={{ transition: "all 300ms cubic-bezier(0.22, 1, 0.36, 1)" }}
-      />
-
-      <path
-        d={baseRight}
-        fill={active ? "#18181b" : "#a1a1aa"}
-        stroke={active ? "#000000" : "#52525b"}
-        strokeOpacity={active ? 0.5 : 0.28}
-        strokeWidth="1"
-        strokeLinejoin="round"
-        style={{ transition: "fill 260ms ease-out" }}
-      />
-      <path
-        d={baseLeft}
-        fill={active ? "#27272a" : "#d4d4d8"}
-        stroke={active ? "#000000" : "#52525b"}
-        strokeOpacity={active ? 0.4 : 0.24}
-        strokeWidth="1"
-        strokeLinejoin="round"
-        style={{ transition: "fill 260ms ease-out" }}
-      />
-      <path
-        d={baseTop}
-        fill={active ? "#3f3f46" : "#e4e4e7"}
-        stroke={active ? "#000000" : "#52525b"}
-        strokeOpacity={active ? 0.48 : 0.3}
-        strokeWidth="1"
-        strokeLinejoin="round"
-        style={{ transition: "fill 260ms ease-out" }}
-      />
-
-      <path
-        d={right}
-        fill={active ? "#09090b" : "#a1a1aa"}
-        stroke={active ? "#000000" : "#52525b"}
-        strokeOpacity={active ? 0.6 : 0.36}
-        strokeWidth="1"
-        strokeLinejoin="round"
-        style={{ transition: "fill 260ms ease-out" }}
-      />
-      <path
-        d={left}
-        fill={active ? "#1c1c1f" : "#d4d4d8"}
-        stroke={active ? "#000000" : "#52525b"}
-        strokeOpacity={active ? 0.5 : 0.3}
-        strokeWidth="1"
-        strokeLinejoin="round"
-        style={{ transition: "fill 260ms ease-out" }}
-      />
-      <path
-        d={top}
-        fill={active ? "url(#slabTopActive)" : "url(#slabTop)"}
-        stroke={active ? "#000000" : "#52525b"}
-        strokeOpacity={active ? 0.65 : 0.34}
-        strokeWidth="1"
-        strokeLinejoin="round"
-      />
-
-      <path
-        d={topMidLine}
-        stroke={active ? "#ffffff" : "#71717a"}
-        strokeOpacity={active ? 0.14 : 0.22}
-        strokeWidth="1"
-        fill="none"
-      />
-      <path
-        d={topCrossLine}
-        stroke={active ? "#ffffff" : "#71717a"}
-        strokeOpacity={active ? 0.14 : 0.22}
-        strokeWidth="1"
-        fill="none"
-      />
-
-
-
-      <text
-        x={labelX}
-        y={labelY}
-        style={{
-          fontSize: 11,
-          fontFamily: "ui-monospace, monospace",
-          letterSpacing: "0.22em",
-          textTransform: "uppercase",
-          fontWeight: active ? 700 : 500,
-          fill: active ? "#09090b" : "#71717a",
-          transition: "fill 200ms ease-out, font-weight 200ms ease-out",
+    <motion.g style={{ y: scrollY }}>
+      <motion.g
+        onClick={onClick}
+        initial={{ opacity: 0 }}
+        animate={{
+          y: active ? -9 : 0,
+          opacity: isInView ? 1 : 0,
         }}
+        transition={{
+          y: { type: "spring", duration: 0.6, bounce: 0.25 },
+          opacity: { duration: 0.5 },
+        }}
+        className="group cursor-pointer"
       >
-        {`0${index + 1} · ${step.label}`}
-      </text>
+        <ellipse
+          cx={topCx}
+          cy={topCy + (SIN30 * W) / 2 + 4}
+          rx={glowRx}
+          ry={glowRy}
+          fill="url(#slabGlow)"
+          opacity={active ? 1 : 0}
+          style={{ transition: "opacity 420ms ease-out" }}
+        />
+
+        <ellipse
+          cx={shadowCx}
+          cy={shadowCy + 8}
+          rx={shadowRx * 1.15}
+          ry={shadowRy * 1.15}
+          fill="#09090b"
+          opacity={index === 3 ? (active ? 0.28 : 0) : 0}
+          filter="url(#slabBlur)"
+          style={{ transition: "all 300ms cubic-bezier(0.22, 1, 0.36, 1)" }}
+        />
+
+        {/* Resting shadow */}
+        <ellipse
+          cx={shadowCx}
+          cy={shadowCy}
+          rx={shadowRx}
+          ry={shadowRy}
+          fill="#09090b"
+          opacity={index === 3 ? (active ? 0 : 0.16) : 0}
+          filter="url(#slabBlur)"
+          style={{ transition: "all 300ms cubic-bezier(0.22, 1, 0.36, 1)" }}
+        />
+
+        <path
+          d={baseRight}
+          fill={active ? "#18181b" : "#a1a1aa"}
+          stroke={active ? "#000000" : "#52525b"}
+          strokeOpacity={active ? 0.5 : 0.28}
+          strokeWidth="1"
+          strokeLinejoin="round"
+          style={{ transition: "fill 260ms ease-out" }}
+        />
+        <path
+          d={baseLeft}
+          fill={active ? "#27272a" : "#d4d4d8"}
+          stroke={active ? "#000000" : "#52525b"}
+          strokeOpacity={active ? 0.4 : 0.24}
+          strokeWidth="1"
+          strokeLinejoin="round"
+          style={{ transition: "fill 260ms ease-out" }}
+        />
+        <path
+          d={baseTop}
+          fill={active ? "#3f3f46" : "#e4e4e7"}
+          stroke={active ? "#000000" : "#52525b"}
+          strokeOpacity={active ? 0.48 : 0.3}
+          strokeWidth="1"
+          strokeLinejoin="round"
+          style={{ transition: "fill 260ms ease-out" }}
+        />
+
+        <path
+          d={right}
+          fill={active ? "#09090b" : "#a1a1aa"}
+          stroke={active ? "#000000" : "#52525b"}
+          strokeOpacity={active ? 0.6 : 0.36}
+          strokeWidth="1"
+          strokeLinejoin="round"
+          style={{ transition: "fill 260ms ease-out" }}
+        />
+        <path
+          d={left}
+          fill={active ? "#1c1c1f" : "#d4d4d8"}
+          stroke={active ? "#000000" : "#52525b"}
+          strokeOpacity={active ? 0.5 : 0.3}
+          strokeWidth="1"
+          strokeLinejoin="round"
+          style={{ transition: "fill 260ms ease-out" }}
+        />
+        <path
+          d={top}
+          fill={active ? "url(#slabTopActive)" : "url(#slabTop)"}
+          stroke={active ? "#000000" : "#52525b"}
+          strokeOpacity={active ? 0.65 : 0.34}
+          strokeWidth="1"
+          strokeLinejoin="round"
+        />
+
+        <path
+          d={topMidLine}
+          stroke={active ? "#ffffff" : "#71717a"}
+          strokeOpacity={active ? 0.14 : 0.22}
+          strokeWidth="1"
+          fill="none"
+        />
+        <path
+          d={topCrossLine}
+          stroke={active ? "#ffffff" : "#71717a"}
+          strokeOpacity={active ? 0.14 : 0.22}
+          strokeWidth="1"
+          fill="none"
+        />
+
+        <text
+          x={labelX}
+          y={labelY}
+          style={{
+            fontSize: 11,
+            fontFamily: "ui-monospace, monospace",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            fontWeight: active ? 700 : 500,
+            fill: active ? "#09090b" : "#71717a",
+            transition: "fill 200ms ease-out, font-weight 200ms ease-out",
+          }}
+        >
+          {`0${index + 1} · ${step.label}`}
+        </text>
+      </motion.g>
     </motion.g>
   );
 }
-
-
