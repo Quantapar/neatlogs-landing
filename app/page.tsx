@@ -8,6 +8,7 @@ import { MeetNeatlogs } from "./meet-neatlogs";
 import { Integrations } from "./integrations";
 import { Reviews } from "./reviews";
 import { Pricing } from "./pricing";
+import { FAQ } from "./faq";
 
 export default function Home() {
   return (
@@ -70,6 +71,7 @@ export default function Home() {
       <Integrations />
       <Reviews />
       <Pricing />
+      <FAQ />
     </main>
   );
 }
