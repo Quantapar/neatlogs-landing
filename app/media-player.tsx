@@ -73,7 +73,7 @@ export function MediaPlayer() {
                 setStarted(false);
               }}
               onClick={togglePlay}
-              className={`absolute inset-0 size-full cursor-pointer bg-black object-cover transition-opacity duration-500 ${
+              className={`absolute inset-0 size-full cursor-pointer bg-black object-cover transition-opacity duration-300 ease-out ${
                 started ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             />
@@ -94,15 +94,15 @@ export function MediaPlayer() {
                     type="button"
                     onClick={togglePlay}
                     aria-label="Play product walkthrough"
-                    className="group relative flex size-20 cursor-pointer items-center justify-center rounded-full bg-white/85 text-zinc-950 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.25),0_0_0_1px_rgba(0,0,0,0.04)_inset] backdrop-blur-md transition-transform duration-200 ease-out touch-manipulation hover:scale-[1.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-95 motion-reduce:transition-none sm:size-[88px]"
+                    className="group relative flex size-20 cursor-pointer items-center justify-center rounded-full bg-white/85 text-zinc-950 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.25),0_0_0_1px_rgba(0,0,0,0.04)_inset] backdrop-blur-md transition-transform duration-200 ease touch-manipulation hover:scale-[1.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-[0.97] motion-reduce:transition-none sm:size-[88px]"
                   >
                     <span
                       aria-hidden="true"
-                      className="absolute -inset-3 rounded-full border border-white/70 transition-transform duration-500 ease-out group-hover:scale-[1.08] motion-reduce:transition-none"
+                      className="absolute -inset-3 rounded-full border border-white/70 transition-transform duration-[250ms] ease group-hover:scale-[1.08] motion-reduce:transition-none"
                     />
                     <span
                       aria-hidden="true"
-                      className="absolute -inset-6 rounded-full border border-white/40 transition-transform duration-700 ease-out group-hover:scale-[1.06] motion-reduce:transition-none"
+                      className="absolute -inset-6 rounded-full border border-white/40 transition-transform duration-[300ms] ease group-hover:scale-[1.06] motion-reduce:transition-none"
                     />
                     <IconPlay className="size-7 translate-x-[1px] sm:size-8" />
                   </button>
@@ -171,7 +171,7 @@ function ControlButton({
       type="button"
       onClick={onClick}
       aria-label={ariaLabel}
-      className={`inline-flex h-10 cursor-pointer items-center gap-2 rounded-full bg-white text-[13px] font-medium text-zinc-900 shadow-[0_1px_2px_rgba(12,20,40,0.08),0_0_0_1px_rgba(12,20,40,0.06)] transition-[transform,background-color,box-shadow] duration-150 ease-out touch-manipulation hover:bg-zinc-50 hover:shadow-[0_4px_10px_-4px_rgba(12,20,40,0.12),0_0_0_1px_rgba(12,20,40,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100 ${
+      className={`inline-flex h-10 cursor-pointer items-center gap-2 rounded-full bg-white text-[13px] font-medium text-zinc-900 shadow-[0_1px_2px_rgba(12,20,40,0.08),0_0_0_1px_rgba(12,20,40,0.06)] transition-[transform,background-color,box-shadow] duration-150 ease touch-manipulation hover:bg-zinc-50 hover:shadow-[0_4px_10px_-4px_rgba(12,20,40,0.12),0_0_0_1px_rgba(12,20,40,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100 ${
         round ? "w-10 justify-center p-0" : "px-4"
       }`}
     >

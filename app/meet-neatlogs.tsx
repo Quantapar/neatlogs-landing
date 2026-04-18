@@ -26,7 +26,7 @@ export function MeetNeatlogs() {
       <div className="mx-auto max-w-6xl px-6 text-center">
         <span
           translate="no"
-          className="font-pixel text-3xl font-medium tracking-[-0.01em] sm:text-4xl"
+          className="text-2xl sm:text-3xl font-semibold tracking-tight"
           style={{ color: ACCENT }}
         >
           <Reveal progress={scrollYProgress} from={0.14} to={0.2}>
@@ -34,7 +34,7 @@ export function MeetNeatlogs() {
           </Reveal>
         </span>
 
-        <h2 className="font-pixel mt-4 text-balance text-4xl font-medium leading-[1.08] tracking-[-0.01em] sm:text-5xl md:text-6xl lg:text-[64px]">
+        <h2 className="mt-5 text-balance text-4xl font-semibold leading-[1.04] tracking-[-0.03em] sm:text-5xl md:text-6xl lg:text-[72px]">
           <span className="text-zinc-500">
             <Reveal
               progress={scrollYProgress}
@@ -225,7 +225,7 @@ function Era({
       }`}
     >
       <div className="flex items-center gap-2">
-        <span className="font-pixel text-[10px] uppercase tracking-[0.22em] text-zinc-500">
+        <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-zinc-500">
           <Reveal
             progress={progress}
             from={from}
@@ -259,7 +259,7 @@ function Era({
       <div className="text-center">
         <div
           translate="no"
-          className="font-pixel text-[15px] font-medium tracking-[-0.01em]"
+          className="text-[16px] font-semibold tracking-tight"
           style={active ? { color: ACCENT } : { color: "rgb(24,24,27)" }}
         >
           <Reveal

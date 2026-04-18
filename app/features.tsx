@@ -10,14 +10,14 @@ export function Features() {
     >
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-4xl text-center">
-          <span className="font-pixel text-[11px] uppercase tracking-[0.2em] text-zinc-600">
+          <span className="text-[12px] font-medium uppercase tracking-[0.15em] text-zinc-600">
             Why Neatlogs
           </span>
-          <h2 className="mt-5 text-balance text-4xl leading-[1.08] tracking-[-0.01em] text-zinc-950 sm:text-5xl md:text-[58px]">
-            <span className="font-pixel font-medium">
+          <h2 className="mt-5 text-balance text-4xl leading-[1.08] tracking-[-0.03em] text-zinc-950 sm:text-5xl md:text-[58px]">
+            <span className="font-semibold">
               Most teams don&rsquo;t have a visibility problem.
             </span>{" "}
-            <span className="font-serif-display font-normal italic">
+            <span className="text-zinc-500 font-medium tracking-tight">
               They have a handoff problem.
             </span>
           </h2>
@@ -94,7 +94,7 @@ function FeatureCard({
   const isDark = tone === "dark";
   return (
     <article
-      className={`group relative flex flex-col overflow-hidden rounded-2xl p-6 ring-1 transition-[transform,box-shadow,background-color] duration-200 ease-out will-change-transform motion-reduce:transition-none hover:-translate-y-0.5 sm:p-7 ${
+      className={`group relative flex flex-col overflow-hidden rounded-2xl p-6 ring-1 transition-[transform,box-shadow,background-color] duration-200 ease will-change-transform motion-reduce:transition-none hover:-translate-y-0.5 ${
         isDark
           ? "bg-zinc-950 text-white ring-black/10 hover:shadow-[0_22px_52px_-22px_rgba(0,0,0,0.55)]"
           : "bg-white/80 text-zinc-950 ring-zinc-900/5 hover:bg-white hover:shadow-[0_14px_36px_-20px_rgba(12,20,40,0.25)]"
@@ -102,7 +102,7 @@ function FeatureCard({
     >
       <div className={horizontal ? "lg:max-w-sm" : ""}>
         <span
-          className={`inline-flex size-9 items-center justify-center rounded-xl ring-1 transition-transform duration-200 ease-out group-hover:scale-[1.06] motion-reduce:transition-none ${
+          className={`inline-flex size-9 items-center justify-center rounded-xl ring-1 transition-transform duration-200 ease group-hover:scale-[1.04] motion-reduce:transition-none ${
             isDark
               ? "bg-white/5 text-white ring-white/10"
               : "bg-zinc-900/[0.03] text-zinc-900 ring-zinc-900/10"
@@ -111,7 +111,7 @@ function FeatureCard({
           {icon}
         </span>
         <h3
-          className={`font-pixel mt-5 text-[22px] font-medium leading-[1.18] tracking-[-0.01em] sm:text-[24px] ${
+          className={`mt-6 text-[20px] font-semibold tracking-tight leading-[1.18] sm:text-[22px] ${
             isDark ? "text-white" : "text-zinc-950"
           }`}
         >
@@ -147,14 +147,14 @@ function AlertVisual() {
       {rows.map((r, i) => (
         <div
           key={r.title}
-          className={`flex items-center gap-3 rounded-lg px-3 py-2.5 ring-1 transition-transform duration-300 ease-out will-change-transform group-hover:translate-x-1 motion-reduce:transition-none ${
+          className={`flex items-center gap-3 rounded-lg px-3 py-2.5 ring-1 transition-transform duration-200 ease will-change-transform group-hover:translate-x-1 motion-reduce:transition-none ${
             i === 0
               ? "bg-white/[0.07] ring-white/15"
               : "bg-white/[0.02] ring-white/10"
           }`}
           style={{ transitionDelay: `${r.delay}ms` }}
         >
-          <span className="font-pixel text-[9px] uppercase tracking-[0.2em] text-white/35 [font-variant-numeric:tabular-nums]">
+          <span className="text-[10px] uppercase font-mono tracking-widest text-white/35">
             0{i + 1}
           </span>
           <span className="flex-1 truncate text-[12px] font-medium text-white/90">
@@ -203,9 +203,9 @@ function AvatarVisual() {
           return (
             <span
               key={m.initials}
-              className={`flex size-8 items-center justify-center rounded-full text-[10.5px] font-semibold transition-[transform,opacity,box-shadow] duration-300 ease-out will-change-transform motion-reduce:transition-none ${
+              className={`flex size-8 items-center justify-center rounded-full text-[10.5px] font-semibold transition-[transform,opacity,box-shadow] duration-250 ease will-change-transform motion-reduce:transition-none ${
                 isActive
-                  ? "scale-[1.14] opacity-100 shadow-[0_0_0_2px_rgb(9,9,11)]"
+                  ? "scale-[1.12] opacity-100 shadow-[0_0_0_2px_rgb(9,9,11)]"
                   : "opacity-45 shadow-[0_0_0_1px_rgba(24,24,27,0.1)]"
               }`}
               style={{ backgroundColor: m.bg, color: "#ffffff" }}
@@ -226,7 +226,7 @@ function AvatarVisual() {
                 : "pointer-events-none translate-y-1 opacity-0"
             }`}
           >
-            <span className="font-pixel text-[10px] uppercase tracking-[0.18em] text-zinc-900">
+            <span className="text-[10px] font-mono tracking-widest uppercase text-zinc-900">
               {m.role}
             </span>
             <span className="text-zinc-300">—</span>
@@ -249,7 +249,7 @@ function TimerVisual() {
           className="absolute inset-y-0 left-0 w-[35%] rounded-full bg-zinc-950 transition-[width] duration-[450ms] ease-out group-hover:w-[78%] motion-reduce:transition-none"
         />
       </div>
-      <div className="mt-3 flex items-center justify-between font-pixel text-[10px] uppercase tracking-[0.16em] text-zinc-500 [font-variant-numeric:tabular-nums]">
+      <div className="mt-3 flex items-center justify-between text-[11px] font-mono tracking-widest uppercase text-zinc-500 [font-variant-numeric:tabular-nums]">
         <span>Alert</span>
         <span className="text-zinc-900">7m 42s</span>
         <span>Shipped</span>
@@ -276,7 +276,7 @@ function DiffVisual() {
         {lines.map((l) => (
           <div
             key={l.text}
-            className="flex items-center gap-2 rounded bg-zinc-900/[0.03] px-2 py-1 transition-transform duration-300 ease-out will-change-transform group-hover:translate-x-0.5 motion-reduce:transition-none"
+            className="flex items-center gap-2 rounded bg-zinc-900/[0.03] px-2 py-1 transition-transform duration-[200ms] ease-out will-change-transform group-hover:translate-x-0.5 motion-reduce:transition-none"
             style={{ transitionDelay: `${l.delay}ms` }}
           >
             <span className="w-2 text-zinc-400">{l.mark}</span>
@@ -314,7 +314,7 @@ function SparklineVisual() {
           className="transition-[stroke-width] duration-[300ms] ease-out group-hover:[stroke-width:2.2] motion-reduce:transition-none"
         />
       </svg>
-      <div className="mt-1 flex items-center justify-between font-pixel text-[10px] uppercase tracking-[0.16em] text-zinc-500">
+      <div className="mt-1 flex items-center justify-between text-[11px] font-mono tracking-widest uppercase text-zinc-500">
         <span>30 days</span>
         <span className="text-zinc-900">Stable</span>
       </div>
@@ -338,8 +338,8 @@ function FrameworksVisual() {
       {FRAMEWORKS.map((f, i) => (
         <span
           key={f}
-          className="inline-flex h-9 cursor-default items-center rounded-full border border-zinc-900/10 bg-white/90 px-3.5 text-[12.5px] font-medium text-zinc-800 shadow-[0_1px_2px_rgba(12,20,40,0.04)] transition-[transform,border-color,background-color,box-shadow] duration-300 ease-out will-change-transform group-hover:-translate-y-[3px] group-hover:border-zinc-900/20 group-hover:bg-white group-hover:shadow-[0_8px_20px_-10px_rgba(12,20,40,0.3)] motion-reduce:transition-none"
-          style={{ transitionDelay: `${i * 40}ms` }}
+          className="inline-flex h-9 cursor-default items-center rounded-full border border-zinc-900/10 bg-white/90 px-3.5 text-[12.5px] font-medium text-zinc-800 shadow-[0_1px_2px_rgba(12,20,40,0.04)] transition-[transform,border-color,background-color,box-shadow] duration-[250ms] ease will-change-transform group-hover:-translate-y-[2px] group-hover:border-zinc-900/20 group-hover:bg-white group-hover:shadow-[0_6px_16px_-8px_rgba(12,20,40,0.2)] motion-reduce:transition-none"
+          style={{ transitionDelay: `${i * 30}ms` }}
         >
           {f}
         </span>

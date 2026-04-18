@@ -156,10 +156,10 @@ export function HowItWorks() {
       <div className="lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center">
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
           <div className="mb-12 lg:mb-14">
-            <span className="font-pixel text-[11px] uppercase tracking-[0.18em] text-zinc-600">
+            <span className="text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
               How it works
             </span>
-            <h2 className="font-pixel mt-5 max-w-3xl text-balance text-4xl font-medium leading-[1.05] tracking-[-0.01em] text-zinc-950 sm:text-5xl lg:text-[52px]">
+            <h2 className="mt-5 max-w-3xl text-balance text-4xl font-semibold leading-[1.04] tracking-[-0.03em] text-zinc-950 sm:text-5xl lg:text-[56px]">
               From broken agent{" "}
               <span className="text-zinc-500">to shipped fix.</span>
             </h2>
@@ -211,7 +211,7 @@ function StepTile({
   onSelect: () => void;
 }) {
   const easing = "cubic-bezier(0.22, 1, 0.36, 1)";
-  const duration = active ? 600 : 320;
+  const duration = active ? 250 : 150;
 
   return (
     <button
@@ -240,7 +240,7 @@ function StepTile({
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <span
-              className="font-pixel text-[11px] uppercase tracking-[0.2em] motion-reduce:transition-none"
+              className="font-mono text-[11px] uppercase tracking-widest motion-reduce:transition-none"
               style={{
                 color: active
                   ? "rgba(255,255,255,0.6)"
@@ -251,7 +251,7 @@ function StepTile({
               0{index + 1}
             </span>
             <span
-              className="font-pixel text-[11px] font-medium uppercase tracking-[0.18em] motion-reduce:transition-none"
+              className="text-[12px] font-semibold uppercase tracking-[0.12em] motion-reduce:transition-none"
               style={{
                 color: active ? "#ffffff" : "rgb(24, 24, 27)",
                 textDecoration: "underline wavy",
@@ -302,12 +302,12 @@ function Device({ activeIndex }: { activeIndex: number }) {
             </span>
             <span
               translate="no"
-              className="font-pixel text-[10px] uppercase tracking-[0.18em] text-zinc-500"
+              className="font-mono text-[11px] uppercase tracking-widest text-zinc-500"
             >
               neatlogs · trace
             </span>
           </div>
-          <span className="font-pixel text-[10px] uppercase tracking-[0.16em] text-zinc-400 [font-variant-numeric:tabular-nums]">
+          <span className="font-mono text-[11px] tracking-widest uppercase text-zinc-400 [font-variant-numeric:tabular-nums]">
             0{activeIndex + 1} / 0{STEPS.length}
           </span>
         </div>
@@ -353,8 +353,8 @@ function FrameLayer({
       aria-hidden={!active}
       className={`absolute inset-0 p-5 transition-opacity ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[opacity] motion-reduce:transition-none sm:p-6 ${
         active
-          ? "opacity-100 duration-[480ms]"
-          : "pointer-events-none opacity-0 duration-[260ms]"
+          ? "opacity-100 duration-[250ms]"
+          : "pointer-events-none opacity-0 duration-[150ms]"
       }`}
     >
       <div key={replayKey}>{children}</div>
@@ -369,11 +369,11 @@ function BreakFrame() {
         <div className="flex items-center justify-between">
           <span
             translate="no"
-            className="font-pixel text-[10px] uppercase tracking-[0.16em] text-zinc-500"
+            className="font-mono text-[11px] uppercase tracking-widest text-zinc-500"
           >
             workflow · research-agent
           </span>
-          <span className="font-pixel text-[10px] uppercase tracking-[0.14em] text-red-600">
+          <span className="font-mono text-[11px] uppercase tracking-widest text-red-600">
             failing · 02s ago
           </span>
         </div>
@@ -422,11 +422,11 @@ function ReadFrame() {
         <div className="flex items-center justify-between">
           <span
             translate="no"
-            className="font-pixel text-[10px] uppercase tracking-[0.16em] text-zinc-500"
+            className="font-mono text-[11px] uppercase tracking-widest text-zinc-500"
           >
             summary · plain english
           </span>
-          <span className="rounded-full bg-zinc-900/[0.05] px-2 py-[3px] text-[10px] font-medium uppercase tracking-[0.12em] text-zinc-700">
+          <span className="rounded-full bg-zinc-900/[0.05] px-2 py-[3px] font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-zinc-700">
             run #4821
           </span>
         </div>
@@ -457,10 +457,10 @@ function ReadFrame() {
                 <span className="text-[13px] font-medium text-zinc-900">
                   Maya Kim
                 </span>
-                <span className="font-pixel text-[10px] uppercase tracking-[0.14em] text-zinc-400">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">
                   Product
                 </span>
-                <span className="ml-auto text-[11px] text-zinc-400">
+                <span className="ml-auto font-mono text-[11px] text-zinc-400">
                   4m ago
                 </span>
               </div>
@@ -483,11 +483,11 @@ function FixFrame() {
         <div className="flex items-center justify-between">
           <span
             translate="no"
-            className="font-pixel text-[10px] uppercase tracking-[0.16em] text-zinc-500"
+            className="font-mono text-[11px] uppercase tracking-widest text-zinc-500"
           >
             suggested fix
           </span>
-          <span className="rounded-full bg-emerald-50 px-2 py-[3px] text-[10px] font-medium uppercase tracking-[0.12em] text-emerald-700">
+          <span className="rounded-full bg-emerald-50 px-2 py-[3px] font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-emerald-700">
             AI-generated
           </span>
         </div>
@@ -561,11 +561,11 @@ function ShipFrame() {
         <div className="flex items-center justify-between">
           <span
             translate="no"
-            className="font-pixel text-[10px] uppercase tracking-[0.16em] text-zinc-500"
+            className="font-mono text-[11px] uppercase tracking-widest text-zinc-500"
           >
             thread · one context
           </span>
-          <span className="rounded-full bg-emerald-50 px-2 py-[3px] text-[10px] font-medium uppercase tracking-[0.12em] text-emerald-700">
+          <span className="rounded-full bg-emerald-50 px-2 py-[3px] font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-emerald-700">
             resolved
           </span>
         </div>
@@ -605,11 +605,11 @@ function ShipFrame() {
           <div className="flex items-center justify-between">
             <span
               translate="no"
-              className="font-pixel text-[10px] uppercase tracking-[0.18em] text-zinc-500"
+              className="font-mono text-[11px] uppercase tracking-[0.12em] text-zinc-500 font-semibold"
             >
               Broken &rarr; Shipped
             </span>
-            <span className="font-pixel text-[10px] uppercase tracking-[0.16em] text-emerald-700">
+            <span className="font-mono text-[11px] uppercase tracking-widest text-emerald-700 font-semibold">
               29 min
             </span>
           </div>
@@ -627,10 +627,10 @@ function ShipFrame() {
 function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="font-pixel text-[9px] uppercase tracking-[0.14em] text-zinc-400">
+      <div className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">
         {label}
       </div>
-      <div className="mt-1 text-[15px] font-medium text-zinc-900 [font-variant-numeric:tabular-nums]">
+      <div className="mt-1 text-[16px] font-semibold text-zinc-900 [font-variant-numeric:tabular-nums]">
         {value}
       </div>
     </div>
@@ -718,7 +718,7 @@ function ThreadStep({
           : "border-zinc-900/10 bg-white/80"
       }`}
     >
-      <span className="font-pixel mt-1 text-[10px] uppercase tracking-[0.16em] text-zinc-400">
+      <span className="font-mono mt-1 text-[11px] uppercase tracking-widest text-zinc-400">
         {idx}
       </span>
       <span
