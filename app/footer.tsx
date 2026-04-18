@@ -1,19 +1,17 @@
 import React from 'react';
+import { ArrowUpRight } from 'lucide-react';
 
 export default function Footer2() {
     return (
         <footer className="relative overflow-hidden min-h-[500px] flex flex-col justify-between bg-[#EAF3F6]">
-            {/* Background Image */}
             <img
                 src="https://res.cloudinary.com/dbvotc5ja/image/upload/fl_preserve_transparency/v1776509483/WhatsApp_Image_2026-04-18_at_16.17.28_gjagin.jpg?_s=public-apps"
                 alt="Background Landscape"
                 className="absolute inset-0 w-full h-full object-cover z-0"
             />
-            
-            {/* Seamless Top Fade */}
+
             <div className="absolute top-0 inset-x-0 h-48 bg-gradient-to-b from-[#EAF3F6] to-transparent z-0 pointer-events-none" />
 
-            {/* Top Overlay Section */}
             <div className="relative z-10 w-full pt-16 px-6 md:px-12 flex-1 flex flex-col">
                 <div className="flex flex-row justify-between items-end w-full mb-8">
                     <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] text-black font-medium tracking-tighter leading-none">
@@ -24,40 +22,37 @@ export default function Footer2() {
                     </p>
                 </div>
 
-                {/* Divider */}
                 <div className="w-full h-[1px] bg-black/10 mb-6" />
 
-                {/* Links Section */}
                 <div className="flex flex-col md:flex-row justify-between items-start text-[10px] sm:text-xs tracking-[0.15em] font-semibold uppercase text-black/70 font-mono">
                     <div className="flex flex-col gap-3 mb-6 md:mb-0">
                         <div className="flex gap-4 items-center">
-                            <a href="#" className="">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/LinkedIn_icon.svg/3840px-LinkedIn_icon.svg.png" alt="LinkedIn" className="w-4 h-4 object-contain " />
+                            <a href="#" aria-label="LinkedIn" className="cursor-pointer">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/LinkedIn_icon.svg/3840px-LinkedIn_icon.svg.png" alt="LinkedIn" className="w-4 h-4 object-contain" />
                             </a>
-                            <a href="#" className="">
+                            <a href="#" aria-label="X (Twitter)" className="cursor-pointer">
                                 <img src="https://img.freepik.com/free-vector/new-2023-twitter-logo-x-icon-design_1017-45418.jpg?w=360" alt="X (Twitter)" className="w-4 h-4 object-contain" />
                             </a>
-                            <a href="#" className="">
-                                <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" className="w-4 h-4 object-contain " />
+                            <a href="#" aria-label="GitHub" className="cursor-pointer">
+                                <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" className="w-4 h-4 object-contain" />
                             </a>
                         </div>
                         <span className="text-[8px] sm:text-[9px] opacity-50 tracking-wider">
-                            ©️ NEATLOGS INC. 2026
+                            © NEATLOGS INC. 2026
                         </span>
                     </div>
 
                     <div className="flex flex-wrap gap-x-8 gap-y-4 pt-1">
-                        <a href="#" className="hover:text-black flex items-center gap-1">Features ↗️</a>
-                        <a href="#" className="hover:text-black flex items-center gap-1">Pricing ↗️</a>
-                        <a href="#" className="hover:text-black flex items-center gap-1">Docs ↗️</a>
-                        <a href="#" className="hover:text-black flex items-center gap-1">Contact ↗️</a>
+                        <a href="#" className="cursor-pointer hover:text-black flex items-center gap-1.5 group">Features <ArrowUpRight className="w-3.5 h-3.5 text-zinc-900 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.75} /></a>
+                        <a href="#" className="cursor-pointer hover:text-black flex items-center gap-1.5 group">Pricing <ArrowUpRight className="w-3.5 h-3.5 text-zinc-900 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.75} /></a>
+                        <a href="#" className="cursor-pointer hover:text-black flex items-center gap-1.5 group">Docs <ArrowUpRight className="w-3.5 h-3.5 text-zinc-900 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.75} /></a>
+                        <a href="#" className="cursor-pointer hover:text-black flex items-center gap-1.5 group">Contact <ArrowUpRight className="w-3.5 h-3.5 text-zinc-900 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.75} /></a>
                     </div>
                 </div>
             </div>
 
-            {/* Giant Bottom Text */}
             <div className="relative z-10 w-full flex justify-center mt-auto translate-y-[9%]">
-                <h1 className="text-[29vw] text-black font-normal leading-[0.75] tracking-tighter pointer-events-none mix-blend-normal">
+                <h1 className="text-[29vw] text-black font-normal leading-[0.75] tracking-tighter pointer-events-none">
                     neatlogs
                 </h1>
             </div>

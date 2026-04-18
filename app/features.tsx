@@ -150,7 +150,7 @@ export const Features = () => {
             {FEATURES.map((feature, index) => (
               <div
                 key={feature.id}
-                className="group relative p-[6px] rounded-[28px] bg-zinc-950 border border-zinc-950 shadow-[0_18px_40px_-22px_rgba(0,0,0,0.45)] transition-colors duration-500"
+                className="group relative p-1.5 rounded-[28px] bg-zinc-950 border border-zinc-950 shadow-[0_18px_40px_-22px_rgba(0,0,0,0.45)] transition-colors duration-500"
                 style={{ transitionDelay: `${index * 50}ms` }}
               >
                 <div className="h-full bg-white rounded-[22px] ring-1 ring-zinc-900/10 p-5 sm:p-6 flex flex-col shadow-[inset_0_1px_1px_rgba(255,255,255,1)] group-hover:bg-zinc-50 transition-all duration-500">
