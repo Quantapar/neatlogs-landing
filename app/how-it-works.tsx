@@ -2,6 +2,7 @@
 
 import {
   type ReactNode,
+  type RefObject,
   type SVGProps,
   useCallback,
   useEffect,
@@ -9,6 +10,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { motion, useScroll, useSpring, useTransform } from "motion/react";
 
 const STEPS = [
   {
@@ -73,7 +75,7 @@ export function HowItWorks() {
       const progress = Math.max(0, Math.min(0.9999, scrolled / scrollable));
       const target = Math.min(
         STEPS.length - 1,
-        Math.floor(progress * STEPS.length)
+        Math.floor(progress * STEPS.length),
       );
       const current = activeRef.current;
       if (target === current) return;
@@ -85,7 +87,7 @@ export function HowItWorks() {
         clearPending();
         pendingTimeoutRef.current = window.setTimeout(
           tryUpdate,
-          STEP_LOCK_MS - sinceLast + 16
+          STEP_LOCK_MS - sinceLast + 16,
         );
         return;
       }
@@ -100,7 +102,7 @@ export function HowItWorks() {
         clearPending();
         pendingTimeoutRef.current = window.setTimeout(
           tryUpdate,
-          STEP_LOCK_MS + 16
+          STEP_LOCK_MS + 16,
         );
       }
     };
@@ -168,7 +170,7 @@ export function HowItWorks() {
           <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12">
             <Device activeIndex={activeIndex} />
 
-            <div className="flex flex-col gap-3">
+            <div className="relative flex flex-col gap-3">
               {STEPS.map((step, i) => (
                 <div
                   key={step.id}
@@ -187,11 +189,149 @@ export function HowItWorks() {
                   />
                 </div>
               ))}
+              <ScrollProgress
+                sectionRef={sectionRef}
+                totalSteps={STEPS.length}
+              />
             </div>
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function ScrollProgress({
+  sectionRef,
+  totalSteps,
+}: {
+  sectionRef: RefObject<HTMLElement | null>;
+  totalSteps: number;
+}) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const pathRef = useRef<SVGPathElement | null>(null);
+  const [svgHeight, setSvgHeight] = useState(0);
+  const [pathLength, setPathLength] = useState(0);
+
+  useLayoutEffect(() => {
+    const node = containerRef.current;
+    if (!node) return;
+    const measure = () => setSvgHeight(node.offsetHeight);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(node);
+    return () => ro.disconnect();
+  }, []);
+
+  useLayoutEffect(() => {
+    if (pathRef.current && svgHeight > 0) {
+      setPathLength(pathRef.current.getTotalLength());
+    }
+  }, [svgHeight]);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+  const smooth = useSpring(scrollYProgress, {
+    stiffness: 220,
+    damping: 40,
+    mass: 0.4,
+  });
+
+  const dashOffset = useTransform(smooth, (v) => pathLength * (1 - v));
+  const dotCx = useTransform(smooth, (v) => {
+    if (!pathRef.current || pathLength === 0) return 3;
+    return pathRef.current.getPointAtLength(v * pathLength).x;
+  });
+  const dotCy = useTransform(smooth, (v) => {
+    if (!pathRef.current || pathLength === 0) return 0;
+    return pathRef.current.getPointAtLength(v * pathLength).y;
+  });
+
+  const leftX = 3;
+  const midX = 11;
+  const rightX = 19;
+  const diag = 10;
+  const flat = 40;
+  const bends: { cy: number; dir: 1 | -1 }[] = [
+    { cy: svgHeight * 0.25, dir: 1 },
+    { cy: svgHeight * 0.5, dir: -1 },
+    { cy: svgHeight * 0.75, dir: 1 },
+  ];
+
+  const d = svgHeight
+    ? [
+        `M ${midX} 0`,
+        ...bends.flatMap(({ cy, dir }) => {
+          const outX = dir === 1 ? rightX : leftX;
+          const enterY = cy - diag - flat / 2;
+          const outStartY = cy - flat / 2;
+          const outEndY = cy + flat / 2;
+          const exitY = cy + diag + flat / 2;
+          return [
+            `L ${midX} ${enterY}`,
+            `L ${outX} ${outStartY}`,
+            `L ${outX} ${outEndY}`,
+            `L ${midX} ${exitY}`,
+          ];
+        }),
+        `L ${midX} ${svgHeight}`,
+      ].join(" ")
+    : "";
+
+  return (
+    <div
+      ref={containerRef}
+      aria-hidden="true"
+      className="pointer-events-none absolute -right-10 top-0 bottom-0 hidden w-[22px] lg:block"
+    >
+      {svgHeight > 0 && (
+        <svg
+          viewBox={`0 0 22 ${svgHeight}`}
+          width="22"
+          height={svgHeight}
+          className="block"
+        >
+          <path
+            d={d}
+            stroke="rgba(9,9,11,0.12)"
+            strokeWidth="1.5"
+            strokeLinecap="square"
+            strokeLinejoin="miter"
+            fill="none"
+          />
+          <motion.path
+            ref={pathRef}
+            d={d}
+            stroke="#09090b"
+            strokeWidth="1.5"
+            strokeLinecap="square"
+            strokeLinejoin="miter"
+            fill="none"
+            style={{
+              strokeDasharray: pathLength,
+              strokeDashoffset: dashOffset,
+            }}
+          />
+          <motion.circle
+            r={3.5}
+            fill="#09090b"
+            style={{ cx: dotCx, cy: dotCy }}
+          />
+          <motion.circle
+            r={6}
+            fill="none"
+            stroke="rgba(234,243,246,1)"
+            strokeWidth={3}
+            style={{ cx: dotCx, cy: dotCy }}
+          />
+        </svg>
+      )}
+      <span className="sr-only">
+        Scroll progress through {totalSteps} steps
+      </span>
+    </div>
   );
 }
 
@@ -242,9 +382,7 @@ function StepTile({
             <span
               className="font-mono text-[11px] uppercase tracking-widest motion-reduce:transition-none"
               style={{
-                color: active
-                  ? "rgba(255,255,255,0.6)"
-                  : "rgb(161, 161, 170)",
+                color: active ? "rgba(255,255,255,0.6)" : "rgb(161, 161, 170)",
                 transition: `color ${duration}ms ${easing}`,
               }}
             >
@@ -277,9 +415,7 @@ function StepTile({
         <p
           className="font-ui mt-2 text-[13.5px] leading-relaxed motion-reduce:transition-none"
           style={{
-            color: active
-              ? "rgba(255,255,255,0.7)"
-              : "rgb(82, 82, 91)",
+            color: active ? "rgba(255,255,255,0.7)" : "rgb(82, 82, 91)",
             transition: `color ${duration}ms ${easing}`,
           }}
         >
@@ -465,8 +601,8 @@ function ReadFrame() {
                 </span>
               </div>
               <p className="mt-1 text-[13px] leading-relaxed text-zinc-700">
-                This is citing the 2019 list — we rolled out new pricing in
-                Feb. Source picker looks off.
+                This is citing the 2019 list — we rolled out new pricing in Feb.
+                Source picker looks off.
               </p>
             </div>
           </div>
@@ -502,9 +638,7 @@ function FixFrame() {
             >
               # source-picker.ts · research-agent
             </span>
-            <span className="font-mono text-[10px] text-zinc-400">
-              +12 −4
-            </span>
+            <span className="font-mono text-[10px] text-zinc-400">+12 −4</span>
           </div>
           <pre
             translate="no"
@@ -535,9 +669,9 @@ function FixFrame() {
             Why this fix
           </h4>
           <p className="mt-1 text-[12px] leading-relaxed text-zinc-600">
-            <span translate="no">fetch_context</span> exceeds 30s on 4% of
-            runs. Adds a graceful fallback to cached data so the agent never
-            returns empty.
+            <span translate="no">fetch_context</span> exceeds 30s on 4% of runs.
+            Adds a graceful fallback to cached data so the agent never returns
+            empty.
           </p>
         </div>
       </Stagger>
@@ -742,13 +876,7 @@ function ThreadStep({
   );
 }
 
-function Stagger({
-  delay,
-  children,
-}: {
-  delay: number;
-  children: ReactNode;
-}) {
+function Stagger({ delay, children }: { delay: number; children: ReactNode }) {
   return (
     <div
       className="animate-[row-in_500ms_cubic-bezier(0.16,1,0.3,1)_both] opacity-0 motion-reduce:animate-none motion-reduce:opacity-100"
@@ -822,7 +950,10 @@ function IconBranch(props: SVGProps<SVGSVGElement>) {
 function IconSlack(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-      <path d="M5.5 15a2 2 0 1 1 0-4h2v4h-2Zm1-6a2 2 0 1 1 0-4 2 2 0 0 1 2 2v2h-2Zm4 11a2 2 0 0 1-2-2v-2h4v2a2 2 0 0 1-2 2Zm6-2a2 2 0 1 1 0-4h2a2 2 0 0 1 0 4h-2Zm-1-11a2 2 0 0 1 2 2v2h-4V7a2 2 0 0 1 2-2Z" opacity=".9" />
+      <path
+        d="M5.5 15a2 2 0 1 1 0-4h2v4h-2Zm1-6a2 2 0 1 1 0-4 2 2 0 0 1 2 2v2h-2Zm4 11a2 2 0 0 1-2-2v-2h4v2a2 2 0 0 1-2 2Zm6-2a2 2 0 1 1 0-4h2a2 2 0 0 1 0 4h-2Zm-1-11a2 2 0 0 1 2 2v2h-4V7a2 2 0 0 1 2-2Z"
+        opacity=".9"
+      />
     </svg>
   );
 }
