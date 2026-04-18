@@ -94,7 +94,8 @@ export function MeetNeatlogs() {
               label="Agents get"
               brand="NEATLOGS"
               image="https://res.cloudinary.com/dbvotc5ja/image/upload/fl_preserve_transparency/v1776514255/github_1_poc9zo.jpg?_s=public-apps"
-              icon="./nl-logo.png"
+              icon="/nl-logo.png"
+              iconAsIs
             />
           </div>
         </div>
@@ -118,12 +119,14 @@ function FolderCard({
   brand,
   image,
   icon,
+  iconAsIs = false,
 }: {
   number: string;
   label: string;
   brand: string;
   image: string;
   icon: string;
+  iconAsIs?: boolean;
 }) {
   return (
     <div className="group relative w-full h-[260px] lg:h-[250px] xl:h-[280px] bg-[#0c0c0c] rounded-[48px] p-2 xl:p-3 shadow-2xl transition-all duration-500 ease-out hover:-translate-y-4 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)]">
@@ -172,10 +175,14 @@ function FolderCard({
                 <span className="text-white opacity-25 text-[34px] lg:text-[34px] xl:text-[44px] font-bold tracking-tighter leading-none truncate">
                   {brand}
                 </span>
-                <img 
-                  src={icon} 
-                  alt="Icon" 
-                  className="h-[36px] w-[36px] xl:h-[48px] xl:w-[48px] object-contain brightness-0  invert opacity-25 mb-1 lg:mb-2 shrink-0"
+                <img
+                  src={icon}
+                  alt="Icon"
+                  className={`h-[36px] w-[36px] xl:h-[48px] xl:w-[48px] object-contain mb-1 lg:mb-2 shrink-0 ${
+                    iconAsIs
+                      ? "rounded-md opacity-90"
+                      : "brightness-0 invert opacity-25"
+                  }`}
                 />
               </div>
             </div>
