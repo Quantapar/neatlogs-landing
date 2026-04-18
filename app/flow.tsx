@@ -1,0 +1,501 @@
+"use client";
+
+import { useState } from "react";
+import { motion } from "motion/react";
+
+const COS30 = 0.8660254;
+const SIN30 = 0.5;
+
+type IconName = "agent" | "trace" | "team" | "fix";
+
+type Step = {
+  id: string;
+  label: string;
+  body: string;
+  icon: IconName;
+  w: number;
+  h: number;
+};
+
+const STEPS: Step[] = [
+  {
+    id: "agent",
+    label: "Agent runs",
+    body: "Your agent fires in production. Neatlogs auto-captures the trace — no custom instrumentation, no waking the engineer.",
+    icon: "agent",
+    w: 86,
+    h: 14,
+  },
+  {
+    id: "trace",
+    label: "Trace captured",
+    body: "Product and QA see the full run: inputs, tool calls, outputs. They flag the weird behavior without having to ask an engineer what just happened.",
+    icon: "trace",
+    w: 100,
+    h: 14,
+  },
+  {
+    id: "team",
+    label: "Team aligned",
+    body: "Comments land on exact spans. Engineers jump in with context already loaded — not a “hey can you repro” thread three days later.",
+    icon: "team",
+    w: 114,
+    h: 14,
+  },
+  {
+    id: "fix",
+    label: "Fix shipped",
+    body: "Context flows into Cursor or your PR. From flagged issue to shipped fix in the same afternoon.",
+    icon: "fix",
+    w: 130,
+    h: 18,
+  },
+];
+
+const SLAB_BASE_EXT = 5;
+const SLAB_BASE_H = 4;
+const SLAB_GAP = 12;
+const SLAB_OX = 200;
+const SLAB_OY_START = 36;
+
+function slabVisHeight(step: Step) {
+  return step.w + step.h + SLAB_BASE_EXT * 2 + SLAB_BASE_H;
+}
+
+function computeSlabLayout() {
+  const positions: { oy: number; step: Step }[] = [];
+  let oy = SLAB_OY_START;
+  for (const step of STEPS) {
+    positions.push({ oy, step });
+    oy += slabVisHeight(step) + SLAB_GAP;
+  }
+  return positions;
+}
+
+export function Flow() {
+  const [active, setActive] = useState(0);
+
+  return (
+    <section className="relative bg-[#EAF3F6] py-20 sm:py-24 lg:py-32">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="text-[12px] font-medium uppercase tracking-[0.15em] text-zinc-600">
+            Built for both sides of the table
+          </span>
+          <h2 className="mt-5 text-balance text-4xl font-semibold leading-[1.04] tracking-[-0.03em] text-zinc-950 sm:text-5xl md:text-[56px]">
+            Built for the people who spot the problem{" "}
+            <span className="text-zinc-500">— and the people who fix it.</span>
+          </h2>
+          <p className="mx-auto mt-6 max-w-2xl text-pretty text-[15px] leading-relaxed text-zinc-600 sm:text-base">
+            Different depth for domain experts and devs. Shared context all the
+            way through.
+          </p>
+        </div>
+
+        <div className="mt-16 grid items-start gap-10 lg:mt-20 lg:grid-cols-[1fr_1fr] lg:gap-16">
+          <div className="order-2 lg:order-1">
+            <StackViz active={active} />
+          </div>
+
+          <div className="order-1 lg:order-2">
+            <ol className="relative border-t border-zinc-900/10">
+              {STEPS.map((s, i) => {
+                const isActive = i === active;
+                return (
+                  <li
+                    key={s.id}
+                    className="border-b border-zinc-900/10"
+                  >
+                    <div
+                      className={`relative transition-colors duration-200 ${
+                        isActive ? "bg-white/50" : ""
+                      }`}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className={`pointer-events-none absolute inset-y-0 left-0 w-[2px] bg-zinc-950 transition-opacity duration-200 ${
+                          isActive ? "opacity-100" : "opacity-0"
+                        }`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setActive(i)}
+                        aria-expanded={isActive}
+                        aria-controls={`flow-panel-${s.id}`}
+                        className="group flex w-full cursor-pointer items-center gap-4 py-5 pl-4 pr-4 origin-left text-left transition-all duration-200 ease-out hover:bg-white/30 active:scale-[0.98] sm:py-6 sm:pl-5"
+                      >
+                        <span className="w-6 font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-400 [font-variant-numeric:tabular-nums]">
+                          0{i + 1}
+                        </span>
+                        <span
+                          aria-hidden="true"
+                          className={`inline-block size-2 rounded-full transition-colors duration-200 ${
+                            isActive
+                              ? "bg-zinc-950"
+                              : "bg-zinc-300 group-hover:bg-zinc-500"
+                          }`}
+                        />
+                        <span className="flex-1 text-[17px] font-semibold tracking-[-0.01em] text-zinc-950 sm:text-[19px]">
+                          {s.label}
+                        </span>
+                        <svg
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          className={`size-4 text-zinc-500 transition-transform duration-200 ease-out motion-reduce:transition-none ${
+                            isActive ? "rotate-180 text-zinc-900" : ""
+                          }`}
+                          aria-hidden="true"
+                        >
+                          <path d="M5 8l5 5 5-5" />
+                        </svg>
+                      </button>
+                      <div
+                        id={`flow-panel-${s.id}`}
+                        className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none ${
+                          isActive
+                            ? "grid-rows-[1fr] opacity-100"
+                            : "grid-rows-[0fr] opacity-0"
+                        }`}
+                      >
+                        <div className="overflow-hidden">
+                          <p className="pb-5 pl-[72px] pr-6 text-[14.5px] leading-relaxed text-zinc-600 sm:pb-6">
+                            {s.body}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StackViz({ active }: { active: number }) {
+  const positions = computeSlabLayout();
+  const lastPos = positions[positions.length - 1];
+  const viewH = lastPos.oy + slabVisHeight(lastPos.step) + 36;
+  const viewW = 500;
+
+  const connections = positions.slice(0, -1).map((pos, i) => {
+    const nextPos = positions[i + 1];
+    const cx = SLAB_OX;
+    const y1 = pos.oy + slabVisHeight(pos.step) - pos.step.h + 2;
+    const y2 = nextPos.oy - nextPos.step.h - 2;
+    return {
+      key: `flowpath-${i}`,
+      cx,
+      y1,
+      y2,
+      d: `M ${cx} ${y1} L ${cx} ${y2}`,
+    };
+  });
+
+  return (
+    <svg
+      viewBox={`0 0 ${viewW} ${viewH}`}
+      role="img"
+      aria-label="Neatlogs end-to-end flow: agent runs, trace captured, team aligned, fix shipped"
+      className="mx-auto block h-auto w-full max-w-[500px]"
+    >
+      <defs>
+        <linearGradient id="slabTop" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#ffffff" />
+          <stop offset="100%" stopColor="#d4d4d8" />
+        </linearGradient>
+        <linearGradient id="slabTopActive" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#27272a" />
+          <stop offset="100%" stopColor="#09090b" />
+        </linearGradient>
+        <radialGradient id="slabGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#18181b" stopOpacity="0.22" />
+          <stop offset="60%" stopColor="#18181b" stopOpacity="0.04" />
+          <stop offset="100%" stopColor="#18181b" stopOpacity="0" />
+        </radialGradient>
+        <filter id="slabBlur" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="7" />
+        </filter>
+        {connections.map((c) => (
+          <path key={c.key} id={c.key} d={c.d} />
+        ))}
+      </defs>
+
+      {connections.map((c, i) => {
+        return (
+          <g key={`connection-${c.key}`}>
+            {/* The physical dotted pipeline */}
+            <line
+              x1={c.cx}
+              y1={c.y1}
+              x2={c.cx}
+              y2={c.y2}
+              stroke="#a1a1aa"
+              strokeOpacity="0.3"
+              strokeWidth="2"
+              strokeDasharray="2 5"
+              strokeLinecap="round"
+            />
+            {/* The reactive progress line */}
+            <motion.line
+              x1={c.cx}
+              y1={c.y1}
+              x2={c.cx}
+              y2={c.y2}
+              stroke="#09090b"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              initial={false}
+              animate={{ pathLength: active > i ? 1 : 0, opacity: active > i ? 1 : 0 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            />
+          </g>
+        );
+      })}
+
+      {positions.map((pos, i) => (
+        <Slab
+          key={pos.step.id}
+          ox={SLAB_OX}
+          oy={pos.oy}
+          step={pos.step}
+          index={i}
+          active={i === active}
+        />
+      ))}
+
+
+    </svg>
+  );
+}
+
+function Slab({
+  ox,
+  oy,
+  step,
+  index,
+  active,
+}: {
+  ox: number;
+  oy: number;
+  step: Step;
+  index: number;
+  active: boolean;
+}) {
+  const W = step.w;
+  const D = step.w;
+  const H = step.h;
+  const E = SLAB_BASE_EXT;
+  const BH = SLAB_BASE_H;
+
+  const pt = (x: number, y: number, z: number) =>
+    `${ox + COS30 * (x - y)} ${oy + E + SIN30 * (x + y) - z}`;
+
+  const top = `M ${pt(0, 0, H)} L ${pt(W, 0, H)} L ${pt(W, D, H)} L ${pt(0, D, H)} Z`;
+  const left = `M ${pt(0, D, 0)} L ${pt(W, D, 0)} L ${pt(W, D, H)} L ${pt(0, D, H)} Z`;
+  const right = `M ${pt(W, 0, 0)} L ${pt(W, D, 0)} L ${pt(W, D, H)} L ${pt(W, 0, H)} Z`;
+
+  const baseTop = `M ${pt(-E, -E, 0)} L ${pt(W + E, -E, 0)} L ${pt(W + E, D + E, 0)} L ${pt(-E, D + E, 0)} Z`;
+  const baseLeft = `M ${pt(-E, D + E, -BH)} L ${pt(W + E, D + E, -BH)} L ${pt(W + E, D + E, 0)} L ${pt(-E, D + E, 0)} Z`;
+  const baseRight = `M ${pt(W + E, -E, -BH)} L ${pt(W + E, D + E, -BH)} L ${pt(W + E, D + E, 0)} L ${pt(W + E, -E, 0)} Z`;
+
+  const topMidLine = `M ${pt(0, D / 2, H)} L ${pt(W, D / 2, H)}`;
+  const topCrossLine = `M ${pt(W / 2, 0, H)} L ${pt(W / 2, D, H)}`;
+
+  const shadowCx = ox;
+  const shadowCy = oy + E + SIN30 * (W + D) + BH + 14;
+  const shadowRx = COS30 * (W + E * 2) * 0.95;
+  const shadowRy = SIN30 * (W + E * 2) * 0.32;
+
+  const topCx = ox;
+  const topCy = oy + E + SIN30 * W - H;
+
+  const labelX = ox + COS30 * (W + E) + 22;
+  const labelY = oy + E + SIN30 * W - H / 2 + 4;
+
+  const glowRx = COS30 * W * 1.45;
+  const glowRy = SIN30 * (W + D) * 0.85;
+
+  const glyphScale = W / 80;
+
+  return (
+    <g
+      style={{
+        transform: active ? "translateY(-9px)" : "translateY(0)",
+        transition: "transform 420ms cubic-bezier(0.22, 1, 0.36, 1)",
+        animation: `slabIn 540ms cubic-bezier(0.22, 1, 0.36, 1) ${index * 110}ms backwards`,
+      }}
+      className="motion-reduce:!animate-none motion-reduce:transition-none"
+    >
+      <ellipse
+        cx={topCx}
+        cy={topCy + SIN30 * W / 2 + 4}
+        rx={glowRx}
+        ry={glowRy}
+        fill="url(#slabGlow)"
+        opacity={active ? 1 : 0}
+        style={{ transition: "opacity 420ms ease-out" }}
+      />
+
+      <ellipse
+        cx={shadowCx}
+        cy={shadowCy}
+        rx={shadowRx}
+        ry={shadowRy}
+        fill="#09090b"
+        opacity={active ? 0.2 : 0.1}
+        filter="url(#slabBlur)"
+        style={{ transition: "opacity 300ms ease-out" }}
+      />
+
+      <path
+        d={baseRight}
+        fill={active ? "#18181b" : "#a1a1aa"}
+        stroke={active ? "#000000" : "#52525b"}
+        strokeOpacity={active ? 0.5 : 0.28}
+        strokeWidth="1"
+        strokeLinejoin="round"
+        style={{ transition: "fill 260ms ease-out" }}
+      />
+      <path
+        d={baseLeft}
+        fill={active ? "#27272a" : "#d4d4d8"}
+        stroke={active ? "#000000" : "#52525b"}
+        strokeOpacity={active ? 0.4 : 0.24}
+        strokeWidth="1"
+        strokeLinejoin="round"
+        style={{ transition: "fill 260ms ease-out" }}
+      />
+      <path
+        d={baseTop}
+        fill={active ? "#3f3f46" : "#e4e4e7"}
+        stroke={active ? "#000000" : "#52525b"}
+        strokeOpacity={active ? 0.48 : 0.3}
+        strokeWidth="1"
+        strokeLinejoin="round"
+        style={{ transition: "fill 260ms ease-out" }}
+      />
+
+      <path
+        d={right}
+        fill={active ? "#09090b" : "#a1a1aa"}
+        stroke={active ? "#000000" : "#52525b"}
+        strokeOpacity={active ? 0.6 : 0.36}
+        strokeWidth="1"
+        strokeLinejoin="round"
+        style={{ transition: "fill 260ms ease-out" }}
+      />
+      <path
+        d={left}
+        fill={active ? "#1c1c1f" : "#d4d4d8"}
+        stroke={active ? "#000000" : "#52525b"}
+        strokeOpacity={active ? 0.5 : 0.3}
+        strokeWidth="1"
+        strokeLinejoin="round"
+        style={{ transition: "fill 260ms ease-out" }}
+      />
+      <path
+        d={top}
+        fill={active ? "url(#slabTopActive)" : "url(#slabTop)"}
+        stroke={active ? "#000000" : "#52525b"}
+        strokeOpacity={active ? 0.65 : 0.34}
+        strokeWidth="1"
+        strokeLinejoin="round"
+      />
+
+      <path
+        d={topMidLine}
+        stroke={active ? "#ffffff" : "#71717a"}
+        strokeOpacity={active ? 0.14 : 0.22}
+        strokeWidth="1"
+        fill="none"
+      />
+      <path
+        d={topCrossLine}
+        stroke={active ? "#ffffff" : "#71717a"}
+        strokeOpacity={active ? 0.14 : 0.22}
+        strokeWidth="1"
+        fill="none"
+      />
+
+      <g transform={`translate(${topCx}, ${topCy}) scale(${glyphScale})`}>
+        <BoxGlyph icon={step.icon} active={active} />
+      </g>
+
+      <text
+        x={labelX}
+        y={labelY}
+        style={{
+          fontSize: 11,
+          fontFamily: "ui-monospace, monospace",
+          letterSpacing: "0.22em",
+          textTransform: "uppercase",
+          fontWeight: active ? 700 : 500,
+          fill: active ? "#09090b" : "#71717a",
+          transition: "fill 200ms ease-out, font-weight 200ms ease-out",
+        }}
+      >
+        {`0${index + 1} · ${step.label}`}
+      </text>
+    </g>
+  );
+}
+
+function BoxGlyph({
+  icon,
+  active,
+}: {
+  icon: IconName;
+  active: boolean;
+}) {
+  const common = {
+    fill: "none" as const,
+    stroke: active ? "#ffffff" : "#09090b",
+    strokeWidth: 1.2,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    style: { transition: "stroke 200ms ease-out" },
+  };
+  if (icon === "agent") {
+    return (
+      <g {...common}>
+        <rect x="-7" y="-6" width="14" height="10" rx="2" />
+        <path d="M -4 -1 h 3" />
+        <path d="M -4 2 h 6" />
+      </g>
+    );
+  }
+  if (icon === "trace") {
+    return (
+      <g {...common}>
+        <path d="M -9 2 L -6 2 L -4 -3 L -1 3 L 1 -1 L 4 1 L 7 -2 L 9 -2" />
+      </g>
+    );
+  }
+  if (icon === "team") {
+    return (
+      <g {...common}>
+        <circle cx="-5" cy="-2" r="2" />
+        <circle cx="0" cy="-3" r="1.8" />
+        <circle cx="5" cy="-1" r="1.6" />
+        <path d="M -9 4 c 0 -2.2 1.8 -3.8 4 -3.8 s 4 1.6 4 3.8" />
+        <path d="M -1 4 c 0.2 -1.8 1.6 -2.9 3 -2.9 s 2.8 1 2.8 2.9" />
+      </g>
+    );
+  }
+  return (
+    <g {...common}>
+      <circle cx="-6" cy="-4" r="1.6" />
+      <circle cx="-6" cy="4" r="1.6" />
+      <circle cx="6" cy="0" r="1.6" />
+      <path d="M -6 -2.4 v 4.8" />
+      <path d="M 6 -1.6 a 5 5 0 0 0 -5 -5 h -3.2" />
+      <path d="M 6 1.6 a 5 5 0 0 1 -5 5 h -3.2" />
+    </g>
+  );
+}

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Features } from "./features";
+import { Flow } from "./flow";
 import { HowItWorks } from "./how-it-works";
 import { MediaPlayer } from "./media-player";
 import { MeetNeatlogs } from "./meet-neatlogs";
@@ -62,6 +63,7 @@ export default function Home() {
       <MeetNeatlogs />
       <Features />
       <HowItWorks />
+      <Flow />
     </main>
   );
 }
