@@ -167,8 +167,8 @@ export function Flow() {
                 );
               })}
             </ol>
-            
-            <div className="mt-12 flex items-center justify-center pt-4">
+      
+            <div className="mt-6 flex items-center justify-center pt-4 ml-50 ">
               {/* Added image pixel art below the steps to fill vertical space */}
               <img 
                 src="/tree2.png" 
