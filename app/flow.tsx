@@ -264,7 +264,7 @@ function StackViz({
         // Aggressively fast fade bounds to maximize reading dwell time
         const startO = i * 0.03;
         const endO = startO + 0.20;
-        const closeStartO = 0.75 + i * 0.03;
+        const closeStartO = 0.45 + i * 0.03;
         const closeEndO = closeStartO + 0.15;
         const lineOpacity = useTransform(
           scrollYProgress, 
@@ -383,10 +383,10 @@ function Slab({
   const glowRx = COS30 * W * 1.45;
   const glowRy = SIN30 * (W + D) * 0.85;
 
-  // Heavily bias the keyframes to the strict edges (0.0-0.35 and 0.7-1.0) so it holds completely open at 0.5 center.
+  // Heavily bias the keyframes to the strict edges so it holds completely open at the center.
   const openStart = index * 0.03;
   const openEnd = openStart + 0.25;
-  const closeStart = 0.75 + (3 - index) * 0.03;
+  const closeStart = 0.45 + (3 - index) * 0.03;
   const closeEnd = closeStart + 0.15;
   
   const scrollY = useTransform(
