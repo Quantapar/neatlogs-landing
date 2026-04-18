@@ -79,7 +79,7 @@ export function MeetNeatlogs() {
               number="#1"
               label="Code got"
               brand="GITHUB"
-              image="/github-profile.png"
+              image="https://res.cloudinary.com/dbvotc5ja/image/upload/fl_preserve_transparency/v1776514139/github_btxooi.jpg?_s=public-apps"
               icon="https://cdn-icons-png.flaticon.com/512/25/25231.png"
             />
             <FolderCard
@@ -93,8 +93,8 @@ export function MeetNeatlogs() {
               number="#3"
               label="Agents get"
               brand="NEATLOGS"
-              image="https://i.pinimg.com/1200x/1e/e1/58/1ee15873cbfdbdf4d0a812538a2ae05b.jpg"
-              icon="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+              image="https://res.cloudinary.com/dbvotc5ja/image/upload/fl_preserve_transparency/v1776514255/github_1_poc9zo.jpg?_s=public-apps"
+              icon="./nl-logo.png"
             />
           </div>
         </div>
