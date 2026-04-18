@@ -185,6 +185,7 @@ function StackViz({
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const { scrollYProgress } = useScroll({
+    target: ref,
     offset: ["start 75%", "end 25%"],
   });
 
