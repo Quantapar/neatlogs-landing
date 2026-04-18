@@ -129,9 +129,9 @@ function FolderCard({
   iconAsIs?: boolean;
 }) {
   return (
-    <div className="group relative w-full h-[260px] lg:h-[250px] xl:h-[280px] bg-[#0c0c0c] rounded-[48px] p-2 xl:p-3 shadow-2xl transition-all duration-500 ease-out hover:-translate-y-4 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)]">
+    <div className="group relative w-full h-[260px] lg:h-[250px] xl:h-[280px] bg-black rounded-[48px] p-2 xl:p-3 shadow-2xl transition-all duration-500 ease-out hover:-translate-y-4 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)]">
       {/* Inner Bounds Container */}
-      <div className="relative w-full h-full rounded-[36px] xl:rounded-[40px] overflow-hidden bg-black isolate">
+      <div className="relative w-full h-full rounded-[40px] xl:rounded-[36px] overflow-hidden bg-black isolate">
         
         {/* Background Image */}
         <div className="absolute inset-0 w-full h-full transition-transform duration-700">
