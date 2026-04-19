@@ -61,7 +61,7 @@ export function MeetNeatlogs() {
               style={{ color: "rgb(9,9,11)" }}
               baseColor="#ADB2B7"
             >
-              One thread from break to shipped fix.
+              From bug to fix in one thread.
             </Reveal>
           </span>
         </h2>
@@ -142,7 +142,7 @@ function Sidebar() {
       </div>
 
       <div className="mt-5 flex w-full flex-col gap-0.5 px-1.5">
-        <SidebarItem icon={IconPlus} label="Create project" collapsed={collapsed} />
+        <SidebarItem icon={IconPlus} label="Create project" bordered collapsed={collapsed} />
         <SidebarItem icon={IconAISearch} label="AI Search" active collapsed={collapsed} />
         <SidebarItem icon={IconTraces} label="Traces" collapsed={collapsed} />
         <SidebarItem icon={IconDetections} label="Detections" collapsed={collapsed} />
@@ -180,6 +180,7 @@ function SidebarItem({
   active,
   hasChevron,
   pill,
+  bordered,
   collapsed,
 }: {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -187,6 +188,7 @@ function SidebarItem({
   active?: boolean;
   hasChevron?: boolean;
   pill?: string;
+  bordered?: boolean;
   collapsed?: boolean;
 }) {
   const fadeLabel = `transition-opacity duration-200 ${collapsed ? "pointer-events-none opacity-0" : "opacity-100 delay-150"}`;
@@ -197,9 +199,11 @@ function SidebarItem({
       aria-label={label}
       title={collapsed ? label : undefined}
       className={`group flex h-[30px] cursor-pointer items-center gap-2.5 rounded-md px-1.5 text-left transition-colors ${
-        active
-          ? "bg-zinc-900/5 text-zinc-950"
-          : "text-zinc-600 hover:bg-zinc-900/5 hover:text-zinc-950"
+        bordered
+          ? "border border-zinc-900/10 text-zinc-700 hover:bg-zinc-900/5 hover:text-zinc-950"
+          : active
+            ? "bg-zinc-900/5 text-zinc-950"
+            : "text-zinc-600 hover:bg-zinc-900/5 hover:text-zinc-950"
       }`}
     >
       <Icon className="size-4 shrink-0" />

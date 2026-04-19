@@ -158,7 +158,11 @@ export function HowItWorks() {
       <div className="lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center">
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
           <div className="mb-12 lg:mb-14">
-            <span className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
+            <span
+              translate="no"
+              className="font-ui text-2xl sm:text-3xl font-semibold tracking-tight"
+              style={{ color: "#E9462E" }}
+            >
               How it works
             </span>
             <h2 className="mt-5 max-w-3xl text-balance text-4xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">

@@ -26,7 +26,10 @@ const FEATURES: Feature[] = [
   {
     id: "surface-issue",
     icon: (
-      <AlertCircle className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors" strokeWidth={1.5} />
+      <AlertCircle
+        className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors"
+        strokeWidth={1.5}
+      />
     ),
     title: "Surface the issue",
     description:
@@ -35,7 +38,10 @@ const FEATURES: Feature[] = [
   {
     id: "shared-context",
     icon: (
-      <Users className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors" strokeWidth={1.5} />
+      <Users
+        className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors"
+        strokeWidth={1.5}
+      />
     ),
     title: "Shared context, always",
     description:
@@ -44,7 +50,10 @@ const FEATURES: Feature[] = [
   {
     id: "move-fast",
     icon: (
-      <Zap className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors" strokeWidth={1.5} />
+      <Zap
+        className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors"
+        strokeWidth={1.5}
+      />
     ),
     title: "Move fast",
     description:
@@ -53,7 +62,10 @@ const FEATURES: Feature[] = [
   {
     id: "fix-with-ai",
     icon: (
-      <Sparkles className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors" strokeWidth={1.5} />
+      <Sparkles
+        className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors"
+        strokeWidth={1.5}
+      />
     ),
     title: "Fix it with AI",
     description:
@@ -63,7 +75,10 @@ const FEATURES: Feature[] = [
   {
     id: "monitor-recurrence",
     icon: (
-      <RefreshCw className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors" strokeWidth={1.5} />
+      <RefreshCw
+        className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors"
+        strokeWidth={1.5}
+      />
     ),
     title: "Monitor for recurrence",
     description:
@@ -72,7 +87,10 @@ const FEATURES: Feature[] = [
   {
     id: "built-for-ai",
     icon: (
-      <Cpu className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors" strokeWidth={1.5} />
+      <Cpu
+        className="w-6 h-6 text-zinc-700 group-hover:text-zinc-950 transition-colors"
+        strokeWidth={1.5}
+      />
     ),
     title: "Built for AI agents",
     description:
@@ -128,15 +146,20 @@ export const Features = () => {
         >
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-darken pointer-events-none" />
 
-          <div className="relative z-10 max-w-4xl mx-auto mb-10 sm:mb-16 text-center">
-            <span className="font-ui text-[12px] font-medium uppercase tracking-[0.15em] text-zinc-600">
+          <div className="relative z-10 max-w-6xl mx-auto mb-10 sm:mb-16 text-center">
+            <span
+              translate="no"
+              className="font-ui text-2xl sm:text-3xl font-semibold tracking-tight"
+              style={{ color: "#E9462E" }}
+            >
               Why Neatlogs
             </span>
             <h2 className="mt-5 text-balance text-4xl sm:text-5xl md:text-[56px] leading-[1.08] tracking-tighter text-zinc-950 mx-auto font-sans">
               <span className="font-semibold">
                 Most teams don't have a visibility problem.
-              </span>{" "}
-              <span className="text-zinc-500 font-medium tracking-tight">
+              </span>
+              <br />
+              <span className="font-semibold tracking-tight">
                 They have a handoff problem.
               </span>
             </h2>
