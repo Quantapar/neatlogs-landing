@@ -176,8 +176,8 @@ export const Features = () => {
                 className="group relative p-1.5 rounded-[28px] bg-zinc-950 border border-zinc-950 shadow-[0_18px_40px_-22px_rgba(0,0,0,0.45)] transition-colors duration-500"
                 style={{ transitionDelay: `${index * 50}ms` }}
               >
-                <div className="h-full bg-white rounded-[22px] ring-1 ring-zinc-900/10 p-5 sm:p-6 flex flex-col shadow-[inset_0_1px_1px_rgba(255,255,255,1)] group-hover:bg-zinc-50 transition-all duration-500">
-                  <div className="mb-6 flex p-3 rounded-2xl w-fit bg-zinc-50 border border-black/5 shadow-sm group-hover:scale-105 transition-transform duration-200 ease-out">
+                <div className="h-full bg-white rounded-[22px] ring-1 ring-zinc-900/10 p-5 sm:p-6 flex flex-col shadow-[inset_0_1px_1px_rgba(255,255,255,1)] transition-[background-color] duration-200 ease-snap hover-hover:group-hover:bg-zinc-50">
+                  <div className="mb-6 flex p-3 rounded-2xl w-fit bg-zinc-50 border border-black/5 shadow-sm transition-transform duration-200 ease-snap hover-hover:group-hover:scale-105">
                     {feature.icon}
                   </div>
 

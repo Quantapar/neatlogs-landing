@@ -10,7 +10,13 @@ import {
   useRef,
   useState,
 } from "react";
-import { motion, useScroll, useSpring, useTransform } from "motion/react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
 
 const STEPS = [
   {
@@ -49,6 +55,7 @@ export function HowItWorks() {
   const lastChangeAtRef = useRef(0);
   const pendingTimeoutRef = useRef<number | null>(null);
   const navLockUntilRef = useRef(0);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     activeRef.current = activeIndex;
@@ -57,6 +64,8 @@ export function HowItWorks() {
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
+    if (reducedMotion) return;
+    if (typeof window !== "undefined" && window.innerWidth < 1024) return;
 
     const clearPending = () => {
       if (pendingTimeoutRef.current != null) {
@@ -125,7 +134,7 @@ export function HowItWorks() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, []);
+  }, [reducedMotion]);
 
   const selectIndex = useCallback((i: number) => {
     const section = sectionRef.current;
@@ -133,18 +142,23 @@ export function HowItWorks() {
     lastChangeAtRef.current = Date.now();
     navLockUntilRef.current = Date.now() + 900;
     setActiveIndex(i);
+    const scrollBehavior: ScrollBehavior =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth";
     if (section && typeof window !== "undefined" && window.innerWidth >= 1024) {
       const rect = section.getBoundingClientRect();
       const scrollable = rect.height - window.innerHeight;
       if (scrollable > 0) {
         const targetProgress = (i + 0.5) / STEPS.length;
         const targetY = window.scrollY + rect.top + targetProgress * scrollable;
-        window.scrollTo({ top: targetY, behavior: "smooth" });
+        window.scrollTo({ top: targetY, behavior: scrollBehavior });
         return;
       }
     }
     tileRefs.current[i]?.scrollIntoView({
-      behavior: "smooth",
+      behavior: scrollBehavior,
       block: "center",
     });
   }, []);
@@ -153,9 +167,9 @@ export function HowItWorks() {
     <section
       ref={sectionRef}
       id="how-it-works"
-      className="relative bg-[#FAFAFA] py-24 sm:py-28 lg:h-[360vh] lg:py-0"
+      className="relative bg-[#FAFAFA] py-24 sm:py-28 lg:h-[360vh] lg:py-0 motion-reduce:lg:h-auto motion-reduce:lg:py-24"
     >
-      <div className="lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center">
+      <div className="lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center motion-reduce:lg:static motion-reduce:lg:h-auto motion-reduce:lg:block">
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
           <div className="mb-12 lg:mb-14">
             <span
@@ -353,7 +367,7 @@ function StepTile({
   active: boolean;
   onSelect: () => void;
 }) {
-  const easing = "cubic-bezier(0.22, 1, 0.36, 1)";
+  const easing = "var(--ease-snap)";
   const duration = active ? 250 : 150;
 
   return (
@@ -450,7 +464,7 @@ function FrameLayer({
   return (
     <div
       aria-hidden={!active}
-      className={`absolute inset-0 p-5 transition-opacity ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[opacity] motion-reduce:transition-none sm:p-6 ${
+      className={`absolute inset-0 p-5 transition-opacity ease-snap will-change-[opacity] motion-reduce:transition-none sm:p-6 ${
         active
           ? "opacity-100 duration-[250ms]"
           : "pointer-events-none opacity-0 duration-[150ms]"
@@ -842,7 +856,7 @@ function ThreadStep({
 function Stagger({ delay, children }: { delay: number; children: ReactNode }) {
   return (
     <div
-      className="animate-[row-in_500ms_cubic-bezier(0.16,1,0.3,1)_both] opacity-0 motion-reduce:animate-none motion-reduce:opacity-100"
+      className="animate-[row-in_500ms_var(--ease-snap)_both] opacity-0 motion-reduce:animate-none motion-reduce:opacity-100"
       style={{ animationDelay: `${delay}ms` }}
     >
       {children}

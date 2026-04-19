@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 
 const reviewsData = [
   {
@@ -81,6 +81,7 @@ const ReviewCard = ({ data }: { data: typeof reviewsData[0] }) => {
 };
 
 export const Reviews = () => {
+  const reducedMotion = useReducedMotion();
   return (
       <section className="w-full bg-[#FAFAFA] pt-12 pb-24 sm:pt-16 sm:pb-32 px-4 md:px-8 flex flex-col items-center overflow-hidden border-t border-zinc-900/5">
           <div className="mx-auto max-w-2xl text-center mb-16 sm:mb-20">
@@ -91,19 +92,23 @@ export const Reviews = () => {
                   Don't just take our word for it
               </h2>
           </div>
-          
+
           <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-              <motion.div 
+              <motion.div
                   className="flex gap-16 md:gap-24 w-max"
-                  animate={{ x: ["0%", "-50%"] }}
-                  transition={{
-                      duration: 40,
-                      repeat: Infinity,
-                      ease: "linear"
-                  }}
+                  animate={reducedMotion ? { x: "0%" } : { x: ["0%", "-50%"] }}
+                  transition={
+                      reducedMotion
+                          ? { duration: 0 }
+                          : { duration: 40, repeat: Infinity, ease: "linear" }
+                  }
               >
                   {[...reviewsData, ...reviewsData].map((data, idx) => (
-                      <div key={idx} className="shrink-0 flex items-center justify-center">
+                      <div
+                          key={idx}
+                          aria-hidden={idx >= reviewsData.length}
+                          className="shrink-0 flex items-center justify-center"
+                      >
                           <ReviewCard data={data} />
                       </div>
                   ))}

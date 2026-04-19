@@ -10,7 +10,14 @@ import {
   Zap,
 } from "lucide-react";
 import type { ComponentType, SVGProps } from "react";
-import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "motion/react";
+import { easings } from "./easings";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "./reveal";
@@ -75,6 +82,7 @@ export function MeetNeatlogs() {
 
 function DashboardScene() {
   const sceneRef = useRef<HTMLDivElement | null>(null);
+  const reducedMotion = useReducedMotion();
   const { scrollYProgress: entryProgress } = useScroll({
     target: sceneRef,
     offset: ["start end", "end end"],
@@ -86,7 +94,7 @@ function DashboardScene() {
     <div ref={sceneRef} className="relative h-[260vh]">
       <div className="sticky top-0 flex h-screen items-start justify-center pt-16 sm:pt-20">
         <motion.div
-          style={{ scale }}
+          style={reducedMotion ? undefined : { scale }}
           className="relative w-full overflow-hidden rounded-[28px] border border-zinc-900/10 bg-[#FCFCFD] p-3 shadow-[0_30px_60px_-24px_rgba(12,20,40,0.22),0_12px_24px_-16px_rgba(12,20,40,0.14)] sm:p-4"
         >
           <div className="relative flex h-[500px] overflow-hidden rounded-[20px] bg-[#FCFCFD] ring-1 ring-zinc-900/10 sm:h-[590px] lg:h-[700px]">
@@ -105,7 +113,7 @@ function Sidebar() {
 
   return (
     <aside
-      className={`hidden shrink-0 flex-col overflow-hidden border-r border-zinc-900/5 bg-white/70 py-4 text-[13px] transition-[width] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] sm:flex ${
+      className={`hidden shrink-0 flex-col overflow-hidden border-r border-zinc-900/5 bg-white/70 py-4 text-[13px] transition-[width] duration-300 ease-drawer sm:flex ${
         collapsed ? "w-[52px]" : "w-[220px]"
       }`}
     >
@@ -292,7 +300,7 @@ function MainArea() {
                     initial={{ opacity: 0, y: 4, scale: 0.98 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 4, scale: 0.98 }}
-                    transition={{ duration: 0.14, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.14, ease: easings.snap }}
                     className="absolute left-0 top-full z-20 mt-1.5 w-[120px] overflow-hidden rounded-lg bg-white p-1 shadow-[0_12px_28px_-10px_rgba(12,20,40,0.22),0_4px_10px_-6px_rgba(12,20,40,0.12)] ring-1 ring-zinc-900/10"
                   >
                     {(["Fast", "Pro"] as const).map((opt) => (
@@ -352,11 +360,13 @@ const QUESTIONS = [
 
 function QuestionCycle() {
   const [index, setIndex] = useState(0);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
+    if (reducedMotion) return;
     const id = setInterval(() => setIndex((i) => i + 1), 2500);
     return () => clearInterval(id);
-  }, []);
+  }, [reducedMotion]);
 
   const ITEM_H = 26;
   const VISIBLE = 3;

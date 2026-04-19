@@ -1,6 +1,11 @@
 "use client";
 
-import { motion, type MotionValue, useTransform } from "motion/react";
+import {
+  motion,
+  type MotionValue,
+  useReducedMotion,
+  useTransform,
+} from "motion/react";
 import { type ReactNode } from "react";
 
 export function Reveal({
@@ -18,10 +23,15 @@ export function Reveal({
   style?: React.CSSProperties;
   baseColor?: string;
 }) {
+  const reducedMotion = useReducedMotion();
   const parts = children.split(/(\s+)/).filter((p) => p.length > 0);
   const wordCount = parts.filter((p) => !/^\s+$/.test(p)).length;
   const range = to - from;
   let wordIdx = 0;
+
+  if (reducedMotion) {
+    return <span style={style}>{children}</span>;
+  }
 
   return (
     <>

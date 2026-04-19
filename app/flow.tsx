@@ -1,20 +1,21 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { motion, useInView, useScroll, useTransform } from "motion/react";
-
-const COS30 = 0.8660254;
-const SIN30 = 0.5;
-
-type IconName = "agent" | "trace" | "team" | "fix";
+import {
+  AnimatePresence,
+  motion,
+  useInView,
+  useReducedMotion,
+} from "motion/react";
+import Image from "next/image";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { easings } from "./easings";
 
 type Step = {
   id: string;
   label: string;
   body: string;
-  icon: IconName;
-  w: number;
-  h: number;
+  features: { icon: ReactNode; text: string }[];
+  Visual: () => ReactNode;
 };
 
 const STEPS: Step[] = [
@@ -22,61 +23,40 @@ const STEPS: Step[] = [
     id: "agent",
     label: "Agent runs",
     body: "Your agent fires in production. Neatlogs auto-captures the trace — no custom instrumentation, no waking the engineer.",
-    icon: "agent",
-    w: 86,
-    h: 14,
+    features: [
+      { icon: <IconBolt />, text: "OpenAI, Anthropic, local models" },
+      { icon: <IconLayers />, text: "LangGraph, CrewAI, LangChain" },
+      { icon: <IconPlug />, text: "Zero setup instrumentation" },
+    ],
+    Visual: AgentRunsVisual,
   },
   {
     id: "trace",
     label: "Trace captured",
     body: "Product and QA see the full run: inputs, tool calls, outputs. They flag the weird behavior without having to ask an engineer what just happened.",
-    icon: "trace",
-    w: 100,
-    h: 14,
-  },
-  {
-    id: "team",
-    label: "Team aligned",
-    body: "Comments land on exact spans. Engineers jump in with context already loaded — not a “hey can you repro” thread three days later.",
-    icon: "team",
-    w: 114,
-    h: 14,
+    features: [
+      { icon: <IconSpan />, text: "Every span annotated in plain english" },
+      { icon: <IconInput />, text: "Inputs, outputs, tool calls" },
+      { icon: <IconPin />, text: "Comment on the exact failure" },
+    ],
+    Visual: TraceCapturedVisual,
   },
   {
     id: "fix",
     label: "Fix shipped",
-    body: "Context flows into Cursor or your PR. From flagged issue to shipped fix in the same afternoon.",
-    icon: "fix",
-    w: 130,
-    h: 18,
+    body: "Context flows into Cursor or your PR. From flagged issue to shipped fix in the same afternoon — no re-explaining, no handoff lag.",
+    features: [
+      { icon: <IconCursor />, text: "Context streams into Cursor" },
+      { icon: <IconGitBranch />, text: "PR-ready suggestions" },
+      { icon: <IconCheck />, text: "Shipped from one thread" },
+    ],
+    Visual: FixShippedVisual,
   },
 ];
 
-const SLAB_BASE_EXT = 5;
-const SLAB_BASE_H = 4;
-const SLAB_GAP = 12;
-const SLAB_OX = 200;
-const SLAB_OY_START = 36;
-
-function slabVisHeight(step: Step) {
-  return step.w + step.h + SLAB_BASE_EXT * 2 + SLAB_BASE_H;
-}
-
-function computeSlabLayout() {
-  const positions: { oy: number; step: Step }[] = [];
-  let oy = SLAB_OY_START;
-  for (const step of STEPS) {
-    positions.push({ oy, step });
-    oy += slabVisHeight(step) + SLAB_GAP;
-  }
-  return positions;
-}
-
 export function Flow() {
-  const [active, setActive] = useState(0);
-
   return (
-    <section className="relative bg-[#FAFAFA] py-20 sm:py-24 lg:py-32">
+    <section className="relative bg-[#FAFAFA] py-14 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-5xl text-center">
           <span
@@ -97,90 +77,22 @@ export function Flow() {
           </p>
         </div>
 
-        <div className="mt-16 grid items-start gap-10 lg:mt-20 lg:grid-cols-[1fr_1fr] lg:gap-16">
-          <div className="order-2 lg:order-1">
-            <StackViz active={active} onSelect={setActive} />
-          </div>
+        <div className="relative mt-14 md:mt-20">
+          <div
+            aria-hidden="true"
+            className="absolute inset-y-8 left-1/2 hidden w-px -translate-x-1/2 border-l border-dashed border-zinc-900/15 md:block"
+          />
 
-          <div className="order-1 lg:order-2">
-            <ol className="relative border-t border-zinc-900/10">
-              {STEPS.map((s, i) => {
-                const isActive = i === active;
-                return (
-                  <li key={s.id} className="border-b border-zinc-900/10">
-                    <div
-                      className={`relative transition-colors duration-200 ${
-                        isActive ? "bg-white/50" : ""
-                      }`}
-                    >
-                      <span
-                        aria-hidden="true"
-                        className={`pointer-events-none absolute inset-y-0 left-0 w-[2px] bg-zinc-950 transition-opacity duration-200 ${
-                          isActive ? "opacity-100" : "opacity-0"
-                        }`}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setActive(i)}
-                        aria-expanded={isActive}
-                        aria-controls={`flow-panel-${s.id}`}
-                        className="group flex w-full cursor-pointer items-center gap-4 py-5 pl-4 pr-4 origin-left text-left transition-all duration-200 ease-out hover:bg-white/30 active:scale-[0.97] motion-reduce:active:scale-100 sm:py-6 sm:pl-5"
-                      >
-                        <span className="w-6 font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-400 [font-variant-numeric:tabular-nums]">
-                          0{i + 1}
-                        </span>
-                        <span
-                          aria-hidden="true"
-                          className={`inline-block size-2 rounded-full transition-colors duration-200 ${
-                            isActive
-                              ? "bg-zinc-950"
-                              : "bg-zinc-300 group-hover:bg-zinc-500"
-                          }`}
-                        />
-                        <span className="flex-1 text-[17px] font-semibold tracking-[-0.01em] text-zinc-950 sm:text-[19px]">
-                          {s.label}
-                        </span>
-                        <svg
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          className={`size-4 text-zinc-500 transition-transform duration-200 ease-out motion-reduce:transition-none ${
-                            isActive ? "rotate-180 text-zinc-900" : ""
-                          }`}
-                          aria-hidden="true"
-                        >
-                          <path d="M5 8l5 5 5-5" />
-                        </svg>
-                      </button>
-                      <div
-                        id={`flow-panel-${s.id}`}
-                        className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none ${
-                          isActive
-                            ? "grid-rows-[1fr] opacity-100"
-                            : "grid-rows-[0fr] opacity-0"
-                        }`}
-                      >
-                        <div className="overflow-hidden">
-                          <p className="pb-5 pl-[72px] pr-6 text-[14.5px] leading-relaxed text-zinc-600 sm:pb-6">
-                            {s.body}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                );
-              })}
-            </ol>
-
-            <div className="mt-6 flex items-center justify-center pt-4 ml-50 ">
-              {/* Added image pixel art below the steps to fill vertical space */}
-              <img
-                src="/tree2.png"
-                alt="Pixel art palm trees with San Francisco skyline"
-                className="w-full max-w-sm object-contain mix-blend-multiply opacity-90"
+          <div>
+            {STEPS.map((step, i) => (
+              <FlowRow
+                key={step.id}
+                step={step}
+                number={i + 1}
+                reversed={i % 2 === 1}
+                isLast={i === STEPS.length - 1}
               />
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -188,352 +100,597 @@ export function Flow() {
   );
 }
 
-function StackViz({
-  active,
-  onSelect,
+function FlowRow({
+  step,
+  number,
+  reversed,
+  isLast,
 }: {
-  active: number;
-  onSelect: (index: number) => void;
+  step: Step;
+  number: number;
+  reversed: boolean;
+  isLast: boolean;
 }) {
-  const ref = useRef<any>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const ref = useRef<HTMLDivElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: "-120px" });
+  const reducedMotion = useReducedMotion();
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 75%", "end 15%"],
-  });
+  return (
+    <motion.div
+      ref={ref}
+      initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+      animate={
+        reducedMotion
+          ? { opacity: 1, y: 0 }
+          : inView
+            ? { opacity: 1, y: 0 }
+            : { opacity: 0, y: 16 }
+      }
+      transition={
+        reducedMotion
+          ? { duration: 0 }
+          : { duration: 0.5, ease: easings.snap }
+      }
+      className={`grid items-center gap-8 md:grid-cols-[1fr_60px_1fr] md:gap-8 ${
+        !isLast ? "pb-14 md:pb-20" : ""
+      }`}
+    >
+      <div className={reversed ? "md:order-3" : "md:order-1"}>
+        <step.Visual />
+      </div>
+      <div className="relative hidden md:order-2 md:flex md:items-center md:justify-center">
+        <div className="flex size-11 items-center justify-center rounded-full bg-gradient-to-b from-white to-zinc-100 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),inset_0_-1px_2px_rgba(12,20,40,0.06),0_1px_2px_rgba(12,20,40,0.05),0_10px_22px_-6px_rgba(12,20,40,0.18),0_20px_36px_-12px_rgba(12,20,40,0.18)] ring-1 ring-zinc-900/[0.08]">
+          <span className="font-mono text-[14px] font-medium text-zinc-700">
+            {number}
+          </span>
+        </div>
+      </div>
+      <div className={reversed ? "md:order-1" : "md:order-3"}>
+        <TextBlock
+          title={step.label}
+          body={step.body}
+          features={step.features}
+        />
+      </div>
+    </motion.div>
+  );
+}
 
-  const positions = computeSlabLayout();
-  const lastPos = positions[positions.length - 1];
-  const viewH = lastPos.oy + slabVisHeight(lastPos.step) + 36;
-  const viewW = 500;
+function TextBlock({
+  title,
+  body,
+  features,
+}: {
+  title: string;
+  body: string;
+  features: { icon: ReactNode; text: string }[];
+}) {
+  return (
+    <div>
+      <h3 className="text-[22px] font-semibold tracking-[-0.01em] text-zinc-950 sm:text-[24px]">
+        {title}
+      </h3>
+      <p className="mt-2 max-w-md text-[14.5px] leading-[1.55] text-zinc-500">
+        {body}
+      </p>
+      <ul className="mt-5 space-y-2.5">
+        {features.map((f, i) => (
+          <li
+            key={i}
+            className="flex items-center gap-2.5 text-[14px] font-normal text-zinc-800"
+          >
+            <span className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-white text-zinc-700 shadow-[0_1px_2px_rgba(12,20,40,0.05),0_6px_12px_-4px_rgba(12,20,40,0.12),0_14px_24px_-8px_rgba(12,20,40,0.14)] ring-1 ring-zinc-900/[0.08]">
+              {f.icon}
+            </span>
+            {f.text}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
-  // Compute building stack initial Ys
-  const stackedYs: number[] = new Array(positions.length);
-  stackedYs[positions.length - 1] = positions[positions.length - 1].oy;
-  for (let i = positions.length - 2; i >= 0; i--) {
-    const belowStep = positions[i + 1].step;
-    const currentStep = positions[i].step;
-    stackedYs[i] =
-      stackedYs[i + 1] +
-      0.5 * (belowStep.w - currentStep.w) -
-      belowStep.h -
-      SLAB_BASE_H;
-  }
+function VisualCard({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`mx-auto w-full max-w-[320px] rounded-[20px] border border-zinc-900/10 bg-[#FCFCFD] p-1.5 shadow-[0_24px_48px_-20px_rgba(12,20,40,0.2),0_10px_20px_-12px_rgba(12,20,40,0.1)] ${className}`}
+    >
+      <div className="relative aspect-[4/3] overflow-hidden rounded-[16px] bg-white ring-1 ring-zinc-900/10">
+        <div className="relative h-full p-5">{children}</div>
+      </div>
+    </div>
+  );
+}
 
-  const connections = positions.slice(0, -1).map((pos, i) => {
-    const nextPos = positions[i + 1];
-    const cx = SLAB_OX;
-    const y1 = pos.oy + slabVisHeight(pos.step) - pos.step.h + 2;
-    const y2 = nextPos.oy - nextPos.step.h - 2;
-    return {
-      key: `flowpath-${i}`,
-      cx,
-      y1,
-      y2,
-      d: `M ${cx} ${y1} L ${cx} ${y2}`,
+function FlickeringGrid() {
+  const cols = 32;
+  const rows = 22;
+
+  const pixels = useMemo(() => {
+    const hash = (n: number) => {
+      const x = Math.sin(n * 12.9898) * 43758.5453;
+      return x - Math.floor(x);
     };
-  });
+    const arr: {
+      x: number;
+      y: number;
+      opacity: number;
+      flicker: boolean;
+      delay: number;
+      dur: number;
+    }[] = [];
+    for (let i = 0; i < cols * rows; i++) {
+      const r1 = hash(i * 1.7);
+      const r2 = hash(i * 2.3 + 7);
+      arr.push({
+        x: i % cols,
+        y: Math.floor(i / cols),
+        opacity: 0.03 + r1 * 0.1,
+        flicker: r2 > 0.86,
+        delay: r2 * 4,
+        dur: 1.6 + r1 * 1.8,
+      });
+    }
+    return arr;
+  }, []);
 
   return (
     <svg
-      ref={ref}
-      viewBox={`0 0 ${viewW} ${viewH}`}
-      role="img"
-      aria-label="Neatlogs end-to-end flow: agent runs, trace captured, team aligned, fix shipped"
-      className="mx-auto block h-auto w-full max-w-[500px]"
+      aria-hidden="true"
+      className="absolute inset-0 h-full w-full"
+      viewBox={`0 0 ${cols} ${rows}`}
+      preserveAspectRatio="xMidYMid slice"
     >
-      <defs>
-        <linearGradient id="slabTop" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#ffffff" />
-          <stop offset="100%" stopColor="#d4d4d8" />
-        </linearGradient>
-        <linearGradient id="slabTopActive" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#27272a" />
-          <stop offset="100%" stopColor="#09090b" />
-        </linearGradient>
-        <radialGradient id="slabGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#18181b" stopOpacity="0.22" />
-          <stop offset="60%" stopColor="#18181b" stopOpacity="0.04" />
-          <stop offset="100%" stopColor="#18181b" stopOpacity="0" />
-        </radialGradient>
-        <filter id="slabBlur" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="7" />
-        </filter>
-        {connections.map((c) => (
-          <path key={c.key} id={c.key} d={c.d} />
-        ))}
-      </defs>
-
-      {connections.map((c, i) => {
-        // Aggressively fast fade bounds to maximize reading dwell time
-        const startO = i * 0.03;
-        const endO = startO + 0.2;
-        const closeStartO = 0.45 + i * 0.03;
-        const closeEndO = closeStartO + 0.15;
-        const lineOpacity = useTransform(
-          scrollYProgress,
-          [0, startO, endO, closeStartO, closeEndO, 1],
-          [0, 0, 1, 1, 0, 0],
-        );
-
-        return (
-          <motion.g
-            key={`connection-${c.key}`}
-            style={{ opacity: lineOpacity }}
-          >
-            <line
-              x1={c.cx}
-              y1={c.y1}
-              x2={c.cx}
-              y2={c.y2}
-              stroke="#a1a1aa"
-              strokeOpacity="0.3"
-              strokeWidth="2"
-              strokeDasharray="2 5"
-              strokeLinecap="round"
+      {pixels.map((p, i) => (
+        <rect
+          key={i}
+          x={p.x + 0.15}
+          y={p.y + 0.15}
+          width="0.7"
+          height="0.7"
+          fill="#71717a"
+          opacity={p.opacity}
+        >
+          {p.flicker && (
+            <animate
+              attributeName="opacity"
+              values={`${p.opacity};0.4;${p.opacity}`}
+              dur={`${p.dur}s`}
+              begin={`${p.delay}s`}
+              repeatCount="indefinite"
             />
-            <motion.line
-              x1={c.cx}
-              y1={c.y1}
-              x2={c.cx}
-              y2={c.y2}
-              stroke="#09090b"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              initial={false}
-              animate={{
-                pathLength: active > i ? 1 : 0,
-                opacity: active > i ? 1 : 0,
-              }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            />
-          </motion.g>
-        );
-      })}
-
-      {positions
-        .map((pos, i) => (
-          <Slab
-            key={pos.step.id}
-            ox={SLAB_OX}
-            targetY={pos.oy}
-            stackedY={stackedYs[i]}
-            step={pos.step}
-            index={i}
-            active={i === active}
-            onClick={() => onSelect(i)}
-            isInView={isInView}
-            progress={scrollYProgress}
-          />
-        ))
-        .reverse()}
+          )}
+        </rect>
+      ))}
     </svg>
   );
 }
 
-function Slab({
-  ox,
-  targetY,
-  stackedY,
-  step,
-  index,
-  active,
-  onClick,
-  isInView,
-  progress,
-}: {
-  ox: number;
-  targetY: number;
-  stackedY: number;
-  step: Step;
-  index: number;
-  active: boolean;
-  onClick: () => void;
-  isInView: boolean;
-  progress: any;
-}) {
-  const oy = 0;
-  const W = step.w;
-  const D = step.w;
-  const H = step.h;
-  const E = SLAB_BASE_EXT;
-  const BH = SLAB_BASE_H;
-
-  const pt = (x: number, y: number, z: number) =>
-    `${ox + COS30 * (x - y)} ${oy + E + SIN30 * (x + y) - z}`;
-
-  const top = `M ${pt(0, 0, H)} L ${pt(W, 0, H)} L ${pt(W, D, H)} L ${pt(0, D, H)} Z`;
-  const left = `M ${pt(0, D, 0)} L ${pt(W, D, 0)} L ${pt(W, D, H)} L ${pt(0, D, H)} Z`;
-  const right = `M ${pt(W, 0, 0)} L ${pt(W, D, 0)} L ${pt(W, D, H)} L ${pt(W, 0, H)} Z`;
-
-  const baseTop = `M ${pt(-E, -E, 0)} L ${pt(W + E, -E, 0)} L ${pt(W + E, D + E, 0)} L ${pt(-E, D + E, 0)} Z`;
-  const baseLeft = `M ${pt(-E, D + E, -BH)} L ${pt(W + E, D + E, -BH)} L ${pt(W + E, D + E, 0)} L ${pt(-E, D + E, 0)} Z`;
-  const baseRight = `M ${pt(W + E, -E, -BH)} L ${pt(W + E, D + E, -BH)} L ${pt(W + E, D + E, 0)} L ${pt(W + E, -E, 0)} Z`;
-
-  const topMidLine = `M ${pt(0, D / 2, H)} L ${pt(W, D / 2, H)}`;
-  const topCrossLine = `M ${pt(W / 2, 0, H)} L ${pt(W / 2, D, H)}`;
-
-  const shadowCx = ox;
-  const shadowCy = oy + E + SIN30 * (W + D) + BH + 14;
-  const shadowRx = COS30 * (W + E * 2) * 0.95;
-  const shadowRy = SIN30 * (W + E * 2) * 0.32;
-
-  const topCx = ox;
-  const topCy = oy + E + SIN30 * W - H;
-
-  const labelX = ox + COS30 * (W + E) + 22;
-  const labelY = oy + E + SIN30 * W - H / 2 + 4;
-
-  const glowRx = COS30 * W * 1.45;
-  const glowRy = SIN30 * (W + D) * 0.85;
-
-  // Heavily bias the keyframes to the strict edges so it holds completely open at the center.
-  const openStart = index * 0.03;
-  const openEnd = openStart + 0.25;
-  const closeStart = 0.45 + (3 - index) * 0.03;
-  const closeEnd = closeStart + 0.15;
-
-  const scrollY = useTransform(
-    progress,
-    [0, openStart, openEnd, closeStart, closeEnd, 1],
-    [stackedY, stackedY, targetY, targetY, stackedY, stackedY],
+function AgentRunsVisual() {
+  return (
+    <VisualCard>
+      <FlickeringGrid />
+      <div className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-white p-1 shadow-[inset_0_2px_6px_rgba(113,113,122,0.22),inset_0_-1px_3px_rgba(113,113,122,0.1),0_2px_4px_rgba(12,20,40,0.06),0_10px_20px_-6px_rgba(12,20,40,0.18),0_22px_40px_-10px_rgba(12,20,40,0.2)] ring-1 ring-zinc-900/[0.08]">
+        <Image
+          src="/nl-logo.png"
+          alt="Neatlogs"
+          width={56}
+          height={56}
+          className="size-full rounded-xl"
+        />
+      </div>
+    </VisualCard>
   );
+}
+
+const TRACE_EVENTS: { workflow: string; latency: string; cost: string }[] = [
+  { workflow: "weather-research-agent", latency: "3.08s", cost: "$0.00070" },
+  { workflow: "support-triage", latency: "3.32s", cost: "$0.00077" },
+  { workflow: "pricing-qa", latency: "4.13s", cost: "$0.00072" },
+  { workflow: "weather-research-agent", latency: "4.04s", cost: "$0.00079" },
+  { workflow: "content-writer", latency: "3.45s", cost: "$0.00077" },
+  { workflow: "support-triage", latency: "3.77s", cost: "$0.00078" },
+  { workflow: "weather-research-agent", latency: "3.96s", cost: "$0.00076" },
+  { workflow: "pricing-qa", latency: "3.42s", cost: "$0.00076" },
+];
+
+function PixelFire() {
+  const cols = 44;
+  const rows = 20;
+
+  const pixels = useMemo(() => {
+    const hash = (n: number) => {
+      const x = Math.sin(n * 12.9898) * 43758.5453;
+      return x - Math.floor(x);
+    };
+    const arr: {
+      x: number;
+      y: number;
+      opacity: number;
+      delay: number;
+      dur: number;
+    }[] = [];
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        const r = hash(y * cols + x * 1.7);
+        const vertical = (y + 1) / rows;
+        const centerDist = Math.abs(x - (cols - 1) / 2) / (cols / 2);
+        const horizontal = 1 - centerDist * 0.55;
+        const density = vertical * horizontal;
+        if (r > density * 1.35) continue;
+        arr.push({
+          x,
+          y,
+          opacity: 0.2 + r * 0.55,
+          delay: r * 3,
+          dur: 0.9 + r * 1.6,
+        });
+      }
+    }
+    return arr;
+  }, []);
 
   return (
-    <motion.g style={{ y: scrollY }}>
-      <motion.g
-        onClick={onClick}
-        initial={{ opacity: 0 }}
-        animate={{
-          y: active ? -9 : 0,
-          opacity: isInView ? 1 : 0,
-        }}
-        transition={{
-          y: { type: "spring", duration: 0.6, bounce: 0.25 },
-          opacity: { duration: 0.5 },
-        }}
-        className="group cursor-pointer"
-      >
-        <ellipse
-          cx={topCx}
-          cy={topCy + (SIN30 * W) / 2 + 4}
-          rx={glowRx}
-          ry={glowRy}
-          fill="url(#slabGlow)"
-          opacity={active ? 1 : 0}
-          style={{ transition: "opacity 420ms ease-out" }}
-        />
-
-        <ellipse
-          cx={shadowCx}
-          cy={shadowCy + 8}
-          rx={shadowRx * 1.15}
-          ry={shadowRy * 1.15}
-          fill="#09090b"
-          opacity={index === 3 ? (active ? 0.28 : 0) : 0}
-          filter="url(#slabBlur)"
-          style={{ transition: "all 300ms cubic-bezier(0.22, 1, 0.36, 1)" }}
-        />
-
-        {/* Resting shadow */}
-        <ellipse
-          cx={shadowCx}
-          cy={shadowCy}
-          rx={shadowRx}
-          ry={shadowRy}
-          fill="#09090b"
-          opacity={index === 3 ? (active ? 0 : 0.16) : 0}
-          filter="url(#slabBlur)"
-          style={{ transition: "all 300ms cubic-bezier(0.22, 1, 0.36, 1)" }}
-        />
-
-        <path
-          d={baseRight}
-          fill={active ? "#18181b" : "#a1a1aa"}
-          stroke={active ? "#000000" : "#52525b"}
-          strokeOpacity={active ? 0.5 : 0.28}
-          strokeWidth="1"
-          strokeLinejoin="round"
-          style={{ transition: "fill 260ms ease-out" }}
-        />
-        <path
-          d={baseLeft}
-          fill={active ? "#27272a" : "#d4d4d8"}
-          stroke={active ? "#000000" : "#52525b"}
-          strokeOpacity={active ? 0.4 : 0.24}
-          strokeWidth="1"
-          strokeLinejoin="round"
-          style={{ transition: "fill 260ms ease-out" }}
-        />
-        <path
-          d={baseTop}
-          fill={active ? "#3f3f46" : "#e4e4e7"}
-          stroke={active ? "#000000" : "#52525b"}
-          strokeOpacity={active ? 0.48 : 0.3}
-          strokeWidth="1"
-          strokeLinejoin="round"
-          style={{ transition: "fill 260ms ease-out" }}
-        />
-
-        <path
-          d={right}
-          fill={active ? "#09090b" : "#a1a1aa"}
-          stroke={active ? "#000000" : "#52525b"}
-          strokeOpacity={active ? 0.6 : 0.36}
-          strokeWidth="1"
-          strokeLinejoin="round"
-          style={{ transition: "fill 260ms ease-out" }}
-        />
-        <path
-          d={left}
-          fill={active ? "#1c1c1f" : "#d4d4d8"}
-          stroke={active ? "#000000" : "#52525b"}
-          strokeOpacity={active ? 0.5 : 0.3}
-          strokeWidth="1"
-          strokeLinejoin="round"
-          style={{ transition: "fill 260ms ease-out" }}
-        />
-        <path
-          d={top}
-          fill={active ? "url(#slabTopActive)" : "url(#slabTop)"}
-          stroke={active ? "#000000" : "#52525b"}
-          strokeOpacity={active ? 0.65 : 0.34}
-          strokeWidth="1"
-          strokeLinejoin="round"
-        />
-
-        <path
-          d={topMidLine}
-          stroke={active ? "#ffffff" : "#71717a"}
-          strokeOpacity={active ? 0.14 : 0.22}
-          strokeWidth="1"
-          fill="none"
-        />
-        <path
-          d={topCrossLine}
-          stroke={active ? "#ffffff" : "#71717a"}
-          strokeOpacity={active ? 0.14 : 0.22}
-          strokeWidth="1"
-          fill="none"
-        />
-
-        <text
-          x={labelX}
-          y={labelY}
-          style={{
-            fontSize: 11,
-            fontFamily: "ui-monospace, monospace",
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            fontWeight: active ? 700 : 500,
-            fill: active ? "#09090b" : "#71717a",
-            transition: "fill 200ms ease-out, font-weight 200ms ease-out",
-          }}
+    <svg
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-x-0 bottom-0 h-[58%] w-full"
+      viewBox={`0 0 ${cols} ${rows}`}
+      preserveAspectRatio="xMidYMax slice"
+    >
+      {pixels.map((p, i) => (
+        <rect
+          key={i}
+          x={p.x + 0.1}
+          y={p.y + 0.1}
+          width="0.8"
+          height="0.8"
+          fill="#E9462E"
+          opacity={p.opacity}
         >
-          {`0${index + 1} · ${step.label}`}
-        </text>
-      </motion.g>
-    </motion.g>
+          <animate
+            attributeName="opacity"
+            values={`${p.opacity};${Math.min(0.95, p.opacity + 0.35)};${p.opacity}`}
+            dur={`${p.dur}s`}
+            begin={`${p.delay}s`}
+            repeatCount="indefinite"
+          />
+        </rect>
+      ))}
+    </svg>
+  );
+}
+
+function TraceCapturedVisual() {
+  const [index, setIndex] = useState(0);
+  const reducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (reducedMotion) return;
+    const id = window.setInterval(() => setIndex((i) => i + 1), 1400);
+    return () => window.clearInterval(id);
+  }, [reducedMotion]);
+
+  const ITEM_H = 28;
+  const VISIBLE = 4;
+
+  const items = Array.from({ length: VISIBLE }, (_, i) => {
+    const key = index - i;
+    const idx =
+      ((key % TRACE_EVENTS.length) + TRACE_EVENTS.length) % TRACE_EVENTS.length;
+    return {
+      key,
+      event: TRACE_EVENTS[idx],
+      pos: i,
+    };
+  });
+
+  return (
+    <VisualCard>
+      <div
+        className="absolute inset-0"
+        style={{
+          maskImage:
+            "linear-gradient(to bottom, transparent 0%, black 14%, black 40%, transparent 56%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent 0%, black 14%, black 40%, transparent 56%)",
+        }}
+      >
+        <div className="relative mx-auto h-full pt-2">
+          <AnimatePresence initial={false}>
+            {items.map((item) => (
+              <motion.div
+                key={item.key}
+                initial={{ opacity: 0, y: -ITEM_H + 6, scale: 0.96 }}
+                animate={{ opacity: 1, y: item.pos * ITEM_H + 8, scale: 1 }}
+                exit={{
+                  opacity: 0,
+                  y: VISIBLE * ITEM_H + 16,
+                  scale: 0.96,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 180,
+                  damping: 26,
+                  mass: 0.6,
+                }}
+                className="absolute inset-x-1 flex items-center gap-2 rounded-lg bg-white px-2.5 py-1.5 shadow-[0_1px_2px_rgba(12,20,40,0.04),0_6px_14px_-6px_rgba(12,20,40,0.12)] ring-1 ring-zinc-900/[0.06]"
+              >
+                <span className="flex-1 truncate font-mono text-[9.5px] leading-none tracking-tight text-zinc-700">
+                  {item.event.workflow}
+                </span>
+                <span className="shrink-0 font-mono text-[9.5px] leading-none text-zinc-900 [font-variant-numeric:tabular-nums]">
+                  {item.event.latency}
+                </span>
+                <span className="shrink-0 font-mono text-[9px] leading-none text-zinc-400 [font-variant-numeric:tabular-nums]">
+                  {item.event.cost}
+                </span>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      </div>
+
+      <PixelFire />
+
+      <div className="absolute left-1/2 top-1/2 z-10 flex size-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-white p-1 shadow-[inset_0_2px_6px_rgba(113,113,122,0.22),inset_0_-1px_3px_rgba(113,113,122,0.1),0_2px_4px_rgba(12,20,40,0.06),0_10px_20px_-6px_rgba(12,20,40,0.18),0_22px_40px_-10px_rgba(12,20,40,0.2)] ring-1 ring-zinc-900/[0.08]">
+        <Image
+          src="/nl-logo.png"
+          alt="Neatlogs"
+          width={48}
+          height={48}
+          className="size-full rounded-xl"
+        />
+      </div>
+    </VisualCard>
+  );
+}
+
+const DIFF_LINES: { kind: "rm" | "add"; text: string }[] = [
+  { kind: "rm", text: "- result = fetch(url, timeout=30)" },
+  { kind: "add", text: "+ result = safe_fetch(url, retries=2)" },
+  { kind: "add", text: "+ return cached_result(query)" },
+];
+
+function FixShippedVisual() {
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const inView = useInView(cardRef, { once: true, margin: "-40px" });
+  const reducedMotion = useReducedMotion();
+
+  return (
+    <VisualCard>
+      <div ref={cardRef} className="flex h-full items-center justify-center">
+        <motion.div
+          initial={reducedMotion ? false : { opacity: 0, y: 10 }}
+          animate={
+            inView || reducedMotion
+              ? { opacity: 1, y: 0 }
+              : { opacity: 0, y: 10 }
+          }
+          transition={
+            reducedMotion
+              ? { duration: 0 }
+              : { duration: 0.4, ease: easings.snap }
+          }
+          className="w-full max-w-[320px] overflow-hidden rounded-xl bg-white shadow-[0_18px_40px_-14px_rgba(12,20,40,0.28),0_6px_12px_-6px_rgba(12,20,40,0.14)] ring-1 ring-zinc-900/10"
+        >
+          <div className="flex items-center justify-between border-b border-zinc-900/5 bg-zinc-50/80 px-3 py-2">
+            <div className="flex items-center gap-1.5">
+              <span className="size-2 rounded-full bg-zinc-300" />
+              <span className="size-2 rounded-full bg-zinc-300" />
+              <span className="size-2 rounded-full bg-zinc-300" />
+            </div>
+            <span className="font-mono text-[9px] text-zinc-500">
+              research-agent.py
+            </span>
+          </div>
+          <div className="space-y-1 px-3 py-3 font-mono text-[10.5px] leading-relaxed">
+            {DIFF_LINES.map((line, i) => (
+              <motion.div
+                key={i}
+                initial={
+                  reducedMotion ? false : { clipPath: "inset(0 100% 0 0)" }
+                }
+                animate={
+                  inView || reducedMotion
+                    ? { clipPath: "inset(0 0 0 0)" }
+                    : { clipPath: "inset(0 100% 0 0)" }
+                }
+                transition={
+                  reducedMotion
+                    ? { duration: 0 }
+                    : {
+                        duration: 0.32,
+                        delay: 0.3 + i * 0.18,
+                        ease: easings.snap,
+                      }
+                }
+                className={`rounded px-1.5 ${
+                  line.kind === "rm"
+                    ? "bg-rose-50 text-rose-700"
+                    : "bg-emerald-50 text-emerald-700"
+                }`}
+              >
+                {line.text}
+              </motion.div>
+            ))}
+            <div className="px-1.5 text-zinc-400">&nbsp;</div>
+            <motion.div
+              initial={reducedMotion ? false : { opacity: 0, y: 4 }}
+              animate={
+                inView || reducedMotion
+                  ? { opacity: 1, y: 0 }
+                  : { opacity: 0, y: 4 }
+              }
+              transition={
+                reducedMotion
+                  ? { duration: 0 }
+                  : { duration: 0.3, delay: 0.95, ease: easings.snap }
+              }
+              className="flex items-center gap-1.5 px-1.5 text-[10px] text-zinc-700"
+            >
+              <span className="inline-flex size-3 items-center justify-center rounded-full bg-emerald-100 text-[8px] text-emerald-700">
+                ✓
+              </span>
+              Open in Cursor · review &amp; ship
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+    </VisualCard>
+  );
+}
+
+function IconBolt() {
+  return (
+    <svg viewBox="0 0 20 20" fill="currentColor" className="size-4">
+      <path d="M11 2L4 11h5l-1 7 7-9h-5l1-7z" />
+    </svg>
+  );
+}
+
+function IconLayers() {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+    >
+      <path d="M10 3l7 3.5-7 3.5-7-3.5L10 3z" />
+      <path d="M3 10l7 3.5L17 10" />
+      <path d="M3 13.5l7 3.5 7-3.5" />
+    </svg>
+  );
+}
+
+function IconPlug() {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+    >
+      <path d="M6 8V3M14 8V3" />
+      <path d="M5 8h10v3a5 5 0 0 1-10 0V8z" />
+      <path d="M10 16v2" />
+    </svg>
+  );
+}
+
+function IconSpan() {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+    >
+      <rect x="3" y="5" width="10" height="2" rx="1" fill="currentColor" />
+      <rect x="6" y="9" width="10" height="2" rx="1" fill="currentColor" opacity="0.5" />
+      <rect x="4" y="13" width="8" height="2" rx="1" fill="currentColor" opacity="0.75" />
+    </svg>
+  );
+}
+
+function IconInput() {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+    >
+      <path d="M3 10h10" />
+      <path d="M10 6l4 4-4 4" />
+      <path d="M16 4v12" />
+    </svg>
+  );
+}
+
+function IconPin() {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+    >
+      <path d="M10 3a5 5 0 0 0-5 5c0 3.5 5 9 5 9s5-5.5 5-9a5 5 0 0 0-5-5z" />
+      <circle cx="10" cy="8" r="1.6" fill="currentColor" />
+    </svg>
+  );
+}
+
+function IconCursor() {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+    >
+      <path d="M4 3l12 7-5 1-3 5-4-13z" />
+    </svg>
+  );
+}
+
+function IconGitBranch() {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+    >
+      <circle cx="5" cy="4" r="1.6" />
+      <circle cx="5" cy="15" r="1.6" />
+      <circle cx="14" cy="8" r="1.6" />
+      <path d="M5 6v7" />
+      <path d="M14 9.5c0 3-4 3-4 5.5" />
+    </svg>
+  );
+}
+
+function IconCheck() {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+    >
+      <path d="M4 10.5l4 4 8-8" />
+    </svg>
   );
 }

@@ -40,7 +40,7 @@ const FAQItem = ({
 }: FAQItemProps) => {
     return (
         <div
-            className={`mb-3 overflow-hidden rounded-[24px] ring-1 transition-[background-color,shadow,box-shadow] duration-[400ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform ${isOpen
+            className={`mb-3 overflow-hidden rounded-[24px] ring-1 transition-[background-color,shadow,box-shadow] duration-[400ms] ease-snap will-change-transform ${isOpen
                 ? "bg-white/90 backdrop-blur-3xl ring-zinc-900/10 shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_12px_28px_-12px_rgba(12,20,40,0.06)]"
                 : "bg-white/60 backdrop-blur-3xl ring-zinc-900/5 shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_14px_36px_-20px_rgba(12,20,40,0.08)] hover:bg-white/90 hover:ring-zinc-900/10"
                 }`}
@@ -67,7 +67,7 @@ const FAQItem = ({
                 </div>
 
                 <div
-                    className={`flex items-center justify-center shrink-0 size-8 sm:size-9 rounded-full ring-1 transition-all duration-[400ms] ease-[cubic-bezier(0.23,1,0.32,1)] ${isOpen
+                    className={`flex items-center justify-center shrink-0 size-8 sm:size-9 rounded-full ring-1 transition-all duration-[400ms] ease-snap ${isOpen
                             ? "bg-zinc-950 ring-zinc-950 rotate-180 scale-[1.04] shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
                             : "bg-zinc-900/[0.03] ring-zinc-900/10 group-hover:bg-zinc-900/[0.06] group-hover:scale-[1.04]"
                         }`}
@@ -87,7 +87,7 @@ const FAQItem = ({
             </button>
 
             <div
-                className={`grid transition-[grid-template-rows,opacity] duration-[400ms] ease-[cubic-bezier(0.23,1,0.32,1)] ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                className={`grid transition-[grid-template-rows,opacity] duration-[400ms] ease-snap ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                     }`}
             >
                 <div className="overflow-hidden">

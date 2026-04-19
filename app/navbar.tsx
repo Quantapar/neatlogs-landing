@@ -50,9 +50,12 @@ export function Navbar() {
                 href={href}
                 onClick={(e) => {
                   e.preventDefault();
-                  document
-                    .querySelector(href)
-                    ?.scrollIntoView({ behavior: "smooth" });
+                  const prefersReducedMotion =
+                    typeof window !== "undefined" &&
+                    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                  document.querySelector(href)?.scrollIntoView({
+                    behavior: prefersReducedMotion ? "auto" : "smooth",
+                  });
                 }}
                 className="font-ui cursor-pointer text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
               >
@@ -142,9 +145,12 @@ export function Navbar() {
                 onClick={(e) => {
                   e.preventDefault();
                   setOpen(false);
-                  document
-                    .querySelector(href)
-                    ?.scrollIntoView({ behavior: "smooth" });
+                  const prefersReducedMotion =
+                    typeof window !== "undefined" &&
+                    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                  document.querySelector(href)?.scrollIntoView({
+                    behavior: prefersReducedMotion ? "auto" : "smooth",
+                  });
                 }}
                 className="font-ui cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 transition-[color,background-color,transform] hover:bg-white/60 hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
               >
