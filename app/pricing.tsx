@@ -36,24 +36,24 @@ export function Pricing() {
         </p>
       </div>
 
-      <div className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 antialiased">
+      <div className="mx-auto grid w-full max-w-4xl grid-cols-1 gap-5 md:grid-cols-2 lg:gap-6 antialiased">
         {/* OPEN Plan (Free) */}
-        <div className="flex flex-col rounded-[32px] bg-[#F4F4F5] p-2 ring-1 ring-zinc-900/5 shadow-sm">
-          <div className="flex flex-col px-6 py-6 sm:px-10 sm:pt-8 sm:pb-10 h-[304px] rounded-[24px] bg-white ring-1 ring-zinc-200/80 shadow-sm relative">
+        <div className="flex flex-col rounded-[28px] bg-[#F4F4F5] p-1.5 ring-1 ring-zinc-900/5 shadow-sm">
+          <div className="flex flex-col px-5 py-5 sm:px-8 sm:pt-7 sm:pb-8 h-[252px] rounded-[22px] bg-white ring-1 ring-zinc-200/80 shadow-sm relative">
             <div>
               <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">OPEN</h3>
-              <div className="mt-4 flex items-baseline leading-none">
-                <span className="text-[40px] sm:text-[48px] font-bold tracking-tight text-zinc-950">Free</span>
+              <div className="mt-3 flex items-baseline leading-none">
+                <span className="text-[34px] sm:text-[40px] font-bold tracking-tight text-zinc-950">Free</span>
               </div>
-              <p className="mt-4 text-[15px] font-medium text-zinc-600">No credit card required</p>
+              <p className="mt-3 text-[14px] font-medium text-zinc-600">No credit card required</p>
             </div>
-            <button type="button" className="font-ui mt-auto w-full cursor-pointer rounded-[14px] bg-zinc-950 py-3.5 px-4 text-[15px] font-semibold text-white shadow-md transition-[transform,background-color] duration-150 ease-snap hover:bg-zinc-800 hover-hover:hover:scale-[1.02] active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2">
+            <button type="button" className="font-ui mt-auto w-full cursor-pointer rounded-[12px] bg-zinc-950 py-3 px-4 text-[14px] font-semibold text-white shadow-md transition-[transform,background-color] duration-150 ease-snap hover:bg-zinc-800 hover-hover:hover:scale-[1.02] active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2">
               Get Started
             </button>
           </div>
-          
-          <div className="flex-1 mt-2 rounded-[24px] bg-white ring-1 ring-zinc-200/80 shadow-sm px-6 py-8 sm:px-10 sm:py-10">
-            <ul className="flex flex-col gap-y-4">
+
+          <div className="flex-1 mt-1.5 rounded-[22px] bg-white ring-1 ring-zinc-200/80 shadow-sm px-5 py-6 sm:px-8 sm:py-8">
+            <ul className="flex flex-col gap-y-3">
               {[
                 "All platform features (with limits)",
                 "50k events / month",
@@ -62,8 +62,8 @@ export function Pricing() {
                 "10 projects",
                 "1 team"
               ].map((feature, i) => (
-                <li key={i} className="flex items-center gap-3 text-[14px] font-medium text-zinc-700">
-                  <CheckIcon className="size-[18px] shrink-0" solid={true} />
+                <li key={i} className="flex items-center gap-2.5 text-[13.5px] font-medium text-zinc-700">
+                  <CheckIcon className="size-[16px] shrink-0" solid={true} />
                   {feature}
                 </li>
               ))}
@@ -72,28 +72,28 @@ export function Pricing() {
         </div>
 
         {/* ENTERPRISE Plan */}
-        <div className="flex flex-col rounded-[32px] bg-[#3f3f46] p-2 shadow-2xl relative">
-          <div className="flex flex-col px-6 py-6 sm:px-10 sm:pt-8 sm:pb-10 h-[304px] rounded-[24px] bg-[#18181b] relative">
+        <div className="flex flex-col rounded-[28px] bg-[#3f3f46] p-1.5 shadow-2xl relative">
+          <div className="flex flex-col px-5 py-5 sm:px-8 sm:pt-7 sm:pb-8 h-[252px] rounded-[22px] bg-[#18181b] relative">
             <div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5">
                 <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">ENTERPRISE</h3>
-                <span className="rounded-full bg-[#FAFAFA]/10 px-2.5 py-0.5 text-[10px] font-semibold tracking-wider text-zinc-300 uppercase">
+                <span className="rounded-full bg-[#FAFAFA]/10 px-2 py-0.5 text-[9px] font-semibold tracking-wider text-zinc-300 uppercase">
                   Recommended
                 </span>
               </div>
-              <div className="mt-4 flex items-baseline leading-none">
-                <span className="text-[40px] sm:text-[48px] font-bold tracking-tight text-white">Custom</span>
+              <div className="mt-3 flex items-baseline leading-none">
+                <span className="text-[34px] sm:text-[40px] font-bold tracking-tight text-white">Custom</span>
               </div>
-              <p className="mt-4 text-[15px] font-medium text-zinc-400">For large teams</p>
+              <p className="mt-3 text-[14px] font-medium text-zinc-400">For large teams</p>
             </div>
-            <button type="button" className="font-ui mt-auto w-full cursor-pointer rounded-[14px] bg-white py-3.5 px-4 text-[15px] font-semibold text-zinc-950 transition-transform duration-150 ease-snap hover-hover:hover:scale-[1.02] active:scale-[0.97] motion-reduce:active:scale-100 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+            <button type="button" className="font-ui mt-auto w-full cursor-pointer rounded-[12px] bg-white py-3 px-4 text-[14px] font-semibold text-zinc-950 transition-transform duration-150 ease-snap hover-hover:hover:scale-[1.02] active:scale-[0.97] motion-reduce:active:scale-100 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
               Book a Call
             </button>
           </div>
-          
-          <div className="flex-1 mt-2 rounded-[24px] bg-[#222225] border border-white/5 px-6 py-8 sm:px-10 sm:py-10">
-            <p className="font-mono text-[13px] text-zinc-400 mb-6">Everything in Free, plus:</p>
-            <ul className="flex flex-col gap-y-4">
+
+          <div className="flex-1 mt-1.5 rounded-[22px] bg-[#222225] border border-white/5 px-5 py-6 sm:px-8 sm:py-8">
+            <p className="font-mono text-[12px] text-zinc-400 mb-5">Everything in Free, plus:</p>
+            <ul className="flex flex-col gap-y-3">
               {[
                 "Unlimited traces",
                 "Unlimited users & teams",
@@ -103,8 +103,8 @@ export function Pricing() {
                 "Uptime & Support SLA",
                 "AI features"
               ].map((feature, i) => (
-                <li key={i} className="flex items-center gap-3 text-[14px] font-medium text-zinc-200">
-                  <CheckIcon className="size-[18px] shrink-0" solid={false} />
+                <li key={i} className="flex items-center gap-2.5 text-[13.5px] font-medium text-zinc-200">
+                  <CheckIcon className="size-[16px] shrink-0" solid={false} />
                   {feature}
                 </li>
               ))}

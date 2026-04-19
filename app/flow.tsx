@@ -396,14 +396,37 @@ function TraceCapturedVisual() {
 
   useEffect(() => {
     if (reducedMotion) return;
+    let interval: number | null = null;
+
     const spawn = () => {
       const id = counterRef.current++;
       const event = TRACE_EVENTS[id % TRACE_EVENTS.length];
       setItems((prev) => [...prev.slice(-5), { id, event }]);
     };
-    spawn();
-    const interval = window.setInterval(spawn, 1100);
-    return () => window.clearInterval(interval);
+
+    const start = () => {
+      if (interval != null) return;
+      setItems([]);
+      spawn();
+      interval = window.setInterval(spawn, 1100);
+    };
+    const stop = () => {
+      if (interval != null) {
+        window.clearInterval(interval);
+        interval = null;
+      }
+    };
+    const onVis = () => {
+      if (document.visibilityState === "visible") start();
+      else stop();
+    };
+
+    if (document.visibilityState === "visible") start();
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      stop();
+      document.removeEventListener("visibilitychange", onVis);
+    };
   }, [reducedMotion]);
 
   const TRAVEL = 110;
@@ -518,14 +541,37 @@ function FixShippedVisual() {
 
   useEffect(() => {
     if (reducedMotion) return;
+    let interval: number | null = null;
+
     const spawn = () => {
       const id = counterRef.current++;
       const msg = TEAM_MESSAGES[id % TEAM_MESSAGES.length];
       setItems((prev) => [...prev.slice(-5), { id, msg }]);
     };
-    spawn();
-    const interval = window.setInterval(spawn, 1400);
-    return () => window.clearInterval(interval);
+
+    const start = () => {
+      if (interval != null) return;
+      setItems([]);
+      spawn();
+      interval = window.setInterval(spawn, 1400);
+    };
+    const stop = () => {
+      if (interval != null) {
+        window.clearInterval(interval);
+        interval = null;
+      }
+    };
+    const onVis = () => {
+      if (document.visibilityState === "visible") start();
+      else stop();
+    };
+
+    if (document.visibilityState === "visible") start();
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      stop();
+      document.removeEventListener("visibilitychange", onVis);
+    };
   }, [reducedMotion]);
 
   const TRAVEL = 180;
