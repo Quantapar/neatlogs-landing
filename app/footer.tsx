@@ -4,6 +4,33 @@ import { ArrowUpRight } from "lucide-react";
 export default function Footer2() {
   return (
     <footer className="relative overflow-hidden min-h-[500px] flex flex-col justify-between bg-[#FAFAFA]">
+      {/* Sunrise gradient — warm radial glow rising from bottom-center */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[80%] z-0"
+        style={{
+          backgroundImage:
+            "radial-gradient(ellipse 110% 65% at 50% 100%, rgba(233,70,46,0.42) 0%, rgba(255,138,96,0.30) 22%, rgba(255,178,156,0.18) 42%, rgba(214,170,200,0.10) 62%, transparent 80%)",
+        }}
+      />
+
+      {/* Pixel grain overlay — low-opacity noise that gives the gradient a printed/pixelated feel */}
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 size-full opacity-[0.18] mix-blend-overlay"
+      >
+        <filter id="footer-grain">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.9"
+            numOctaves="2"
+            stitchTiles="stitch"
+          />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#footer-grain)" />
+      </svg>
+
       <div className="relative z-10 w-full pt-16 px-6 md:px-12 flex-1 flex flex-col">
         <div className="flex flex-row justify-between items-end w-full mb-8">
           <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] text-black font-medium tracking-tighter leading-none">

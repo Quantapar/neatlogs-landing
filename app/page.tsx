@@ -24,6 +24,14 @@ export default function () {
           unoptimized
           sizes="100vw"
           className="object-cover"
+          /* video
+          src="/hero-bg.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/sfbg.png"
+          className="absolute inset-0 size-full object-cover" */
         />
 
         <div
