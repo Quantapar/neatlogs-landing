@@ -78,13 +78,18 @@ export function Flow() {
   return (
     <section className="relative bg-[#FAFAFA] py-20 sm:py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="font-ui text-[12px] font-medium uppercase tracking-[0.15em] text-zinc-600">
+        <div className="mx-auto max-w-5xl text-center">
+          <span
+            translate="no"
+            className="font-ui text-2xl sm:text-3xl font-semibold tracking-tight"
+            style={{ color: "#E9462E" }}
+          >
             Built for both sides of the table
           </span>
           <h2 className="mt-5 text-balance text-4xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
-            Built for the people who spot the problem{" "}
-            <span className="text-zinc-500">— and the people who fix it.</span>
+            Built for the people who spot the problem
+            <br />
+            <span>and the people who fix it.</span>
           </h2>
           <p className="font-ui mx-auto mt-6 max-w-2xl text-pretty text-[15px] leading-relaxed text-zinc-600 sm:text-base">
             Different depth for domain experts and devs. Shared context all the
@@ -167,12 +172,12 @@ export function Flow() {
                 );
               })}
             </ol>
-      
+
             <div className="mt-6 flex items-center justify-center pt-4 ml-50 ">
               {/* Added image pixel art below the steps to fill vertical space */}
-              <img 
-                src="/tree2.png" 
-                alt="Pixel art palm trees with San Francisco skyline" 
+              <img
+                src="/tree2.png"
+                alt="Pixel art palm trees with San Francisco skyline"
                 className="w-full max-w-sm object-contain mix-blend-multiply opacity-90"
               />
             </div>
@@ -195,7 +200,7 @@ function StackViz({
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 75%", "end 15%"]
+    offset: ["start 75%", "end 15%"],
   });
 
   const positions = computeSlabLayout();
@@ -263,13 +268,13 @@ function StackViz({
       {connections.map((c, i) => {
         // Aggressively fast fade bounds to maximize reading dwell time
         const startO = i * 0.03;
-        const endO = startO + 0.20;
+        const endO = startO + 0.2;
         const closeStartO = 0.45 + i * 0.03;
         const closeEndO = closeStartO + 0.15;
         const lineOpacity = useTransform(
-          scrollYProgress, 
-          [0, startO, endO, closeStartO, closeEndO, 1], 
-          [0, 0, 1, 1, 0, 0]
+          scrollYProgress,
+          [0, startO, endO, closeStartO, closeEndO, 1],
+          [0, 0, 1, 1, 0, 0],
         );
 
         return (
@@ -388,11 +393,11 @@ function Slab({
   const openEnd = openStart + 0.25;
   const closeStart = 0.45 + (3 - index) * 0.03;
   const closeEnd = closeStart + 0.15;
-  
+
   const scrollY = useTransform(
-    progress, 
-    [0, openStart, openEnd, closeStart, closeEnd, 1], 
-    [stackedY, stackedY, targetY, targetY, stackedY, stackedY]
+    progress,
+    [0, openStart, openEnd, closeStart, closeEnd, 1],
+    [stackedY, stackedY, targetY, targetY, stackedY, stackedY],
   );
 
   return (
@@ -491,8 +496,7 @@ function Slab({
         />
         <path
           d={top}
-          fill={active ? "url(#slabTopActive)" : 
-            "url(#slabTop)"}
+          fill={active ? "url(#slabTopActive)" : "url(#slabTop)"}
           stroke={active ? "#000000" : "#52525b"}
           strokeOpacity={active ? 0.65 : 0.34}
           strokeWidth="1"

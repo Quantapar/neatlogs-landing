@@ -2,6 +2,7 @@
 
 import {
   ArrowUp,
+  Check,
   ChevronDown,
   ChevronRight,
   History,
@@ -230,6 +231,21 @@ function SidebarItem({
 
 function MainArea() {
   const [query, setQuery] = useState("");
+  const [mode, setMode] = useState<"Fast" | "Pro">("Fast");
+  const [modeOpen, setModeOpen] = useState(false);
+  const modeRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!modeOpen) return;
+    const onDown = (e: MouseEvent) => {
+      if (modeRef.current && !modeRef.current.contains(e.target as Node)) {
+        setModeOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [modeOpen]);
+
   return (
     <main className="relative flex flex-1 flex-col items-center justify-center overflow-hidden px-6">
       <Image
@@ -260,14 +276,45 @@ function MainArea() {
             className="font-pixel w-full bg-transparent text-[13.5px] font-normal text-zinc-950 outline-none placeholder:text-zinc-400"
           />
           <div className="mt-3 flex items-center gap-1.5">
-            <button
-              type="button"
-              className="font-pixel flex cursor-pointer items-center gap-1 rounded-md bg-zinc-900/5 px-2 py-1 text-[11px] font-normal text-zinc-700 transition-colors hover:bg-zinc-900/10"
-            >
-              <Zap className="size-3" />
-              Fast
-              <ChevronDown className="size-3" />
-            </button>
+            <div ref={modeRef} className="relative">
+              <button
+                type="button"
+                onClick={() => setModeOpen((v) => !v)}
+                className="font-pixel flex cursor-pointer items-center gap-1 rounded-md bg-zinc-900/5 px-2 py-1 text-[11px] font-normal text-zinc-700 transition-colors hover:bg-zinc-900/10"
+              >
+                <Zap className="size-3" />
+                {mode}
+                <ChevronDown className="size-3" />
+              </button>
+              <AnimatePresence>
+                {modeOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 4, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 4, scale: 0.98 }}
+                    transition={{ duration: 0.14, ease: [0.22, 1, 0.36, 1] }}
+                    className="absolute left-0 top-full z-20 mt-1.5 w-[120px] overflow-hidden rounded-lg bg-white p-1 shadow-[0_12px_28px_-10px_rgba(12,20,40,0.22),0_4px_10px_-6px_rgba(12,20,40,0.12)] ring-1 ring-zinc-900/10"
+                  >
+                    {(["Fast", "Pro"] as const).map((opt) => (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => {
+                          setMode(opt);
+                          setModeOpen(false);
+                        }}
+                        className="font-pixel flex w-full cursor-pointer items-center justify-between rounded-md px-2 py-1.5 text-[11px] font-normal text-zinc-700 transition-colors hover:bg-zinc-900/5"
+                      >
+                        <span>{opt}</span>
+                        {mode === opt && (
+                          <Check className="size-3 text-zinc-600" />
+                        )}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
             <button
               type="button"
               className="font-pixel flex cursor-pointer items-center gap-1 rounded-md px-2 py-1 text-[11px] font-normal text-zinc-400 transition-colors hover:text-zinc-700"

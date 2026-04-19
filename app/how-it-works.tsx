@@ -166,8 +166,7 @@ export function HowItWorks() {
               How it works
             </span>
             <h2 className="mt-5 max-w-3xl text-balance text-4xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
-              From broken agent{" "}
-              <span className="text-zinc-500">to shipped fix.</span>
+              From broken agent <span>to shipped fix.</span>
             </h2>
           </div>
 
@@ -362,67 +361,31 @@ function StepTile({
       type="button"
       onClick={onSelect}
       aria-pressed={active}
-      className={`group relative overflow-hidden rounded-2xl border text-left outline-none transition-[border-color,background-color,transform,box-shadow] focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAFAFA] motion-reduce:transition-none motion-reduce:active:scale-100 ${
+      className={`group relative overflow-hidden rounded-2xl border bg-white text-left outline-none transition-[border-color,transform,box-shadow] focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAFAFA] motion-reduce:transition-none motion-reduce:active:scale-100 ${
         active
-          ? "cursor-default border-zinc-950 bg-zinc-950 shadow-md shadow-zinc-900/5"
-          : "cursor-pointer border-zinc-900/10 bg-white/70 hover:-translate-y-0.5 hover:border-zinc-900/20 hover:bg-white hover:shadow-sm hover:shadow-zinc-900/5 active:scale-[0.97]"
+          ? "cursor-default -translate-y-0.5 border-zinc-950 shadow-[0_20px_40px_-12px_rgba(12,20,40,0.28),0_6px_14px_-6px_rgba(12,20,40,0.14)]"
+          : "cursor-pointer border-zinc-900/10 hover:-translate-y-0.5 hover:border-zinc-900/20 hover:shadow-sm hover:shadow-zinc-900/5 active:scale-[0.97]"
       }`}
       style={{
         transitionDuration: `${duration}ms`,
         transitionTimingFunction: easing,
       }}
     >
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-[inherit] bg-zinc-950 will-change-[opacity] motion-reduce:transition-none"
-        style={{
-          opacity: active ? 1 : 0,
-          transition: `opacity ${duration}ms ${easing}`,
-        }}
-      />
       <div className="relative p-5 sm:p-6">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <span
-              className="font-mono text-[11px] uppercase tracking-widest motion-reduce:transition-none"
-              style={{
-                color: active ? "rgba(255,255,255,0.6)" : "rgb(161, 161, 170)",
-                transition: `color ${duration}ms ${easing}`,
-              }}
-            >
+            <span className="font-mono text-[11px] uppercase tracking-widest text-zinc-400">
               0{index + 1}
             </span>
-            <span
-              className="text-[12px] font-semibold uppercase tracking-[0.12em] motion-reduce:transition-none"
-              style={{
-                color: active ? "#ffffff" : "rgb(24, 24, 27)",
-                textDecoration: "underline wavy",
-                textDecorationColor: active ? "#ffffff" : "rgb(24, 24, 27)",
-                textDecorationThickness: "1.5px",
-                textUnderlineOffset: "2px",
-                transition: `color ${duration}ms ${easing}, text-decoration-color ${duration}ms ${easing}`,
-              }}
-            >
+            <span className="text-[12px] font-semibold uppercase tracking-[0.12em] text-zinc-900">
               {tag}
             </span>
           </div>
         </div>
-        <h3
-          className="font-ui mt-4 text-[17px] font-medium leading-snug text-balance sm:text-lg motion-reduce:transition-none"
-          style={{
-            color: active ? "#ffffff" : "rgb(9, 9, 11)",
-            transition: `color ${duration}ms ${easing}`,
-          }}
-        >
+        <h3 className="font-ui mt-4 text-[17px] font-medium leading-snug text-balance text-zinc-950 sm:text-lg">
           {title}
         </h3>
-        <p
-          className="font-ui mt-2 text-[13.5px] leading-relaxed motion-reduce:transition-none"
-          style={{
-            color: active ? "rgba(255,255,255,0.7)" : "rgb(82, 82, 91)",
-            transition: `color ${duration}ms ${easing}`,
-          }}
-        >
+        <p className="font-ui mt-2 text-[13.5px] leading-relaxed text-zinc-600">
           {body}
         </p>
       </div>
