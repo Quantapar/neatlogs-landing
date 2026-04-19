@@ -511,41 +511,57 @@ const TEAM_MESSAGES: TeamMsg[] = [
 ];
 
 function FixShippedVisual() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  type LiveMsg = { id: number; msg: TeamMsg };
+  const [items, setItems] = useState<LiveMsg[]>([]);
+  const counterRef = useRef(0);
   const reducedMotion = useReducedMotion();
-  const messages = TEAM_MESSAGES.slice(0, 4);
+
+  useEffect(() => {
+    if (reducedMotion) return;
+    const spawn = () => {
+      const id = counterRef.current++;
+      const msg = TEAM_MESSAGES[id % TEAM_MESSAGES.length];
+      setItems((prev) => [...prev.slice(-5), { id, msg }]);
+    };
+    spawn();
+    const interval = window.setInterval(spawn, 1400);
+    return () => window.clearInterval(interval);
+  }, [reducedMotion]);
+
+  const TRAVEL = 180;
+  const DUR = 5.2;
 
   return (
     <VisualCard>
-      <div ref={ref} className="flex h-full flex-col gap-1.5">
-        {messages.map((msg, i) => (
+      <div className="absolute inset-0 overflow-hidden">
+        {items.map((item) => (
           <motion.div
-            key={i}
-            initial={reducedMotion ? false : { opacity: 0, y: 6 }}
-            animate={
-              reducedMotion || inView ? { opacity: 1, y: 0 } : undefined
-            }
+            key={item.id}
+            initial={{ y: 0, opacity: 0 }}
+            animate={{ y: TRAVEL, opacity: [0, 1, 1, 0] }}
             transition={{
-              duration: 0.35,
-              delay: i * 0.08,
-              ease: easings.snap,
+              y: { duration: DUR, ease: "linear" },
+              opacity: {
+                duration: DUR,
+                ease: "linear",
+                times: [0, 0.12, 0.72, 1],
+              },
             }}
-            className="flex items-start gap-2 rounded-lg bg-white px-2 py-1.5 shadow-[0_1px_2px_rgba(12,20,40,0.04),0_4px_10px_-4px_rgba(12,20,40,0.08)] ring-1 ring-zinc-900/[0.06]"
+            className="absolute inset-x-5 flex items-start gap-2 rounded-lg bg-white px-2 py-1.5 shadow-[0_1px_2px_rgba(12,20,40,0.04),0_4px_10px_-4px_rgba(12,20,40,0.08)] ring-1 ring-zinc-900/[0.06]"
           >
-            <TeamIcon kind={msg.kind} />
+            <TeamIcon kind={item.msg.kind} />
             <div className="min-w-0 flex-1">
               <div className="truncate text-[10.5px] font-medium leading-tight text-zinc-900">
-                {msg.title}
+                {item.msg.title}
               </div>
               <div className="mt-1 flex items-center gap-1.5">
                 <span
-                  className={`flex size-3.5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br text-[7px] font-semibold text-white ${msg.avatar}`}
+                  className={`flex size-3.5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br text-[7px] font-semibold text-white ${item.msg.avatar}`}
                 >
-                  {msg.initial}
+                  {item.msg.initial}
                 </span>
                 <span className="truncate text-[9px] text-zinc-400">
-                  {msg.meta}
+                  {item.msg.meta}
                 </span>
               </div>
             </div>
