@@ -511,7 +511,7 @@ function BreakFrame() {
           >
             workflow · research-agent
           </span>
-          <span className="rounded-full bg-red-50 px-2 py-[3px] font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-red-700">
+          <span className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-red-700">
             failing · 02s ago
           </span>
         </div>
@@ -564,14 +564,14 @@ function ReadFrame() {
           >
             summary · plain english
           </span>
-          <span className="rounded-full bg-zinc-900/[0.05] px-2 py-[3px] font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-zinc-700">
+          <span className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-zinc-700">
             run #4821
           </span>
         </div>
       </Stagger>
 
       <Stagger delay={100}>
-        <div className="rounded-xl border border-zinc-900/10 bg-white p-4 leading-relaxed">
+        <div className="cursor-pointer rounded-xl border border-zinc-900/10 bg-white p-4 leading-relaxed transition-[border-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20">
           <p className="text-[13.5px] text-zinc-800">
             <span className="font-medium">The agent tried to answer</span> the
             user&rsquo;s question about Q3 revenue. It searched the{" "}
@@ -585,7 +585,7 @@ function ReadFrame() {
       </Stagger>
 
       <Stagger delay={200}>
-        <div className="rounded-xl border border-zinc-900/10 bg-white/70 p-4">
+        <div className="cursor-pointer rounded-xl border border-zinc-900/10 bg-white/70 p-4 transition-[border-color,background-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20 hover-hover:hover:bg-white">
           <div className="flex items-start gap-3">
             <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-violet-100 text-[11px] font-semibold text-violet-700">
               MK
@@ -625,14 +625,14 @@ function FixFrame() {
           >
             suggested fix
           </span>
-          <span className="rounded-full bg-emerald-50 px-2 py-[3px] font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-emerald-700">
+          <span className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-emerald-700">
             AI-generated
           </span>
         </div>
       </Stagger>
 
       <Stagger delay={100}>
-        <div className="overflow-hidden rounded-xl border border-zinc-900/10 bg-white">
+        <div className="cursor-pointer overflow-hidden rounded-xl border border-zinc-900/10 bg-white transition-[border-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20">
           <div className="flex items-center justify-between border-b border-zinc-900/5 px-3.5 py-2">
             <span
               translate="no"
@@ -666,7 +666,7 @@ function FixFrame() {
       </Stagger>
 
       <Stagger delay={200}>
-        <div className="rounded-xl border border-zinc-900/10 bg-white/80 p-3.5">
+        <div className="cursor-pointer rounded-xl border border-zinc-900/10 bg-white/80 p-3.5 transition-[border-color,background-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20 hover-hover:hover:bg-white">
           <h4 className="text-[12px] font-medium text-zinc-900">
             Why this fix
           </h4>
@@ -679,7 +679,7 @@ function FixFrame() {
       </Stagger>
 
       <Stagger delay={300}>
-        <div className="flex items-center gap-2 rounded-lg bg-zinc-900 px-3 py-2.5 text-white">
+        <div className="flex cursor-pointer items-center gap-2 rounded-lg bg-zinc-900 px-3 py-2.5 text-white transition-colors duration-200 ease-snap hover-hover:hover:bg-zinc-800">
           <IconBranch className="size-3.5" />
           <span className="font-mono text-[11px]">
             Open in Cursor &nbsp;·&nbsp; review &amp; ship
@@ -701,7 +701,7 @@ function ShipFrame() {
           >
             thread · one context
           </span>
-          <span className="rounded-full bg-emerald-50 px-2 py-[3px] font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-emerald-700">
+          <span className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-emerald-700">
             resolved
           </span>
         </div>
@@ -737,7 +737,7 @@ function ShipFrame() {
       </Stagger>
 
       <Stagger delay={400}>
-        <div className="rounded-xl border border-zinc-900/10 bg-white/80 p-4">
+        <div className="cursor-pointer rounded-xl border border-zinc-900/10 bg-white/80 p-4 transition-[border-color,background-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20 hover-hover:hover:bg-white">
           <div className="flex items-center justify-between">
             <span
               translate="no"
@@ -785,17 +785,23 @@ function AlertRow({
   pills?: string[];
 }) {
   const accent = {
-    red: "border-red-200/70 bg-red-50/60",
-    amber: "border-amber-200/70 bg-amber-50/60",
-    emerald: "border-emerald-200/70 bg-emerald-50/60",
+    red: "border-zinc-200/80 bg-white hover-hover:hover:border-red-200/70 hover-hover:hover:bg-red-50/60",
+    amber:
+      "border-zinc-200/80 bg-white hover-hover:hover:border-amber-200/70 hover-hover:hover:bg-amber-50/60",
+    emerald:
+      "border-zinc-200/80 bg-white hover-hover:hover:border-emerald-200/70 hover-hover:hover:bg-emerald-50/60",
   }[tone];
   const pillTone = {
-    red: "bg-red-100 text-red-700",
-    amber: "bg-amber-100 text-amber-700",
-    emerald: "bg-emerald-100 text-emerald-700",
+    red: "bg-zinc-900/[0.05] text-zinc-700 group-hover/row:bg-red-100 group-hover/row:text-red-700",
+    amber:
+      "bg-zinc-900/[0.05] text-zinc-700 group-hover/row:bg-amber-100 group-hover/row:text-amber-700",
+    emerald:
+      "bg-zinc-900/[0.05] text-zinc-700 group-hover/row:bg-emerald-100 group-hover/row:text-emerald-700",
   }[tone];
   return (
-    <div className={`rounded-xl border p-3.5 ${accent}`}>
+    <div
+      className={`group/row cursor-pointer rounded-xl border p-3.5 transition-[background-color,border-color] duration-200 ease-snap ${accent}`}
+    >
       <div className="flex items-start gap-3">
         <div className="min-w-0 flex-1">
           <h4 className="text-[13px] font-medium text-zinc-900">{title}</h4>
@@ -810,8 +816,10 @@ function AlertRow({
               {pills.map((p, i) => (
                 <span
                   key={p}
-                  className={`rounded-full px-2 py-[2px] text-[10px] font-medium uppercase tracking-[0.06em] ${
-                    i === 0 ? pillTone : "bg-zinc-900/[0.05] text-zinc-700"
+                  className={`rounded-full px-2 py-[2px] text-[10px] font-medium uppercase tracking-[0.06em] transition-colors duration-200 ease-snap ${
+                    i === 0
+                      ? pillTone
+                      : "bg-zinc-900/[0.05] text-zinc-700"
                   }`}
                 >
                   {p}
@@ -842,10 +850,10 @@ function ThreadStep({
 }) {
   return (
     <div
-      className={`flex items-start gap-3 rounded-xl border p-3.5 ${
+      className={`flex cursor-pointer items-start gap-3 rounded-xl border p-3.5 transition-[border-color,background-color] duration-200 ease-snap ${
         done
-          ? "border-emerald-200/70 bg-emerald-50/50"
-          : "border-zinc-900/10 bg-white/80"
+          ? "border-emerald-200/70 bg-emerald-50/50 hover-hover:hover:border-emerald-300/70 hover-hover:hover:bg-emerald-50"
+          : "border-zinc-900/10 bg-white/80 hover-hover:hover:border-zinc-900/20 hover-hover:hover:bg-white"
       }`}
     >
       <span className="font-mono mt-1 text-[11px] uppercase tracking-widest text-zinc-400">
