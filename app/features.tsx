@@ -288,7 +288,7 @@ export const Features = () => {
                     {["Error", "Anomaly", "Latency"].map((item, idx, arr) => (
                       <div
                         key={item}
-                        className={`flex items-center gap-2.5 px-3 py-2.5 bg-white ${idx < arr.length - 1 ? "border-b border-gray-100" : ""}`}
+                        className={`flex items-center gap-2.5 px-3 py-2.5 bg-white ${idx < arr.length - 1 ? "border-b border-gray-100" : ""} hover:bg-gray-50 transition-colors`}
                       >
                         <div className="w-[14px] h-[14px] rounded-[3px] bg-[#E9462E] flex items-center justify-center text-white flex-shrink-0">
                           <svg
@@ -345,7 +345,7 @@ export const Features = () => {
                     {["Slack", "Email", "Webhook"].map((item, idx, arr) => (
                       <div
                         key={item}
-                        className={`flex items-center gap-2 px-3 py-2.5 bg-white ${idx < arr.length - 1 ? "border-b border-gray-100" : ""}`}
+                        className={`flex items-center gap-2 px-3 py-2.5 bg-white ${idx < arr.length - 1 ? "border-b border-gray-100" : ""} hover:bg-gray-50 transition-colors`}
                       >
                         <span className="text-[11px] font-medium tracking-tighter text-gray-800 truncate">
                           {item}
