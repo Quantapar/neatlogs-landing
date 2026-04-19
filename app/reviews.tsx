@@ -14,8 +14,14 @@ export const Reviews = () => {
         className="font-ui text-2xl sm:text-3xl font-semibold tracking-tight"
         style={{ color: "#E9462E" }}
       >
-        What teams are saying
+        Reviews
       </span>
+      <p
+        className="font-ui mt-4 text-pretty text-lg"
+        style={{ color: "#52525D" }}
+      >
+        What teams are saying
+      </p>
 
       <div className="mt-6 sm:mt-8 flex w-full max-w-3xl flex-col items-center text-center">
         <p className="font-ui text-balance text-[clamp(22px,3.4vw,34px)] font-medium leading-[1.25] tracking-tight text-zinc-950 max-w-2xl">

@@ -43,7 +43,7 @@ export function Pricing() {
             <div>
               <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">OPEN</h3>
               <div className="mt-2.5 flex items-baseline leading-none">
-                <span className="text-[30px] sm:text-[36px] font-bold tracking-tight text-zinc-950">Free</span>
+                <span className="-ml-[3px] text-[30px] sm:text-[36px] font-bold tracking-tight text-zinc-950">Free</span>
               </div>
               <p className="mt-2.5 text-[13.5px] font-medium text-zinc-600">No credit card required</p>
             </div>
@@ -82,7 +82,7 @@ export function Pricing() {
                 </span>
               </div>
               <div className="mt-2.5 flex items-baseline leading-none">
-                <span className="text-[30px] sm:text-[36px] font-bold tracking-tight text-white">Custom</span>
+                <span className="-ml-[3px] text-[30px] sm:text-[36px] font-bold tracking-tight text-white">Custom</span>
               </div>
               <p className="mt-2.5 text-[13.5px] font-medium text-zinc-400">For large teams</p>
             </div>

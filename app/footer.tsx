@@ -4,13 +4,6 @@ import { ArrowUpRight } from 'lucide-react';
 export default function Footer2() {
     return (
         <footer className="relative overflow-hidden min-h-[500px] flex flex-col justify-between bg-[#FAFAFA]">
-            <img
-                src="https://res.cloudinary.com/dbvotc5ja/image/upload/fl_preserve_transparency/v1776509483/WhatsApp_Image_2026-04-18_at_16.17.28_gjagin.jpg?_s=public-apps"
-                alt="Background Landscape"
-                className="absolute inset-0 w-full h-full object-cover z-0"
-            />
-
-            <div className="absolute top-0 inset-x-0 h-48 bg-gradient-to-b from-[#FAFAFA] to-transparent z-0 pointer-events-none" />
 
             <div className="relative z-10 w-full pt-16 px-6 md:px-12 flex-1 flex flex-col">
                 <div className="flex flex-row justify-between items-end w-full mb-8">
@@ -52,7 +45,7 @@ export default function Footer2() {
             </div>
 
             <div className="relative z-10 w-full flex justify-center mt-auto translate-y-[9%]">
-                <h1 className="text-[29vw] text-black font-normal leading-[0.75] tracking-tighter pointer-events-none">
+                <h1 className="font-pixel text-[29vw] text-black font-medium leading-[0.75] tracking-tighter pointer-events-none">
                     neatlogs
                 </h1>
             </div>
