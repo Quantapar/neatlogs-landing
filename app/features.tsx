@@ -113,10 +113,18 @@ export const Features = () => {
                   <div className="flex items-center justify-between w-full relative h-[140px] px-2 sm:px-[5%]">
                     <div className="absolute left-[70px] sm:left-[15%] right-[55%] top-1/2 -translate-y-1/2 h-[4px] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] z-0">
                       <div className="absolute -right-[2px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[6px] border-l-[#cbd5e1]"></div>
+                      <div
+                        aria-hidden="true"
+                        className="absolute inset-0 bg-[repeating-linear-gradient(90deg,#E9462E_0px,#E9462E_2px,transparent_2px,transparent_5px)] motion-safe:animate-[line-fill-right_5s_ease-in-out_infinite] motion-reduce:hidden"
+                      />
                     </div>
 
                     <div className="absolute left-[54%] right-[70px] sm:right-[15%] top-1/2 -translate-y-1/2 h-[4px] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] z-0">
                       <div className="absolute -right-[2px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[6px] border-l-[#cbd5e1]"></div>
+                      <div
+                        aria-hidden="true"
+                        className="absolute inset-0 bg-[repeating-linear-gradient(90deg,#E9462E_0px,#E9462E_2px,transparent_2px,transparent_5px)] motion-safe:animate-[line-fill-left_5s_ease-in-out_infinite] motion-reduce:hidden"
+                      />
                     </div>
 
                     <div className="flex flex-col items-center gap-2 bg-white relative z-10 mx-1">

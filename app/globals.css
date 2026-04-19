@@ -77,6 +77,36 @@ html {
   font-family: var(--font-geist-pixel-square), ui-monospace, monospace;
 }
 
+@keyframes line-fill-right {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  42% {
+    clip-path: inset(0 0% 0 0);
+  }
+  52% {
+    clip-path: inset(0 0% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0% 0 100%);
+  }
+}
+
+@keyframes line-fill-left {
+  0% {
+    clip-path: inset(0 0% 0 100%);
+  }
+  42% {
+    clip-path: inset(0 0% 0 0);
+  }
+  52% {
+    clip-path: inset(0 0% 0 0);
+  }
+  100% {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
 @keyframes row-in {
   from {
     opacity: 0;
