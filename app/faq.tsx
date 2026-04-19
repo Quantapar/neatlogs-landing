@@ -141,7 +141,7 @@ export const FAQ = () => {
                     </span>
                     <h2 className="mt-5 -ml-[2px] text-4xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
                         Common <br />
-                        <span className="text-zinc-500">Questions.</span>
+                        Questions.
                     </h2>
 
                     <p className="font-ui mt-6 max-w-[300px] text-pretty text-[15px] leading-relaxed text-zinc-600 sm:text-base">

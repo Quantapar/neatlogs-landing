@@ -486,7 +486,7 @@ function BreakFrame() {
           >
             workflow · research-agent
           </span>
-          <span className="font-mono text-[11px] uppercase tracking-widest text-red-600">
+          <span className="rounded-full bg-red-50 px-2 py-[3px] font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-red-700">
             failing · 02s ago
           </span>
         </div>
@@ -764,11 +764,6 @@ function AlertRow({
     amber: "border-amber-200/70 bg-amber-50/60",
     emerald: "border-emerald-200/70 bg-emerald-50/60",
   }[tone];
-  const dot = {
-    red: "bg-red-500",
-    amber: "bg-amber-500",
-    emerald: "bg-emerald-500",
-  }[tone];
   const pillTone = {
     red: "bg-red-100 text-red-700",
     amber: "bg-amber-100 text-amber-700",
@@ -777,7 +772,6 @@ function AlertRow({
   return (
     <div className={`rounded-xl border p-3.5 ${accent}`}>
       <div className="flex items-start gap-3">
-        <span className={`mt-1.5 size-2 shrink-0 rounded-full ${dot}`} />
         <div className="min-w-0 flex-1">
           <h4 className="text-[13px] font-medium text-zinc-900">{title}</h4>
           <p
