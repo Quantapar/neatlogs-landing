@@ -432,14 +432,10 @@ function StepTile({
 
 function Device({ activeIndex }: { activeIndex: number }) {
   return (
-    <div className="relative rounded-[22px] bg-zinc-950 p-1.5 shadow-xl shadow-zinc-900/10 ring-1 ring-black/10 sm:p-2">
-      <div className="relative overflow-hidden rounded-[16px] bg-zinc-50">
-        <div className="flex h-10 items-center justify-between border-b border-black/5 bg-white/80 px-4 backdrop-blur-sm">
+    <div className="relative rounded-[22px] border border-zinc-900/10 bg-[#FCFCFD] p-1.5 shadow-[0_30px_60px_-24px_rgba(12,20,40,0.22),0_12px_24px_-16px_rgba(12,20,40,0.14)] sm:p-2">
+      <div className="relative overflow-hidden rounded-[16px] bg-zinc-50 ring-1 ring-zinc-900/10">
+        <div className="flex h-10 items-center justify-between border-b border-black/5 bg-white/80 px-6 backdrop-blur-sm">
           <div className="flex items-center gap-2.5">
-            <span className="relative flex size-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-              <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
-            </span>
             <span
               translate="no"
               className="font-mono text-[11px] uppercase tracking-widest text-zinc-500"
@@ -953,11 +949,20 @@ function IconBranch(props: SVGProps<SVGSVGElement>) {
 
 function IconSlack(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-      <path
-        d="M5.5 15a2 2 0 1 1 0-4h2v4h-2Zm1-6a2 2 0 1 1 0-4 2 2 0 0 1 2 2v2h-2Zm4 11a2 2 0 0 1-2-2v-2h4v2a2 2 0 0 1-2 2Zm6-2a2 2 0 1 1 0-4h2a2 2 0 0 1 0 4h-2Zm-1-11a2 2 0 0 1 2 2v2h-4V7a2 2 0 0 1 2-2Z"
-        opacity=".9"
-      />
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <line x1="10" y1="3" x2="8" y2="21" />
+      <line x1="16" y1="3" x2="14" y2="21" />
+      <line x1="4" y1="9" x2="20" y2="9" />
+      <line x1="3" y1="15" x2="19" y2="15" />
     </svg>
   );
 }
