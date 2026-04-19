@@ -153,7 +153,7 @@ export function HowItWorks() {
     <section
       ref={sectionRef}
       id="how-it-works"
-      className="relative bg-[#EAF3F6] py-24 sm:py-28 lg:h-[360vh] lg:py-0"
+      className="relative bg-[#FAFAFA] py-24 sm:py-28 lg:h-[360vh] lg:py-0"
     >
       <div className="lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center">
         <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
@@ -358,10 +358,10 @@ function StepTile({
       type="button"
       onClick={onSelect}
       aria-pressed={active}
-      className={`group relative overflow-hidden rounded-2xl border text-left outline-none transition-[border-color,background-color,transform,box-shadow] focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#EAF3F6] motion-reduce:transition-none ${
+      className={`group relative overflow-hidden rounded-2xl border text-left outline-none transition-[border-color,background-color,transform,box-shadow] focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAFAFA] motion-reduce:transition-none motion-reduce:active:scale-100 ${
         active
           ? "cursor-default border-zinc-950 bg-zinc-950 shadow-md shadow-zinc-900/5"
-          : "cursor-pointer border-zinc-900/10 bg-white/70 hover:-translate-y-0.5 hover:border-zinc-900/20 hover:bg-white hover:shadow-sm hover:shadow-zinc-900/5"
+          : "cursor-pointer border-zinc-900/10 bg-white/70 hover:-translate-y-0.5 hover:border-zinc-900/20 hover:bg-white hover:shadow-sm hover:shadow-zinc-900/5 active:scale-[0.97]"
       }`}
       style={{
         transitionDuration: `${duration}ms`,

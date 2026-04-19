@@ -59,7 +59,7 @@ export function MediaPlayer() {
             isFullscreen ? "flex flex-col" : ""
           }`}
         >
-          <div className="relative aspect-video overflow-hidden rounded-[20px] bg-[#EAF3F6]">
+          <div className="relative aspect-video overflow-hidden rounded-[20px] bg-[#FAFAFA]">
             <video
               ref={videoRef}
               src={SAMPLE_VIDEO_SRC}

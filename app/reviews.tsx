@@ -82,7 +82,7 @@ const ReviewCard = ({ data }: { data: typeof reviewsData[0] }) => {
 
 export const Reviews = () => {
   return (
-      <section className="w-full bg-[#EAF3F6] pt-12 pb-24 sm:pt-16 sm:pb-32 px-4 md:px-8 flex flex-col items-center overflow-hidden border-t border-zinc-900/5">
+      <section className="w-full bg-[#FAFAFA] pt-12 pb-24 sm:pt-16 sm:pb-32 px-4 md:px-8 flex flex-col items-center overflow-hidden border-t border-zinc-900/5">
           <div className="mx-auto max-w-2xl text-center mb-16 sm:mb-20">
               <span className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
                 REVIEWS

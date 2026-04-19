@@ -119,7 +119,7 @@ export const Features = () => {
   return (
     <section
       id="features"
-      className="w-full bg-[#EAF3F6] flex flex-col pt-8 pb-20 sm:pt-12 sm:pb-24 lg:pt-16 lg:pb-28"
+      className="w-full bg-[#FAFAFA] flex flex-col pt-8 pb-20 sm:pt-12 sm:pb-24 lg:pt-16 lg:pb-28"
     >
       <LayoutWrapper showBorderAccents={false} className="pb-10 pt-2 flex-1">
         <div

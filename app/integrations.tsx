@@ -152,7 +152,7 @@ export function Integrations() {
   return (
     <section
       id="integrations"
-      className="relative overflow-hidden bg-[#EAF3F6] pt-8 pb-24 sm:pt-12 sm:pb-32"
+      className="relative overflow-hidden bg-[#FAFAFA] pt-8 pb-24 sm:pt-12 sm:pb-32"
     >
       {/* Decorative background grid (optional but gives that Tailark feel) */}
       <div
@@ -196,7 +196,7 @@ export function Integrations() {
                 return (
                   <div
                     key={i}
-                    className="relative flex aspect-square items-center justify-center bg-[#EAF3F6] sm:w-[80px]"
+                    className="relative flex aspect-square items-center justify-center bg-[#FAFAFA] sm:w-[80px]"
                   >
                     {app ? (
                       <motion.div

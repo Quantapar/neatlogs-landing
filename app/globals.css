@@ -2,8 +2,8 @@
 
 @theme inline {
   --font-sans:
-    var(--font-inter), "Inter", "Helvetica Neue", Helvetica, ui-sans-serif,
-    system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Icons",
+    "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono:
     var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco,
     Consolas, "Liberation Mono", "Courier New", monospace;
@@ -15,18 +15,9 @@
 html,
 body {
   font-family:
-    var(--font-inter),
-    "Inter",
-    "Helvetica Neue",
-    Helvetica,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    "Segoe UI",
-    Roboto,
-    Arial,
-    sans-serif;
-  font-weight: 400;
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Icons",
+    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 600;
 }
 
 html {
@@ -114,6 +105,29 @@ html {
   .hero-reveal {
     animation: none;
   }
+}
+
+.glass-btn {
+  --glass-border-width: 1px;
+  position: relative;
+  background: hsl(243 26% 15% / 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-btn::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  border: var(--glass-border-width) solid transparent;
+  background: linear-gradient(hsl(259 13% 28%), hsl(252 9% 22%)) border-box;
+  mask:
+    linear-gradient(black, black) border-box,
+    linear-gradient(black, black) padding-box;
+  mask-composite: subtract;
+  pointer-events: none;
 }
 
 .fonte {

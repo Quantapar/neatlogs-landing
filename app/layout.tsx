@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Space_Grotesk, Inter } from "next/font/google";
+import { Instrument_Serif, Space_Grotesk } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { GeistPixelSquare } from "geist/font/pixel";
@@ -19,12 +19,6 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: "Neatlogs",
   description: "Neatlogs",
@@ -39,9 +33,9 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable} ${GeistPixelSquare.variable} ${instrumentSerif.variable} ${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${GeistPixelSquare.variable} ${instrumentSerif.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
-      <body suppressHydrationWarning className="min-h-full flex flex-col">
+      <body suppressHydrationWarning className="relative min-h-full flex flex-col">
         <Navbar />
         {children}
       </body>

@@ -47,7 +47,7 @@ const FAQItem = ({
         >
             <button
                 onClick={onClick}
-                className="group relative w-full flex items-center justify-between text-left px-5 py-5 sm:px-6 sm:py-6 gap-4 cursor-pointer transition-transform duration-[200ms] ease-out active:scale-[0.99] touch-manipulation"
+                className="group relative w-full flex items-center justify-between text-left px-5 py-5 sm:px-6 sm:py-6 gap-4 cursor-pointer transition-transform duration-[200ms] ease-out active:scale-[0.97] motion-reduce:active:scale-100 touch-manipulation"
             >
                 <div className="flex gap-4">
                     <span
@@ -123,7 +123,7 @@ export const FAQ = () => {
         <section
             id="faq"
             ref={sectionRef}
-            className="bg-[#EAF3F6] py-20 sm:py-24 lg:py-32 w-full"
+            className="bg-[#FAFAFA] py-20 sm:py-24 lg:py-32 w-full"
         >
             <script
                 type="application/ld+json"

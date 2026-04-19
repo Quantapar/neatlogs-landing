@@ -22,7 +22,7 @@ export function MeetNeatlogs() {
     <section
       ref={sectionRef}
       style={{ position: "relative" }}
-      className="bg-[#EAF3F6] pt-10 pb-24 sm:pt-14 sm:pb-28 lg:pt-16 lg:pb-36"
+      className="bg-[#FAFAFA] pt-10 pb-24 sm:pt-14 sm:pb-28 lg:pt-16 lg:pb-36"
     >
       <div className="mx-auto max-w-6xl px-6 text-center">
         <span

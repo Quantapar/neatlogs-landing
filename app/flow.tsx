@@ -76,7 +76,7 @@ export function Flow() {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="relative bg-[#EAF3F6] py-20 sm:py-24 lg:py-32">
+    <section className="relative bg-[#FAFAFA] py-20 sm:py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-3xl text-center">
           <span className="font-ui text-[12px] font-medium uppercase tracking-[0.15em] text-zinc-600">
@@ -119,7 +119,7 @@ export function Flow() {
                         onClick={() => setActive(i)}
                         aria-expanded={isActive}
                         aria-controls={`flow-panel-${s.id}`}
-                        className="group flex w-full cursor-pointer items-center gap-4 py-5 pl-4 pr-4 origin-left text-left transition-all duration-200 ease-out hover:bg-white/30 active:scale-[0.98] sm:py-6 sm:pl-5"
+                        className="group flex w-full cursor-pointer items-center gap-4 py-5 pl-4 pr-4 origin-left text-left transition-all duration-200 ease-out hover:bg-white/30 active:scale-[0.97] motion-reduce:active:scale-100 sm:py-6 sm:pl-5"
                       >
                         <span className="w-6 font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-400 [font-variant-numeric:tabular-nums]">
                           0{i + 1}
