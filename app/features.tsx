@@ -375,20 +375,85 @@ export const Features = () => {
                 <div className="w-full h-full bg-white border border-gray-200 rounded-[10px] p-5 lg:p-7 shadow-sm flex flex-col relative min-h-[220px]">
                   <div className="w-full h-full flex items-center justify-between relative px-2 sm:px-[5%] z-10 flex-1">
                     <div className="absolute inset-x-2 sm:inset-x-[2%] inset-y-0 pointer-events-none z-0">
-                      <div className="absolute left-[130px] sm:left-[140px] right-[55%] top-1/2 w-auto h-[4px] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] -translate-y-1/2">
+                      <div className="absolute left-[130px] sm:left-[140px] right-[48%] top-1/2 w-auto h-[4px] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] -translate-y-1/2 motion-safe:animate-[chase-right_1.4s_linear_infinite]">
                         <div className="absolute -right-[2px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[6px] border-l-[#cbd5e1]"></div>
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-0 motion-safe:animate-[chase-right_1.4s_linear_infinite] motion-reduce:hidden"
+                          style={{
+                            backgroundImage:
+                              "linear-gradient(90deg, #94A3B8 0px, #94A3B8 2px, transparent 2px)",
+                            backgroundSize: "10px 100%",
+                            backgroundRepeat: "repeat-x",
+                          }}
+                        />
                       </div>
 
-                      <div className="absolute left-[54%] right-[100px] top-1/2 h-[4px] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] -translate-y-1/2 z-0"></div>
-
-                      <div className="absolute right-[100px] top-[28%] bottom-[28%] w-[4px] bg-[repeating-linear-gradient(180deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] -translate-y-[2px]"></div>
-
-                      <div className="absolute right-[65px] h-[4px] w-[35px] top-[28%] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] -translate-y-[2px]">
-                        <div className="absolute -right-[2px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[6px] border-l-[#cbd5e1]"></div>
+                      <div className="absolute left-[54%] right-[104px] top-1/2 h-[4px] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] -translate-y-1/2 z-0 motion-safe:animate-[chase-right_1.4s_linear_infinite]">
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-0 motion-safe:animate-[chase-right_1.4s_linear_infinite] motion-reduce:hidden"
+                          style={{
+                            backgroundImage:
+                              "linear-gradient(90deg, #94A3B8 0px, #94A3B8 2px, transparent 2px)",
+                            backgroundSize: "10px 100%",
+                            backgroundRepeat: "repeat-x",
+                          }}
+                        />
                       </div>
 
-                      <div className="absolute right-[65px] h-[4px] w-[35px] bottom-[28%] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] translate-y-[2px]">
+                      <div className="absolute right-[100px] top-[calc(50%+5px)] bottom-[28%] w-[4px] bg-[repeating-linear-gradient(180deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] -translate-y-[2px] motion-safe:animate-[chase-down_1.4s_linear_infinite]">
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-0 motion-safe:animate-[chase-down_1.4s_linear_infinite] motion-reduce:hidden"
+                          style={{
+                            backgroundImage:
+                              "linear-gradient(180deg, #94A3B8 0px, #94A3B8 2px, transparent 2px)",
+                            backgroundSize: "100% 10px",
+                            backgroundRepeat: "repeat-y",
+                          }}
+                        />
+                      </div>
+
+                      <div className="absolute right-[100px] top-[28%] bottom-[calc(50%+5px)] w-[4px] bg-[repeating-linear-gradient(180deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] translate-y-[2px] motion-safe:animate-[chase-up_1.4s_linear_infinite]">
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-0 motion-safe:animate-[chase-up_1.4s_linear_infinite] motion-reduce:hidden"
+                          style={{
+                            backgroundImage:
+                              "linear-gradient(180deg, #94A3B8 0px, #94A3B8 2px, transparent 2px)",
+                            backgroundSize: "100% 10px",
+                            backgroundRepeat: "repeat-y",
+                          }}
+                        />
+                      </div>
+
+                      <div className="absolute right-[65px] h-[4px] w-[35px] top-[28%] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] -translate-y-[2px] motion-safe:animate-[chase-right_1.4s_linear_infinite]">
                         <div className="absolute -right-[2px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[6px] border-l-[#cbd5e1]"></div>
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-0 motion-safe:animate-[chase-right_1.4s_linear_infinite] motion-reduce:hidden"
+                          style={{
+                            backgroundImage:
+                              "linear-gradient(90deg, #94A3B8 0px, #94A3B8 2px, transparent 2px)",
+                            backgroundSize: "10px 100%",
+                            backgroundRepeat: "repeat-x",
+                          }}
+                        />
+                      </div>
+
+                      <div className="absolute right-[65px] h-[4px] w-[35px] bottom-[28%] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] translate-y-[2px] motion-safe:animate-[chase-right_1.4s_linear_infinite]">
+                        <div className="absolute -right-[2px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[6px] border-l-[#cbd5e1]"></div>
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-0 motion-safe:animate-[chase-right_1.4s_linear_infinite] motion-reduce:hidden"
+                          style={{
+                            backgroundImage:
+                              "linear-gradient(90deg, #94A3B8 0px, #94A3B8 2px, transparent 2px)",
+                            backgroundSize: "10px 100%",
+                            backgroundRepeat: "repeat-x",
+                          }}
+                        />
                       </div>
                     </div>
 

@@ -77,6 +77,33 @@ html {
   font-family: var(--font-geist-pixel-square), ui-monospace, monospace;
 }
 
+@keyframes chase-right {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 10px 0;
+  }
+}
+
+@keyframes chase-down {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 10px;
+  }
+}
+
+@keyframes chase-up {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 -10px;
+  }
+}
+
 @keyframes line-fill-right {
   0% {
     clip-path: inset(0 100% 0 0);
