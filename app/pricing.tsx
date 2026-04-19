@@ -21,10 +21,14 @@ export function Pricing() {
   return (
     <section id="pricing" className="w-full bg-[#FAFAFA] pt-12 pb-24 sm:pt-16 sm:pb-32 px-4 md:px-8 flex flex-col items-center">
       <div className="mx-auto max-w-2xl text-center mb-16 sm:mb-20">
-        <span className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
-          PRICING
+        <span
+          translate="no"
+          className="font-ui text-2xl sm:text-3xl font-semibold tracking-tight"
+          style={{ color: "#E9462E" }}
+        >
+          Pricing
         </span>
-        <h2 className="mt-4 text-balance text-4xl font-semibold tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
+        <h2 className="mt-5 text-balance text-4xl font-semibold tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
           Start free. Scale when ready.
         </h2>
         <p className="font-ui mt-4 text-pretty text-lg text-zinc-600">
@@ -43,7 +47,7 @@ export function Pricing() {
               </div>
               <p className="mt-4 text-[15px] font-medium text-zinc-600">No credit card required</p>
             </div>
-            <button className="font-ui mt-auto w-full cursor-pointer rounded-[14px] bg-zinc-950 py-3.5 px-4 text-[15px] font-semibold text-white shadow-md transition-[transform,background-color] duration-150 ease-snap hover:bg-zinc-800 hover-hover:hover:scale-[1.02] active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2">
+            <button type="button" className="font-ui mt-auto w-full cursor-pointer rounded-[14px] bg-zinc-950 py-3.5 px-4 text-[15px] font-semibold text-white shadow-md transition-[transform,background-color] duration-150 ease-snap hover:bg-zinc-800 hover-hover:hover:scale-[1.02] active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2">
               Get Started
             </button>
           </div>
@@ -82,7 +86,7 @@ export function Pricing() {
               </div>
               <p className="mt-4 text-[15px] font-medium text-zinc-400">For large teams</p>
             </div>
-            <button className="font-ui mt-auto w-full cursor-pointer rounded-[14px] bg-white py-3.5 px-4 text-[15px] font-semibold text-zinc-950 transition-transform duration-150 ease-snap hover-hover:hover:scale-[1.02] active:scale-[0.97] motion-reduce:active:scale-100 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+            <button type="button" className="font-ui mt-auto w-full cursor-pointer rounded-[14px] bg-white py-3.5 px-4 text-[15px] font-semibold text-zinc-950 transition-transform duration-150 ease-snap hover-hover:hover:scale-[1.02] active:scale-[0.97] motion-reduce:active:scale-100 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
               Book a Call
             </button>
           </div>

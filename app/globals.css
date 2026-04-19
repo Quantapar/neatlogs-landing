@@ -27,8 +27,13 @@ body {
 }
 
 html {
-  scroll-behavior: smooth;
   font-size: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 .font-grotesk {

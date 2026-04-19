@@ -166,10 +166,14 @@ export function Integrations() {
 
       <div className="relative mx-auto max-w-5xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
-            INTEGRATIONS
+          <span
+            translate="no"
+            className="font-ui text-2xl sm:text-3xl font-semibold tracking-tight"
+            style={{ color: "#E9462E" }}
+          >
+            Integrations
           </span>
-          <h2 className="mt-4 text-balance text-4xl font-medium tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
+          <h2 className="mt-5 text-balance text-4xl font-medium tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
             Fits into the way your team works
           </h2>
           <p className="font-ui mt-4 text-pretty text-zinc-600 sm:text-lg">

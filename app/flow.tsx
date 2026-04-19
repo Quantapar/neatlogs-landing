@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  AnimatePresence,
-  motion,
-  useInView,
-  useReducedMotion,
-} from "motion/react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { easings } from "./easings";
@@ -211,6 +206,8 @@ function VisualCard({
 function FlickeringGrid() {
   const cols = 32;
   const rows = 22;
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const pixels = useMemo(() => {
     const hash = (n: number) => {
@@ -239,6 +236,8 @@ function FlickeringGrid() {
     }
     return arr;
   }, []);
+
+  if (!mounted) return null;
 
   return (
     <svg
@@ -301,14 +300,23 @@ const TRACE_EVENTS: { workflow: string; latency: string; cost: string }[] = [
 ];
 
 function PixelFire() {
-  const cols = 44;
-  const rows = 20;
+  const cols = 56;
+  const rows = 16;
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const pixels = useMemo(() => {
     const hash = (n: number) => {
       const x = Math.sin(n * 12.9898) * 43758.5453;
       return x - Math.floor(x);
     };
+    const smoothCol = (x: number) => {
+      const a = hash(x * 3.1);
+      const b = hash((x + 1) * 3.1);
+      const t = (x - Math.floor(x));
+      return a * (1 - t) + b * t;
+    };
+
     const arr: {
       x: number;
       y: number;
@@ -316,46 +324,60 @@ function PixelFire() {
       delay: number;
       dur: number;
     }[] = [];
+
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
-        const r = hash(y * cols + x * 1.7);
-        const vertical = (y + 1) / rows;
-        const centerDist = Math.abs(x - (cols - 1) / 2) / (cols / 2);
-        const horizontal = 1 - centerDist * 0.55;
-        const density = vertical * horizontal;
+        const r = hash(y * cols + x * 1.7 + 13);
+        const r2 = hash(y * cols + x * 2.9 + 97);
+
+        const v = (y + 0.5) / rows;
+        const edgeFade = 1 - Math.pow(Math.abs((x - (cols - 1) / 2) / (cols / 2)), 1.4) * 0.4;
+        const colHeight = 0.55 + smoothCol(x * 0.6) * 0.5;
+        const density = Math.pow(v, 1.1) * colHeight * edgeFade;
+
         if (r > density * 1.35) continue;
+
         arr.push({
           x,
           y,
-          opacity: 0.2 + r * 0.55,
-          delay: r * 3,
-          dur: 0.9 + r * 1.6,
+          opacity: 0.3 + r * 0.55,
+          delay: r2 * 2.4,
+          dur: 0.7 + r * 1.4,
         });
       }
     }
     return arr;
   }, []);
 
+  if (!mounted) return null;
+
   return (
     <svg
       aria-hidden="true"
-      className="pointer-events-none absolute inset-x-0 bottom-0 h-[58%] w-full"
+      className="pointer-events-none absolute inset-x-0 bottom-0 h-[34%] w-full"
       viewBox={`0 0 ${cols} ${rows}`}
-      preserveAspectRatio="xMidYMax slice"
+      preserveAspectRatio="none"
+      style={{
+        maskImage:
+          "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+        WebkitMaskImage:
+          "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+      }}
     >
       {pixels.map((p, i) => (
         <rect
           key={i}
-          x={p.x + 0.1}
-          y={p.y + 0.1}
-          width="0.8"
-          height="0.8"
+          x={p.x + 0.05}
+          y={p.y + 0.05}
+          width="0.9"
+          height="0.9"
           fill="#E9462E"
           opacity={p.opacity}
         >
           <animate
             attributeName="opacity"
-            values={`${p.opacity};${Math.min(0.95, p.opacity + 0.35)};${p.opacity}`}
+            values={`${p.opacity};${Math.min(0.98, p.opacity + 0.3)};${p.opacity * 0.75};${p.opacity}`}
+            keyTimes="0;0.35;0.7;1"
             dur={`${p.dur}s`}
             begin={`${p.delay}s`}
             repeatCount="indefinite"
@@ -367,182 +389,233 @@ function PixelFire() {
 }
 
 function TraceCapturedVisual() {
-  const [index, setIndex] = useState(0);
+  type LiveItem = { id: number; event: (typeof TRACE_EVENTS)[number] };
+  const [items, setItems] = useState<LiveItem[]>([]);
+  const counterRef = useRef(0);
   const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     if (reducedMotion) return;
-    const id = window.setInterval(() => setIndex((i) => i + 1), 1400);
-    return () => window.clearInterval(id);
+    const spawn = () => {
+      const id = counterRef.current++;
+      const event = TRACE_EVENTS[id % TRACE_EVENTS.length];
+      setItems((prev) => [...prev.slice(-5), { id, event }]);
+    };
+    spawn();
+    const interval = window.setInterval(spawn, 1100);
+    return () => window.clearInterval(interval);
   }, [reducedMotion]);
 
-  const ITEM_H = 28;
-  const VISIBLE = 4;
-
-  const items = Array.from({ length: VISIBLE }, (_, i) => {
-    const key = index - i;
-    const idx =
-      ((key % TRACE_EVENTS.length) + TRACE_EVENTS.length) % TRACE_EVENTS.length;
-    return {
-      key,
-      event: TRACE_EVENTS[idx],
-      pos: i,
-    };
-  });
+  const TRAVEL = 110;
+  const DUR = 3.6;
 
   return (
     <VisualCard>
-      <div
-        className="absolute inset-0"
-        style={{
-          maskImage:
-            "linear-gradient(to bottom, transparent 0%, black 14%, black 40%, transparent 56%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, black 14%, black 40%, transparent 56%)",
-        }}
-      >
-        <div className="relative mx-auto h-full pt-2">
-          <AnimatePresence initial={false}>
-            {items.map((item) => (
-              <motion.div
-                key={item.key}
-                initial={{ opacity: 0, y: -ITEM_H + 6, scale: 0.96 }}
-                animate={{ opacity: 1, y: item.pos * ITEM_H + 8, scale: 1 }}
-                exit={{
-                  opacity: 0,
-                  y: VISIBLE * ITEM_H + 16,
-                  scale: 0.96,
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 180,
-                  damping: 26,
-                  mass: 0.6,
-                }}
-                className="absolute inset-x-1 flex items-center gap-2 rounded-lg bg-white px-2.5 py-1.5 shadow-[0_1px_2px_rgba(12,20,40,0.04),0_6px_14px_-6px_rgba(12,20,40,0.12)] ring-1 ring-zinc-900/[0.06]"
-              >
-                <span className="flex-1 truncate font-mono text-[9.5px] leading-none tracking-tight text-zinc-700">
-                  {item.event.workflow}
-                </span>
-                <span className="shrink-0 font-mono text-[9.5px] leading-none text-zinc-900 [font-variant-numeric:tabular-nums]">
-                  {item.event.latency}
-                </span>
-                <span className="shrink-0 font-mono text-[9px] leading-none text-zinc-400 [font-variant-numeric:tabular-nums]">
-                  {item.event.cost}
-                </span>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
+      <div className="absolute inset-x-4 top-1.5 z-10 flex items-center gap-2 border-b border-zinc-900/[0.06] px-0.5 pb-1.5">
+        <span className="flex-1 font-mono text-[9px] uppercase tracking-[0.12em] text-zinc-400">
+          Traces
+        </span>
+        <span className="shrink-0 font-mono text-[9px] uppercase tracking-[0.12em] text-zinc-400">
+          Time
+        </span>
+        <span className="ml-4 w-[52px] shrink-0 text-right font-mono text-[9px] uppercase tracking-[0.12em] text-zinc-400">
+          Cost
+        </span>
+      </div>
+
+      <div className="absolute inset-x-0 top-7 h-[55%] overflow-hidden">
+        {items.map((item) => (
+          <motion.div
+            key={item.id}
+            initial={{ y: 0, opacity: 0 }}
+            animate={{ y: TRAVEL, opacity: [0, 1, 1, 0] }}
+            transition={{
+              y: { duration: DUR, ease: "linear" },
+              opacity: {
+                duration: DUR,
+                ease: "linear",
+                times: [0, 0.12, 0.65, 1],
+              },
+            }}
+            className="absolute inset-x-4 flex items-center gap-2 px-0.5 py-1"
+          >
+            <span className="flex-1 truncate font-mono text-[9.5px] leading-none tracking-tight text-zinc-700">
+              {item.event.workflow}
+            </span>
+            <span className="shrink-0 font-mono text-[9.5px] leading-none text-zinc-900 [font-variant-numeric:tabular-nums]">
+              {item.event.latency}
+            </span>
+            <span className="ml-4 w-[52px] shrink-0 text-right font-mono text-[9px] leading-none text-zinc-400 [font-variant-numeric:tabular-nums]">
+              {item.event.cost}
+            </span>
+          </motion.div>
+        ))}
       </div>
 
       <PixelFire />
+    </VisualCard>
+  );
+}
 
-      <div className="absolute left-1/2 top-1/2 z-10 flex size-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-white p-1 shadow-[inset_0_2px_6px_rgba(113,113,122,0.22),inset_0_-1px_3px_rgba(113,113,122,0.1),0_2px_4px_rgba(12,20,40,0.06),0_10px_20px_-6px_rgba(12,20,40,0.18),0_22px_40px_-10px_rgba(12,20,40,0.2)] ring-1 ring-zinc-900/[0.08]">
-        <Image
-          src="/nl-logo.png"
-          alt="Neatlogs"
-          width={48}
-          height={48}
-          className="size-full rounded-xl"
-        />
+type TeamMsg = {
+  kind: "pr" | "comment" | "merge" | "fix";
+  title: string;
+  meta: string;
+  avatar: string;
+  initial: string;
+};
+
+const TEAM_MESSAGES: TeamMsg[] = [
+  {
+    kind: "pr",
+    title: "fix(tool): retry serpapi on timeout",
+    meta: "#4821 · maya",
+    avatar: "from-rose-400 to-rose-500",
+    initial: "M",
+  },
+  {
+    kind: "comment",
+    title: "agent retries look clean — shipping",
+    meta: "alex · 2m",
+    avatar: "from-emerald-400 to-emerald-500",
+    initial: "A",
+  },
+  {
+    kind: "merge",
+    title: "merged: cached_result fallback",
+    meta: "#4820 · sam",
+    avatar: "from-indigo-400 to-indigo-500",
+    initial: "S",
+  },
+  {
+    kind: "fix",
+    title: "hotfix: bump pricing-agent timeout",
+    meta: "#4819 · jake",
+    avatar: "from-amber-400 to-amber-500",
+    initial: "J",
+  },
+  {
+    kind: "pr",
+    title: "feat: span-level annotations",
+    meta: "#4818 · priya",
+    avatar: "from-sky-400 to-sky-500",
+    initial: "P",
+  },
+  {
+    kind: "comment",
+    title: "nice catch on the retry cap",
+    meta: "raf · 5m",
+    avatar: "from-violet-400 to-violet-500",
+    initial: "R",
+  },
+];
+
+function FixShippedVisual() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const reducedMotion = useReducedMotion();
+  const messages = TEAM_MESSAGES.slice(0, 4);
+
+  return (
+    <VisualCard>
+      <div ref={ref} className="flex h-full flex-col gap-1.5">
+        {messages.map((msg, i) => (
+          <motion.div
+            key={i}
+            initial={reducedMotion ? false : { opacity: 0, y: 6 }}
+            animate={
+              reducedMotion || inView ? { opacity: 1, y: 0 } : undefined
+            }
+            transition={{
+              duration: 0.35,
+              delay: i * 0.08,
+              ease: easings.snap,
+            }}
+            className="flex items-start gap-2 rounded-lg bg-white px-2 py-1.5 shadow-[0_1px_2px_rgba(12,20,40,0.04),0_4px_10px_-4px_rgba(12,20,40,0.08)] ring-1 ring-zinc-900/[0.06]"
+          >
+            <TeamIcon kind={msg.kind} />
+            <div className="min-w-0 flex-1">
+              <div className="truncate text-[10.5px] font-medium leading-tight text-zinc-900">
+                {msg.title}
+              </div>
+              <div className="mt-1 flex items-center gap-1.5">
+                <span
+                  className={`flex size-3.5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br text-[7px] font-semibold text-white ${msg.avatar}`}
+                >
+                  {msg.initial}
+                </span>
+                <span className="truncate text-[9px] text-zinc-400">
+                  {msg.meta}
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </VisualCard>
   );
 }
 
-const DIFF_LINES: { kind: "rm" | "add"; text: string }[] = [
-  { kind: "rm", text: "- result = fetch(url, timeout=30)" },
-  { kind: "add", text: "+ result = safe_fetch(url, retries=2)" },
-  { kind: "add", text: "+ return cached_result(query)" },
-];
+function TeamIcon({ kind }: { kind: TeamMsg["kind"] }) {
+  const color =
+    kind === "pr"
+      ? "text-[#E9462E]"
+      : kind === "merge"
+        ? "text-violet-500"
+        : kind === "fix"
+          ? "text-emerald-500"
+          : "text-zinc-400";
 
-function FixShippedVisual() {
-  const cardRef = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(cardRef, { once: true, margin: "-40px" });
-  const reducedMotion = useReducedMotion();
-
+  if (kind === "comment") {
+    return (
+      <svg
+        viewBox="0 0 20 20"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={`mt-0.5 size-3.5 shrink-0 ${color}`}
+      >
+        <path d="M4 6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-4l-3 3v-3H6a2 2 0 0 1-2-2V6z" />
+      </svg>
+    );
+  }
+  if (kind === "merge") {
+    return (
+      <svg
+        viewBox="0 0 20 20"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={`mt-0.5 size-3.5 shrink-0 ${color}`}
+      >
+        <circle cx="5" cy="4.5" r="1.6" />
+        <circle cx="5" cy="15.5" r="1.6" />
+        <circle cx="14" cy="8.5" r="1.6" />
+        <path d="M5 6v8" />
+        <path d="M5 9c0-2 1.5-3 4-3h3.4" />
+      </svg>
+    );
+  }
   return (
-    <VisualCard>
-      <div ref={cardRef} className="flex h-full items-center justify-center">
-        <motion.div
-          initial={reducedMotion ? false : { opacity: 0, y: 10 }}
-          animate={
-            inView || reducedMotion
-              ? { opacity: 1, y: 0 }
-              : { opacity: 0, y: 10 }
-          }
-          transition={
-            reducedMotion
-              ? { duration: 0 }
-              : { duration: 0.4, ease: easings.snap }
-          }
-          className="w-full max-w-[320px] overflow-hidden rounded-xl bg-white shadow-[0_18px_40px_-14px_rgba(12,20,40,0.28),0_6px_12px_-6px_rgba(12,20,40,0.14)] ring-1 ring-zinc-900/10"
-        >
-          <div className="flex items-center justify-between border-b border-zinc-900/5 bg-zinc-50/80 px-3 py-2">
-            <div className="flex items-center gap-1.5">
-              <span className="size-2 rounded-full bg-zinc-300" />
-              <span className="size-2 rounded-full bg-zinc-300" />
-              <span className="size-2 rounded-full bg-zinc-300" />
-            </div>
-            <span className="font-mono text-[9px] text-zinc-500">
-              research-agent.py
-            </span>
-          </div>
-          <div className="space-y-1 px-3 py-3 font-mono text-[10.5px] leading-relaxed">
-            {DIFF_LINES.map((line, i) => (
-              <motion.div
-                key={i}
-                initial={
-                  reducedMotion ? false : { clipPath: "inset(0 100% 0 0)" }
-                }
-                animate={
-                  inView || reducedMotion
-                    ? { clipPath: "inset(0 0 0 0)" }
-                    : { clipPath: "inset(0 100% 0 0)" }
-                }
-                transition={
-                  reducedMotion
-                    ? { duration: 0 }
-                    : {
-                        duration: 0.32,
-                        delay: 0.3 + i * 0.18,
-                        ease: easings.snap,
-                      }
-                }
-                className={`rounded px-1.5 ${
-                  line.kind === "rm"
-                    ? "bg-rose-50 text-rose-700"
-                    : "bg-emerald-50 text-emerald-700"
-                }`}
-              >
-                {line.text}
-              </motion.div>
-            ))}
-            <div className="px-1.5 text-zinc-400">&nbsp;</div>
-            <motion.div
-              initial={reducedMotion ? false : { opacity: 0, y: 4 }}
-              animate={
-                inView || reducedMotion
-                  ? { opacity: 1, y: 0 }
-                  : { opacity: 0, y: 4 }
-              }
-              transition={
-                reducedMotion
-                  ? { duration: 0 }
-                  : { duration: 0.3, delay: 0.95, ease: easings.snap }
-              }
-              className="flex items-center gap-1.5 px-1.5 text-[10px] text-zinc-700"
-            >
-              <span className="inline-flex size-3 items-center justify-center rounded-full bg-emerald-100 text-[8px] text-emerald-700">
-                ✓
-              </span>
-              Open in Cursor · review &amp; ship
-            </motion.div>
-          </div>
-        </motion.div>
-      </div>
-    </VisualCard>
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={`mt-0.5 size-3.5 shrink-0 ${color}`}
+    >
+      <circle cx="5" cy="4.5" r="1.6" />
+      <circle cx="5" cy="15.5" r="1.6" />
+      <circle cx="14" cy="8.5" r="1.6" />
+      <path d="M5 6v8" />
+      <path d="M14 10c0 3-4 3-4 5.5" />
+    </svg>
   );
 }
 
