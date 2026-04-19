@@ -19,7 +19,7 @@ function CheckIcon({ className, solid = false }: { className?: string; solid?: b
 
 export function Pricing() {
   return (
-    <section id="pricing" className="w-full bg-[#FAFAFA] border-t border-zinc-900/5 pt-12 pb-24 sm:pt-16 sm:pb-32 px-4 md:px-8 flex flex-col items-center">
+    <section id="pricing" className="w-full bg-[#FAFAFA] border-t border-zinc-900/5 pt-12 pb-12 sm:pt-16 sm:pb-16 px-4 md:px-8 flex flex-col items-center">
       <div className="mx-auto max-w-2xl text-center mb-16 sm:mb-20">
         <span
           translate="no"
@@ -47,7 +47,7 @@ export function Pricing() {
               </div>
               <p className="mt-2.5 text-[13.5px] font-medium text-zinc-600">No credit card required</p>
             </div>
-            <button type="button" className="font-ui mt-auto w-full cursor-pointer rounded-[12px] bg-zinc-950 py-3 px-4 text-[14px] font-semibold text-white shadow-md transition-[transform,background-color] duration-150 ease-snap hover:bg-zinc-800 hover-hover:hover:scale-[1.02] active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2">
+            <button type="button" className="font-ui mt-auto w-full cursor-pointer rounded-full bg-zinc-950 py-3 px-4 text-[14px] font-semibold text-white shadow-md transition-[transform,background-color] duration-150 ease-snap hover:bg-zinc-800 hover-hover:hover:scale-[1.02] active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2">
               Get Started
             </button>
           </div>
@@ -86,7 +86,7 @@ export function Pricing() {
               </div>
               <p className="mt-2.5 text-[13.5px] font-medium text-zinc-400">For large teams</p>
             </div>
-            <button type="button" className="font-ui mt-auto w-full cursor-pointer rounded-[12px] bg-white py-3 px-4 text-[14px] font-semibold text-zinc-950 transition-transform duration-150 ease-snap hover-hover:hover:scale-[1.02] active:scale-[0.97] motion-reduce:active:scale-100 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+            <button type="button" className="font-ui mt-auto w-full cursor-pointer rounded-full bg-white py-3 px-4 text-[14px] font-semibold text-zinc-950 transition-transform duration-150 ease-snap hover-hover:hover:scale-[1.02] active:scale-[0.97] motion-reduce:active:scale-100 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
               Book a Call
             </button>
           </div>

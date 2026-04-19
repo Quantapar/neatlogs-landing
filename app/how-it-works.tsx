@@ -138,29 +138,54 @@ export function HowItWorks() {
 
   const selectIndex = useCallback((i: number) => {
     const section = sectionRef.current;
+    const reduced =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const SCROLL_MS = 520;
     activeRef.current = i;
     lastChangeAtRef.current = Date.now();
-    navLockUntilRef.current = Date.now() + 900;
+    navLockUntilRef.current = Date.now() + (reduced ? 0 : SCROLL_MS + 80);
     setActiveIndex(i);
-    const scrollBehavior: ScrollBehavior =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "auto"
-        : "smooth";
-    if (section && typeof window !== "undefined" && window.innerWidth >= 1024) {
-      const rect = section.getBoundingClientRect();
-      const scrollable = rect.height - window.innerHeight;
-      if (scrollable > 0) {
-        const targetProgress = (i + 0.5) / STEPS.length;
-        const targetY = window.scrollY + rect.top + targetProgress * scrollable;
-        window.scrollTo({ top: targetY, behavior: scrollBehavior });
-        return;
+
+    const targetY = (() => {
+      if (
+        section &&
+        typeof window !== "undefined" &&
+        window.innerWidth >= 1024
+      ) {
+        const rect = section.getBoundingClientRect();
+        const scrollable = rect.height - window.innerHeight;
+        if (scrollable > 0) {
+          const targetProgress = (i + 0.5) / STEPS.length;
+          return window.scrollY + rect.top + targetProgress * scrollable;
+        }
       }
+      const tile = tileRefs.current[i];
+      if (tile) {
+        const rect = tile.getBoundingClientRect();
+        return window.scrollY + rect.top - window.innerHeight / 2 + rect.height / 2;
+      }
+      return null;
+    })();
+
+    if (targetY == null) return;
+    if (reduced) {
+      window.scrollTo(0, targetY);
+      return;
     }
-    tileRefs.current[i]?.scrollIntoView({
-      behavior: scrollBehavior,
-      block: "center",
-    });
+
+    const startY = window.scrollY;
+    const distance = targetY - startY;
+    if (Math.abs(distance) < 2) return;
+    const startTime = performance.now();
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    const step = (now: number) => {
+      const t = Math.min(1, (now - startTime) / SCROLL_MS);
+      window.scrollTo(0, startY + distance * easeOutCubic(t));
+      if (t < 1) window.requestAnimationFrame(step);
+    };
+    window.requestAnimationFrame(step);
   }, []);
 
   return (

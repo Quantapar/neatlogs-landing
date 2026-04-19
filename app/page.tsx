@@ -10,6 +10,7 @@ import { Pricing } from "./pricing";
 import { FAQ } from "./faq";
 import Footer2 from "./footer";
 import { HeroIntro } from "./hero-intro";
+import { CTA } from "./cta";
 
 export default function () {
   return (
@@ -41,6 +42,7 @@ export default function () {
       <Integrations />
       <Reviews />
       <Pricing />
+      <CTA />
       <FAQ />
       <Footer2 />
     </main>

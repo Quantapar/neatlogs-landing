@@ -123,7 +123,7 @@ export const FAQ = () => {
         <section
             id="faq"
             ref={sectionRef}
-            className="bg-[#FAFAFA] py-20 sm:py-24 lg:py-32 w-full"
+            className="bg-[#FAFAFA] border-t border-zinc-900/5 py-20 sm:py-24 lg:py-32 w-full"
         >
             <script
                 type="application/ld+json"
