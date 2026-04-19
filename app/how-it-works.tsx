@@ -442,7 +442,7 @@ function Device({ activeIndex }: { activeIndex: number }) {
               translate="no"
               className="font-mono text-[11px] uppercase tracking-widest text-zinc-500"
             >
-              neatlogs · trace
+              neatlogs trace
             </span>
           </div>
           <span className="font-mono text-[11px] tracking-widest uppercase text-zinc-400 [font-variant-numeric:tabular-nums]">
@@ -509,10 +509,10 @@ function BreakFrame() {
             translate="no"
             className="font-mono text-[11px] uppercase tracking-widest text-zinc-500"
           >
-            workflow · research-agent
+            workflow research-agent
           </span>
           <span className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-red-700">
-            failing · 02s ago
+            failing 02s ago
           </span>
         </div>
       </Stagger>
@@ -521,7 +521,7 @@ function BreakFrame() {
         <AlertRow
           tone="red"
           title="Tool call timeout"
-          meta="serpapi.search · 28.3s · cap 10s"
+          meta="serpapi.search 28.3s cap 10s"
           pills={["Critical", "Slack notified"]}
         />
       </Stagger>
@@ -529,7 +529,7 @@ function BreakFrame() {
         <AlertRow
           tone="amber"
           title="Unexpected output"
-          meta="summarise-agent · score 0.34"
+          meta="summarise-agentscore 0.34"
           pills={["Warning"]}
         />
       </Stagger>
@@ -537,7 +537,7 @@ function BreakFrame() {
         <AlertRow
           tone="emerald"
           title="All clear"
-          meta="classify-agent · 3 runs · avg 1.2s"
+          meta="classify-agent 3 runs avg 1.2s"
         />
       </Stagger>
 
@@ -545,7 +545,7 @@ function BreakFrame() {
         <div className="mt-5 flex items-center gap-2 rounded-lg bg-zinc-900/[0.04] px-3 py-2.5">
           <IconSlack className="size-3.5 text-zinc-700" />
           <span className="font-mono text-[11px] text-zinc-600">
-            #agent-ops &nbsp;·&nbsp; posted by @neatlogs-bot
+            #agent-ops &nbsp;&nbsp; posted by @neatlogs-bot
           </span>
         </div>
       </Stagger>
@@ -562,7 +562,7 @@ function ReadFrame() {
             translate="no"
             className="font-mono text-[11px] uppercase tracking-widest text-zinc-500"
           >
-            summary · plain english
+            summary plain english
           </span>
           <span className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-zinc-700">
             run #4821
@@ -638,7 +638,7 @@ function FixFrame() {
               translate="no"
               className="font-mono text-[11px] text-zinc-700"
             >
-              # source-picker.ts · research-agent
+              # source-picker.ts research-agent
             </span>
             <span className="font-mono text-[10px] text-zinc-400">+12 −4</span>
           </div>
@@ -682,7 +682,7 @@ function FixFrame() {
         <div className="flex cursor-pointer items-center gap-2 rounded-lg bg-zinc-900 px-3 py-2.5 text-white transition-colors duration-200 ease-snap hover-hover:hover:bg-zinc-800">
           <IconBranch className="size-3.5" />
           <span className="font-mono text-[11px]">
-            Open in Cursor &nbsp;·&nbsp; review &amp; ship
+            Open in Cursor &nbsp;&nbsp; review &amp; ship
           </span>
         </div>
       </Stagger>
@@ -699,7 +699,7 @@ function ShipFrame() {
             translate="no"
             className="font-mono text-[11px] uppercase tracking-widest text-zinc-500"
           >
-            thread · one context
+            thread one context
           </span>
           <span className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-emerald-700">
             resolved
@@ -712,7 +712,7 @@ function ShipFrame() {
           idx="01"
           icon={<IconTrace className="size-3.5" />}
           title="Trace surfaced"
-          meta="research-agent · run #4821"
+          meta="research-agent run #4821"
           time="09:12"
         />
       </Stagger>
@@ -730,7 +730,7 @@ function ShipFrame() {
           idx="03"
           icon={<IconBranch className="size-3.5" />}
           title="Fix shipped"
-          meta="PR #231 · source-picker.ts · +12 −4"
+          meta="PR #231 source-picker.ts +12 −4"
           time="09:41"
           done
         />
