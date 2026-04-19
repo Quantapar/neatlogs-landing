@@ -737,7 +737,7 @@ function ShipFrame() {
       </Stagger>
 
       <Stagger delay={400}>
-        <div className="cursor-pointer rounded-xl border border-zinc-900/10 bg-white/80 p-4 transition-[border-color,background-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20 hover-hover:hover:bg-white">
+        <div className="group/metrics cursor-pointer rounded-xl border border-zinc-900/10 bg-white/80 p-4 transition-[border-color,background-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20 hover-hover:hover:bg-white">
           <div className="flex items-center justify-between">
             <span
               translate="no"
@@ -745,7 +745,7 @@ function ShipFrame() {
             >
               Broken &rarr; Shipped
             </span>
-            <span className="font-mono text-[11px] uppercase tracking-widest text-emerald-700 font-semibold">
+            <span className="font-mono text-[11px] uppercase tracking-widest text-zinc-700 font-semibold transition-colors duration-200 ease-snap group-hover/metrics:text-emerald-700">
               29 min
             </span>
           </div>
@@ -850,18 +850,20 @@ function ThreadStep({
 }) {
   return (
     <div
-      className={`flex cursor-pointer items-start gap-3 rounded-xl border p-3.5 transition-[border-color,background-color] duration-200 ease-snap ${
+      className={`group/step flex cursor-pointer items-start gap-3 rounded-xl border border-zinc-900/10 bg-white/80 p-3.5 transition-[border-color,background-color] duration-200 ease-snap ${
         done
-          ? "border-emerald-200/70 bg-emerald-50/50 hover-hover:hover:border-emerald-300/70 hover-hover:hover:bg-emerald-50"
-          : "border-zinc-900/10 bg-white/80 hover-hover:hover:border-zinc-900/20 hover-hover:hover:bg-white"
+          ? "hover-hover:hover:border-emerald-200/70 hover-hover:hover:bg-emerald-50/50"
+          : "hover-hover:hover:border-zinc-900/20 hover-hover:hover:bg-white"
       }`}
     >
       <span className="font-mono mt-1 text-[11px] uppercase tracking-widest text-zinc-400">
         {idx}
       </span>
       <span
-        className={`mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full ${
-          done ? "bg-emerald-100 text-emerald-700" : "bg-zinc-100 text-zinc-600"
+        className={`mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-zinc-600 transition-colors duration-200 ease-snap ${
+          done
+            ? "group-hover/step:bg-emerald-100 group-hover/step:text-emerald-700"
+            : ""
         }`}
       >
         {icon}
