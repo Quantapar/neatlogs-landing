@@ -375,17 +375,17 @@ function StepTile({
       type="button"
       onClick={onSelect}
       aria-pressed={active}
-      className={`group relative overflow-hidden rounded-2xl border bg-white text-left outline-none transition-[border-color,transform,box-shadow] focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAFAFA] motion-reduce:transition-none motion-reduce:active:scale-100 ${
+      className={`group relative block rounded-[24px] p-1.5 text-left outline-none transition-[background-color,transform,box-shadow] focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAFAFA] motion-reduce:transition-none motion-reduce:active:scale-100 ${
         active
-          ? "cursor-default -translate-y-0.5 border-zinc-950 shadow-[0_20px_40px_-12px_rgba(12,20,40,0.28),0_6px_14px_-6px_rgba(12,20,40,0.14)]"
-          : "cursor-pointer border-zinc-900/10 hover:-translate-y-0.5 hover:border-zinc-900/20 hover:shadow-sm hover:shadow-zinc-900/5 active:scale-[0.97]"
+          ? "cursor-default -translate-y-0.5 bg-[#F4F4F5] ring-1 ring-zinc-900/5 shadow-[0_26px_50px_-12px_rgba(12,20,40,0.38),0_10px_20px_-6px_rgba(12,20,40,0.22)]"
+          : "cursor-pointer bg-[#F4F4F5] ring-1 ring-zinc-900/5 shadow-sm hover:-translate-y-0.5 hover:shadow-sm hover:shadow-zinc-900/5 active:scale-[0.97]"
       }`}
       style={{
         transitionDuration: `${duration}ms`,
         transitionTimingFunction: easing,
       }}
     >
-      <div className="relative p-5 sm:p-6">
+      <div className="relative rounded-[18px] bg-white ring-1 ring-zinc-200/80 shadow-sm p-5 sm:p-6">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <span className="font-mono text-[11px] uppercase tracking-widest text-zinc-400">
