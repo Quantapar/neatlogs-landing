@@ -28,10 +28,16 @@ body {
 
 html {
   font-size: 100%;
+  overscroll-behavior: none;
   overscroll-behavior-y: none;
 }
 
 body {
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+}
+
+main {
   overscroll-behavior-y: none;
 }
 
