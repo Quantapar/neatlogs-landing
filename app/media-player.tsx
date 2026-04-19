@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
-const SAMPLE_VIDEO_SRC = "https://www.w3schools.com/html/mov_bbb.mp4";
-const POSTER_SRC = "/video-poster.png";
+const SAMPLE_VIDEO_SRC = "/walkthrough.mp4";
+const POSTER_SRC = "/video-thumb-v2.jpg";
 
 export function MediaPlayer() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -86,7 +86,7 @@ export function MediaPlayer() {
                   fill
                   priority
                   sizes="(min-width: 1024px) 1024px, 100vw"
-                  className="pointer-events-none object-contain"
+                  className="pointer-events-none object-cover"
                 />
 
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -94,7 +94,7 @@ export function MediaPlayer() {
                     type="button"
                     onClick={togglePlay}
                     aria-label="Play product walkthrough"
-                    className="group relative flex size-20 cursor-pointer items-center justify-center rounded-full bg-white/85 text-zinc-950 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.25),0_0_0_1px_rgba(0,0,0,0.04)_inset] backdrop-blur-md transition-transform duration-200 ease touch-manipulation hover:scale-[1.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-[0.97] motion-reduce:transition-none sm:size-[88px]"
+                    className="group relative flex size-20 cursor-pointer items-center justify-center rounded-full bg-(--glass-bg) text-zinc-950 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-zinc-900/10 backdrop-blur-md transition-transform duration-200 ease touch-manipulation hover:scale-[1.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-[0.97] motion-reduce:transition-none sm:size-[88px]"
                   >
                     <span
                       aria-hidden="true"

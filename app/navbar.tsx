@@ -50,7 +50,9 @@ export function Navbar() {
                 href={href}
                 onClick={(e) => {
                   e.preventDefault();
-                  document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+                  document
+                    .querySelector(href)
+                    ?.scrollIntoView({ behavior: "smooth" });
                 }}
                 className="font-ui cursor-pointer text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
               >
@@ -71,7 +73,7 @@ export function Navbar() {
         <div className="hidden shrink-0 items-center gap-2 md:flex">
           <Link
             href="/demo"
-            className="font-ui group inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-full bg-(--glass-bg) px-4 text-sm font-medium text-zinc-950 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-zinc-900/10 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-out touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
+            className="font-ui group inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-full bg-(--glass-bg) px-4 text-sm font-medium text-zinc-950 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-zinc-900/10 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-out touch-manipulation hover:bg-white/8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
           >
             Book a Demo
             <svg
@@ -129,11 +131,7 @@ export function Navbar() {
         </button>
       </div>
 
-      <div
-        id="mobile-nav"
-        hidden={!open}
-        className="bg-[#A4A8C5] md:hidden"
-      >
+      <div id="mobile-nav" hidden={!open} className="bg-[#A4A8C5] md:hidden">
         <div className="mx-auto flex max-w-7xl flex-col px-4 py-3 sm:px-6">
           {NAV_LINKS.map(({ href, label }) => {
             const isAnchor = href.startsWith("#");
@@ -144,7 +142,9 @@ export function Navbar() {
                 onClick={(e) => {
                   e.preventDefault();
                   setOpen(false);
-                  document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+                  document
+                    .querySelector(href)
+                    ?.scrollIntoView({ behavior: "smooth" });
                 }}
                 className="font-ui cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 transition-[color,background-color,transform] hover:bg-white/60 hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
               >

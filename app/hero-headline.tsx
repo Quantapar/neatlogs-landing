@@ -45,7 +45,7 @@ export function HeroHeadline() {
     >
       <Word>From</Word> <Word>feedback</Word> <Word>to</Word> <Word>fix</Word>
       <br />
-      <span className="text-zinc-500">
+      <span className="text-[#BC6152]">
         <Word>In</Word> <Word>minutes,</Word> <Word>not</Word>{" "}
         <Word>weeks</Word>
       </span>
