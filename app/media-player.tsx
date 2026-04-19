@@ -55,7 +55,7 @@ export function MediaPlayer() {
       <div className="mx-auto w-full max-w-5xl">
         <div
           ref={frameRef}
-          className={`relative rounded-[28px] bg-white/90 p-3 shadow-[0_40px_80px_-24px_rgba(12,20,40,0.35),0_16px_32px_-16px_rgba(12,20,40,0.22)] ring-1 ring-zinc-900/5 backdrop-blur-sm sm:p-4 ${
+          className={`relative rounded-[28px] bg-white/90 p-3 shadow-[0_30px_60px_-24px_rgba(12,20,40,0.22),0_12px_24px_-16px_rgba(12,20,40,0.14)] ring-1 ring-zinc-900/5 backdrop-blur-sm sm:p-4 ${
             isFullscreen ? "flex flex-col" : ""
           }`}
         >

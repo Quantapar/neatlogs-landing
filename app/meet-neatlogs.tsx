@@ -1,7 +1,17 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import {
+  ArrowUp,
+  ChevronDown,
+  ChevronRight,
+  History,
+  PanelLeft,
+  Zap,
+} from "lucide-react";
+import type { ComponentType, SVGProps } from "react";
+import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { Reveal } from "./reveal";
 
 const ACCENT = "#E8462F";
@@ -64,11 +74,6 @@ export function MeetNeatlogs() {
 
 function DashboardScene() {
   const sceneRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: sceneRef,
-    offset: ["start start", "end end"],
-  });
-
   const { scrollYProgress: entryProgress } = useScroll({
     target: sceneRef,
     offset: ["start end", "end end"],
@@ -76,49 +81,16 @@ function DashboardScene() {
 
   const scale = useTransform(entryProgress, [0.1, 1], [1, 0.78]);
 
-  const leftX = useTransform(scrollYProgress, [0.32, 0.5], ["-14%", "0%"]);
-  const leftOpacity = useTransform(scrollYProgress, [0.32, 0.5], [0, 1]);
-
-  const rightX = useTransform(scrollYProgress, [0.4, 0.58], ["14%", "0%"]);
-  const rightOpacity = useTransform(scrollYProgress, [0.4, 0.58], [0, 1]);
-
-  const centerScale = useTransform(scrollYProgress, [0.18, 0.32], [0.85, 1]);
-  const centerOpacity = useTransform(scrollYProgress, [0.18, 0.32], [0, 1]);
-
   return (
     <div ref={sceneRef} className="relative h-[260vh]">
       <div className="sticky top-0 flex h-screen items-start justify-center pt-16 sm:pt-20">
         <motion.div
           style={{ scale }}
-          className="relative w-full overflow-hidden rounded-[28px] bg-zinc-950 p-3 shadow-[0_40px_100px_-30px_rgba(12,20,40,0.45)] ring-1 ring-white/5 sm:p-4"
+          className="relative w-full overflow-hidden rounded-[28px] border border-zinc-900/10 bg-[#FCFCFD] p-3 shadow-[0_30px_60px_-24px_rgba(12,20,40,0.22),0_12px_24px_-16px_rgba(12,20,40,0.14)] sm:p-4"
         >
-          <DashboardHeader />
-
-          <div className="relative mt-3 flex h-[420px] items-center justify-center gap-3 rounded-[20px] bg-[#0a0a0a] px-4 py-6 sm:h-[500px] sm:gap-5 sm:px-8 sm:py-10 lg:h-[600px]">
-            <BackgroundGrid />
-
-            <motion.div
-              style={{ x: leftX, opacity: leftOpacity }}
-              className="relative z-10 hidden w-[22%] min-w-[160px] sm:block"
-            >
-              <AlertNode />
-            </motion.div>
-
-            <motion.div
-              style={{ scale: centerScale, opacity: centerOpacity }}
-              className="relative z-10 w-full max-w-[300px] sm:w-[38%] sm:max-w-none"
-            >
-              <TraceNode />
-            </motion.div>
-
-            <motion.div
-              style={{ x: rightX, opacity: rightOpacity }}
-              className="relative z-10 hidden w-[22%] min-w-[160px] sm:block"
-            >
-              <FixNode />
-            </motion.div>
-
-            <Toolbar />
+          <div className="relative flex h-[500px] overflow-hidden rounded-[20px] bg-[#FCFCFD] ring-1 ring-zinc-900/10 sm:h-[590px] lg:h-[700px]">
+            <Sidebar />
+            <MainArea />
           </div>
         </motion.div>
       </div>
@@ -126,189 +98,407 @@ function DashboardScene() {
   );
 }
 
-function DashboardHeader() {
-  return (
-    <div className="flex items-center justify-between px-2 pb-1 pt-1 sm:px-3">
-      <div className="flex items-center gap-2.5">
-        <div className="flex size-7 items-center justify-center rounded-lg bg-white/10 ring-1 ring-white/10">
-          <div className="size-3 rounded-sm bg-white/60" />
-        </div>
-        <div className="text-left">
-          <div className="font-mono text-[9px] uppercase tracking-[0.14em] text-zinc-500">
-            Project
-          </div>
-          <div className="text-[13px] font-semibold text-white">
-            Research Agent · run #4821
-          </div>
-        </div>
-      </div>
-      <div className="flex items-center gap-2">
-        <div className="flex h-7 items-center gap-1.5 rounded-md bg-white/5 px-3 text-[11px] font-medium text-zinc-300 ring-1 ring-white/5">
-          Actions
-          <ChevronDown />
-        </div>
-        <div className="flex h-7 items-center gap-1.5 rounded-md bg-white/5 px-3 text-[11px] font-medium text-zinc-300 ring-1 ring-white/5">
-          <Dot />
-          Credits <span className="text-zinc-500">1,250</span>
-        </div>
-      </div>
-    </div>
-  );
-}
+function Sidebar() {
+  const [collapsed, setCollapsed] = useState(false);
+  const fadeLabel = `transition-opacity duration-200 ${collapsed ? "pointer-events-none opacity-0" : "opacity-100 delay-150"}`;
 
-function BackgroundGrid() {
   return (
-    <svg
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-0 size-full opacity-[0.15]"
+    <aside
+      className={`hidden shrink-0 flex-col overflow-hidden border-r border-zinc-900/5 bg-white/70 py-4 text-[13px] transition-[width] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] sm:flex ${
+        collapsed ? "w-[52px]" : "w-[220px]"
+      }`}
     >
-      <defs>
-        <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
-          <path
-            d="M 24 0 L 0 0 0 24"
-            fill="none"
-            stroke="white"
-            strokeWidth="0.5"
+      <div className="flex h-8 shrink-0 items-center gap-2 px-3">
+        <button
+          type="button"
+          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          onClick={() => setCollapsed((c) => !c)}
+          className="group relative flex size-[26px] shrink-0 cursor-pointer items-center justify-center rounded-md"
+        >
+          <Image
+            src="/nl-logo.png"
+            alt=""
+            width={22}
+            height={22}
+            className={`size-[22px] rounded-md ring-1 ring-black/5 transition-opacity duration-150 ${collapsed ? "group-hover:opacity-0" : ""}`}
           />
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#grid)" />
-    </svg>
+          {collapsed && (
+            <PanelLeft className="absolute size-4 text-zinc-700 opacity-0 transition-opacity duration-150 group-hover:opacity-100" />
+          )}
+        </button>
+        <span
+          className={`font-pixel whitespace-nowrap text-[14px] font-normal leading-none tracking-tight text-zinc-950 ${fadeLabel}`}
+        >
+          neatlogs
+        </span>
+        <button
+          type="button"
+          aria-label="Collapse sidebar"
+          onClick={() => setCollapsed(true)}
+          className={`ml-auto flex size-[26px] shrink-0 cursor-pointer items-center justify-center rounded-md text-zinc-600 transition-colors hover:bg-zinc-900/5 hover:text-zinc-950 ${fadeLabel}`}
+        >
+          <PanelLeft className="size-4" />
+        </button>
+      </div>
+
+      <div className="mt-5 flex w-full flex-col gap-0.5 px-1.5">
+        <SidebarItem icon={IconPlus} label="Create project" collapsed={collapsed} />
+        <SidebarItem icon={IconAISearch} label="AI Search" active collapsed={collapsed} />
+        <SidebarItem icon={IconTraces} label="Traces" collapsed={collapsed} />
+        <SidebarItem icon={IconDetections} label="Detections" collapsed={collapsed} />
+        <SidebarItem icon={IconFlask} label="Experiments" hasChevron collapsed={collapsed} />
+        <SidebarItem icon={IconEvals} label="Evals" collapsed={collapsed} />
+        <SidebarItem icon={IconCode} label="Code fixes" pill="Coming soon" collapsed={collapsed} />
+      </div>
+
+      <div className="mt-auto flex w-full flex-col gap-0.5 px-1.5">
+        <SidebarItem icon={IconBell} label="Activity" collapsed={collapsed} />
+        <SidebarItem icon={IconGear} label="Settings" collapsed={collapsed} />
+        <div className="mt-2 flex cursor-pointer items-center gap-2 rounded-md px-1.5 py-1.5 transition-colors hover:bg-zinc-900/5">
+          <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-rose-400 text-[11px] font-semibold text-white">
+            M
+          </div>
+          <div
+            className={`flex min-w-0 flex-col whitespace-nowrap ${fadeLabel}`}
+          >
+            <span className="text-[13px] font-semibold leading-tight text-zinc-950">
+              Manu
+            </span>
+            <span className="truncate text-[10px] leading-tight text-zinc-500">
+              Manushrama2462@gmail...
+            </span>
+          </div>
+        </div>
+      </div>
+    </aside>
   );
 }
 
-function AlertNode() {
-  return (
-    <div className="rounded-xl border border-white/10 bg-[#141416] p-3 shadow-[0_12px_30px_-12px_rgba(0,0,0,0.6)]">
-      <div className="flex items-center justify-between">
-        <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-rose-400">
-          Detection
-        </span>
-        <span className="relative flex size-2">
-          <span className="absolute inline-flex size-full animate-ping rounded-full bg-rose-500 opacity-60" />
-          <span className="relative inline-flex size-2 rounded-full bg-rose-500" />
-        </span>
-      </div>
-      <div className="mt-2.5 text-[12.5px] font-medium leading-tight text-white">
-        Tool call timeout
-      </div>
-      <div className="mt-1.5 font-mono text-[10px] text-zinc-400">
-        serpapi.search · 28.3s
-      </div>
-      <div className="mt-3 inline-flex items-center gap-1 rounded-full bg-rose-500/10 px-2 py-[2px] font-mono text-[9px] uppercase tracking-wider text-rose-300">
-        critical
-      </div>
-    </div>
-  );
-}
-
-function TraceNode() {
-  return (
-    <div className="rounded-xl border border-white/10 bg-[#141416] p-4 shadow-[0_16px_40px_-16px_rgba(0,0,0,0.7)]">
-      <div className="flex items-center justify-between">
-        <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-zinc-500">
-          Trace · agent run
-        </span>
-        <span className="font-mono text-[9px] text-zinc-600">#4821</span>
-      </div>
-      <div className="mt-4 space-y-2.5">
-        <TraceRow label="route" width="90%" />
-        <TraceRow label="fetch_context" width="78%" />
-        <TraceRow label="serpapi.search" width="62%" tone="rose" />
-        <TraceRow label="summarize" width="44%" muted />
-      </div>
-    </div>
-  );
-}
-
-function TraceRow({
+function SidebarItem({
+  icon: Icon,
   label,
-  width,
-  tone = "default",
-  muted,
+  active,
+  hasChevron,
+  pill,
+  collapsed,
 }: {
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
   label: string;
-  width: string;
-  tone?: "default" | "rose";
-  muted?: boolean;
+  active?: boolean;
+  hasChevron?: boolean;
+  pill?: string;
+  collapsed?: boolean;
 }) {
-  const barClass =
-    tone === "rose"
-      ? "bg-gradient-to-r from-rose-500/70 to-rose-400/40"
-      : muted
-        ? "bg-white/5"
-        : "bg-gradient-to-r from-white/25 to-white/10";
+  const fadeLabel = `transition-opacity duration-200 ${collapsed ? "pointer-events-none opacity-0" : "opacity-100 delay-150"}`;
+
   return (
-    <div className="flex items-center gap-2">
-      <span className="w-[72px] shrink-0 truncate font-mono text-[9px] text-zinc-500">
+    <button
+      type="button"
+      aria-label={label}
+      title={collapsed ? label : undefined}
+      className={`group flex h-[30px] cursor-pointer items-center gap-2.5 rounded-md px-1.5 text-left transition-colors ${
+        active
+          ? "bg-zinc-900/5 text-zinc-950"
+          : "text-zinc-600 hover:bg-zinc-900/5 hover:text-zinc-950"
+      }`}
+    >
+      <Icon className="size-4 shrink-0" />
+      <span
+        className={`font-pixel flex-1 truncate whitespace-nowrap text-[12.5px] font-normal ${fadeLabel}`}
+      >
         {label}
       </span>
-      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/5">
-        <div className={`h-full rounded-full ${barClass}`} style={{ width }} />
-      </div>
-    </div>
-  );
-}
-
-function FixNode() {
-  return (
-    <div className="rounded-xl border border-white/10 bg-[#141416] p-3 shadow-[0_12px_30px_-12px_rgba(0,0,0,0.6)]">
-      <div className="flex items-center justify-between">
-        <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-emerald-300">
-          AI fix
+      {pill && (
+        <span
+          className={`font-pixel shrink-0 rounded-full bg-sky-100 px-1.5 py-[1px] text-[9px] font-normal uppercase tracking-wider text-sky-700 ${fadeLabel}`}
+        >
+          {pill}
         </span>
-        <span className="font-mono text-[9px] text-emerald-400/70">+12 −4</span>
-      </div>
-      <div className="mt-2.5 text-[12.5px] font-medium leading-tight text-white">
-        Suggested diff
-      </div>
-      <div className="mt-2 rounded-md bg-black/60 p-2 font-mono text-[9.5px] leading-[1.55] text-zinc-300">
-        <div>
-          <span className="text-zinc-500">try</span>:
-        </div>
-        <div className="pl-2">
-          result = <span className="text-sky-300">fetch_context</span>(q)
-        </div>
-        <div>
-          <span className="text-zinc-500">except</span>{" "}
-          <span className="text-rose-300">Timeout</span>:
-        </div>
-        <div className="pl-2 text-emerald-300">+ use_cached_context(q)</div>
-      </div>
-    </div>
+      )}
+      {hasChevron && (
+        <ChevronRight
+          className={`size-3 shrink-0 text-zinc-400 ${fadeLabel}`}
+        />
+      )}
+    </button>
   );
 }
 
-function Toolbar() {
+function MainArea() {
+  const [query, setQuery] = useState("");
   return (
-    <div className="absolute inset-x-0 bottom-4 z-20 flex justify-center sm:bottom-6">
-      <div className="flex items-center gap-1 rounded-full bg-[#18181b]/90 px-2 py-1.5 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] ring-1 ring-white/10 backdrop-blur-md">
-        {["+", "◇", "✎", "↗", "⎘"].map((t, i) => (
-          <button
-            key={i}
-            type="button"
-            className="flex size-7 cursor-pointer items-center justify-center rounded-full text-[12px] text-zinc-400 transition-colors hover:bg-white/5 hover:text-white"
-          >
-            {t}
-          </button>
-        ))}
+    <main className="relative flex flex-1 flex-col items-center justify-center overflow-hidden px-6">
+      <Image
+        src="/dashboard-bg.png"
+        alt=""
+        fill
+        sizes="100vw"
+        priority
+        className="object-cover object-center"
+      />
+
+      <div className="relative z-10 w-full max-w-[440px]">
+        <div className="text-center">
+          <h3 className="font-pixel text-[34px] font-normal leading-none text-zinc-950">
+            AI Search
+          </h3>
+          <p className="font-pixel mt-2 text-[13px] font-normal text-zinc-600">
+            Find anything about your traces
+          </p>
+        </div>
+
+        <div className="mt-6 rounded-xl bg-white/95 p-3 shadow-[0_8px_24px_-8px_rgba(12,20,40,0.15)] ring-1 ring-zinc-900/10 backdrop-blur-sm">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Ask anything..."
+            className="font-pixel w-full bg-transparent text-[13.5px] font-normal text-zinc-950 outline-none placeholder:text-zinc-400"
+          />
+          <div className="mt-3 flex items-center gap-1.5">
+            <button
+              type="button"
+              className="font-pixel flex cursor-pointer items-center gap-1 rounded-md bg-zinc-900/5 px-2 py-1 text-[11px] font-normal text-zinc-700 transition-colors hover:bg-zinc-900/10"
+            >
+              <Zap className="size-3" />
+              Fast
+              <ChevronDown className="size-3" />
+            </button>
+            <button
+              type="button"
+              className="font-pixel flex cursor-pointer items-center gap-1 rounded-md px-2 py-1 text-[11px] font-normal text-zinc-400 transition-colors hover:text-zinc-700"
+            >
+              <History className="size-3" />
+              History
+              <ChevronDown className="size-3" />
+            </button>
+            <button
+              type="button"
+              aria-label="Submit search"
+              className="ml-auto flex size-7 cursor-pointer items-center justify-center rounded-md bg-zinc-900/5 text-zinc-600 transition-colors hover:bg-zinc-900/10 hover:text-zinc-950"
+            >
+              <ArrowUp className="size-3.5" />
+            </button>
+          </div>
+        </div>
+
+        <QuestionCycle />
       </div>
+    </main>
+  );
+}
+
+const QUESTIONS = [
+  "Failed by status code 500",
+  "Compare performance across versions",
+  "Show me the latest errors",
+  "List traces from user@example.com",
+  "Which agents have the slowest response times",
+  "Show retries in the last hour",
+  "Summarize yesterday's failures",
+  "Filter traces by tool call timeout",
+];
+
+function QuestionCycle() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setIndex((i) => i + 1), 2500);
+    return () => clearInterval(id);
+  }, []);
+
+  const ITEM_H = 26;
+  const VISIBLE = 3;
+  const visible = Array.from({ length: VISIBLE }, (_, i) => ({
+    key: index + i,
+    text: QUESTIONS[(index + i) % QUESTIONS.length],
+    position: i,
+  }));
+
+  return (
+    <div
+      className="relative mt-4 overflow-hidden"
+      style={{
+        height: ITEM_H * VISIBLE,
+        maskImage:
+          "linear-gradient(to bottom, transparent 0%, black 28%, black 72%, transparent 100%)",
+        WebkitMaskImage:
+          "linear-gradient(to bottom, transparent 0%, black 28%, black 72%, transparent 100%)",
+      }}
+    >
+      <AnimatePresence initial={false}>
+        {visible.map((item) => (
+          <motion.button
+            key={item.key}
+            type="button"
+            initial={{ opacity: 0, y: ITEM_H * VISIBLE }}
+            animate={{ opacity: 1, y: item.position * ITEM_H }}
+            exit={{ opacity: 0, y: -ITEM_H }}
+            transition={{ duration: 0.9, ease: [0.22, 0.61, 0.36, 1] }}
+            className="font-pixel absolute inset-x-0 cursor-pointer text-center text-[12px] font-normal text-zinc-500 transition-colors hover:text-zinc-800"
+          >
+            {item.text}
+          </motion.button>
+        ))}
+      </AnimatePresence>
     </div>
   );
 }
 
-function ChevronDown() {
+function IconPlus(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 0 20 20"
-      className="size-3 text-zinc-500"
-      fill="currentColor"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      {...props}
     >
-      <path d="M5.5 7.5a.75.75 0 0 1 1.06 0L10 10.94l3.44-3.44a.75.75 0 0 1 1.06 1.06l-3.97 3.97a.75.75 0 0 1-1.06 0L5.5 8.56a.75.75 0 0 1 0-1.06Z" />
+      <path d="M10 4.5v11M4.5 10h11" />
     </svg>
   );
 }
 
-function Dot() {
-  return <span className="size-1.5 rounded-full bg-emerald-400" />;
+function IconAISearch(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <circle cx="9" cy="9" r="4.8" />
+      <path d="M12.8 12.8l3 3" />
+      <path
+        d="M11 6.4l.55 1.1 1.1.5-1.1.5-.55 1.1-.55-1.1-1.1-.5 1.1-.5z"
+        fill="currentColor"
+        fillOpacity="0.22"
+        strokeWidth="0.9"
+      />
+    </svg>
+  );
+}
+
+function IconTraces(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <rect x="4" y="5" width="12" height="10" rx="2" />
+      <path d="M7 10h6" />
+    </svg>
+  );
+}
+
+function IconDetections(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <circle cx="8.6" cy="8.6" r="3.8" />
+      <path d="M11.4 11.4l3 3" />
+      <path d="M6.5 8.2h4.2M6.5 10h2.8" strokeWidth="1" />
+    </svg>
+  );
+}
+
+function IconFlask(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M8 3h4" />
+      <path d="M9 3v4.2l-3.3 6.8a1.5 1.5 0 0 0 1.35 2.2h5.9a1.5 1.5 0 0 0 1.35-2.2L11 7.2V3" />
+    </svg>
+  );
+}
+
+function IconEvals(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <rect x="4" y="5" width="12" height="10" rx="2" />
+      <path d="M7 11h5" />
+      <path d="M11.6 7.3l1.3 1.3 2.2-2.2" strokeWidth="1.2" />
+    </svg>
+  );
+}
+
+function IconCode(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M7.5 6.5L4 10l3.5 3.5M12.5 6.5L16 10l-3.5 3.5" />
+    </svg>
+  );
+}
+
+function IconBell(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M14.5 13V9a4.5 4.5 0 0 0-9 0v4L4 15.5h12L14.5 13z" />
+      <path d="M8 17a2 2 0 0 0 4 0" />
+    </svg>
+  );
+}
+
+function IconGear(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <circle cx="10" cy="10" r="2.2" />
+      <path d="M10 2.5v2M10 15.5v2M4.5 4.5l1.4 1.4M14.1 14.1l1.4 1.4M2.5 10h2M15.5 10h2M4.5 15.5l1.4-1.4M14.1 5.9l1.4-1.4" />
+    </svg>
+  );
 }
