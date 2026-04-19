@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Space_Grotesk } from "next/font/google";
+import { Figtree, Instrument_Serif, Lora, Space_Grotesk } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { GeistPixelSquare } from "geist/font/pixel";
@@ -19,6 +19,20 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
+const lora = Lora({
+  variable: "--font-lora",
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+});
+
+const figtree = Figtree({
+  variable: "--font-figtree",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "Neatlogs",
   description: "Neatlogs",
@@ -33,7 +47,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable} ${GeistPixelSquare.variable} ${instrumentSerif.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${GeistPixelSquare.variable} ${instrumentSerif.variable} ${spaceGrotesk.variable} ${lora.variable} ${figtree.variable} h-full antialiased`}
     >
       <body suppressHydrationWarning className="relative min-h-full flex flex-col">
         <Navbar />

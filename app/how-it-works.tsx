@@ -161,7 +161,7 @@ export function HowItWorks() {
             <span className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
               How it works
             </span>
-            <h2 className="mt-5 max-w-3xl text-balance text-4xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl lg:text-[56px]">
+            <h2 className="mt-5 max-w-3xl text-balance text-4xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
               From broken agent{" "}
               <span className="text-zinc-500">to shipped fix.</span>
             </h2>

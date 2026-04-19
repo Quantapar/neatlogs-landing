@@ -132,7 +132,7 @@ export const Features = () => {
             <span className="font-ui text-[12px] font-medium uppercase tracking-[0.15em] text-zinc-600">
               Why Neatlogs
             </span>
-            <h2 className="mt-5 text-balance text-4xl sm:text-5xl md:text-[58px] leading-[1.08] tracking-tighter text-zinc-950 mx-auto font-sans">
+            <h2 className="mt-5 text-balance text-4xl sm:text-5xl md:text-[56px] leading-[1.08] tracking-tighter text-zinc-950 mx-auto font-sans">
               <span className="font-semibold">
                 Most teams don't have a visibility problem.
               </span>{" "}

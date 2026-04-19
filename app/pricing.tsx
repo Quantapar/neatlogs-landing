@@ -24,7 +24,7 @@ export function Pricing() {
         <span className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
           PRICING
         </span>
-        <h2 className="mt-4 text-balance text-4xl font-semibold tracking-tighter text-zinc-950 sm:text-5xl">
+        <h2 className="mt-4 text-balance text-4xl font-semibold tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
           Start free. Scale when ready.
         </h2>
         <p className="font-ui mt-4 text-pretty text-lg text-zinc-600">

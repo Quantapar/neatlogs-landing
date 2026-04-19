@@ -87,7 +87,7 @@ export const Reviews = () => {
               <span className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-600">
                 REVIEWS
               </span>
-              <h2 className="mt-4 text-balance text-4xl font-medium tracking-tighter text-zinc-950 sm:text-5xl">
+              <h2 className="mt-4 text-balance text-4xl font-medium tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
                   Don't just take our word for it
               </h2>
           </div>

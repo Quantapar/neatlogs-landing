@@ -41,11 +41,11 @@ export function HeroHeadline() {
       variants={parentVariants}
       initial="hidden"
       animate="visible"
-      className="mt-5 max-w-4xl text-balance text-center text-5xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-6xl md:text-7xl lg:text-[80px]"
+      className="font-lora mt-5 max-w-4xl text-balance text-center text-5xl font-medium leading-[1.04] tracking-tighter text-zinc-950 sm:text-6xl md:text-7xl lg:text-[80px]"
     >
       <Word>From</Word> <Word>feedback</Word> <Word>to</Word> <Word>fix</Word>
       <br />
-      <span className="text-[#BC6152]">
+      <span className="text-[#E9462E]">
         <Word>In</Word> <Word>minutes,</Word> <Word>not</Word>{" "}
         <Word>weeks</Word>
       </span>
