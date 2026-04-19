@@ -132,7 +132,11 @@ export const FAQ = () => {
             <div className="mx-auto max-w-6xl px-6 flex flex-col lg:flex-row gap-12 lg:gap-24">
                 {/* Desktop Sidebar */}
                 <div className="lg:w-1/3 lg:sticky lg:top-32 h-fit">
-                    <span className="font-ui text-[12px] font-medium uppercase tracking-[0.15em] text-zinc-600">
+                    <span
+                      translate="no"
+                      className="font-ui text-2xl sm:text-3xl font-semibold tracking-tight"
+                      style={{ color: "#E9462E" }}
+                    >
                       FAQ
                     </span>
                     <h2 className="mt-5 -ml-[2px] text-4xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
