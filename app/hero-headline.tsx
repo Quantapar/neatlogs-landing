@@ -62,7 +62,7 @@ export function HeroHeadline() {
       <Word variants={variants}>to</Word>{" "}
       <Word variants={variants}>fix</Word>
       <br />
-      <span className="text-[#E9462E]">
+      <span className="text-[#C06555]">
         <Word variants={variants}>In</Word>{" "}
         <Word variants={variants}>minutes,</Word>{" "}
         <Word variants={variants}>not</Word>{" "}

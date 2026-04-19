@@ -301,7 +301,7 @@ function MainArea() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 4, scale: 0.98 }}
                     transition={{ duration: 0.14, ease: easings.snap }}
-                    className="absolute left-0 top-full z-20 mt-1.5 w-[120px] overflow-hidden rounded-lg bg-white p-1 shadow-[0_12px_28px_-10px_rgba(12,20,40,0.22),0_4px_10px_-6px_rgba(12,20,40,0.12)] ring-1 ring-zinc-900/10"
+                    className="absolute left-0 top-full z-20 mt-1 w-[84px] overflow-hidden rounded-md bg-white p-0.5 shadow-[0_10px_22px_-10px_rgba(12,20,40,0.2),0_3px_8px_-4px_rgba(12,20,40,0.1)] ring-1 ring-zinc-900/10"
                   >
                     {(["Fast", "Pro"] as const).map((opt) => (
                       <button
@@ -311,7 +311,7 @@ function MainArea() {
                           setMode(opt);
                           setModeOpen(false);
                         }}
-                        className="font-pixel flex w-full cursor-pointer items-center justify-between rounded-md px-2 py-1.5 text-[11px] font-normal text-zinc-700 transition-colors hover:bg-zinc-900/5"
+                        className="font-pixel flex w-full cursor-pointer items-center justify-between rounded-[4px] px-2 py-[3px] text-[10.5px] font-normal text-zinc-700 transition-colors hover:bg-zinc-900/5"
                       >
                         <span>{opt}</span>
                         {mode === opt && (
@@ -352,7 +352,6 @@ const QUESTIONS = [
   "Compare performance across versions",
   "Show me the latest errors",
   "List traces from user@example.com",
-  "Which agents have the slowest response times",
   "Show retries in the last hour",
   "Summarize yesterday's failures",
   "Filter traces by tool call timeout",

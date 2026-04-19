@@ -170,7 +170,7 @@ export function HowItWorks() {
       className="relative bg-[#FAFAFA] py-24 sm:py-28 lg:h-[360vh] lg:py-0 motion-reduce:lg:h-auto motion-reduce:lg:py-24"
     >
       <div className="lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center motion-reduce:lg:static motion-reduce:lg:h-auto motion-reduce:lg:block">
-        <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-10 origin-top scale-90">
           <div className="mb-12 lg:mb-14">
             <span
               translate="no"

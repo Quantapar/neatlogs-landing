@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useRef } from "react";
 import {
   CheckCircle2,
   ShieldCheck,
@@ -54,36 +51,13 @@ const CardWrapper = ({
 );
 
 export const Features = () => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 },
-    );
-
-    observer.observe(containerRef.current);
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section
       id="features"
       className="w-full bg-[#FAFAFA] flex flex-col pt-8 pb-20 sm:pt-12 sm:pb-24 lg:pt-16 lg:pb-28"
     >
       <LayoutWrapper showBorderAccents={false} className="pb-10 pt-2 flex-1">
-        <div
-          ref={containerRef}
-          className="relative w-full mx-auto backdrop-blur-2xl overflow-hidden px-6 md:px-8 pb-6 md:pb-8 pt-2 md:pt-4 reveal-element"
-        >
+        <div className="relative w-full mx-auto backdrop-blur-2xl overflow-hidden px-6 md:px-8 pb-6 md:pb-8 pt-2 md:pt-4">
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-darken pointer-events-none" />
 
           <div className="relative z-10 max-w-6xl mx-auto mb-10 sm:mb-16 text-center">
@@ -112,7 +86,7 @@ export const Features = () => {
           <div className="relative z-10 max-w-[75rem] w-full grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-4 mx-auto">
             {/* Card 1: Built with AI agents */}
             <CardWrapper
-              title="Built with AI agents"
+              title="Built for AI agents"
               subtitle="Purpose-built tracing for LangGraph, CrewAI, LangChain, and any agentic workflow your team ships."
               className="lg:col-span-3"
             >
@@ -123,9 +97,7 @@ export const Features = () => {
                       <span className="text-[#E9462E] font-semibold relative after:absolute after:-bottom-[8px] after:left-0 after:h-[2px] after:w-full after:bg-[#E9462E]">
                         Logs
                       </span>
-                      <span className="hover:text-gray-800 cursor-pointer">
-                        Traces
-                      </span>
+                      <span>Traces</span>
                     </div>
                     <div className="hidden sm:flex gap-4 sm:gap-6 text-[12px] font-medium text-gray-500">
                       <span>10s</span>
@@ -166,48 +138,36 @@ export const Features = () => {
                     <div className="flex flex-col bg-white border border-gray-200 rounded-[8px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] z-10 w-[140px] overflow-hidden mx-1">
                       <div className="px-3 py-[6px] border-b border-gray-100/80 bg-gray-50/50">
                         <span className="text-[10px] font-bold text-gray-500 uppercase tracking-tight">
-                          AI Agents
+                          Frameworks
                         </span>
                       </div>
                       <div className="flex flex-col bg-white">
-                        <div className="flex items-center gap-2.5 px-3 py-2.5 border-b border-gray-100/80 hover:bg-gray-50 transition-colors">
-                          <div className="w-3.5 h-3.5 rounded-[3px] bg-[#E9462E] flex items-center justify-center text-white flex-shrink-0">
-                            <svg
-                              width="8"
-                              height="8"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
+                        {["LangGraph", "CrewAI", "LangChain"].map(
+                          (fw, idx, arr) => (
+                            <div
+                              key={fw}
+                              className={`flex items-center gap-2.5 px-3 py-2 ${idx < arr.length - 1 ? "border-b border-gray-100/80" : ""} hover:bg-gray-50 transition-colors`}
                             >
-                              <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                          </div>
-                          <span className="text-[12px] font-medium text-gray-800">
-                            Drop Logs
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2.5 px-3 py-2.5 hover:bg-gray-50 transition-colors">
-                          <div className="w-3.5 h-3.5 rounded-[3px] bg-[#E9462E] flex items-center justify-center text-white flex-shrink-0">
-                            <svg
-                              width="8"
-                              height="8"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            >
-                              <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                          </div>
-                          <span className="text-[12px] font-medium text-gray-800">
-                            Dedupe Logs
-                          </span>
-                        </div>
+                              <div className="w-3.5 h-3.5 rounded-[3px] bg-[#E9462E] flex items-center justify-center text-white flex-shrink-0">
+                                <svg
+                                  width="8"
+                                  height="8"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="4"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                >
+                                  <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                              </div>
+                              <span className="text-[12px] font-medium text-gray-800">
+                                {fw}
+                              </span>
+                            </div>
+                          ),
+                        )}
                       </div>
                     </div>
 
@@ -248,29 +208,29 @@ export const Features = () => {
                 </div>
 
                 <div
-                  className="absolute w-[120px] h-[120px] rounded-full border border-dashed border-gray-300 z-10 flex items-center justify-center animate-[spin_15s_linear_infinite] translate-y-2"
+                  className="absolute w-[120px] h-[120px] rounded-full border border-dashed border-gray-300 z-10 flex items-center justify-center motion-safe:animate-[spin_15s_linear_infinite] translate-y-2"
                   style={{ animationDirection: "normal" }}
                 >
                   <div
-                    className="absolute -top-[14px] w-7 h-7 bg-white rounded-full border border-gray-200 shadow-sm flex items-center justify-center animate-[spin_15s_linear_infinite]"
+                    className="absolute -top-[14px] w-7 h-7 bg-white rounded-full border border-gray-200 shadow-sm flex items-center justify-center motion-safe:animate-[spin_15s_linear_infinite]"
                     style={{ animationDirection: "reverse" }}
                   >
                     <User className="w-3.5 h-3.5 text-gray-500" />
                   </div>
                   <div
-                    className="absolute -bottom-[14px] w-7 h-7 bg-white rounded-full border border-gray-200 shadow-sm flex items-center justify-center animate-[spin_15s_linear_infinite]"
+                    className="absolute -bottom-[14px] w-7 h-7 bg-white rounded-full border border-gray-200 shadow-sm flex items-center justify-center motion-safe:animate-[spin_15s_linear_infinite]"
                     style={{ animationDirection: "reverse" }}
                   >
                     <User className="w-3.5 h-3.5 text-gray-500" />
                   </div>
                   <div
-                    className="absolute -left-[14px] w-7 h-7 bg-white rounded-full border border-gray-200 shadow-sm flex items-center justify-center animate-[spin_15s_linear_infinite]"
+                    className="absolute -left-[14px] w-7 h-7 bg-white rounded-full border border-gray-200 shadow-sm flex items-center justify-center motion-safe:animate-[spin_15s_linear_infinite]"
                     style={{ animationDirection: "reverse" }}
                   >
                     <User className="w-3.5 h-3.5 text-gray-500" />
                   </div>
                   <div
-                    className="absolute -right-[14px] w-7 h-7 bg-white rounded-full border border-gray-200 shadow-sm flex items-center justify-center animate-[spin_15s_linear_infinite]"
+                    className="absolute -right-[14px] w-7 h-7 bg-white rounded-full border border-gray-200 shadow-sm flex items-center justify-center motion-safe:animate-[spin_15s_linear_infinite]"
                     style={{ animationDirection: "reverse" }}
                   >
                     <User className="w-3.5 h-3.5 text-gray-500" />
@@ -278,29 +238,29 @@ export const Features = () => {
                 </div>
 
                 <div
-                  className="absolute w-[200px] h-[200px] rounded-full border border-dashed border-gray-200 z-0 flex items-center justify-center animate-[spin_25s_linear_infinite] translate-y-2"
+                  className="absolute w-[200px] h-[200px] rounded-full border border-dashed border-gray-200 z-0 flex items-center justify-center motion-safe:animate-[spin_25s_linear_infinite] translate-y-2"
                   style={{ animationDirection: "reverse" }}
                 >
                   <div
-                    className="absolute -top-[14px] w-7 h-7 bg-white rounded-full border border-gray-200 shadow-sm flex items-center justify-center animate-[spin_25s_linear_infinite]"
+                    className="absolute -top-[14px] w-7 h-7 bg-white rounded-full border border-gray-200 shadow-sm flex items-center justify-center motion-safe:animate-[spin_25s_linear_infinite]"
                     style={{ animationDirection: "normal" }}
                   >
                     <User className="w-3.5 h-3.5 text-gray-400" />
                   </div>
                   <div
-                    className="absolute -bottom-[14px] w-7 h-7 bg-white rounded-full border border-gray-200 shadow-sm flex items-center justify-center animate-[spin_25s_linear_infinite]"
+                    className="absolute -bottom-[14px] w-7 h-7 bg-white rounded-full border border-gray-200 shadow-sm flex items-center justify-center motion-safe:animate-[spin_25s_linear_infinite]"
                     style={{ animationDirection: "normal" }}
                   >
                     <User className="w-3.5 h-3.5 text-gray-400" />
                   </div>
                   <div
-                    className="absolute -left-[14px] w-7 h-7 bg-white rounded-full border border-gray-200 shadow-sm flex items-center justify-center animate-[spin_25s_linear_infinite]"
+                    className="absolute -left-[14px] w-7 h-7 bg-white rounded-full border border-gray-200 shadow-sm flex items-center justify-center motion-safe:animate-[spin_25s_linear_infinite]"
                     style={{ animationDirection: "normal" }}
                   >
                     <User className="w-3.5 h-3.5 text-gray-400" />
                   </div>
                   <div
-                    className="absolute -right-[14px] w-7 h-7 bg-white rounded-full border border-gray-200 shadow-sm flex items-center justify-center animate-[spin_25s_linear_infinite]"
+                    className="absolute -right-[14px] w-7 h-7 bg-white rounded-full border border-gray-200 shadow-sm flex items-center justify-center motion-safe:animate-[spin_25s_linear_infinite]"
                     style={{ animationDirection: "normal" }}
                   >
                     <User className="w-3.5 h-3.5 text-gray-400" />
@@ -321,67 +281,34 @@ export const Features = () => {
                 <div className="flex flex-col bg-white border border-gray-200 rounded-[8px] shadow-sm z-10 w-[120px] flex-shrink-0 overflow-hidden">
                   <div className="px-3 border-b border-gray-100 bg-white">
                     <span className="text-[9px] py-2.5 font-bold text-gray-500 uppercase tracking-tighter block">
-                      Issue
+                      Detect
                     </span>
                   </div>
                   <div className="flex flex-col bg-white">
-                    <div className="flex items-center gap-2.5 border-b border-gray-100 px-3 py-2.5 bg-white">
-                      <div className="w-[14px] h-[14px] rounded-[3px] bg-[#E9462E] flex items-center justify-center text-white flex-shrink-0">
-                        <svg
-                          width="10"
-                          height="10"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
+                    {["Error", "Anomaly", "Latency"].map((item, idx, arr) => (
+                      <div
+                        key={item}
+                        className={`flex items-center gap-2.5 px-3 py-2.5 bg-white ${idx < arr.length - 1 ? "border-b border-gray-100" : ""}`}
+                      >
+                        <div className="w-[14px] h-[14px] rounded-[3px] bg-[#E9462E] flex items-center justify-center text-white flex-shrink-0">
+                          <svg
+                            width="10"
+                            height="10"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                          </svg>
+                        </div>
+                        <span className="text-[11px] font-medium tracking-tighter text-gray-800">
+                          {item}
+                        </span>
                       </div>
-                      <span className="text-[11px] font-medium tracking-tighter text-gray-800">
-                        Full Trace
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2.5 border-b border-gray-100 px-3 py-2.5 bg-white">
-                      <div className="w-[14px] h-[14px] rounded-[3px] bg-[#E9462E] flex items-center justify-center text-white flex-shrink-0">
-                        <svg
-                          width="10"
-                          height="10"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                      </div>
-                      <span className="text-[11px] font-medium tracking-tighter text-gray-800">
-                        AI Search
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2.5 px-3 py-2.5 bg-white">
-                      <div className="w-[14px] h-[14px] rounded-[3px] bg-[#E9462E] flex items-center justify-center text-white flex-shrink-0">
-                        <svg
-                          width="10"
-                          height="10"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                      </div>
-                      <span className="text-[11px] font-medium tracking-tighter text-gray-800">
-                        Alerts
-                      </span>
-                    </div>
+                    ))}
                   </div>
                 </div>
 
@@ -411,25 +338,20 @@ export const Features = () => {
                 <div className="flex flex-col bg-white border border-gray-200 rounded-[8px] shadow-sm z-10 w-[130px] flex-shrink-0 overflow-hidden">
                   <div className="px-3 border-b border-gray-100 bg-white">
                     <span className="text-[9px] py-2.5 font-bold text-gray-500 uppercase tracking-tighter block">
-                      Fixes
+                      Notify
                     </span>
                   </div>
                   <div className="flex flex-col bg-white">
-                    <div className="flex items-center gap-2 border-b border-gray-100 px-3 py-2.5 bg-white">
-                      <span className="text-[11px] font-medium tracking-tighter text-gray-800">
-                        Debug
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 border-b border-gray-100 px-3 py-2.5 bg-white">
-                      <span className="text-[11px] font-medium tracking-tighter text-gray-800 truncate">
-                        Generate
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 px-3 py-[10.5px] bg-white">
-                      <span className="text-[11px] font-medium tracking-tighter text-gray-800 truncate">
-                        Update ticket
-                      </span>
-                    </div>
+                    {["Slack", "Email", "Webhook"].map((item, idx, arr) => (
+                      <div
+                        key={item}
+                        className={`flex items-center gap-2 px-3 py-2.5 bg-white ${idx < arr.length - 1 ? "border-b border-gray-100" : ""}`}
+                      >
+                        <span className="text-[11px] font-medium tracking-tighter text-gray-800 truncate">
+                          {item}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -482,7 +404,7 @@ export const Features = () => {
                                   : isLight
                                     ? "bg-gray-100"
                                     : "bg-gray-50/50"
-                            } ${isBlinking ? "animate-pulse" : ""}`}
+                            } ${isBlinking ? "motion-safe:animate-pulse" : ""}`}
                             style={{
                               animationDuration: `${dur}s`,
                               animationDelay: `${delay}s`,
@@ -523,7 +445,7 @@ export const Features = () => {
                           <FolderDot className="w-6 h-6 stroke-[1.5]" />
                         </div>
                         <span className="text-[10px] font-semibold tracking-tighter text-gray-600 absolute -bottom-5 whitespace-nowrap">
-                          Legacy SIEM
+                          Same error
                         </span>
                       </div>
                       <div className="flex flex-col items-center gap-2 relative bg-white">
@@ -531,7 +453,7 @@ export const Features = () => {
                           <Lock className="w-6 h-6 stroke-[1.5]" />
                         </div>
                         <span className="text-[10px] font-semibold tracking-tighter text-gray-600 absolute -bottom-5 whitespace-nowrap">
-                          Next-Gen SIEM
+                          Regression
                         </span>
                       </div>
                     </div>
