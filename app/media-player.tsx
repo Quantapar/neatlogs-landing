@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 const SAMPLE_VIDEO_SRC = "/walkthrough.mp4";
-const POSTER_SRC = "/video-thumb-v2.jpg";
+const POSTER_SRC = "/video-thumb-v6.png";
 
 export function MediaPlayer() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -86,24 +86,16 @@ export function MediaPlayer() {
                   fill
                   priority
                   sizes="(min-width: 1024px) 1024px, 100vw"
-                  className="pointer-events-none object-cover"
+                  className="pointer-events-none z-10 object-cover"
                 />
 
-                <div className="absolute inset-0 flex items-center justify-center">
+                <div className="absolute inset-0 z-20 flex items-center justify-center">
                   <button
                     type="button"
                     onClick={togglePlay}
                     aria-label="Play product walkthrough"
                     className="group relative flex size-20 cursor-pointer items-center justify-center rounded-full bg-(--glass-bg) text-zinc-950 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-zinc-900/10 backdrop-blur-md transition-transform duration-200 ease touch-manipulation hover:scale-[1.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-[0.97] motion-reduce:transition-none sm:size-[88px]"
                   >
-                    <span
-                      aria-hidden="true"
-                      className="absolute -inset-3 rounded-full border border-white/70 transition-transform duration-[250ms] ease group-hover:scale-[1.08] motion-reduce:transition-none"
-                    />
-                    <span
-                      aria-hidden="true"
-                      className="absolute -inset-6 rounded-full border border-white/40 transition-transform duration-[300ms] ease group-hover:scale-[1.06] motion-reduce:transition-none"
-                    />
                     <IconPlay className="size-7 translate-x-[1px] sm:size-8" />
                   </button>
                 </div>
