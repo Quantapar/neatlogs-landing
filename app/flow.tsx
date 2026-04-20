@@ -122,9 +122,7 @@ function FlowRow({
             : { opacity: 0, y: 16 }
       }
       transition={
-        reducedMotion
-          ? { duration: 0 }
-          : { duration: 0.5, ease: easings.snap }
+        reducedMotion ? { duration: 0 } : { duration: 0.5, ease: easings.snap }
       }
       className={`grid items-center gap-8 md:grid-cols-[1fr_60px_1fr] md:gap-8 ${
         !isLast ? "pb-14 md:pb-20" : ""
@@ -313,7 +311,7 @@ function PixelFire() {
     const smoothCol = (x: number) => {
       const a = hash(x * 3.1);
       const b = hash((x + 1) * 3.1);
-      const t = (x - Math.floor(x));
+      const t = x - Math.floor(x);
       return a * (1 - t) + b * t;
     };
 
@@ -331,7 +329,8 @@ function PixelFire() {
         const r2 = hash(y * cols + x * 2.9 + 97);
 
         const v = (y + 0.5) / rows;
-        const edgeFade = 1 - Math.pow(Math.abs((x - (cols - 1) / 2) / (cols / 2)), 1.4) * 0.4;
+        const edgeFade =
+          1 - Math.pow(Math.abs((x - (cols - 1) / 2) / (cols / 2)), 1.4) * 0.4;
         const colHeight = 0.55 + smoothCol(x * 0.6) * 0.5;
         const density = Math.pow(v, 1.1) * colHeight * edgeFade;
 
@@ -737,8 +736,24 @@ function IconSpan() {
       className="size-4"
     >
       <rect x="3" y="5" width="10" height="2" rx="1" fill="currentColor" />
-      <rect x="6" y="9" width="10" height="2" rx="1" fill="currentColor" opacity="0.5" />
-      <rect x="4" y="13" width="8" height="2" rx="1" fill="currentColor" opacity="0.75" />
+      <rect
+        x="6"
+        y="9"
+        width="10"
+        height="2"
+        rx="1"
+        fill="currentColor"
+        opacity="0.5"
+      />
+      <rect
+        x="4"
+        y="13"
+        width="8"
+        height="2"
+        rx="1"
+        fill="currentColor"
+        opacity="0.75"
+      />
     </svg>
   );
 }
