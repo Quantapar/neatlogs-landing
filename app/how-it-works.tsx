@@ -571,7 +571,7 @@ function ReadFrame() {
       </Stagger>
 
       <Stagger delay={100}>
-        <div className="cursor-pointer rounded-xl border border-zinc-900/10 bg-white p-4 leading-relaxed transition-[border-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20">
+        <div className="cursor-pointer rounded-[8px] border border-gray-200 bg-white p-4 leading-relaxed shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition-[border-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20">
           <p className="text-[13.5px] text-zinc-800">
             <span className="font-medium">The agent tried to answer</span> the
             user&rsquo;s question about Q3 revenue. It searched the{" "}
@@ -585,7 +585,7 @@ function ReadFrame() {
       </Stagger>
 
       <Stagger delay={200}>
-        <div className="cursor-pointer rounded-xl border border-zinc-900/10 bg-white/70 p-4 transition-[border-color,background-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20 hover-hover:hover:bg-white">
+        <div className="cursor-pointer rounded-[8px] border border-gray-200 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition-[border-color,background-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20">
           <div className="flex items-start gap-3">
             <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-violet-100 text-[11px] font-semibold text-violet-700">
               MK
@@ -632,7 +632,7 @@ function FixFrame() {
       </Stagger>
 
       <Stagger delay={100}>
-        <div className="cursor-pointer overflow-hidden rounded-xl border border-zinc-900/10 bg-white transition-[border-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20">
+        <div className="cursor-pointer overflow-hidden rounded-[8px] border border-gray-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition-[border-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20">
           <div className="flex items-center justify-between border-b border-zinc-900/5 px-3.5 py-2">
             <span
               translate="no"
@@ -666,7 +666,7 @@ function FixFrame() {
       </Stagger>
 
       <Stagger delay={200}>
-        <div className="cursor-pointer rounded-xl border border-zinc-900/10 bg-white/80 p-3.5 transition-[border-color,background-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20 hover-hover:hover:bg-white">
+        <div className="cursor-pointer rounded-[8px] border border-gray-200 bg-white p-3.5 shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition-[border-color,background-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20">
           <h4 className="text-[12px] font-medium text-zinc-900">
             Why this fix
           </h4>
@@ -679,7 +679,7 @@ function FixFrame() {
       </Stagger>
 
       <Stagger delay={300}>
-        <div className="flex cursor-pointer items-center gap-2 rounded-lg bg-zinc-900 px-3 py-2.5 text-white transition-colors duration-200 ease-snap hover-hover:hover:bg-zinc-800">
+        <div className="flex cursor-pointer items-center gap-2 rounded-[8px] bg-zinc-900 px-3 py-2.5 text-white shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition-colors duration-200 ease-snap hover-hover:hover:bg-zinc-800">
           <IconBranch className="size-3.5" />
           <span className="font-mono text-[11px]">
             Open in Cursor &nbsp;&nbsp; review &amp; ship
@@ -737,7 +737,7 @@ function ShipFrame() {
       </Stagger>
 
       <Stagger delay={400}>
-        <div className="group/metrics cursor-pointer rounded-xl border border-zinc-900/10 bg-white/80 p-4 transition-[border-color,background-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20 hover-hover:hover:bg-white">
+        <div className="group/metrics cursor-pointer rounded-[8px] border border-gray-200 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition-[border-color,background-color] duration-200 ease-snap hover-hover:hover:border-zinc-900/20">
           <div className="flex items-center justify-between">
             <span
               translate="no"
@@ -785,11 +785,11 @@ function AlertRow({
   pills?: string[];
 }) {
   const accent = {
-    red: "border-zinc-200/80 bg-white hover-hover:hover:border-red-200/70 hover-hover:hover:bg-red-50/60",
+    red: "border-gray-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover-hover:hover:border-red-200/70 hover-hover:hover:bg-red-50/60",
     amber:
-      "border-zinc-200/80 bg-white hover-hover:hover:border-amber-200/70 hover-hover:hover:bg-amber-50/60",
+      "border-gray-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover-hover:hover:border-amber-200/70 hover-hover:hover:bg-amber-50/60",
     emerald:
-      "border-zinc-200/80 bg-white hover-hover:hover:border-emerald-200/70 hover-hover:hover:bg-emerald-50/60",
+      "border-gray-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover-hover:hover:border-emerald-200/70 hover-hover:hover:bg-emerald-50/60",
   }[tone];
   const pillTone = {
     red: "bg-zinc-900/[0.05] text-zinc-700 group-hover/row:bg-red-100 group-hover/row:text-red-700",
@@ -800,7 +800,7 @@ function AlertRow({
   }[tone];
   return (
     <div
-      className={`group/row cursor-pointer rounded-xl border p-3.5 transition-[background-color,border-color] duration-200 ease-snap ${accent}`}
+      className={`group/row cursor-pointer rounded-[8px] border p-3.5 transition-[background-color,border-color] duration-200 ease-snap ${accent}`}
     >
       <div className="flex items-start gap-3">
         <div className="min-w-0 flex-1">
@@ -850,10 +850,10 @@ function ThreadStep({
 }) {
   return (
     <div
-      className={`group/step flex cursor-pointer items-start gap-3 rounded-xl border border-zinc-900/10 bg-white/80 p-3.5 transition-[border-color,background-color] duration-200 ease-snap ${
+      className={`group/step flex cursor-pointer items-start gap-3 rounded-[8px] border border-gray-200 bg-white p-3.5 shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition-[border-color,background-color] duration-200 ease-snap ${
         done
           ? "hover-hover:hover:border-emerald-200/70 hover-hover:hover:bg-emerald-50/50"
-          : "hover-hover:hover:border-zinc-900/20 hover-hover:hover:bg-white"
+          : "hover-hover:hover:border-zinc-900/20"
       }`}
     >
       <span className="font-mono mt-1 text-[11px] uppercase tracking-widest text-zinc-400">

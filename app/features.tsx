@@ -1,28 +1,5 @@
-import {
-  CheckCircle2,
-  ShieldCheck,
-  Clock,
-  Cpu,
-  Lock,
-  FolderDot,
-  User,
-} from "lucide-react";
+import { Cpu, Lock, FolderDot, User } from "lucide-react";
 import { LayoutWrapper } from "./layoutWrapper";
-
-const TRUST_BADGES = [
-  {
-    icon: <CheckCircle2 className="w-4 h-4 text-zinc-700" strokeWidth={1.5} />,
-    text: "Instantly Surfaces Bugs",
-  },
-  {
-    icon: <ShieldCheck className="w-4 h-4 text-zinc-700" strokeWidth={1.5} />,
-    text: "Secure Auditing Context",
-  },
-  {
-    icon: <Clock className="w-4 h-4 text-zinc-700" strokeWidth={1.5} />,
-    text: "Minutes to Resolution",
-  },
-];
 
 const CardWrapper = ({
   children,
@@ -534,18 +511,6 @@ export const Features = () => {
                 </div>
               </div>
             </CardWrapper>
-          </div>
-
-          <div className="mt-8 sm:mt-12 pt-5 sm:pt-6 border-t border-black/5 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
-            {TRUST_BADGES.map((badge, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-2 text-zinc-600 font-ui text-sm"
-              >
-                {badge.icon}
-                <span>{badge.text}</span>
-              </div>
-            ))}
           </div>
         </div>
       </LayoutWrapper>
