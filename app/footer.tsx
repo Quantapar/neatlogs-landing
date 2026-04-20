@@ -92,7 +92,7 @@ export default function Footer2() {
             >
               Features{" "}
               <ArrowUpRight
-                className="w-3.5 h-3.5 text-zinc-900 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                className="w-3.5 h-3.5 text-zinc-900 transition-transform hover-hover:group-hover:-translate-y-0.5 hover-hover:group-hover:translate-x-0.5"
                 strokeWidth={1.75}
               />
             </a>
@@ -102,7 +102,7 @@ export default function Footer2() {
             >
               Pricing{" "}
               <ArrowUpRight
-                className="w-3.5 h-3.5 text-zinc-900 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                className="w-3.5 h-3.5 text-zinc-900 transition-transform hover-hover:group-hover:-translate-y-0.5 hover-hover:group-hover:translate-x-0.5"
                 strokeWidth={1.75}
               />
             </a>
@@ -112,7 +112,7 @@ export default function Footer2() {
             >
               Docs{" "}
               <ArrowUpRight
-                className="w-3.5 h-3.5 text-zinc-900 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                className="w-3.5 h-3.5 text-zinc-900 transition-transform hover-hover:group-hover:-translate-y-0.5 hover-hover:group-hover:translate-x-0.5"
                 strokeWidth={1.75}
               />
             </a>
@@ -122,7 +122,7 @@ export default function Footer2() {
             >
               Contact{" "}
               <ArrowUpRight
-                className="w-3.5 h-3.5 text-zinc-900 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                className="w-3.5 h-3.5 text-zinc-900 transition-transform hover-hover:group-hover:-translate-y-0.5 hover-hover:group-hover:translate-x-0.5"
                 strokeWidth={1.75}
               />
             </a>

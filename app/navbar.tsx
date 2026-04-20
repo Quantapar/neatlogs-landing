@@ -29,7 +29,7 @@ export function Navbar() {
             alt=""
             width={40}
             height={40}
-            className="size-10 rounded-[10px] shadow-[0_1px_2px_rgba(0,0,0,0.08)] ring-1 ring-black/5 transition-transform duration-200 ease-out group-hover:-rotate-3 motion-reduce:transition-none"
+            className="size-10 rounded-[10px] shadow-[0_1px_2px_rgba(0,0,0,0.08)] ring-1 ring-black/5 transition-transform duration-200 ease-out hover-hover:group-hover:-rotate-3 motion-reduce:transition-none"
             priority
           />
           <span className="font-pixel text-lg font-medium tracking-tight text-zinc-950 hidden sm:inline sm:text-xl">
@@ -82,7 +82,7 @@ export function Navbar() {
             <svg
               viewBox="0 0 20 20"
               fill="currentColor"
-              className="size-3.5 text-zinc-500 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:text-zinc-900 motion-reduce:transition-none"
+              className="size-3.5 text-zinc-500 transition-transform duration-200 ease-out hover-hover:group-hover:translate-x-0.5 group-hover:text-zinc-900 motion-reduce:transition-none"
               aria-hidden="true"
             >
               <path

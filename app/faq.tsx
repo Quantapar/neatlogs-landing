@@ -69,7 +69,7 @@ const FAQItem = ({
                 <div
                     className={`flex items-center justify-center shrink-0 size-8 sm:size-9 rounded-full ring-1 transition-all duration-[400ms] ease-snap ${isOpen
                             ? "bg-zinc-950 ring-zinc-950 rotate-180 scale-[1.04] shadow-[0_4px_12px_rgba(0,0,0,0.15)]"
-                            : "bg-zinc-900/[0.03] ring-zinc-900/10 group-hover:bg-zinc-900/[0.06] group-hover:scale-[1.04]"
+                            : "bg-zinc-900/[0.03] ring-zinc-900/10 group-hover:bg-zinc-900/[0.06] hover-hover:group-hover:scale-[1.04]"
                         }`}
                 >
                     <svg

@@ -403,7 +403,7 @@ function StepTile({
       className={`group relative block rounded-[24px] p-1.5 text-left outline-none transition-[background-color,transform,box-shadow] focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAFAFA] motion-reduce:transition-none motion-reduce:active:scale-100 ${
         active
           ? "cursor-default -translate-y-0.5 bg-[#F4F4F5] ring-1 ring-zinc-900/5 shadow-[0_26px_50px_-12px_rgba(12,20,40,0.38),0_10px_20px_-6px_rgba(12,20,40,0.22)]"
-          : "cursor-pointer bg-[#F4F4F5] ring-1 ring-zinc-900/5 shadow-sm hover:-translate-y-0.5 hover:shadow-sm hover:shadow-zinc-900/5 active:scale-[0.97]"
+          : "cursor-pointer bg-[#F4F4F5] ring-1 ring-zinc-900/5 shadow-sm hover-hover:hover:-translate-y-0.5 hover:shadow-sm hover:shadow-zinc-900/5 active:scale-[0.97]"
       }`}
       style={{
         transitionDuration: `${duration}ms`,

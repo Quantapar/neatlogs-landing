@@ -94,7 +94,7 @@ export function MediaPlayer() {
                     type="button"
                     onClick={togglePlay}
                     aria-label="Play product walkthrough"
-                    className="group relative flex size-20 cursor-pointer items-center justify-center rounded-full bg-(--glass-bg) text-zinc-950 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-zinc-900/10 backdrop-blur-md transition-transform duration-200 ease touch-manipulation hover:scale-[1.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-[0.97] motion-reduce:transition-none sm:size-[88px]"
+                    className="group relative flex size-20 cursor-pointer items-center justify-center rounded-full bg-(--glass-bg) text-zinc-950 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-zinc-900/10 backdrop-blur-md transition-transform duration-200 ease touch-manipulation hover-hover:hover:scale-[1.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-[0.97] motion-reduce:transition-none sm:size-[88px]"
                   >
                     <IconPlay className="size-7 translate-x-[1px] sm:size-8" />
                   </button>
