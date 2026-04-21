@@ -68,26 +68,17 @@ export const Features = () => {
               className="lg:col-span-3"
             >
               <div className="w-full bg-slate-50/50 border border-gray-100 rounded-2xl p-1 lg:p-[6px] shadow-[0_2px_14px_rgba(0,0,0,0.02)] select-none">
-                <div className="w-full h-full bg-white border border-gray-200 rounded-[10px] p-5 lg:p-7 shadow-sm flex flex-col relative">
-                  <div className="flex items-center justify-between border-b border-gray-100 pb-[6px] mb-8 lg:mb-10 px-1">
+                <div className="w-full h-full bg-white border border-gray-200 rounded-[10px] p-3 sm:p-5 lg:p-7 shadow-sm flex flex-col relative">
+                  <div className="flex items-center justify-between border-b border-gray-100 pb-[6px] mb-5 sm:mb-8 lg:mb-10 px-1">
                     <div className="flex gap-5 sm:gap-7 text-[12px] font-medium text-gray-500">
                       <span className="text-[#E9462E] font-semibold relative after:absolute after:-bottom-[8px] after:left-0 after:h-[2px] after:w-full after:bg-[#E9462E]">
                         Logs
                       </span>
                       <span>Traces</span>
                     </div>
-                    <div className="hidden sm:flex gap-4 sm:gap-6 text-[12px] font-medium text-gray-500">
-                      <span>10s</span>
-                      <span>1m</span>
-                      <span>5m</span>
-                      <span className="text-[#E9462E] font-semibold relative after:absolute after:-bottom-[8px] after:left-0 after:h-[2px] after:w-full after:bg-[#E9462E]">
-                        1h
-                      </span>
-                      <span>24h</span>
-                    </div>
                   </div>
 
-                  <div className="flex items-center justify-between w-full relative h-[140px] px-2 sm:px-[5%]">
+                  <div className="flex items-center justify-between w-full relative h-[110px] sm:h-[140px] px-2 sm:px-[5%]">
                     <div className="absolute left-[70px] sm:left-[15%] right-[55%] top-1/2 -translate-y-1/2 h-[4px] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] z-0">
                       <div className="absolute -right-[2px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[6px] border-l-[#cbd5e1]"></div>
                       <div
@@ -105,8 +96,8 @@ export const Features = () => {
                     </div>
 
                     <div className="flex flex-col items-center gap-2 bg-white relative z-10 mx-1">
-                      <div className="w-[72px] h-[72px] rounded-[16px] border border-gray-200 bg-white flex items-center justify-center p-[3px]">
-                        <div className="w-full h-full rounded-[13px] overflow-hidden border border-gray-100 bg-gray-50">
+                      <div className="w-[56px] h-[56px] sm:w-[72px] sm:h-[72px] rounded-[12px] sm:rounded-[16px] border border-gray-200 bg-white flex items-center justify-center p-[3px]">
+                        <div className="w-full h-full rounded-[10px] sm:rounded-[13px] overflow-hidden border border-gray-100 bg-gray-50">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src="https://i.pinimg.com/736x/91/53/5b/91535bc90a800b532116028457cdd0f9.jpg"
@@ -120,7 +111,7 @@ export const Features = () => {
                       </span>
                     </div>
 
-                    <div className="flex flex-col bg-white border border-gray-200 rounded-[8px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] z-10 w-[140px] overflow-hidden mx-1">
+                    <div className="flex flex-col bg-white border border-gray-200 rounded-[8px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] z-10 w-[114px] sm:w-[140px] overflow-hidden mx-1">
                       <div className="px-3 py-[6px] border-b border-gray-100/80 bg-gray-50/50">
                         <span className="text-[10px] font-bold text-gray-500 uppercase tracking-tight">
                           Frameworks
@@ -157,8 +148,8 @@ export const Features = () => {
                     </div>
 
                     <div className="flex flex-col items-center gap-2 bg-white relative z-10 mx-1">
-                      <div className="w-[72px] h-[72px] rounded-[16px] border border-gray-200 bg-white flex items-center justify-center p-[3px]">
-                        <div className="w-full h-full rounded-[13px] overflow-hidden border border-gray-100 bg-gray-50">
+                      <div className="w-[56px] h-[56px] sm:w-[72px] sm:h-[72px] rounded-[12px] sm:rounded-[16px] border border-gray-200 bg-white flex items-center justify-center p-[3px]">
+                        <div className="w-full h-full rounded-[10px] sm:rounded-[13px] overflow-hidden border border-gray-100 bg-gray-50">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src="https://i.pinimg.com/736x/35/c8/37/35c837bf48912b33d03c93e0d2be7c9b.jpg"
@@ -262,8 +253,8 @@ export const Features = () => {
               subtitle="Detection triggers instantly. Alerts hit Slack and email before your team notices something's wrong."
               className="lg:col-span-2"
             >
-              <div className="w-full flex items-center justify-center relative min-h-[220px] max-w-[400px] select-none mx-auto px-2">
-                <div className="flex flex-col bg-white border border-gray-200 rounded-[8px] shadow-sm z-10 w-[120px] flex-shrink-0 overflow-hidden">
+              <div className="w-full flex items-center justify-center relative min-h-[170px] sm:min-h-[220px] max-w-[400px] select-none mx-auto px-2">
+                <div className="flex flex-col bg-white border border-gray-200 rounded-[8px] shadow-sm z-10 w-[100px] sm:w-[120px] flex-shrink-0 overflow-hidden">
                   <div className="px-3 border-b border-gray-100 bg-white">
                     <span className="text-[9px] py-2.5 font-bold text-gray-500 uppercase tracking-tighter block">
                       Detect
@@ -298,29 +289,59 @@ export const Features = () => {
                 </div>
 
                 <div className="flex-1 flex items-center justify-center mx-0 z-0 relative">
-                  <div className="w-full flex items-center relative -top-0.5">
-                    <div className="h-[1.5px] bg-[#e0e0e0] w-full"></div>
-                    <div className="w-0 h-0 border-t-[3px] border-t-transparent border-b-[3px] border-b-transparent border-l-[4px] border-l-[#e0e0e0] relative -left-px"></div>
+                  <div className="relative w-full h-[4px] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] motion-safe:animate-[chase-right_1.4s_linear_infinite]">
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-0 motion-safe:animate-[chase-right_1.4s_linear_infinite] motion-reduce:hidden"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(90deg, #94A3B8 0px, #94A3B8 2px, transparent 2px)",
+                        backgroundSize: "10px 100%",
+                        backgroundRepeat: "repeat-x",
+                      }}
+                    />
                   </div>
                 </div>
 
                 <div className="relative z-10 flex-shrink-0">
-                  <div className="w-[52px] h-[52px] rounded-[8px] border border-gray-200 shadow-sm flex items-center justify-center bg-white text-gray-400">
-                    <Cpu className="w-[32px] h-[32px] stroke-[1.5]" />
-                  </div>
-                  <div className="absolute -top-[5px] -right-[5px] w-5 h-5 rounded-full bg-[#fef08a] border border-[#fde047] flex items-center justify-center text-[10px] font-bold text-gray-800 shadow-sm">
-                    1
+                  <div className="w-[44px] h-[44px] sm:w-[52px] sm:h-[52px] rounded-[8px] border border-gray-200 shadow-sm flex items-center justify-center bg-[#F9FAFB] text-gray-400">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="sm:w-[24px] sm:h-[24px]"
+                    >
+                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                      <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+                      <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+                      <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+                      <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                      <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
                   </div>
                 </div>
 
                 <div className="flex-1 flex items-center justify-center mx-0 z-0 relative">
-                  <div className="w-full flex items-center relative -top-0.5">
-                    <div className="h-[1.5px] bg-[#e0e0e0] w-full"></div>
-                    <div className="w-0 h-0 border-t-[3px] border-t-transparent border-b-[3px] border-b-transparent border-l-[4px] border-l-[#e0e0e0] relative -left-px"></div>
+                  <div className="relative w-full h-[4px] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] motion-safe:animate-[chase-right_1.4s_linear_infinite]">
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-0 motion-safe:animate-[chase-right_1.4s_linear_infinite] motion-reduce:hidden"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(90deg, #94A3B8 0px, #94A3B8 2px, transparent 2px)",
+                        backgroundSize: "10px 100%",
+                        backgroundRepeat: "repeat-x",
+                      }}
+                    />
                   </div>
                 </div>
 
-                <div className="flex flex-col bg-white border border-gray-200 rounded-[8px] shadow-sm z-10 w-[130px] flex-shrink-0 overflow-hidden">
+                <div className="flex flex-col bg-white border border-gray-200 rounded-[8px] shadow-sm z-10 w-[108px] sm:w-[130px] flex-shrink-0 overflow-hidden">
                   <div className="px-3 border-b border-gray-100 bg-white">
                     <span className="text-[9px] py-2.5 font-bold text-gray-500 uppercase tracking-tighter block">
                       Notify
@@ -349,10 +370,10 @@ export const Features = () => {
               className="lg:col-span-3"
             >
               <div className="w-full bg-slate-50/50 border border-gray-100 rounded-2xl p-1 lg:p-[6px] shadow-[0_2px_14px_rgba(0,0,0,0.02)] select-none">
-                <div className="w-full h-full bg-white border border-gray-200 rounded-[10px] p-5 lg:p-7 shadow-sm flex flex-col relative min-h-[220px]">
+                <div className="w-full h-full bg-white border border-gray-200 rounded-[10px] p-3 sm:p-5 lg:p-7 shadow-sm flex flex-col relative min-h-[180px] sm:min-h-[220px]">
                   <div className="w-full h-full flex items-center justify-between relative px-2 sm:px-[5%] z-10 flex-1">
                     <div className="absolute inset-x-2 sm:inset-x-[2%] inset-y-0 pointer-events-none z-0">
-                      <div className="absolute left-[130px] sm:left-[140px] right-[48%] top-1/2 w-auto h-[4px] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] -translate-y-1/2 motion-safe:animate-[chase-right_1.4s_linear_infinite]">
+                      <div className="absolute left-[68px] sm:left-[80px] right-[48%] top-1/2 w-auto h-[4px] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] -translate-y-1/2 motion-safe:animate-[chase-right_1.4s_linear_infinite]">
                         <div className="absolute -right-[2px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[6px] border-l-[#cbd5e1]"></div>
                         <div
                           aria-hidden="true"
@@ -434,6 +455,28 @@ export const Features = () => {
                       </div>
                     </div>
 
+                    <div className="relative z-10 bg-white rounded-full p-1 mx-2">
+                      <div className="w-[48px] h-[48px] sm:w-[56px] sm:h-[56px] rounded-[10px] border border-gray-200 shadow-sm flex items-center justify-center bg-gray-50 text-gray-400">
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                          <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+                          <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+                          <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+                          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                          <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                      </div>
+                    </div>
+
                     <div className="w-[110px] sm:w-[130px] h-[90px] sm:h-[110px] bg-white border border-gray-100 rounded-[10px] shadow-sm p-1.5 z-10 grid grid-cols-6 grid-rows-5 gap-1 relative mx-1">
                       {Array.from({ length: 30 }).map((_, i) => {
                         const isDark = [2, 14, 23, 28].includes(i);
@@ -462,31 +505,6 @@ export const Features = () => {
                           ></div>
                         );
                       })}
-                    </div>
-
-                    <div className="relative z-10 bg-white rounded-full p-1 mx-2">
-                      <div className="w-[48px] h-[48px] sm:w-[56px] sm:h-[56px] rounded-[10px] border border-gray-200 shadow-sm flex items-center justify-center bg-gray-50 text-gray-400">
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                          <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
-                          <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
-                          <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
-                          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                          <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                        </svg>
-                      </div>
-                      <div className="absolute -top-[5px] -right-[5px] w-5 h-5 rounded-full bg-[#fef08a] border border-[#fde047] flex items-center justify-center text-[10px] font-bold text-gray-800 shadow-sm z-20">
-                        1
-                      </div>
                     </div>
 
                     <div className="flex flex-col justify-between h-[150px] bg-transparent z-10 py-1 relative mx-1">

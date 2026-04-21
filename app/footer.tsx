@@ -32,11 +32,11 @@ export default function Footer2() {
       </svg>
 
       <div className="relative z-10 w-full pt-16 px-6 md:px-12 flex-1 flex flex-col">
-        <div className="flex flex-row justify-between items-end w-full mb-8">
+        <div className="flex flex-col items-start gap-2 w-full mb-8 sm:flex-row sm:justify-between sm:items-end sm:gap-4">
           <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] text-black font-medium tracking-tighter leading-none">
             Workspace.
           </h2>
-          <p className="text-base sm:text-lg md:text-2xl text-black/80 font-normal tracking-tight pb-1 md:pb-3">
+          <p className="text-base sm:text-lg md:text-2xl text-black/80 font-normal tracking-tight sm:pb-1 md:pb-3">
             for your ai agents.
           </p>
         </div>

@@ -134,66 +134,82 @@ export function Navbar() {
         </button>
       </div>
 
-      <div id="mobile-nav" hidden={!open} className="bg-[#A4A8C5] md:hidden">
-        <div className="mx-auto flex max-w-7xl flex-col px-4 py-3 sm:px-6">
-          {NAV_LINKS.map(({ href, label }) => {
-            const isAnchor = href.startsWith("#");
-            return isAnchor ? (
-              <a
-                key={href}
-                href={href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setOpen(false);
-                  const prefersReducedMotion =
-                    typeof window !== "undefined" &&
-                    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                  document.querySelector(href)?.scrollIntoView({
-                    behavior: prefersReducedMotion ? "auto" : "smooth",
-                  });
-                }}
-                className="font-ui cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 transition-[color,background-color,transform] hover:bg-white/60 hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
-              >
-                {label}
-              </a>
-            ) : (
-              <Link
-                key={href}
-                href={href}
-                onClick={() => setOpen(false)}
-                className="font-ui cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 transition-[color,background-color,transform] hover:bg-white/60 hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
-              >
-                {label}
-              </Link>
-            );
-          })}
-          <div className="mt-3 flex flex-col gap-2 border-t border-zinc-900/5 pt-3">
-            <Link
-              href="/demo"
-              onClick={() => setOpen(false)}
-              className="font-ui inline-flex h-11 cursor-pointer items-center justify-center gap-1.5 rounded-full border border-zinc-900/10 bg-white/80 px-5 text-sm font-medium text-zinc-900 transition-[background-color,transform] duration-150 hover:bg-white active:scale-[0.97] motion-reduce:active:scale-100"
-            >
-              Book a Demo
-              <svg
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="size-3.5"
-                aria-hidden="true"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M4 10a.75.75 0 0 1 .75-.75h8.69l-2.22-2.22a.75.75 0 1 1 1.06-1.06l3.5 3.5a.75.75 0 0 1 0 1.06l-3.5 3.5a.75.75 0 1 1-1.06-1.06l2.22-2.22H4.75A.75.75 0 0 1 4 10Z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </Link>
-            <Link
-              href="/signup"
-              onClick={() => setOpen(false)}
-              className="font-ui inline-flex h-11 cursor-pointer items-center justify-center rounded-full bg-zinc-950 px-5 text-sm font-medium text-white transition-[background-color,transform] duration-150 hover:bg-zinc-800 active:scale-[0.97] motion-reduce:active:scale-100"
-            >
-              Sign Up
-            </Link>
+      <div
+        id="mobile-nav"
+        aria-hidden={!open}
+        className={`grid transition-[grid-template-rows] duration-[280ms] ease-snap md:hidden ${
+          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div
+            className={`border-t border-zinc-900/10 bg-white/85 backdrop-blur-xl transition-[opacity,transform] duration-[220ms] ease-snap ${
+              open
+                ? "opacity-100 translate-y-0"
+                : "pointer-events-none -translate-y-1 opacity-0"
+            }`}
+          >
+            <div className="mx-auto flex max-w-7xl flex-col px-4 py-4 sm:px-6">
+              {NAV_LINKS.map(({ href, label }) => {
+                const isAnchor = href.startsWith("#");
+                return isAnchor ? (
+                  <a
+                    key={href}
+                    href={href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpen(false);
+                      const prefersReducedMotion =
+                        typeof window !== "undefined" &&
+                        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                      document.querySelector(href)?.scrollIntoView({
+                        behavior: prefersReducedMotion ? "auto" : "smooth",
+                      });
+                    }}
+                    className="font-ui cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 transition-[color,background-color,transform] duration-150 ease-snap hover:bg-zinc-900/[0.04] hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
+                  >
+                    {label}
+                  </a>
+                ) : (
+                  <Link
+                    key={href}
+                    href={href}
+                    onClick={() => setOpen(false)}
+                    className="font-ui cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 transition-[color,background-color,transform] duration-150 ease-snap hover:bg-zinc-900/[0.04] hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
+                  >
+                    {label}
+                  </Link>
+                );
+              })}
+              <div className="mt-3 flex flex-col gap-2 border-t border-zinc-900/5 pt-3">
+                <Link
+                  href="/demo"
+                  onClick={() => setOpen(false)}
+                  className="font-ui inline-flex h-11 cursor-pointer items-center justify-center gap-1.5 rounded-full border border-zinc-900/10 bg-white/80 px-5 text-sm font-medium text-zinc-900 transition-[background-color,transform] duration-150 ease-snap hover:bg-white active:scale-[0.97] motion-reduce:active:scale-100"
+                >
+                  Book a Demo
+                  <svg
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="size-3.5"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M4 10a.75.75 0 0 1 .75-.75h8.69l-2.22-2.22a.75.75 0 1 1 1.06-1.06l3.5 3.5a.75.75 0 0 1 0 1.06l-3.5 3.5a.75.75 0 1 1-1.06-1.06l2.22-2.22H4.75A.75.75 0 0 1 4 10Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </Link>
+                <Link
+                  href="/signup"
+                  onClick={() => setOpen(false)}
+                  className="font-ui inline-flex h-11 cursor-pointer items-center justify-center rounded-full bg-zinc-950 px-5 text-sm font-medium text-white transition-[background-color,transform] duration-150 ease-snap hover:bg-zinc-800 active:scale-[0.97] motion-reduce:active:scale-100"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -43,7 +43,7 @@ export function HeroIntro() {
 
       <motion.div
         {...fade(0.6)}
-        className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center"
+        className="mt-28 flex flex-col items-stretch gap-3 sm:mt-8 sm:flex-row sm:items-center"
       >
         <Link
           href="/demo"

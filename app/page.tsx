@@ -15,7 +15,7 @@ import { CTA } from "./cta";
 export default function () {
   return (
     <main className="relative flex min-h-screen w-full flex-col bg-[#FAFAFA]">
-      <div className="relative w-full aspect-3/2 overflow-hidden">
+      <div className="relative w-full min-h-[680px] overflow-hidden md:min-h-0 md:aspect-3/2">
         <Image
           src="/sfbg.png"
           alt=""
