@@ -91,8 +91,8 @@ function DashboardScene() {
   const scale = useTransform(entryProgress, [0.1, 1], [1, 0.78]);
 
   return (
-    <div ref={sceneRef} className="relative h-[260vh]">
-      <div className="sticky top-0 flex h-screen items-start justify-center pt-16 sm:pt-20">
+    <div ref={sceneRef} className="relative md:h-[260vh]">
+      <div className="flex items-start justify-center pt-8 sm:pt-12 md:sticky md:top-0 md:h-screen md:pt-16 lg:pt-20">
         <motion.div
           style={reducedMotion ? undefined : { scale }}
           className="relative w-full overflow-hidden rounded-[28px] border border-zinc-900/10 bg-[#FCFCFD] p-3 shadow-[0_30px_60px_-24px_rgba(12,20,40,0.22),0_12px_24px_-16px_rgba(12,20,40,0.14)] sm:p-4"

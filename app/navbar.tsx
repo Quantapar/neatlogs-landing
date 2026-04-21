@@ -106,7 +106,7 @@ export function Navbar() {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className="inline-flex size-10 cursor-pointer items-center justify-center rounded-full border border-zinc-900/10 bg-white/70 text-zinc-900 backdrop-blur-sm transition-[background-color,transform] duration-150 hover:bg-white active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] md:hidden"
+          className="inline-flex size-10 cursor-pointer items-center justify-center rounded-full bg-(--glass-bg) text-zinc-900 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-zinc-900/10 backdrop-blur-xs transition-[background-color,transform] duration-150 hover-hover:hover:bg-white/8 active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] md:hidden"
         >
           <svg
             viewBox="0 0 24 24"
@@ -143,13 +143,13 @@ export function Navbar() {
       >
         <div className="overflow-hidden">
           <div
-            className={`border-t border-zinc-900/10 bg-white/85 backdrop-blur-xl transition-[opacity,transform] duration-[220ms] ease-snap ${
+            className={`mx-4 mt-2 rounded-2xl bg-(--glass-bg) ring-1 ring-zinc-900/10 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] backdrop-blur-md transition-[opacity,transform] duration-[220ms] ease-snap ${
               open
                 ? "opacity-100 translate-y-0"
-                : "pointer-events-none -translate-y-1 opacity-0"
+                : "pointer-events-none -translate-y-2 opacity-0"
             }`}
           >
-            <div className="mx-auto flex max-w-7xl flex-col px-4 py-4 sm:px-6">
+            <div className="flex flex-col gap-0.5 p-4">
               {NAV_LINKS.map(({ href, label }) => {
                 const isAnchor = href.startsWith("#");
                 return isAnchor ? (
@@ -166,7 +166,7 @@ export function Navbar() {
                         behavior: prefersReducedMotion ? "auto" : "smooth",
                       });
                     }}
-                    className="font-ui cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 transition-[color,background-color,transform] duration-150 ease-snap hover:bg-zinc-900/[0.04] hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
+                    className="font-ui cursor-pointer rounded-lg px-3 py-3 text-[15px] font-medium text-zinc-700 transition-[color,background-color,transform] duration-150 ease-snap hover:bg-zinc-900/[0.04] hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
                   >
                     {label}
                   </a>
@@ -175,13 +175,13 @@ export function Navbar() {
                     key={href}
                     href={href}
                     onClick={() => setOpen(false)}
-                    className="font-ui cursor-pointer rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 transition-[color,background-color,transform] duration-150 ease-snap hover:bg-zinc-900/[0.04] hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
+                    className="font-ui cursor-pointer rounded-lg px-3 py-3 text-[15px] font-medium text-zinc-700 transition-[color,background-color,transform] duration-150 ease-snap hover:bg-zinc-900/[0.04] hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
                   >
                     {label}
                   </Link>
                 );
               })}
-              <div className="mt-3 flex flex-col gap-2 border-t border-zinc-900/5 pt-3">
+              <div className="mt-4 flex flex-col gap-2.5 border-t border-zinc-900/[0.06] pt-4">
                 <Link
                   href="/demo"
                   onClick={() => setOpen(false)}
@@ -204,7 +204,7 @@ export function Navbar() {
                 <Link
                   href="/signup"
                   onClick={() => setOpen(false)}
-                  className="font-ui inline-flex h-11 cursor-pointer items-center justify-center rounded-full bg-zinc-950 px-5 text-sm font-medium text-white transition-[background-color,transform] duration-150 ease-snap hover:bg-zinc-800 active:scale-[0.97] motion-reduce:active:scale-100"
+                  className="font-ui inline-flex h-11 cursor-pointer items-center justify-center rounded-full bg-zinc-950/80 px-6 text-sm font-medium text-white shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.18)] ring-1 ring-white/15 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-snap touch-manipulation hover-hover:hover:bg-zinc-950/90 active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
                 >
                   Sign Up
                 </Link>

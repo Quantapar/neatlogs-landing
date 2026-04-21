@@ -55,7 +55,7 @@ export function HeroHeadline() {
       variants={parentVariants}
       initial={reducedMotion ? "visible" : "hidden"}
       animate="visible"
-      className="font-lora mt-5 max-w-4xl text-balance text-center text-5xl font-medium leading-[1.04] tracking-tighter text-zinc-950 sm:text-6xl md:text-7xl lg:text-[80px]"
+      className="font-lora mt-5 max-w-4xl text-balance text-center text-4xl font-medium leading-[1.04] tracking-tighter text-zinc-950 sm:text-6xl md:text-7xl lg:text-[80px]"
     >
       <Word variants={variants}>From</Word>{" "}
       <Word variants={variants}>feedback</Word>{" "}
