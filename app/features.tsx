@@ -426,8 +426,7 @@ export const Features = () => {
                         />
                       </div>
 
-                      <div className="absolute right-[65px] h-[4px] w-[35px] top-[28%] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] -translate-y-[2px] motion-safe:animate-[chase-right_1.4s_linear_infinite]">
-                        <div className="absolute -right-[2px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[6px] border-l-[#cbd5e1]"></div>
+                      <div className="absolute right-[40px] h-[4px] w-[60px] top-[28%] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] -translate-y-[2px] motion-safe:animate-[chase-right_1.4s_linear_infinite]">
                         <div
                           aria-hidden="true"
                           className="absolute inset-0 motion-safe:animate-[chase-right_1.4s_linear_infinite] motion-reduce:hidden"
@@ -440,8 +439,7 @@ export const Features = () => {
                         />
                       </div>
 
-                      <div className="absolute right-[65px] h-[4px] w-[35px] bottom-[28%] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] translate-y-[2px] motion-safe:animate-[chase-right_1.4s_linear_infinite]">
-                        <div className="absolute -right-[2px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[6px] border-l-[#cbd5e1]"></div>
+                      <div className="absolute right-[40px] h-[4px] w-[60px] bottom-[28%] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] translate-y-[2px] motion-safe:animate-[chase-right_1.4s_linear_infinite]">
                         <div
                           aria-hidden="true"
                           className="absolute inset-0 motion-safe:animate-[chase-right_1.4s_linear_infinite] motion-reduce:hidden"
@@ -543,19 +541,19 @@ export const Features = () => {
                     </div>
 
                     <div className="flex flex-col justify-between h-[150px] bg-transparent z-10 py-1 relative mx-1">
-                      <div className="flex flex-col items-center gap-2 relative bg-white">
+                      <div className="flex flex-col items-center gap-2 relative bg-white translate-y-[10px]">
                         <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[10px] border border-gray-100 shadow-sm flex items-center justify-center bg-white text-gray-400 z-10 scale-[0.65] sm:scale-100 origin-center">
                           <FolderDot className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.5]" />
                         </div>
-                        <span className="text-[10px] font-semibold tracking-tighter text-gray-600 absolute -bottom-5 whitespace-nowrap">
+                        <span className="text-[10px] font-semibold tracking-tighter text-gray-600 absolute -bottom-3 whitespace-nowrap">
                           Same error
                         </span>
                       </div>
-                      <div className="flex flex-col items-center gap-2 relative bg-white">
+                      <div className="flex flex-col items-center gap-2 relative bg-white -translate-y-[10px]">
                         <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[10px] border border-gray-100 shadow-sm flex items-center justify-center bg-white text-gray-400 z-10 scale-[0.65] sm:scale-100 origin-center">
                           <Lock className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.5]" />
                         </div>
-                        <span className="text-[10px] font-semibold tracking-tighter text-gray-600 absolute -bottom-5 whitespace-nowrap">
+                        <span className="text-[10px] font-semibold tracking-tighter text-gray-600 absolute -bottom-3 whitespace-nowrap">
                           Regression
                         </span>
                       </div>
