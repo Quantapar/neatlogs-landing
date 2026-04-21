@@ -242,7 +242,7 @@ export const Features = () => {
                   </div>
                 </div>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent z-30 pointer-events-none opacity-90"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAFA] via-[#FAFAFA]/40 to-transparent sm:from-white sm:via-white/40 z-30 pointer-events-none opacity-90"></div>
               </div>
             </CardWrapper>
 
