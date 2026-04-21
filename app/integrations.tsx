@@ -13,7 +13,7 @@ const APPS = [
         alt="Slack"
         width={28}
         height={28}
-        className="rounded-md object-contain"
+        className="size-5 sm:size-7 rounded-md object-contain"
       />
     ),
   },
@@ -27,7 +27,7 @@ const APPS = [
         alt="Linear"
         width={28}
         height={28}
-        className="rounded-md object-contain"
+        className="size-5 sm:size-7 rounded-md object-contain"
       />
     ),
   },
@@ -41,7 +41,7 @@ const APPS = [
         alt="OpenAI"
         width={28}
         height={28}
-        className="rounded-md object-contain"
+        className="size-5 sm:size-7 rounded-md object-contain"
       />
     ),
   },
@@ -55,7 +55,7 @@ const APPS = [
         alt="Notion"
         width={28}
         height={28}
-        className="rounded-md object-contain"
+        className="size-5 sm:size-7 rounded-md object-contain"
       />
     ),
   },
@@ -69,7 +69,7 @@ const APPS = [
         alt="GitHub"
         width={28}
         height={28}
-        className="rounded-md object-contain"
+        className="size-5 sm:size-7 rounded-md object-contain"
       />
     ),
   },
@@ -83,7 +83,7 @@ const APPS = [
         alt="Cursor AI"
         width={28}
         height={28}
-        className="rounded-md object-contain"
+        className="size-5 sm:size-7 rounded-md object-contain"
       />
     ),
   },
@@ -97,7 +97,7 @@ const APPS = [
         alt="Anthropic"
         width={28}
         height={28}
-        className="rounded-md object-contain"
+        className="size-5 sm:size-7 rounded-md object-contain"
       />
     ),
   },
@@ -111,7 +111,7 @@ const APPS = [
         alt="Jira"
         width={28}
         height={28}
-        className="rounded-md object-contain"
+        className="size-5 sm:size-7 rounded-md object-contain"
       />
     ),
   },
@@ -125,7 +125,7 @@ const APPS = [
         alt="LangChain"
         width={28}
         height={28}
-        className="rounded-md object-contain"
+        className="size-5 sm:size-7 rounded-md object-contain"
       />
     ),
   },
@@ -139,7 +139,7 @@ const APPS = [
         alt="Google"
         width={28}
         height={28}
-        className="rounded-md object-contain"
+        className="size-5 sm:size-7 rounded-md object-contain"
       />
     ),
   },
@@ -206,7 +206,7 @@ export function Integrations() {
                       <motion.div
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="flex h-14 w-14 sm:h-16 sm:w-16 cursor-pointer items-center justify-center rounded-2xl bg-white shadow-[0_4px_16px_rgba(0,0,0,0.04)] ring-1 ring-zinc-900/5 transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
+                        className="flex size-9 sm:size-16 cursor-pointer items-center justify-center rounded-xl sm:rounded-2xl bg-white shadow-[0_4px_16px_rgba(0,0,0,0.04)] ring-1 ring-zinc-900/5 transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
                         title={app.name}
                       >
                         {app.icon}

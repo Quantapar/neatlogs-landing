@@ -14,7 +14,7 @@ const CardWrapper = ({
   className?: string;
 }) => (
   <div
-    className={`bg-white rounded-[24px] p-6 lg:p-8 shadow-sm border border-gray-200 flex flex-col h-full w-full ${className}`}
+    className={`flex flex-col h-full w-full sm:bg-white sm:rounded-[24px] sm:p-6 lg:p-8 sm:shadow-sm sm:border sm:border-gray-200 ${className}`}
   >
     <h3 className="text-xl md:text-2xl font-medium tracking-tight text-gray-900 mb-2">
       {title}
@@ -61,7 +61,7 @@ export const Features = () => {
             </p>
           </div>
 
-          <div className="relative z-10 max-w-[75rem] w-full grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-4 mx-auto">
+          <div className="relative z-10 max-w-[75rem] w-full grid grid-cols-1 lg:grid-cols-5 gap-10 sm:gap-6 lg:gap-4 mx-auto">
             {/* Card 1: Built with AI agents */}
             <CardWrapper
               title="Built for AI agents"
@@ -81,7 +81,6 @@ export const Features = () => {
 
                   <div className="flex items-center justify-between w-full relative h-[110px] sm:h-[140px] px-2 sm:px-[5%]">
                     <div className="absolute left-[70px] sm:left-[15%] right-[55%] top-1/2 -translate-y-1/2 h-[4px] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] z-0">
-                      <div className="absolute -right-[2px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[6px] border-l-[#cbd5e1]"></div>
                       <div
                         aria-hidden="true"
                         className="absolute inset-0 bg-[repeating-linear-gradient(90deg,#E9462E_0px,#E9462E_2px,transparent_2px,transparent_5px)] motion-safe:animate-[line-fill-right_5s_ease-in-out_infinite] motion-reduce:hidden"
@@ -89,7 +88,6 @@ export const Features = () => {
                     </div>
 
                     <div className="absolute left-[54%] right-[70px] sm:right-[15%] top-1/2 -translate-y-1/2 h-[4px] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] z-0">
-                      <div className="absolute -right-[2px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[6px] border-l-[#cbd5e1]"></div>
                       <div
                         aria-hidden="true"
                         className="absolute inset-0 bg-[repeating-linear-gradient(90deg,#E9462E_0px,#E9462E_2px,transparent_2px,transparent_5px)] motion-safe:animate-[line-fill-left_5s_ease-in-out_infinite] motion-reduce:hidden"
@@ -112,7 +110,7 @@ export const Features = () => {
                       </span>
                     </div>
 
-                    <div className="flex flex-col bg-white border border-gray-200 rounded-[8px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] z-10 w-[114px] sm:w-[140px] overflow-hidden mx-1">
+                    <div className="flex flex-col bg-white border border-gray-200 rounded-[8px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] z-10 w-[114px] sm:w-[140px] overflow-hidden mx-1 scale-[0.5] sm:scale-100 origin-center">
                       <div className="px-3 py-[6px] border-b border-gray-100/80 bg-gray-50/50">
                         <span className="text-[10px] font-bold text-gray-500 uppercase tracking-tight">
                           Frameworks
@@ -255,7 +253,7 @@ export const Features = () => {
               className="lg:col-span-2"
             >
               <div className="w-full flex items-center justify-center relative min-h-[170px] sm:min-h-[220px] max-w-[400px] select-none mx-auto px-2">
-                <div className="flex flex-col bg-white border border-gray-200 rounded-[8px] shadow-sm z-10 w-[100px] sm:w-[120px] flex-shrink-0 overflow-hidden">
+                <div className="flex flex-col bg-white border border-gray-200 rounded-[8px] shadow-sm z-10 w-[100px] sm:w-[120px] flex-shrink-0 overflow-hidden scale-[0.85] sm:scale-100 origin-center">
                   <div className="px-3 border-b border-gray-100 bg-white">
                     <span className="text-[9px] py-2.5 font-bold text-gray-500 uppercase tracking-tighter block">
                       Detect
@@ -342,7 +340,7 @@ export const Features = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-col bg-white border border-gray-200 rounded-[8px] shadow-sm z-10 w-[108px] sm:w-[130px] flex-shrink-0 overflow-hidden">
+                <div className="flex flex-col bg-white border border-gray-200 rounded-[8px] shadow-sm z-10 w-[108px] sm:w-[130px] flex-shrink-0 overflow-hidden scale-[0.85] sm:scale-100 origin-center">
                   <div className="flex items-center justify-between px-3 py-2.5 border-b border-gray-100 bg-white">
                     <span className="text-[9px] font-bold text-gray-500 uppercase tracking-tighter">
                       Notify
@@ -375,7 +373,7 @@ export const Features = () => {
                 <div className="w-full h-full bg-white border border-gray-200 rounded-[10px] p-3 sm:p-5 lg:p-7 shadow-sm flex flex-col relative min-h-[180px] sm:min-h-[220px]">
                   <div className="w-full h-full flex items-center justify-between relative px-2 sm:px-[5%] z-10 flex-1">
                     <div className="absolute inset-x-2 sm:inset-x-[2%] inset-y-0 pointer-events-none z-0">
-                      <div className="absolute left-[68px] sm:left-[80px] right-[48%] top-1/2 w-auto h-[4px] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] -translate-y-1/2 motion-safe:animate-[chase-right_1.4s_linear_infinite]">
+                      <div className="absolute left-[36px] sm:left-[80px] right-[48%] top-1/2 w-auto h-[4px] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] -translate-y-1/2 motion-safe:animate-[chase-right_1.4s_linear_infinite]">
                         <div className="absolute -right-[2px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[6px] border-l-[#cbd5e1]"></div>
                         <div
                           aria-hidden="true"
@@ -457,8 +455,8 @@ export const Features = () => {
                       </div>
                     </div>
 
-                    <div className="relative z-10 bg-white rounded-full p-1 mx-2">
-                      <div className="w-[48px] h-[48px] sm:w-[56px] sm:h-[56px] rounded-[10px] border border-gray-200 shadow-sm flex items-center justify-center bg-gray-50 text-gray-400 overflow-hidden p-1.5">
+                    <div className="relative z-10 bg-white rounded-full p-1 mx-2 scale-[0.65] sm:scale-100 origin-center">
+                      <div className="w-[48px] h-[48px] sm:w-[56px] sm:h-[56px] rounded-[10px] border border-gray-200 shadow-sm flex items-center justify-center bg-gray-50 text-gray-400 overflow-hidden p-2.5 sm:p-1.5">
                         <svg
                           viewBox="0 0 40 34"
                           fill="none"
@@ -529,7 +527,7 @@ export const Features = () => {
                       </div>
                     </div>
 
-                    <div className="w-[110px] sm:w-[130px] h-[90px] sm:h-[110px] bg-white border border-gray-100 rounded-[10px] shadow-sm z-10 relative mx-1 overflow-hidden">
+                    <div className="w-[110px] sm:w-[130px] h-[90px] sm:h-[110px] bg-white border border-gray-100 rounded-[10px] shadow-sm z-10 relative mx-1 overflow-hidden scale-[0.6] sm:scale-100 origin-center">
                       <FlickeringGrid />
                       <div className="relative z-10 flex h-full w-full items-center justify-center">
                         <div className="flex size-9 sm:size-11 items-center justify-center rounded-xl bg-white p-1 shadow-[inset_0_2px_6px_rgba(113,113,122,0.22),inset_0_-1px_3px_rgba(113,113,122,0.1),0_2px_4px_rgba(12,20,40,0.06),0_10px_20px_-6px_rgba(12,20,40,0.18),0_22px_40px_-10px_rgba(12,20,40,0.2)] ring-1 ring-zinc-900/[0.08]">
@@ -538,6 +536,7 @@ export const Features = () => {
                             src="/nl-logo.png"
                             alt="Neatlogs"
                             className="size-full rounded-lg object-contain"
+                            style={{ filter: "invert(42%)" }}
                           />
                         </div>
                       </div>
@@ -545,16 +544,16 @@ export const Features = () => {
 
                     <div className="flex flex-col justify-between h-[150px] bg-transparent z-10 py-1 relative mx-1">
                       <div className="flex flex-col items-center gap-2 relative bg-white">
-                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[10px] border border-gray-100 shadow-sm flex items-center justify-center bg-white text-gray-400 z-10">
-                          <FolderDot className="w-6 h-6 stroke-[1.5]" />
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[10px] border border-gray-100 shadow-sm flex items-center justify-center bg-white text-gray-400 z-10 scale-[0.65] sm:scale-100 origin-center">
+                          <FolderDot className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.5]" />
                         </div>
                         <span className="text-[10px] font-semibold tracking-tighter text-gray-600 absolute -bottom-5 whitespace-nowrap">
                           Same error
                         </span>
                       </div>
                       <div className="flex flex-col items-center gap-2 relative bg-white">
-                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[10px] border border-gray-100 shadow-sm flex items-center justify-center bg-white text-gray-400 z-10">
-                          <Lock className="w-6 h-6 stroke-[1.5]" />
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[10px] border border-gray-100 shadow-sm flex items-center justify-center bg-white text-gray-400 z-10 scale-[0.65] sm:scale-100 origin-center">
+                          <Lock className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.5]" />
                         </div>
                         <span className="text-[10px] font-semibold tracking-tighter text-gray-600 absolute -bottom-5 whitespace-nowrap">
                           Regression
