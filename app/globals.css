@@ -145,6 +145,18 @@ html {
   }
 }
 
+@keyframes eye-blink {
+  0%,
+  46%,
+  54%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.08);
+  }
+}
+
 @keyframes slabIn {
   from {
     opacity: 0;

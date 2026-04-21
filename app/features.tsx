@@ -1,5 +1,6 @@
-import { Cpu, Lock, FolderDot, User } from "lucide-react";
+import { Cpu, Lock, FolderDot, User, Bell } from "lucide-react";
 import { LayoutWrapper } from "./layoutWrapper";
+import { FlickeringGrid } from "./flow";
 
 const CardWrapper = ({
   children,
@@ -342,10 +343,11 @@ export const Features = () => {
                 </div>
 
                 <div className="flex flex-col bg-white border border-gray-200 rounded-[8px] shadow-sm z-10 w-[108px] sm:w-[130px] flex-shrink-0 overflow-hidden">
-                  <div className="px-3 border-b border-gray-100 bg-white">
-                    <span className="text-[9px] py-2.5 font-bold text-gray-500 uppercase tracking-tighter block">
+                  <div className="flex items-center justify-between px-3 py-2.5 border-b border-gray-100 bg-white">
+                    <span className="text-[9px] font-bold text-gray-500 uppercase tracking-tighter">
                       Notify
                     </span>
+                    <Bell className="size-3 text-gray-400" strokeWidth={1.8} />
                   </div>
                   <div className="flex flex-col bg-white">
                     {["Slack", "Email", "Webhook"].map((item, idx, arr) => (
@@ -456,55 +458,89 @@ export const Features = () => {
                     </div>
 
                     <div className="relative z-10 bg-white rounded-full p-1 mx-2">
-                      <div className="w-[48px] h-[48px] sm:w-[56px] sm:h-[56px] rounded-[10px] border border-gray-200 shadow-sm flex items-center justify-center bg-gray-50 text-gray-400">
+                      <div className="w-[48px] h-[48px] sm:w-[56px] sm:h-[56px] rounded-[10px] border border-gray-200 shadow-sm flex items-center justify-center bg-gray-50 text-gray-400 overflow-hidden p-1.5">
                         <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
+                          viewBox="0 0 40 34"
                           fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
+                          className="w-full h-full"
+                          aria-hidden="true"
                         >
-                          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                          <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
-                          <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
-                          <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
-                          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                          <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                          <rect
+                            x="3.5"
+                            y="3.5"
+                            width="33"
+                            height="22"
+                            rx="2"
+                            fill="white"
+                            stroke="currentColor"
+                            strokeWidth="1.3"
+                          />
+                          <line
+                            x1="16"
+                            y1="31"
+                            x2="24"
+                            y2="31"
+                            stroke="currentColor"
+                            strokeWidth="1.3"
+                            strokeLinecap="round"
+                          />
+                          <line
+                            x1="20"
+                            y1="25.5"
+                            x2="20"
+                            y2="31"
+                            stroke="currentColor"
+                            strokeWidth="1.3"
+                          />
+                          <path
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.2"
+                            strokeLinejoin="round"
+                            d="M8.5 14.5 Q 20 8, 31.5 14.5 Q 20 21, 8.5 14.5 Z"
+                          >
+                            <animate
+                              attributeName="d"
+                              values="M8.5 14.5 Q 20 8, 31.5 14.5 Q 20 21, 8.5 14.5 Z;M8.5 14.5 Q 20 8, 31.5 14.5 Q 20 21, 8.5 14.5 Z;M8.5 14.5 Q 20 13.3, 31.5 14.5 Q 20 14.7, 8.5 14.5 Z;M8.5 14.5 Q 20 8, 31.5 14.5 Q 20 21, 8.5 14.5 Z"
+                              keyTimes="0;0.88;0.94;1"
+                              dur="2.2s"
+                              repeatCount="indefinite"
+                            />
+                          </path>
+                          <circle cx="20" cy="14.5" r="2.8" fill="currentColor">
+                            <animate
+                              attributeName="r"
+                              values="2.8;2.8;0;2.8"
+                              keyTimes="0;0.88;0.94;1"
+                              dur="2.2s"
+                              repeatCount="indefinite"
+                            />
+                          </circle>
+                          <circle cx="20.8" cy="13.7" r="0.7" fill="white">
+                            <animate
+                              attributeName="r"
+                              values="0.7;0.7;0;0.7"
+                              keyTimes="0;0.88;0.94;1"
+                              dur="2.2s"
+                              repeatCount="indefinite"
+                            />
+                          </circle>
                         </svg>
                       </div>
                     </div>
 
-                    <div className="w-[110px] sm:w-[130px] h-[90px] sm:h-[110px] bg-white border border-gray-100 rounded-[10px] shadow-sm p-1.5 z-10 grid grid-cols-6 grid-rows-5 gap-1 relative mx-1">
-                      {Array.from({ length: 30 }).map((_, i) => {
-                        const isDark = [2, 14, 23, 28].includes(i);
-                        const isMedium = [1, 9, 18, 20, 29].includes(i);
-                        const isLight = [3, 7, 10, 15, 24].includes(i);
-                        const isBlinking = isDark || isMedium || isLight;
-                        const seed = i * 0.137;
-                        const dur = 1 + ((seed * 7) % 2);
-                        const delay = (seed * 3) % 1;
-                        return (
-                          <div
-                            key={i}
-                            className={`rounded-[2px] ${
-                              isDark
-                                ? "bg-gray-300"
-                                : isMedium
-                                  ? "bg-gray-200"
-                                  : isLight
-                                    ? "bg-gray-100"
-                                    : "bg-gray-50/50"
-                            } ${isBlinking ? "motion-safe:animate-pulse" : ""}`}
-                            style={{
-                              animationDuration: `${dur}s`,
-                              animationDelay: `${delay}s`,
-                            }}
-                          ></div>
-                        );
-                      })}
+                    <div className="w-[110px] sm:w-[130px] h-[90px] sm:h-[110px] bg-white border border-gray-100 rounded-[10px] shadow-sm z-10 relative mx-1 overflow-hidden">
+                      <FlickeringGrid />
+                      <div className="relative z-10 flex h-full w-full items-center justify-center">
+                        <div className="flex size-9 sm:size-11 items-center justify-center rounded-xl bg-white p-1 shadow-[inset_0_2px_6px_rgba(113,113,122,0.22),inset_0_-1px_3px_rgba(113,113,122,0.1),0_2px_4px_rgba(12,20,40,0.06),0_10px_20px_-6px_rgba(12,20,40,0.18),0_22px_40px_-10px_rgba(12,20,40,0.2)] ring-1 ring-zinc-900/[0.08]">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src="/nl-logo.png"
+                            alt="Neatlogs"
+                            className="size-full rounded-lg object-contain"
+                          />
+                        </div>
+                      </div>
                     </div>
 
                     <div className="flex flex-col justify-between h-[150px] bg-transparent z-10 py-1 relative mx-1">

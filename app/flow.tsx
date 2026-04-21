@@ -201,7 +201,7 @@ function VisualCard({
   );
 }
 
-function FlickeringGrid() {
+export function FlickeringGrid() {
   const cols = 32;
   const rows = 22;
   const [mounted, setMounted] = useState(false);
