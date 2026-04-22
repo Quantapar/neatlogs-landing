@@ -18,7 +18,7 @@ export default function () {
     <main className="relative flex min-h-screen w-full flex-col bg-[#FAFAFA]">
       <div className="relative w-full min-h-[680px] overflow-hidden md:min-h-0 md:h-screen md:max-h-[920px]">
         <Image
-          src="/sfbg-v11.png"
+          src="/v3.jpg"
           alt=""
           fill
           priority
@@ -36,24 +36,48 @@ export default function () {
           <div className="flex h-full w-[400%] opacity-75 motion-safe:animate-[clouds-drift_220s_linear_infinite]">
             <div className="flex h-full w-1/2 shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/scene/clouds-puffy.png" alt="" className="h-full w-[18%] object-contain object-left scale-75" />
+              <img
+                src="/scene/clouds-puffy.png"
+                alt=""
+                className="h-full w-[18%] object-contain object-left scale-75"
+              />
               <div className="w-[20%]" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/scene/clouds-puffy.png" alt="" className="h-full w-[14%] object-contain object-left scale-90 -scale-x-100" />
+              <img
+                src="/scene/clouds-puffy.png"
+                alt=""
+                className="h-full w-[14%] object-contain object-left scale-90 -scale-x-100"
+              />
               <div className="w-[22%]" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/scene/clouds-puffy.png" alt="" className="h-full w-[16%] object-contain object-left scale-[0.85]" />
+              <img
+                src="/scene/clouds-puffy.png"
+                alt=""
+                className="h-full w-[16%] object-contain object-left scale-[0.85]"
+              />
               <div className="w-[10%]" />
             </div>
             <div className="flex h-full w-1/2 shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/scene/clouds-puffy.png" alt="" className="h-full w-[18%] object-contain object-left scale-75" />
+              <img
+                src="/scene/clouds-puffy.png"
+                alt=""
+                className="h-full w-[18%] object-contain object-left scale-75"
+              />
               <div className="w-[20%]" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/scene/clouds-puffy.png" alt="" className="h-full w-[14%] object-contain object-left scale-90 -scale-x-100" />
+              <img
+                src="/scene/clouds-puffy.png"
+                alt=""
+                className="h-full w-[14%] object-contain object-left scale-90 -scale-x-100"
+              />
               <div className="w-[22%]" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/scene/clouds-puffy.png" alt="" className="h-full w-[16%] object-contain object-left scale-[0.85]" />
+              <img
+                src="/scene/clouds-puffy.png"
+                alt=""
+                className="h-full w-[16%] object-contain object-left scale-[0.85]"
+              />
               <div className="w-[10%]" />
             </div>
           </div>
@@ -70,24 +94,48 @@ export default function () {
           >
             <div className="flex h-full w-1/2 shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/scene/clouds-puffy.png" alt="" className="h-full w-[16%] object-contain object-left" />
+              <img
+                src="/scene/clouds-puffy.png"
+                alt=""
+                className="h-full w-[16%] object-contain object-left"
+              />
               <div className="w-[18%]" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/scene/clouds-puffy.png" alt="" className="h-full w-[14%] object-contain object-left -scale-x-100" />
+              <img
+                src="/scene/clouds-puffy.png"
+                alt=""
+                className="h-full w-[14%] object-contain object-left -scale-x-100"
+              />
               <div className="w-[20%]" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/scene/clouds-puffy.png" alt="" className="h-full w-[18%] object-contain object-left scale-95" />
+              <img
+                src="/scene/clouds-puffy.png"
+                alt=""
+                className="h-full w-[18%] object-contain object-left scale-95"
+              />
               <div className="w-[14%]" />
             </div>
             <div className="flex h-full w-1/2 shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/scene/clouds-puffy.png" alt="" className="h-full w-[16%] object-contain object-left" />
+              <img
+                src="/scene/clouds-puffy.png"
+                alt=""
+                className="h-full w-[16%] object-contain object-left"
+              />
               <div className="w-[18%]" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/scene/clouds-puffy.png" alt="" className="h-full w-[14%] object-contain object-left -scale-x-100" />
+              <img
+                src="/scene/clouds-puffy.png"
+                alt=""
+                className="h-full w-[14%] object-contain object-left -scale-x-100"
+              />
               <div className="w-[20%]" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/scene/clouds-puffy.png" alt="" className="h-full w-[18%] object-contain object-left scale-95" />
+              <img
+                src="/scene/clouds-puffy.png"
+                alt=""
+                className="h-full w-[18%] object-contain object-left scale-95"
+              />
               <div className="w-[14%]" />
             </div>
           </div>

@@ -60,8 +60,8 @@ export function HeroHeadline() {
     >
       <Word variants={variants}>Fix</Word>{" "}
       <Word variants={variants}>agents</Word>{" "}
+      <Word variants={variants}>in</Word>{" "}
       <span className="text-[#B85548]">
-        <Word variants={variants}>in</Word>{" "}
         <Word variants={variants}>minutes</Word>
       </span>
     </motion.h1>
