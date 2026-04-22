@@ -30,7 +30,7 @@ export default function () {
         {/* Distant city skyline — small + far-away on the left, veiled by the fog layers that come after it. Transparent PNG so no blend mode needed. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-[11%] right-[-2%] top-[43%] h-[31%] sm:left-[13%] sm:right-[-1%] sm:h-[30%] lg:left-[15%] lg:right-[1%] lg:h-[29%]"
+          className="pointer-events-none absolute left-[9%] right-[-4%] top-[32%] h-[42%] sm:left-[11%] sm:right-[-3%] sm:h-[41%] lg:left-[13%] lg:right-[-1%] lg:h-[40%]"
           style={{
             opacity: 0.55,
             filter: "blur(0.5px)",
@@ -248,7 +248,7 @@ export default function () {
         {/* Layer 4: Bridge — on top of all fog so the fog never brightens the bridge. Anchored to the right; right tower + deck end over the two pillars on the right hill. Ground layer (above bridge in z-order) clips the overlap. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-[56%] right-[5%] h-[33%] w-[64%] sm:right-[7%] sm:w-[56%] lg:right-[9%] lg:w-[50%]"
+          className="pointer-events-none absolute top-[61%] right-[6%] h-[30%] w-[58%] sm:right-[8%] sm:w-[52%] lg:right-[10%] lg:w-[48%]"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -269,8 +269,24 @@ export default function () {
             src="/scene/ground-v3.png"
             alt=""
             className="h-full w-full object-cover object-bottom"
+            style={{ filter: "url(#defringe-purple) saturate(0.7) brightness(1.18)" }}
           />
         </div>
+
+        {/* SVG color-matrix filter: defringes AI magenta artifacts AND shifts the greens toward a warm olive (#A3A267). Red row picks up green to push foliage toward yellow-olive; blue row is heavily attenuated to kill purple cast and cool tones. */}
+        <svg aria-hidden="true" className="pointer-events-none absolute h-0 w-0">
+          <defs>
+            <filter id="defringe-purple" colorInterpolationFilters="sRGB">
+              <feColorMatrix
+                type="matrix"
+                values="1 0.55 -0.5 0 0
+                        0.1 0.85 -0.1 0 0.02
+                        0 0.1 0.5 0 0
+                        0 0 0 1 0"
+              />
+            </filter>
+          </defs>
+        </svg>
 
         {/* Soft top-down vignette to keep hero text readable */}
         <div
