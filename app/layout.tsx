@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Figtree, Instrument_Serif, Lora, Space_Grotesk } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
@@ -36,6 +36,14 @@ const figtree = Figtree({
 export const metadata: Metadata = {
   title: "Neatlogs",
   description: "Neatlogs",
+  other: {
+    "darkreader-lock": "true",
+  },
+};
+
+export const viewport: Viewport = {
+  colorScheme: "light",
+  themeColor: "#FAFAFA",
 };
 
 export default function RootLayout({

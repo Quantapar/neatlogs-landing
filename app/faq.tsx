@@ -139,7 +139,7 @@ export const FAQ = () => {
                     >
                       FAQ
                     </span>
-                    <h2 className="mt-5 -ml-[2px] text-4xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
+                    <h2 className="mt-5 -ml-[2px] text-[28px] font-semibold leading-[1.15] tracking-tight text-zinc-950 sm:text-5xl sm:leading-[1.04] sm:tracking-tighter md:text-[56px]">
                         Common <br />
                         Questions.
                     </h2>

@@ -61,8 +61,8 @@ export function Flow() {
           >
             Built for both sides of the table
           </span>
-          <h2 className="mt-5 text-balance text-4xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
-            Built for the people who spot the problem
+          <h2 className="mt-5 text-balance text-[22px] font-semibold leading-[1.2] tracking-tight text-zinc-950 sm:text-5xl sm:leading-[1.04] sm:tracking-tighter md:text-[56px]">
+            Built for the people<br className="sm:hidden" /> who spot the problem
             <br />
             <span>and the people who fix it.</span>
           </h2>

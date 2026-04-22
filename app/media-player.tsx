@@ -51,15 +51,23 @@ export function MediaPlayer() {
   };
 
   return (
-    <section className="relative z-20 -mt-[5%] px-4 pb-24 sm:-mt-[6%] sm:px-6 md:-mt-[7%] lg:-mt-[8%] lg:pb-32">
+    <section className="relative z-20 -mt-[2%] px-4 pb-24 sm:-mt-[3%] sm:px-6 md:-mt-[3%] lg:-mt-[4%] lg:pb-32">
       <div className="mx-auto w-full max-w-5xl">
         <div
           ref={frameRef}
-          className={`relative rounded-[28px] bg-white/90 p-3 shadow-[0_30px_60px_-24px_rgba(12,20,40,0.22),0_12px_24px_-16px_rgba(12,20,40,0.14)] ring-1 ring-zinc-900/5 backdrop-blur-sm sm:p-4 ${
-            isFullscreen ? "flex flex-col" : ""
-          }`}
+          className={
+            isFullscreen
+              ? "relative flex h-screen w-screen flex-col bg-black"
+              : "relative rounded-[28px] bg-white/90 p-3 shadow-[0_30px_60px_-24px_rgba(12,20,40,0.22),0_12px_24px_-16px_rgba(12,20,40,0.14)] ring-1 ring-zinc-900/5 backdrop-blur-sm sm:p-4"
+          }
         >
-          <div className="relative aspect-video overflow-hidden rounded-[20px] bg-[#FAFAFA]">
+          <div
+            className={
+              isFullscreen
+                ? "relative flex-1 overflow-hidden bg-black"
+                : "relative aspect-video overflow-hidden rounded-[20px] bg-[#FAFAFA]"
+            }
+          >
             <video
               ref={videoRef}
               src={SAMPLE_VIDEO_SRC}
@@ -73,9 +81,9 @@ export function MediaPlayer() {
                 setStarted(false);
               }}
               onClick={togglePlay}
-              className={`absolute inset-0 size-full cursor-pointer bg-black object-cover transition-opacity duration-300 ease-out ${
-                started ? "opacity-100" : "pointer-events-none opacity-0"
-              }`}
+              className={`absolute inset-0 size-full cursor-pointer bg-black transition-opacity duration-300 ease-out ${
+                isFullscreen ? "object-contain" : "object-cover"
+              } ${started ? "opacity-100" : "pointer-events-none opacity-0"}`}
             />
 
             {!started && (
@@ -104,8 +112,10 @@ export function MediaPlayer() {
           </div>
 
           <div
-            className={`flex items-center justify-between gap-2 px-1 sm:px-2 ${
-              isFullscreen ? "my-auto" : "mt-3 sm:mt-4"
+            className={`flex items-center justify-between gap-2 ${
+              isFullscreen
+                ? "bg-black px-4 py-3 text-white"
+                : "mt-3 px-1 sm:mt-4 sm:px-2"
             }`}
           >
             <div className="flex items-center gap-2 sm:gap-3">
@@ -133,13 +143,15 @@ export function MediaPlayer() {
               </ControlButton>
             </div>
 
-            <ControlButton
-              onClick={toggleFullscreen}
-              ariaLabel={isFullscreen ? "Exit full screen" : "Full screen"}
-            >
-              <IconFullscreen className="size-3.5" />
-              <span>{isFullscreen ? "Exit" : "Full Screen"}</span>
-            </ControlButton>
+            <div className="hidden lg:inline-flex">
+              <ControlButton
+                onClick={toggleFullscreen}
+                ariaLabel={isFullscreen ? "Exit full screen" : "Full screen"}
+              >
+                <IconFullscreen className="size-3.5" />
+                <span>{isFullscreen ? "Exit" : "Full Screen"}</span>
+              </ControlButton>
+            </div>
           </div>
         </div>
       </div>

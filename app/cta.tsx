@@ -5,7 +5,7 @@ export function CTA() {
     <section className="w-full bg-[#FAFAFA] px-6 pt-4 pb-20 sm:pt-6 sm:pb-24">
       <div className="mx-auto flex max-w-5xl flex-col gap-8 md:flex-row md:items-end md:justify-between md:gap-12">
         <div>
-          <h2 className="text-balance text-4xl font-semibold tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
+          <h2 className="text-balance text-[28px] font-semibold tracking-tight text-zinc-950 sm:text-5xl sm:tracking-tighter md:text-[56px]">
             Start debugging together.
           </h2>
           <p className="font-ui mt-4 text-pretty text-lg text-zinc-600">

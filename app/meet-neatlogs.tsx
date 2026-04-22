@@ -48,7 +48,7 @@ export function MeetNeatlogs() {
           </Reveal>
         </span>
 
-        <h2 className="mt-5 text-balance text-4xl font-semibold leading-[1.2] tracking-tighter sm:text-5xl md:text-[56px]">
+        <h2 className="mt-5 text-balance text-[22px] font-semibold leading-[1.2] tracking-tight sm:text-5xl sm:tracking-tighter md:text-[56px]">
           <span className="text-zinc-950">
             <Reveal
               progress={scrollYProgress}

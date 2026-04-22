@@ -25,7 +25,7 @@ export function HeroIntro() {
     <section className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-36 sm:pt-[13%]">
       <motion.span
         {...fade(0)}
-        className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-700"
+        className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-900/85"
       >
         For teams building <span translate="no">AI</span> agents
       </motion.span>
@@ -34,7 +34,7 @@ export function HeroIntro() {
 
       <motion.p
         {...fade(0.4)}
-        className="font-ui mt-6 max-w-xl text-pretty text-center text-base leading-relaxed text-zinc-700 sm:text-lg"
+        className="font-ui mt-6 max-w-xl text-pretty text-center text-base leading-relaxed text-zinc-800 sm:text-lg"
       >
         The shared workspace where your team debugs{" "}
         <span translate="no">AI</span> agents together. No Slack threads. No

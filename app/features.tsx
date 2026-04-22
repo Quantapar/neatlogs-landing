@@ -46,9 +46,9 @@ export const Features = () => {
             >
               Why Neatlogs
             </span>
-            <h2 className="mt-5 text-balance text-4xl sm:text-5xl md:text-[56px] leading-[1.08] tracking-tighter text-zinc-950 mx-auto font-sans">
+            <h2 className="mt-5 text-balance text-[22px] sm:text-5xl md:text-[56px] leading-[1.2] sm:leading-[1.08] tracking-tight sm:tracking-tighter text-zinc-950 mx-auto font-sans">
               <span className="font-semibold">
-                Most teams don't have a visibility problem.
+                Most teams don't have<br className="sm:hidden" /> a visibility problem.
               </span>
               <br />
               <span className="font-semibold tracking-tight">
