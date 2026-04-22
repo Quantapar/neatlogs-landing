@@ -211,14 +211,48 @@ export default function () {
           </div>
         </div>
 
+        {/* === LAYER 3b: BRIDGE-BASE DRIFT — small fog band under the bridge deck, rendered behind the bridge so the structure isn't brightened. Adds movement in the bridge zone. === */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-[80%] right-[2%] h-[8%] w-[60%] overflow-hidden mix-blend-screen motion-reduce:hidden sm:right-[4%] sm:w-[52%] lg:right-[6%] lg:w-[46%]"
+          style={{
+            maskImage:
+              "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 22%, #000 50%, rgba(0,0,0,0.5) 80%, transparent 100%), linear-gradient(to right, transparent 0%, rgba(0,0,0,0.45) 10%, #000 22%, #000 80%, rgba(0,0,0,0.45) 92%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 22%, #000 50%, rgba(0,0,0,0.5) 80%, transparent 100%), linear-gradient(to right, transparent 0%, rgba(0,0,0,0.45) 10%, #000 22%, #000 80%, rgba(0,0,0,0.45) 92%, transparent 100%)",
+            maskComposite: "intersect",
+            WebkitMaskComposite: "source-in",
+          }}
+        >
+          <div
+            className="flex h-full w-[200%] motion-safe:animate-[fog-drift_22s_ease-in-out_infinite]"
+            style={{ animationDelay: "-6s", animationDirection: "reverse" }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/scene/clouds-strip.png"
+              alt=""
+              className="h-full w-1/2 object-cover object-center scale-y-110"
+              style={{ filter: "blur(3px) saturate(0.7) brightness(1.25) contrast(1.1)" }}
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/scene/clouds-strip.png"
+              alt=""
+              className="h-full w-1/2 object-cover object-center scale-y-110"
+              style={{ filter: "blur(3px) saturate(0.7) brightness(1.25) contrast(1.1)" }}
+            />
+          </div>
+        </div>
+
         {/* Layer 4: Bridge — on top of all fog so the fog never brightens the bridge. Anchored to the right; right tower + deck end over the two pillars on the right hill. Ground layer (above bridge in z-order) clips the overlap. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-[60%] right-[8%] h-[28%] w-[56%] sm:right-[10%] sm:w-[48%] lg:right-[12%] lg:w-[42%]"
+          className="pointer-events-none absolute top-[56%] right-[5%] h-[33%] w-[64%] sm:right-[7%] sm:w-[56%] lg:right-[9%] lg:w-[50%]"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/scene/bridge-v2.png"
+            src="/scene/bridge-v3.png"
             alt=""
             className="h-full w-full object-contain"
             style={{ objectPosition: "right bottom" }}
@@ -232,7 +266,7 @@ export default function () {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/scene/ground-v2.png"
+            src="/scene/ground-v3.png"
             alt=""
             className="h-full w-full object-cover object-bottom"
           />
