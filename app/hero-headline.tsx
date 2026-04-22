@@ -55,14 +55,15 @@ export function HeroHeadline() {
       variants={parentVariants}
       initial={reducedMotion ? "visible" : "hidden"}
       animate="visible"
-      className="font-lora mt-5 max-w-4xl text-balance text-center text-4xl font-medium leading-[1.04] tracking-tighter text-zinc-950 sm:text-6xl md:text-7xl lg:text-[80px]"
+      style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontWeight: 500 }}
+      className="mt-5 max-w-4xl text-balance text-center text-[34px] leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl md:text-6xl lg:text-[68px]"
     >
       <Word variants={variants}>From</Word>{" "}
       <Word variants={variants}>feedback</Word>{" "}
       <Word variants={variants}>to</Word>{" "}
       <Word variants={variants}>fix</Word>
       <br />
-      <span className="text-[#E9462E]">
+      <span className="text-[#B85548]">
         <Word variants={variants}>In</Word>{" "}
         <Word variants={variants}>minutes,</Word>{" "}
         <Word variants={variants}>not</Word>{" "}
