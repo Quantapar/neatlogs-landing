@@ -17,131 +17,104 @@ export default function () {
   return (
     <main className="relative flex min-h-screen w-full flex-col bg-[#FAFAFA]">
       <div className="relative w-full min-h-[680px] overflow-hidden md:min-h-0 md:h-screen md:max-h-[920px]">
+        {/* Layer 1: Sky wash — furthest back */}
         <Image
-          src="/v3.jpg"
+          src="/scene/sky-v2.png"
           alt=""
           fill
           priority
           sizes="100vw"
-          className="object-cover object-bottom"
+          className="object-cover"
         />
 
-        {/* Puffy pinkish clouds — sparse, two layers with wide gaps between groups */}
+        {/* Watercolor cloud wash — two continuous strip layers above the headline. Capped above top-[11%] so the text underneath stays readable. */}
 
-        {/* Layer A: high, slow, smaller. Three clouds per seamless period with irregular gaps. */}
+        {/* Layer A: taller so the whole cloud body fits without cropping; feathered top + bottom so neither edge reads as a hard line. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[8%] h-[13%] overflow-hidden motion-reduce:hidden"
+          className="pointer-events-none absolute inset-x-0 top-[10%] h-[18%] overflow-hidden motion-reduce:hidden"
+          style={{
+            maskImage:
+              "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.45) 12%, #000 32%, #000 62%, rgba(0,0,0,0.55) 84%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.45) 12%, #000 32%, #000 62%, rgba(0,0,0,0.55) 84%, transparent 100%)",
+          }}
         >
-          <div className="flex h-full w-[400%] opacity-75 motion-safe:animate-[clouds-drift_220s_linear_infinite]">
-            <div className="flex h-full w-1/2 shrink-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/scene/clouds-puffy.png"
-                alt=""
-                className="h-full w-[18%] object-contain object-left scale-75"
-              />
-              <div className="w-[20%]" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/scene/clouds-puffy.png"
-                alt=""
-                className="h-full w-[14%] object-contain object-left scale-90 -scale-x-100"
-              />
-              <div className="w-[22%]" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/scene/clouds-puffy.png"
-                alt=""
-                className="h-full w-[16%] object-contain object-left scale-[0.85]"
-              />
-              <div className="w-[10%]" />
-            </div>
-            <div className="flex h-full w-1/2 shrink-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/scene/clouds-puffy.png"
-                alt=""
-                className="h-full w-[18%] object-contain object-left scale-75"
-              />
-              <div className="w-[20%]" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/scene/clouds-puffy.png"
-                alt=""
-                className="h-full w-[14%] object-contain object-left scale-90 -scale-x-100"
-              />
-              <div className="w-[22%]" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/scene/clouds-puffy.png"
-                alt=""
-                className="h-full w-[16%] object-contain object-left scale-[0.85]"
-              />
-              <div className="w-[10%]" />
-            </div>
+          <div className="flex h-full w-[200%] opacity-80 motion-safe:animate-[clouds-drift_180s_linear_infinite]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/scene/clouds-wash.png"
+              alt=""
+              className="h-full w-1/2 shrink-0 object-cover object-bottom"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/scene/clouds-wash.png"
+              alt=""
+              className="h-full w-1/2 shrink-0 object-cover object-bottom"
+            />
           </div>
         </div>
 
-        {/* Layer B: mid, medium speed, mirrored, offset gap so clouds don't align with layer A */}
+        {/* Layer B: offset speed + direction, mirrored, for parallax. Kept even thinner and higher so it never runs into the headline. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[16%] h-[15%] overflow-hidden motion-reduce:hidden"
+          className="pointer-events-none absolute inset-x-0 top-[7%] h-[14%] overflow-hidden motion-reduce:hidden"
+          style={{
+            maskImage:
+              "linear-gradient(to bottom, transparent 0%, #000 25%, #000 70%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent 0%, #000 25%, #000 70%, transparent 100%)",
+          }}
         >
           <div
-            className="flex h-full w-[500%] motion-safe:animate-[clouds-drift_150s_linear_infinite]"
-            style={{ animationDelay: "-67s" }}
+            className="flex h-full w-[200%] opacity-55 motion-safe:animate-[clouds-drift_140s_linear_infinite]"
+            style={{ animationDelay: "-65s", animationDirection: "reverse" }}
           >
-            <div className="flex h-full w-1/2 shrink-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/scene/clouds-puffy.png"
-                alt=""
-                className="h-full w-[16%] object-contain object-left"
-              />
-              <div className="w-[18%]" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/scene/clouds-puffy.png"
-                alt=""
-                className="h-full w-[14%] object-contain object-left -scale-x-100"
-              />
-              <div className="w-[20%]" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/scene/clouds-puffy.png"
-                alt=""
-                className="h-full w-[18%] object-contain object-left scale-95"
-              />
-              <div className="w-[14%]" />
-            </div>
-            <div className="flex h-full w-1/2 shrink-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/scene/clouds-puffy.png"
-                alt=""
-                className="h-full w-[16%] object-contain object-left"
-              />
-              <div className="w-[18%]" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/scene/clouds-puffy.png"
-                alt=""
-                className="h-full w-[14%] object-contain object-left -scale-x-100"
-              />
-              <div className="w-[20%]" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/scene/clouds-puffy.png"
-                alt=""
-                className="h-full w-[18%] object-contain object-left scale-95"
-              />
-              <div className="w-[14%]" />
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/scene/clouds-wash.png"
+              alt=""
+              className="h-full w-1/2 shrink-0 object-cover object-bottom -scale-x-100"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/scene/clouds-wash.png"
+              alt=""
+              className="h-full w-1/2 shrink-0 object-cover object-bottom -scale-x-100"
+            />
           </div>
         </div>
 
-        {/* Atmospheric fog at the foot of the bridge — soft underglow + two blurred wisp layers */}
+        {/* Distant city skyline — small + far-away on the left, veiled by the fog layers that come after it. Transparent PNG so no blend mode needed. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-[4%] top-[58%] h-[10%] w-[38%] sm:left-[6%] sm:h-[11%] sm:w-[30%] lg:left-[8%] lg:h-[12%] lg:w-[26%]"
+          style={{
+            opacity: 0.45,
+            filter: "blur(0.5px)",
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/scene/skyline-v3.png"
+            alt=""
+            className="h-full w-full object-contain object-bottom"
+          />
+        </div>
+
+        {/* Layer 3: Bridge — anchored to the right; right tower + deck end over the two pillars on the right hill. Ground layer (above bridge in z-order) clips the overlap. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-[54%] right-[-6%] h-[30%] w-[88%] sm:right-[-4%] sm:w-[76%] lg:right-[-2%] lg:w-[68%]"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/scene/bridge-v2.png"
+            alt=""
+            className="h-full w-full object-contain object-right"
+          />
+        </div>
 
         {/* Atmospheric fog — three dense, fast-moving layers at the bridge foot */}
 
@@ -247,6 +220,19 @@ export default function () {
               style={{ filter: "blur(12px) saturate(0.4) brightness(1.2)" }}
             />
           </div>
+        </div>
+
+        {/* Layer 5: Ground — hills in foreground, closest to viewer */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] sm:h-[52%]"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/scene/ground-v2.png"
+            alt=""
+            className="h-full w-full object-cover object-bottom"
+          />
         </div>
 
         {/* Soft top-down vignette to keep hero text readable */}
