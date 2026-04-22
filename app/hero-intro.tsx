@@ -22,7 +22,7 @@ export function HeroIntro() {
         };
 
   return (
-    <section className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-20 scale-95 origin-top sm:pt-[7%]">
+    <section className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-[11%] sm:pt-[13%]">
       <motion.span
         {...fade(0)}
         className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-900/85"

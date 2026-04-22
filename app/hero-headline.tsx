@@ -56,18 +56,13 @@ export function HeroHeadline() {
       initial={reducedMotion ? "visible" : "hidden"}
       animate="visible"
       style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontWeight: 500 }}
-      className="mt-5 max-w-4xl text-balance text-center text-[34px] leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl md:text-6xl lg:text-[68px]"
+      className="mt-5 max-w-4xl text-balance text-center text-5xl leading-[1.04] tracking-tighter text-zinc-950 sm:text-6xl md:text-7xl lg:text-[80px]"
     >
-      <Word variants={variants}>From</Word>{" "}
-      <Word variants={variants}>feedback</Word>{" "}
-      <Word variants={variants}>to</Word>{" "}
-      <Word variants={variants}>fix</Word>
-      <br />
+      <Word variants={variants}>Fix</Word>{" "}
+      <Word variants={variants}>agents</Word>{" "}
       <span className="text-[#B85548]">
-        <Word variants={variants}>In</Word>{" "}
-        <Word variants={variants}>minutes,</Word>{" "}
-        <Word variants={variants}>not</Word>{" "}
-        <Word variants={variants}>weeks</Word>
+        <Word variants={variants}>in</Word>{" "}
+        <Word variants={variants}>minutes</Word>
       </span>
     </motion.h1>
   );
