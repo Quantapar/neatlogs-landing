@@ -70,15 +70,6 @@ export const Features = () => {
             >
               <div className="w-full bg-slate-50/50 border border-gray-100 rounded-2xl p-1 lg:p-[6px] shadow-[0_2px_14px_rgba(0,0,0,0.02)] select-none">
                 <div className="w-full h-full bg-white border border-gray-200 rounded-[10px] p-3 sm:p-5 lg:p-7 shadow-sm flex flex-col relative">
-                  <div className="flex items-center justify-between border-b border-gray-100 pb-[6px] mb-5 sm:mb-8 lg:mb-10 px-1">
-                    <div className="flex gap-5 sm:gap-7 text-[12px] font-medium text-gray-500">
-                      <span className="text-[#E9462E] font-semibold relative after:absolute after:-bottom-[8px] after:left-0 after:h-[2px] after:w-full after:bg-[#E9462E]">
-                        Logs
-                      </span>
-                      <span>Traces</span>
-                    </div>
-                  </div>
-
                   <div className="flex items-center justify-between w-full relative h-[110px] sm:h-[140px] px-2 sm:px-[5%]">
                     <div className="absolute left-[70px] sm:left-[15%] right-[55%] top-1/2 -translate-y-1/2 h-[4px] bg-[repeating-linear-gradient(90deg,#e5e7eb_0px,#e5e7eb_2px,transparent_2px,transparent_5px)] z-0">
                       <div

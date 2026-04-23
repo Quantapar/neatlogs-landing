@@ -24,7 +24,7 @@ export const Reviews = () => {
       </p>
 
       <div className="mt-6 sm:mt-8 flex w-full max-w-3xl flex-col items-center text-center">
-        <p className="font-ui text-balance text-[clamp(22px,3.4vw,34px)] font-medium leading-[1.25] tracking-tight text-zinc-950 max-w-2xl">
+        <p className="font-ui text-balance text-[clamp(22px,3.4vw,34px)] font-medium leading-[1.25] tracking-tight text-zinc-950 max-w-3xl">
           &ldquo;{review.text}&rdquo;
         </p>
         <p className="mt-6 text-[15px] font-semibold text-zinc-900">

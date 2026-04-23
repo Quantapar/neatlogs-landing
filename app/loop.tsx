@@ -60,14 +60,13 @@ const CENTER = VIEWBOX / 2;
 const RADIUS = 260;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
-function useActiveStep(progress: MotionValue<number>) {
-  const index = useTransform(progress, (v) => {
+function useActiveStep(progress: MotionValue<number>): MotionValue<number> {
+  return useTransform<number, number>(progress, (v) => {
     if (v < 0.125) return 0;
     if (v < 0.375) return 1;
     if (v < 0.625) return 2;
     return 3;
   });
-  return index;
 }
 
 export function CycleLoop() {
@@ -126,7 +125,7 @@ export function CycleLoop() {
         >
           From signal to shipped fix.
           <br />
-          <span className="text-zinc-500">Then monitored for recurrence.</span>
+          Then monitored for recurrence.
         </motion.h2>
         <motion.p
           initial={reducedMotion ? false : { opacity: 0, y: 14 }}

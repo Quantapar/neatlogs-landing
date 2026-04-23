@@ -202,7 +202,7 @@ export function HowItWorks() {
               className="font-ui text-2xl sm:text-3xl font-semibold tracking-tight"
               style={{ color: "#E9462E" }}
             >
-              How it works
+              Workflow
             </span>
             <h2 className="mt-5 max-w-3xl text-balance text-4xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
               From broken agent <span>to shipped fix.</span>

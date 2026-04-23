@@ -44,28 +44,23 @@ export function HeroScene() {
     restDelta: 0.001,
   });
 
-  // Depth-graded speeds, sorted back → front (slow → fast). The layer closest
-  // to the viewer (ground foliage) moves the most, the sky barely creeps.
-  // Spread is wide (~14× between slowest and fastest) so the effect actually
-  // reads — anything tighter feels static. Bridge + live-bridge-mist are
-  // tethered to groundDistance so they drift as a cohesive group.
-  const groundDistance = 290;
-  const skyY = useParallax(smoothProgress, 20 * scale);
-  const skylineY = useParallax(smoothProgress, (groundDistance - 45) * scale);
-  const skylineMistY = useParallax(smoothProgress, (groundDistance - 30) * scale);
-  const warmDriftY = useParallax(smoothProgress, 80 * scale);
-  const blueDriftY = useParallax(smoothProgress, 115 * scale);
-  const midBayFogY = useParallax(smoothProgress, 150 * scale);
-  const mainBayFogY = useParallax(smoothProgress, 185 * scale);
-  const bridgeBaseDriftY = useParallax(smoothProgress, (groundDistance - 80) * scale);
-  const bridgeY = useParallax(smoothProgress, (groundDistance - 60) * scale);
-  const liveBridgeMistY = useParallax(smoothProgress, (groundDistance - 35) * scale);
+  // Depth-graded speeds — ratios picked so each layer moves noticeably slower
+  // than the one in front of it. Sky creeps, skyline floats, fog drifts.
+  // Bridge keeps a small lead over the ground (+15) so it feels like it's
+  // moving — but the delta stays tight so the right tower doesn't detach
+  // from the hill. Ground hides any overshoot at the base via z-order clipping.
+  const groundDistance = 115;
+  const skyY = useParallax(smoothProgress, 15 * scale);
+  const warmDriftY = useParallax(smoothProgress, 55 * scale);
+  const skylineY = useParallax(smoothProgress, 135 * scale);
+  const skylineMistY = useParallax(smoothProgress, 145 * scale);
+  const blueDriftY = useParallax(smoothProgress, 110 * scale);
+  const midBayFogY = useParallax(smoothProgress, 140 * scale);
+  const mainBayFogY = useParallax(smoothProgress, 165 * scale);
+  const bridgeBaseDriftY = useParallax(smoothProgress, groundDistance * scale);
+  const bridgeY = useParallax(smoothProgress, (groundDistance + 15) * scale);
+  const liveBridgeMistY = useParallax(smoothProgress, (groundDistance + 25) * scale);
   const groundY = useParallax(smoothProgress, groundDistance * scale);
-
-  // Bottom white guard — invisible at rest so the scene reads clean, fades in
-  // as the ground parallaxes up so the sky's warm wash doesn't leak through
-  // the newly-exposed bottom of the hero.
-  const bottomGuardOpacity = useTransform(smoothProgress, [0, 0.3, 1], [0, 0, 1]);
 
   return (
     <div
@@ -87,21 +82,6 @@ export function HeroScene() {
           className="object-cover"
         />
       </motion.div>
-
-      {/* Bottom white guard — sits in front of the sky. As scroll progresses
-          and the ground parallaxes up, this fade-in masks the pink/cream sky
-          wash that would otherwise leak through the exposed bottom. Every
-          subsequent scene layer (fog, bridge, ground) paints on top of this,
-          so nothing is obscured at rest. */}
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[42%]"
-        style={{
-          opacity: bottomGuardOpacity,
-          background:
-            "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.75) 42%, rgba(255,255,255,1) 82%)",
-        }}
-      />
 
       {/* Distant city skyline — small + far-away on the left, veiled by the fog layers that come after it. */}
       <motion.div
