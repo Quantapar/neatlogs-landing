@@ -178,7 +178,7 @@ export const Features = () => {
                   <img
                     src="/nl-logo.png"
                     alt="Neatlogs"
-                    className="size-full rounded-[22%] object-contain ring-1 ring-zinc-900/10 drop-shadow-[0_10px_20px_rgba(12,20,40,0.18)]"
+                    className="size-full rounded object-contain"
                   />
                 </div>
 
@@ -533,7 +533,7 @@ export const Features = () => {
                           <img
                             src="/nl-logo.png"
                             alt="Neatlogs"
-                            className="size-full rounded-[22%] object-contain ring-1 ring-zinc-900/10"
+                            className="size-full rounded object-contain"
                             style={{ filter: "invert(42%)" }}
                           />
                         </div>

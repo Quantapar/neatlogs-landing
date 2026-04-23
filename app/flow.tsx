@@ -279,7 +279,7 @@ function AgentRunsVisual() {
           alt="Neatlogs"
           width={64}
           height={64}
-          className="size-full rounded-[22%] object-contain ring-1 ring-zinc-900/10 drop-shadow-[0_10px_20px_rgba(12,20,40,0.22)]"
+          className="size-full rounded object-contain"
         />
       </div>
     </VisualCard>

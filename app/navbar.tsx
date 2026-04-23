@@ -29,7 +29,7 @@ export function Navbar() {
             alt=""
             width={40}
             height={40}
-            className="size-10 rounded-[22%] ring-1 ring-zinc-900/10 transition-transform duration-200 ease-out hover-hover:group-hover:-rotate-3 motion-reduce:transition-none"
+            className="size-10 rounded transition-transform duration-200 ease-out hover-hover:group-hover:-rotate-3 motion-reduce:transition-none"
             priority
           />
           <span className="font-pixel text-lg font-medium tracking-tight text-zinc-950 hidden sm:inline sm:text-xl">
