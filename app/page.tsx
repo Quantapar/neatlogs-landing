@@ -30,7 +30,7 @@ export default function () {
         {/* Distant city skyline — small + far-away on the left, veiled by the fog layers that come after it. Transparent PNG so no blend mode needed. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-[9%] right-[-4%] top-[37%] h-[42%] sm:left-[11%] sm:right-[-3%] sm:h-[41%] lg:left-[13%] lg:right-[-1%] lg:h-[40%]"
+          className="pointer-events-none absolute left-[9%] right-[-4%] top-[40%] h-[42%] sm:left-[11%] sm:right-[-3%] sm:h-[41%] lg:left-[13%] lg:right-[-1%] lg:h-[40%]"
           style={{
             opacity: 0.55,
             filter: "blur(0.5px)",
@@ -53,7 +53,7 @@ export default function () {
         {/* Underglow — big soft haze that defines the band */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[81%] h-[16%] mix-blend-screen motion-reduce:hidden motion-safe:animate-[fog-breath_10s_ease-in-out_infinite]"
+          className="pointer-events-none absolute inset-x-0 top-[84%] h-[16%] mix-blend-screen motion-reduce:hidden motion-safe:animate-[fog-breath_10s_ease-in-out_infinite]"
           style={{
             background:
               "radial-gradient(ellipse 95% 60% at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(240,244,250,0.6) 55%, rgba(255,255,255,0) 95%)",
@@ -64,7 +64,7 @@ export default function () {
         {/* Front wisps — dense, fast drift */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[80%] h-[15%] overflow-hidden mix-blend-screen motion-reduce:hidden"
+          className="pointer-events-none absolute inset-x-0 top-[83%] h-[15%] overflow-hidden mix-blend-screen motion-reduce:hidden"
           style={{
             maskImage:
               "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 15%, #000 35%, #000 65%, rgba(0,0,0,0.55) 85%, transparent 100%)",
@@ -99,7 +99,7 @@ export default function () {
         {/* Back wisps — slow, mirrored, wider + softer for depth */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[83%] h-[14%] overflow-hidden mix-blend-screen motion-reduce:hidden"
+          className="pointer-events-none absolute inset-x-0 top-[86%] h-[14%] overflow-hidden mix-blend-screen motion-reduce:hidden"
           style={{
             maskImage:
               "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 20%, #000 45%, #000 65%, rgba(0,0,0,0.45) 85%, transparent 100%)",
@@ -139,7 +139,7 @@ export default function () {
         {/* Underglow — subtle brighten around the skyline base */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[73%] h-[8%] mix-blend-screen motion-reduce:hidden motion-safe:animate-[fog-breath_14s_ease-in-out_infinite]"
+          className="pointer-events-none absolute inset-x-0 top-[76%] h-[8%] mix-blend-screen motion-reduce:hidden motion-safe:animate-[fog-breath_14s_ease-in-out_infinite]"
           style={{
             background:
               "radial-gradient(ellipse 100% 70% at 50% 50%, rgba(255,255,255,0.6) 0%, rgba(240,244,250,0.35) 58%, rgba(255,255,255,0) 98%)",
@@ -150,7 +150,7 @@ export default function () {
         {/* Thin wisps — slow drift at skyline level */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[72%] h-[9%] overflow-hidden mix-blend-screen motion-reduce:hidden"
+          className="pointer-events-none absolute inset-x-0 top-[75%] h-[9%] overflow-hidden mix-blend-screen motion-reduce:hidden"
           style={{
             maskImage:
               "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.45) 20%, #000 45%, #000 65%, rgba(0,0,0,0.45) 85%, transparent 100%)",
@@ -190,7 +190,7 @@ export default function () {
         {/* Underglow to brighten the middle band */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[76%] h-[10%] mix-blend-screen motion-reduce:hidden motion-safe:animate-[fog-breath_12s_ease-in-out_infinite]"
+          className="pointer-events-none absolute inset-x-0 top-[79%] h-[10%] mix-blend-screen motion-reduce:hidden motion-safe:animate-[fog-breath_12s_ease-in-out_infinite]"
           style={{
             background:
               "radial-gradient(ellipse 90% 80% at 50% 50%, rgba(255,255,255,0.85) 0%, rgba(240,244,250,0.55) 55%, rgba(255,255,255,0) 98%)",
@@ -200,7 +200,7 @@ export default function () {
 
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[75%] h-[13%] overflow-hidden mix-blend-screen motion-reduce:hidden"
+          className="pointer-events-none absolute inset-x-0 top-[78%] h-[13%] overflow-hidden mix-blend-screen motion-reduce:hidden"
           style={{
             maskImage:
               "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 20%, #000 45%, #000 65%, rgba(0,0,0,0.5) 85%, transparent 100%)",
@@ -238,7 +238,7 @@ export default function () {
         {/* === LAYER 3a: WARM CREAM DRIFT — a soft #FCFBEE wash drifting across the bay for warmth. Pure CSS, linear drift for consistent speed. === */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[68%] h-[14%] overflow-hidden motion-reduce:hidden"
+          className="pointer-events-none absolute inset-x-0 top-[71%] h-[14%] overflow-hidden motion-reduce:hidden"
           style={{
             maskImage:
               "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 25%, rgba(0,0,0,0.65) 55%, rgba(0,0,0,0.4) 85%, transparent 100%)",
@@ -259,7 +259,7 @@ export default function () {
         {/* === LAYER 3b: BRIDGE-BASE DRIFT — small fog band under the bridge deck, rendered behind the bridge so the structure isn't brightened. Adds movement in the bridge zone. === */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-[85%] right-[2%] h-[8%] w-[60%] overflow-hidden mix-blend-screen motion-reduce:hidden sm:right-[4%] sm:w-[52%] lg:right-[6%] lg:w-[46%]"
+          className="pointer-events-none absolute top-[88%] right-[2%] h-[8%] w-[60%] overflow-hidden mix-blend-screen motion-reduce:hidden sm:right-[4%] sm:w-[52%] lg:right-[6%] lg:w-[46%]"
           style={{
             maskImage:
               "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 22%, #000 50%, rgba(0,0,0,0.5) 80%, transparent 100%), linear-gradient(to right, transparent 0%, rgba(0,0,0,0.45) 10%, #000 22%, #000 80%, rgba(0,0,0,0.45) 92%, transparent 100%)",
@@ -313,7 +313,7 @@ export default function () {
         {/* === LAYER 4b: LIVE BRIDGE MIST — fog wisp that crosses IN FRONT of the bridge (rendered after it) for a living-scene feel. Mix-blend-screen so it reads as light fog, not a solid overlay. === */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-[82%] right-[0%] h-[14%] w-[76%] overflow-hidden mix-blend-screen motion-reduce:hidden sm:right-[2%] sm:w-[68%] lg:right-[4%] lg:w-[60%]"
+          className="pointer-events-none absolute top-[85%] right-[0%] h-[14%] w-[76%] overflow-hidden mix-blend-screen motion-reduce:hidden sm:right-[2%] sm:w-[68%] lg:right-[4%] lg:w-[60%]"
           style={{
             maskImage:
               "linear-gradient(to bottom, transparent 0%, #000 30%, #000 70%, transparent 100%), linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 10%, #000 28%, #000 72%, rgba(0,0,0,0.5) 90%, transparent 100%)",
@@ -353,7 +353,7 @@ export default function () {
         {/* === LAYER 4c: SKY-BLUE DRIFT — very faint cool-blue wash that slowly drifts across the bay to suggest air movement behind the fog. Pure CSS, no texture. === */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[73%] h-[13%] overflow-hidden motion-reduce:hidden"
+          className="pointer-events-none absolute inset-x-0 top-[76%] h-[13%] overflow-hidden motion-reduce:hidden"
           style={{
             maskImage:
               "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 25%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.35) 85%, transparent 100%)",
