@@ -52,8 +52,8 @@ export function HeroScene() {
   const groundDistance = 115;
   const skyY = useParallax(smoothProgress, 15 * scale);
   const warmDriftY = useParallax(smoothProgress, 55 * scale);
-  const skylineY = useParallax(smoothProgress, 75 * scale);
-  const skylineMistY = useParallax(smoothProgress, 95 * scale);
+  const skylineY = useParallax(smoothProgress, 135 * scale);
+  const skylineMistY = useParallax(smoothProgress, 145 * scale);
   const blueDriftY = useParallax(smoothProgress, 110 * scale);
   const midBayFogY = useParallax(smoothProgress, 140 * scale);
   const mainBayFogY = useParallax(smoothProgress, 165 * scale);
