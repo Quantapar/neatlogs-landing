@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import {
   motion,
+  useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
@@ -11,33 +12,49 @@ import {
 } from "motion/react";
 import { HeroIntro } from "./hero-intro";
 
-// Parallax rule of thumb: farther = slower, closer = faster.
-// Distances are the pixel amount each layer moves UP as the user scrolls
-// through the hero (scrollYProgress 0 → 1). Ground moves the most, sky the least.
-function useParallaxY(progress: MotionValue<number>, distance: number) {
-  const raw = useTransform(progress, [0, 1], [0, -distance]);
-  return useSpring(raw, { stiffness: 140, damping: 28, restDelta: 0.001 });
+// Parallax rule of thumb: farther = slower, closer = faster. Each layer's
+// distance is the pixel amount it moves UP as the user scrolls through the
+// hero (scrollYProgress 0 → 1). Sky moves the least, ground the most.
+// All layers derive from a single *spring-smoothed* scrollYProgress — one
+// physics simulation drives every layer, which matches the Motion tutorial's
+// pattern and is cheaper than smoothing each value individually.
+function useParallax(progress: MotionValue<number>, distance: number) {
+  return useTransform(progress, [0, 1], [0, -distance]);
 }
 
 export function HeroScene() {
   const heroRef = useRef<HTMLDivElement>(null);
+  // Respect users who request reduced motion — movement-heavy parallax can
+  // trigger motion sickness. When reduced motion is on, every layer's distance
+  // collapses to 0 so the scene is static but all other visuals (fog drift,
+  // image content) are preserved.
+  const shouldReduceMotion = useReducedMotion();
+  const scale = shouldReduceMotion ? 0 : 1;
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
 
-  const skyY = useParallaxY(scrollYProgress, 20);
-  const skylineY = useParallaxY(scrollYProgress, 48);
-  const warmDriftY = useParallaxY(scrollYProgress, 55);
-  const skylineMistY = useParallaxY(scrollYProgress, 60);
-  const blueDriftY = useParallaxY(scrollYProgress, 65);
-  const midBayFogY = useParallaxY(scrollYProgress, 72);
-  const mainBayFogY = useParallaxY(scrollYProgress, 82);
-  const bridgeBaseDriftY = useParallaxY(scrollYProgress, 88);
-  const bridgeY = useParallaxY(scrollYProgress, 96);
-  const liveBridgeMistY = useParallaxY(scrollYProgress, 100);
-  const groundY = useParallaxY(scrollYProgress, 120);
+  // One spring to rule them all — smooths the raw scroll into a soothing
+  // physics-driven value. Values lifted straight from the Motion tutorial.
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  const skyY = useParallax(smoothProgress, 20 * scale);
+  const skylineY = useParallax(smoothProgress, 48 * scale);
+  const warmDriftY = useParallax(smoothProgress, 55 * scale);
+  const skylineMistY = useParallax(smoothProgress, 60 * scale);
+  const blueDriftY = useParallax(smoothProgress, 65 * scale);
+  const midBayFogY = useParallax(smoothProgress, 72 * scale);
+  const mainBayFogY = useParallax(smoothProgress, 82 * scale);
+  const bridgeBaseDriftY = useParallax(smoothProgress, 88 * scale);
+  const bridgeY = useParallax(smoothProgress, 96 * scale);
+  const liveBridgeMistY = useParallax(smoothProgress, 100 * scale);
+  const groundY = useParallax(smoothProgress, 120 * scale);
 
   return (
     <div
@@ -63,7 +80,7 @@ export function HeroScene() {
       {/* Distant city skyline — small + far-away on the left, veiled by the fog layers that come after it. */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute left-[9%] right-[-4%] top-[40%] h-[42%] sm:left-[11%] sm:right-[-3%] sm:h-[41%] lg:left-[13%] lg:right-[-1%] lg:h-[40%]"
+        className="pointer-events-none absolute left-[9%] right-[-4%] top-[43%] h-[42%] sm:left-[11%] sm:right-[-3%] sm:h-[41%] lg:left-[13%] lg:right-[-1%] lg:h-[40%]"
         style={{
           opacity: 0.55,
           filter: "blur(0.5px)",
