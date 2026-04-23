@@ -14,7 +14,7 @@ const CardWrapper = ({
   className?: string;
 }) => (
   <div
-    className={`flex flex-col h-full w-full sm:bg-white sm:rounded-[24px] sm:p-6 lg:p-8 sm:shadow-sm sm:border sm:border-gray-200 ${className}`}
+    className={`flex flex-col h-full w-full sm:bg-white sm:rounded sm:p-6 lg:p-8 sm:shadow-sm sm:border sm:border-gray-200 ${className}`}
   >
     <h3 className="text-xl md:text-2xl font-medium tracking-tight text-gray-900 mb-2">
       {title}

@@ -34,7 +34,7 @@ export function HeroIntro() {
 
       <motion.p
         {...fade(0.4)}
-        className="font-pixel mt-5 max-w-xl text-pretty text-center text-[15px] leading-relaxed text-zinc-800 sm:text-base"
+        className="font-pixel mt-5 max-w-xl text-pretty text-center text-lg font-medium tracking-tight leading-relaxed text-zinc-950 sm:text-xl"
       >
         The shared workspace where your team debugs{" "}
         <span translate="no">AI</span> agents together. No Slack threads. No

@@ -40,7 +40,7 @@ const FAQItem = ({
 }: FAQItemProps) => {
     return (
         <div
-            className={`mb-3 overflow-hidden rounded-[24px] ring-1 transition-[background-color,shadow,box-shadow] duration-[400ms] ease-snap will-change-transform ${isOpen
+            className={`mb-3 overflow-hidden rounded ring-1 transition-[background-color,shadow,box-shadow] duration-[400ms] ease-snap will-change-transform ${isOpen
                 ? "bg-white/90 backdrop-blur-3xl ring-zinc-900/10 shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_12px_28px_-12px_rgba(12,20,40,0.06)]"
                 : "bg-white/60 backdrop-blur-3xl ring-zinc-900/5 shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_14px_36px_-20px_rgba(12,20,40,0.08)] hover:bg-white/90 hover:ring-zinc-900/10"
                 }`}
@@ -165,7 +165,7 @@ export const FAQ = () => {
                         ))}
                     </div>
 
-                    <div className="mt-12 rounded-[32px] ring-1 ring-zinc-900/5 bg-white/60 backdrop-blur-xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_14px_36px_-20px_rgba(12,20,40,0.08)]">
+                    <div className="mt-12 rounded ring-1 ring-zinc-900/5 bg-white/60 backdrop-blur-xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_14px_36px_-20px_rgba(12,20,40,0.08)]">
                         <div>
                             <h3 className="font-ui text-[20px] font-semibold text-zinc-950 tracking-tight">
                                 Still need help?

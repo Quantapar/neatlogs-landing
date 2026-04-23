@@ -22,20 +22,16 @@ export function Navbar() {
         <Link
           href="/"
           aria-label="Neatlogs home"
-          className="group flex shrink-0 cursor-pointer items-center gap-2.5 rounded-xl outline-none -mx-1 px-1 py-1 focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5]"
+          className="group flex shrink-0 cursor-pointer items-center rounded-xl outline-none -mx-1 px-1 py-1 focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5]"
         >
           <Image
-            src="/nl-logo.png"
-            alt=""
-            width={40}
-            height={40}
-            className="size-10 rounded transition-transform duration-200 ease-out hover-hover:group-hover:-rotate-3 motion-reduce:transition-none"
+            src="/nl-wordmark.png"
+            alt="neatlogs"
+            width={258}
+            height={57}
             priority
+            className="h-6 w-auto rounded sm:h-7"
           />
-          <span className="font-pixel text-lg font-medium tracking-tight text-zinc-950 hidden sm:inline sm:text-xl">
-            neatlogs
-          </span>
-          <span className="sr-only sm:hidden">Neatlogs</span>
         </Link>
 
         <nav

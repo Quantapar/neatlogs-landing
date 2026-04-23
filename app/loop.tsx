@@ -356,7 +356,7 @@ function StepCard({
         scale: reducedMotion ? undefined : cardScale,
         y: reducedMotion ? undefined : cardY,
       }}
-      className="group w-[150px] cursor-pointer rounded-2xl border bg-white p-3.5 transition-[background-color] duration-200 ease-out hover:-translate-y-0.5 active:scale-[0.97] sm:w-[200px] sm:p-4 lg:w-[220px] lg:p-5 will-change-transform"
+      className="group w-[150px] cursor-pointer rounded border bg-white p-3.5 transition-[background-color] duration-200 ease-out hover:-translate-y-0.5 active:scale-[0.97] sm:w-[200px] sm:p-4 lg:w-[220px] lg:p-5 will-change-transform"
     >
       <div className="mb-3 flex items-center justify-between">
         <span className="font-pixel text-[10px] uppercase tracking-[0.15em] text-zinc-400">

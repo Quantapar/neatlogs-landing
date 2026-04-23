@@ -95,9 +95,9 @@ function DashboardScene() {
       <div className="flex items-start justify-center pt-8 sm:pt-12 md:sticky md:top-0 md:h-screen md:pt-16 lg:pt-20">
         <motion.div
           style={reducedMotion ? undefined : { scale }}
-          className="relative w-full overflow-hidden rounded-[28px] border border-zinc-900/10 bg-[#FCFCFD] p-3 shadow-[0_30px_60px_-24px_rgba(12,20,40,0.22),0_12px_24px_-16px_rgba(12,20,40,0.14)] sm:p-4"
+          className="relative w-full overflow-hidden rounded border border-zinc-900/10 bg-[#FCFCFD] p-3 shadow-[0_30px_60px_-24px_rgba(12,20,40,0.22),0_12px_24px_-16px_rgba(12,20,40,0.14)] sm:p-4"
         >
-          <div className="relative flex h-[500px] overflow-hidden rounded-[20px] bg-[#FCFCFD] ring-1 ring-zinc-900/10 sm:h-[590px] lg:h-[700px]">
+          <div className="relative flex h-[500px] overflow-hidden rounded bg-[#FCFCFD] ring-1 ring-zinc-900/10 sm:h-[590px] lg:h-[700px]">
             <Sidebar />
             <MainArea />
           </div>

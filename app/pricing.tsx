@@ -38,8 +38,8 @@ export function Pricing() {
 
       <div className="mx-auto grid w-full max-w-3xl grid-cols-1 gap-5 md:grid-cols-2 lg:gap-6 antialiased">
         {/* OPEN Plan (Free) */}
-        <div className="flex flex-col rounded-[28px] bg-[#F4F4F5] p-1.5 ring-1 ring-zinc-900/5 shadow-sm">
-          <div className="flex flex-col px-5 py-4 sm:px-7 sm:pt-6 sm:pb-6 h-[212px] rounded-[20px] bg-white ring-1 ring-zinc-200/80 shadow-sm relative">
+        <div className="flex flex-col rounded bg-[#F4F4F5] p-1.5 ring-1 ring-zinc-900/5 shadow-sm">
+          <div className="flex flex-col px-5 py-4 sm:px-7 sm:pt-6 sm:pb-6 h-[212px] rounded bg-white ring-1 ring-zinc-200/80 shadow-sm relative">
             <div>
               <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">OPEN</h3>
               <div className="mt-2.5 flex items-baseline leading-none">
@@ -52,7 +52,7 @@ export function Pricing() {
             </button>
           </div>
 
-          <div className="flex-1 mt-1.5 rounded-[22px] bg-white ring-1 ring-zinc-200/80 shadow-sm px-5 py-5 sm:px-7 sm:py-6">
+          <div className="flex-1 mt-1.5 rounded bg-white ring-1 ring-zinc-200/80 shadow-sm px-5 py-5 sm:px-7 sm:py-6">
             <ul className="flex flex-col gap-y-2.5">
               {[
                 "All platform features (with limits)",
@@ -72,8 +72,8 @@ export function Pricing() {
         </div>
 
         {/* ENTERPRISE Plan */}
-        <div className="flex flex-col rounded-[28px] bg-[#3f3f46] p-1.5 shadow-2xl relative">
-          <div className="flex flex-col px-5 py-4 sm:px-7 sm:pt-6 sm:pb-6 h-[212px] rounded-[20px] bg-[#18181b] relative">
+        <div className="flex flex-col rounded bg-[#3f3f46] p-1.5 shadow-2xl relative">
+          <div className="flex flex-col px-5 py-4 sm:px-7 sm:pt-6 sm:pb-6 h-[212px] rounded bg-[#18181b] relative">
             <div>
               <div className="flex items-center gap-2.5">
                 <h3 className="text-xs font-semibold uppercase tracking-widest text-zinc-400">ENTERPRISE</h3>
@@ -91,7 +91,7 @@ export function Pricing() {
             </button>
           </div>
 
-          <div className="flex-1 mt-1.5 rounded-[22px] bg-[#222225] border border-white/5 px-5 py-5 sm:px-7 sm:py-6">
+          <div className="flex-1 mt-1.5 rounded bg-[#222225] border border-white/5 px-5 py-5 sm:px-7 sm:py-6">
             <p className="font-mono text-[12px] text-zinc-400 mb-4">Everything in Free, plus:</p>
             <ul className="flex flex-col gap-y-2.5">
               {[

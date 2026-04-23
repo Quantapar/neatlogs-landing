@@ -192,9 +192,9 @@ function VisualCard({
 }) {
   return (
     <div
-      className={`mx-auto w-full max-w-[320px] rounded-[20px] border border-zinc-900/10 bg-[#FCFCFD] p-1.5 shadow-[0_24px_48px_-20px_rgba(12,20,40,0.2),0_10px_20px_-12px_rgba(12,20,40,0.1)] ${className}`}
+      className={`mx-auto w-full max-w-[320px] rounded border border-zinc-900/10 bg-[#FCFCFD] p-1.5 shadow-[0_24px_48px_-20px_rgba(12,20,40,0.2),0_10px_20px_-12px_rgba(12,20,40,0.1)] ${className}`}
     >
-      <div className="relative aspect-[4/3] overflow-hidden rounded-[16px] bg-white ring-1 ring-zinc-900/10">
+      <div className="relative aspect-[4/3] overflow-hidden rounded bg-white ring-1 ring-zinc-900/10">
         <div className="relative h-full p-5">{children}</div>
       </div>
     </div>
