@@ -362,6 +362,41 @@ export function HeroScene() {
         />
       </motion.div>
 
+      {/* === LAYER 4a: LEFT-END BRIDGE MIST — subtle drifting veil where the deck trails off === */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-[77%] right-[30%] h-[12%] w-[26%] overflow-hidden mix-blend-screen motion-reduce:hidden sm:right-[32%] sm:w-[22%] lg:right-[34%] lg:w-[20%]"
+        style={{
+          maskImage:
+            "linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%), linear-gradient(to right, #000 0%, #000 45%, rgba(0,0,0,0.7) 72%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%), linear-gradient(to right, #000 0%, #000 45%, rgba(0,0,0,0.7) 72%, transparent 100%)",
+          maskComposite: "intersect",
+          WebkitMaskComposite: "source-in",
+          y: liveBridgeMistY,
+        }}
+      >
+        <div
+          className="flex h-full w-[200%] motion-safe:animate-[fog-drift_38s_linear_infinite]"
+          style={{ animationDelay: "-14s", animationDirection: "reverse" }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/scene/clouds-strip.png"
+            alt=""
+            className="h-full w-1/2 object-cover object-center"
+            style={{ filter: "blur(1.8px) saturate(0.6) brightness(1.3)" }}
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/scene/clouds-strip.png"
+            alt=""
+            className="h-full w-1/2 object-cover object-center"
+            style={{ filter: "blur(1.8px) saturate(0.6) brightness(1.3)" }}
+          />
+        </div>
+      </motion.div>
+
       {/* === LAYER 4b: LIVE BRIDGE MIST === */}
       <motion.div
         aria-hidden="true"
