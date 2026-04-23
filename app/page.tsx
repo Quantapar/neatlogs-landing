@@ -78,14 +78,20 @@ export default function () {
               src="/scene/clouds-strip.png"
               alt=""
               className="h-full w-1/2 object-cover object-center scale-y-125"
-              style={{ filter: "blur(3px) saturate(0.7) brightness(1.25) contrast(1.15)" }}
+              style={{
+                filter:
+                  "blur(3px) saturate(0.7) brightness(1.25) contrast(1.15)",
+              }}
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/scene/clouds-strip.png"
               alt=""
               className="h-full w-1/2 object-cover object-center scale-y-125"
-              style={{ filter: "blur(3px) saturate(0.7) brightness(1.25) contrast(1.15)" }}
+              style={{
+                filter:
+                  "blur(3px) saturate(0.7) brightness(1.25) contrast(1.15)",
+              }}
             />
           </div>
         </div>
@@ -110,14 +116,20 @@ export default function () {
               src="/scene/clouds-strip.png"
               alt=""
               className="h-full w-1/2 object-cover object-center -scale-x-100 scale-y-150"
-              style={{ filter: "blur(8px) saturate(0.6) brightness(1.22) contrast(1.1)" }}
+              style={{
+                filter:
+                  "blur(8px) saturate(0.6) brightness(1.22) contrast(1.1)",
+              }}
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/scene/clouds-strip.png"
               alt=""
               className="h-full w-1/2 object-cover object-center -scale-x-100 scale-y-150"
-              style={{ filter: "blur(8px) saturate(0.6) brightness(1.22) contrast(1.1)" }}
+              style={{
+                filter:
+                  "blur(8px) saturate(0.6) brightness(1.22) contrast(1.1)",
+              }}
             />
           </div>
         </div>
@@ -155,14 +167,20 @@ export default function () {
               src="/scene/clouds-strip.png"
               alt=""
               className="h-full w-1/2 object-cover object-center scale-y-100"
-              style={{ filter: "blur(4px) saturate(0.65) brightness(1.2) contrast(1.08)" }}
+              style={{
+                filter:
+                  "blur(4px) saturate(0.65) brightness(1.2) contrast(1.08)",
+              }}
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/scene/clouds-strip.png"
               alt=""
               className="h-full w-1/2 object-cover object-center scale-y-100"
-              style={{ filter: "blur(4px) saturate(0.65) brightness(1.2) contrast(1.08)" }}
+              style={{
+                filter:
+                  "blur(4px) saturate(0.65) brightness(1.2) contrast(1.08)",
+              }}
             />
           </div>
         </div>
@@ -199,14 +217,20 @@ export default function () {
               src="/scene/clouds-strip.png"
               alt=""
               className="h-full w-1/2 object-cover object-center scale-y-150"
-              style={{ filter: "blur(3px) saturate(0.7) brightness(1.28) contrast(1.1)" }}
+              style={{
+                filter:
+                  "blur(3px) saturate(0.7) brightness(1.28) contrast(1.1)",
+              }}
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/scene/clouds-strip.png"
               alt=""
               className="h-full w-1/2 object-cover object-center scale-y-150"
-              style={{ filter: "blur(3px) saturate(0.7) brightness(1.28) contrast(1.1)" }}
+              style={{
+                filter:
+                  "blur(3px) saturate(0.7) brightness(1.28) contrast(1.1)",
+              }}
             />
           </div>
         </div>
@@ -254,14 +278,20 @@ export default function () {
               src="/scene/clouds-strip.png"
               alt=""
               className="h-full w-1/2 object-cover object-center scale-y-110"
-              style={{ filter: "blur(3px) saturate(0.7) brightness(1.25) contrast(1.1)" }}
+              style={{
+                filter:
+                  "blur(3px) saturate(0.7) brightness(1.25) contrast(1.1)",
+              }}
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/scene/clouds-strip.png"
               alt=""
               className="h-full w-1/2 object-cover object-center scale-y-110"
-              style={{ filter: "blur(3px) saturate(0.7) brightness(1.25) contrast(1.1)" }}
+              style={{
+                filter:
+                  "blur(3px) saturate(0.7) brightness(1.25) contrast(1.1)",
+              }}
             />
           </div>
         </div>
@@ -269,7 +299,7 @@ export default function () {
         {/* Layer 4: Bridge — on top of all fog so the fog never brightens the bridge. Anchored to the right; right tower + deck end over the two pillars on the right hill. Ground layer (above bridge in z-order) clips the overlap. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-[62%] right-[6%] h-[34%] w-[64%] sm:right-[8%] sm:w-[58%] lg:right-[10%] lg:w-[54%]"
+          className="pointer-events-none absolute top-[52%] right-[-8%] h-[43%] w-[64%] sm:right-[-6%] sm:w-[58%] lg:right-[-4%] lg:w-[54%]"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -302,14 +332,20 @@ export default function () {
               src="/scene/clouds-strip.png"
               alt=""
               className="h-full w-1/2 object-cover object-center scale-y-125"
-              style={{ filter: "blur(2.5px) saturate(0.75) brightness(1.32) contrast(1.18)" }}
+              style={{
+                filter:
+                  "blur(2.5px) saturate(0.75) brightness(1.32) contrast(1.18)",
+              }}
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/scene/clouds-strip.png"
               alt=""
               className="h-full w-1/2 object-cover object-center scale-y-125"
-              style={{ filter: "blur(2.5px) saturate(0.75) brightness(1.32) contrast(1.18)" }}
+              style={{
+                filter:
+                  "blur(2.5px) saturate(0.75) brightness(1.32) contrast(1.18)",
+              }}
             />
           </div>
         </div>
@@ -336,22 +372,20 @@ export default function () {
           />
         </div>
 
-        {/* Layer 5: Ground — hills in foreground, closest to viewer */}
-        <div
+        {/* Layer 5: Ground — hills in foreground, closest to viewer. Using natural aspect ratio (h-auto) so the image isn't zoom-cropped by a forced container height. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/scene/ground-v5.png"
+          alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-[-5%] h-[55%] sm:h-[52%]"
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/scene/ground-v3.png"
-            alt=""
-            className="h-full w-full object-cover object-bottom"
-            style={{ filter: "url(#defringe-purple) saturate(0.7) brightness(1.18)" }}
-          />
-        </div>
+          className="pointer-events-none absolute inset-x-0 bottom-[-19%] h-auto w-full"
+        />
 
         {/* SVG color-matrix filter: defringes AI magenta artifacts AND shifts the greens toward a warm olive (#A3A267). Red row picks up green to push foliage toward yellow-olive; blue row is heavily attenuated to kill purple cast and cool tones. */}
-        <svg aria-hidden="true" className="pointer-events-none absolute h-0 w-0">
+        <svg
+          aria-hidden="true"
+          className="pointer-events-none absolute h-0 w-0"
+        >
           <defs>
             <filter id="defringe-purple" colorInterpolationFilters="sRGB">
               <feColorMatrix
