@@ -29,7 +29,7 @@ export function Navbar() {
             alt=""
             width={40}
             height={40}
-            className="size-10 rounded-[10px] shadow-[0_1px_2px_rgba(0,0,0,0.08)] ring-1 ring-black/5 transition-transform duration-200 ease-out hover-hover:group-hover:-rotate-3 motion-reduce:transition-none"
+            className="size-10 rounded-[22%] ring-1 ring-zinc-900/10 transition-transform duration-200 ease-out hover-hover:group-hover:-rotate-3 motion-reduce:transition-none"
             priority
           />
           <span className="font-pixel text-lg font-medium tracking-tight text-zinc-950 hidden sm:inline sm:text-xl">
@@ -76,7 +76,7 @@ export function Navbar() {
         <div className="hidden shrink-0 items-center gap-2 md:flex">
           <Link
             href="/demo"
-            className="font-ui group inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-full bg-(--glass-bg) px-4 text-sm font-medium text-zinc-950 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-zinc-900/10 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-out touch-manipulation hover:bg-white/8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
+            className="font-ui group inline-flex h-10 cursor-pointer items-center gap-1.5 rounded bg-(--glass-bg) px-4 text-sm font-medium text-zinc-950 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-zinc-900/10 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-out touch-manipulation hover:bg-white/8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
           >
             Book a Demo
             <svg
@@ -94,7 +94,7 @@ export function Navbar() {
           </Link>
           <Link
             href="/signup"
-            className="font-ui inline-flex h-10 cursor-pointer items-center justify-center rounded-full bg-zinc-950/80 px-5 text-sm font-medium text-white shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.18)] ring-1 ring-white/15 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-out touch-manipulation hover:bg-zinc-950/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
+            className="font-ui inline-flex h-10 cursor-pointer items-center justify-center rounded bg-zinc-950/80 px-5 text-sm font-medium text-white shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.18)] ring-1 ring-white/15 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-out touch-manipulation hover:bg-zinc-950/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
           >
             Sign Up
           </Link>
@@ -106,7 +106,7 @@ export function Navbar() {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className="inline-flex size-10 cursor-pointer items-center justify-center rounded-full bg-(--glass-bg) text-zinc-900 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-zinc-900/10 backdrop-blur-xs transition-[background-color,transform] duration-150 hover-hover:hover:bg-white/8 active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] md:hidden"
+          className="inline-flex size-10 cursor-pointer items-center justify-center rounded bg-(--glass-bg) text-zinc-900 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-zinc-900/10 backdrop-blur-xs transition-[background-color,transform] duration-150 hover-hover:hover:bg-white/8 active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] md:hidden"
         >
           <svg
             viewBox="0 0 24 24"
@@ -185,7 +185,7 @@ export function Navbar() {
                 <Link
                   href="/demo"
                   onClick={() => setOpen(false)}
-                  className="font-ui inline-flex h-11 cursor-pointer items-center justify-center gap-1.5 rounded-full border border-zinc-900/10 bg-white/80 px-5 text-sm font-medium text-zinc-900 transition-[background-color,transform] duration-150 ease-snap hover:bg-white active:scale-[0.97] motion-reduce:active:scale-100"
+                  className="font-ui inline-flex h-11 cursor-pointer items-center justify-center gap-1.5 rounded border border-zinc-900/10 bg-white/80 px-5 text-sm font-medium text-zinc-900 transition-[background-color,transform] duration-150 ease-snap hover:bg-white active:scale-[0.97] motion-reduce:active:scale-100"
                 >
                   Book a Demo
                   <svg
@@ -204,7 +204,7 @@ export function Navbar() {
                 <Link
                   href="/signup"
                   onClick={() => setOpen(false)}
-                  className="font-ui inline-flex h-11 cursor-pointer items-center justify-center rounded-full bg-zinc-950/80 px-6 text-sm font-medium text-white shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.18)] ring-1 ring-white/15 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-snap touch-manipulation hover-hover:hover:bg-zinc-950/90 active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
+                  className="font-ui inline-flex h-11 cursor-pointer items-center justify-center rounded bg-zinc-950/80 px-6 text-sm font-medium text-white shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.18)] ring-1 ring-white/15 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-snap touch-manipulation hover-hover:hover:bg-zinc-950/90 active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
                 >
                   Sign Up
                 </Link>

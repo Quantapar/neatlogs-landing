@@ -47,7 +47,7 @@ export function Pricing() {
               </div>
               <p className="mt-2.5 text-[13.5px] font-medium text-zinc-600">No credit card required</p>
             </div>
-            <button type="button" className="font-ui mt-auto w-full cursor-pointer rounded-full bg-zinc-950 py-3 px-4 text-[14px] font-semibold text-white shadow-md transition-[transform,background-color] duration-150 ease-snap hover:bg-zinc-800 hover-hover:hover:scale-[1.02] active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2">
+            <button type="button" className="font-ui mt-auto w-full cursor-pointer rounded bg-zinc-950 py-3 px-4 text-[14px] font-semibold text-white shadow-md transition-[transform,background-color] duration-150 ease-snap hover:bg-zinc-800 hover-hover:hover:scale-[1.02] active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2">
               Get Started
             </button>
           </div>
@@ -86,7 +86,7 @@ export function Pricing() {
               </div>
               <p className="mt-2.5 text-[13.5px] font-medium text-zinc-400">For large teams</p>
             </div>
-            <button type="button" className="font-ui mt-auto w-full cursor-pointer rounded-full bg-white py-3 px-4 text-[14px] font-semibold text-zinc-950 transition-transform duration-150 ease-snap hover-hover:hover:scale-[1.02] active:scale-[0.97] motion-reduce:active:scale-100 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+            <button type="button" className="font-ui mt-auto w-full cursor-pointer rounded bg-white py-3 px-4 text-[14px] font-semibold text-zinc-950 transition-transform duration-150 ease-snap hover-hover:hover:scale-[1.02] active:scale-[0.97] motion-reduce:active:scale-100 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
               Book a Call
             </button>
           </div>

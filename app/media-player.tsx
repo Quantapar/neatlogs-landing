@@ -175,7 +175,7 @@ function ControlButton({
       type="button"
       onClick={onClick}
       aria-label={ariaLabel}
-      className={`inline-flex h-10 cursor-pointer items-center gap-2 rounded-full bg-white text-[13px] font-medium text-zinc-900 shadow-[0_1px_2px_rgba(12,20,40,0.08),0_0_0_1px_rgba(12,20,40,0.06)] transition-[transform,background-color,box-shadow] duration-150 ease touch-manipulation hover:bg-zinc-50 hover:shadow-[0_4px_10px_-4px_rgba(12,20,40,0.12),0_0_0_1px_rgba(12,20,40,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100 ${
+      className={`inline-flex h-10 cursor-pointer items-center gap-2 rounded bg-white text-[13px] font-medium text-zinc-900 shadow-[0_1px_2px_rgba(12,20,40,0.08),0_0_0_1px_rgba(12,20,40,0.06)] transition-[transform,background-color,box-shadow] duration-150 ease touch-manipulation hover:bg-zinc-50 hover:shadow-[0_4px_10px_-4px_rgba(12,20,40,0.12),0_0_0_1px_rgba(12,20,40,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100 ${
         round ? "w-10 justify-center p-0" : "px-4"
       }`}
     >

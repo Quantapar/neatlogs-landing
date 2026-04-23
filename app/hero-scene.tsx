@@ -44,17 +44,23 @@ export function HeroScene() {
     restDelta: 0.001,
   });
 
-  const skyY = useParallax(smoothProgress, 20 * scale);
-  const skylineY = useParallax(smoothProgress, 48 * scale);
+  // Depth-graded speeds — ratios picked so each layer moves noticeably slower
+  // than the one in front of it. Sky creeps, skyline floats, fog drifts.
+  // Bridge keeps a small lead over the ground (+15) so it feels like it's
+  // moving — but the delta stays tight so the right tower doesn't detach
+  // from the hill. Ground hides any overshoot at the base via z-order clipping.
+  const groundDistance = 115;
+  const skyY = useParallax(smoothProgress, 15 * scale);
   const warmDriftY = useParallax(smoothProgress, 55 * scale);
-  const skylineMistY = useParallax(smoothProgress, 60 * scale);
-  const blueDriftY = useParallax(smoothProgress, 65 * scale);
-  const midBayFogY = useParallax(smoothProgress, 72 * scale);
-  const mainBayFogY = useParallax(smoothProgress, 82 * scale);
-  const bridgeBaseDriftY = useParallax(smoothProgress, 88 * scale);
-  const bridgeY = useParallax(smoothProgress, 96 * scale);
-  const liveBridgeMistY = useParallax(smoothProgress, 100 * scale);
-  const groundY = useParallax(smoothProgress, 120 * scale);
+  const skylineY = useParallax(smoothProgress, 75 * scale);
+  const skylineMistY = useParallax(smoothProgress, 95 * scale);
+  const blueDriftY = useParallax(smoothProgress, 110 * scale);
+  const midBayFogY = useParallax(smoothProgress, 140 * scale);
+  const mainBayFogY = useParallax(smoothProgress, 165 * scale);
+  const bridgeBaseDriftY = useParallax(smoothProgress, groundDistance * scale);
+  const bridgeY = useParallax(smoothProgress, (groundDistance + 15) * scale);
+  const liveBridgeMistY = useParallax(smoothProgress, (groundDistance + 25) * scale);
+  const groundY = useParallax(smoothProgress, groundDistance * scale);
 
   return (
     <div

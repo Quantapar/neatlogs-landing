@@ -129,7 +129,7 @@ function Sidebar() {
             alt=""
             width={22}
             height={22}
-            className={`size-[22px] rounded-md ring-1 ring-black/5 transition-opacity duration-150 ${collapsed ? "group-hover:opacity-0" : ""}`}
+            className={`size-[22px] rounded-[22%] ring-1 ring-zinc-900/10 transition-opacity duration-150 ${collapsed ? "group-hover:opacity-0" : ""}`}
           />
           {collapsed && (
             <PanelLeft className="absolute size-4 text-zinc-700 opacity-0 transition-opacity duration-150 group-hover:opacity-100" />

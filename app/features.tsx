@@ -173,12 +173,12 @@ export const Features = () => {
               className="lg:col-span-2"
             >
               <div className="w-full h-[220px] -mt-6 sm:-mt-10 scale-110 flex items-center justify-center relative select-none mx-auto overflow-hidden rounded-[8px]">
-                <div className="relative z-20 flex size-13 translate-y-2 items-center justify-center rounded-2xl bg-white p-1 shadow-[inset_0_2px_6px_rgba(113,113,122,0.22),inset_0_-1px_3px_rgba(113,113,122,0.1),0_2px_4px_rgba(12,20,40,0.06),0_10px_20px_-6px_rgba(12,20,40,0.18),0_22px_40px_-10px_rgba(12,20,40,0.2)] ring-1 ring-zinc-900/[0.08]">
+                <div className="relative z-20 flex size-13 translate-y-2 items-center justify-center">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/nl-logo.png"
                     alt="Neatlogs"
-                    className="size-full rounded-xl object-contain"
+                    className="size-full rounded-[22%] object-contain ring-1 ring-zinc-900/10 drop-shadow-[0_10px_20px_rgba(12,20,40,0.18)]"
                   />
                 </div>
 
@@ -528,12 +528,12 @@ export const Features = () => {
                     <div className="w-[110px] sm:w-[130px] h-[90px] sm:h-[110px] bg-white border border-gray-100 rounded-[10px] shadow-sm z-10 relative mx-1 overflow-hidden scale-[0.6] sm:scale-100 origin-center">
                       <FlickeringGrid />
                       <div className="relative z-10 flex h-full w-full items-center justify-center">
-                        <div className="flex size-9 sm:size-11 items-center justify-center rounded-xl bg-white p-1 shadow-[inset_0_2px_6px_rgba(113,113,122,0.22),inset_0_-1px_3px_rgba(113,113,122,0.1),0_2px_4px_rgba(12,20,40,0.06),0_10px_20px_-6px_rgba(12,20,40,0.18),0_22px_40px_-10px_rgba(12,20,40,0.2)] ring-1 ring-zinc-900/[0.08]">
+                        <div className="flex size-9 sm:size-11 items-center justify-center">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src="/nl-logo.png"
                             alt="Neatlogs"
-                            className="size-full rounded-lg object-contain"
+                            className="size-full rounded-[22%] object-contain ring-1 ring-zinc-900/10"
                             style={{ filter: "invert(42%)" }}
                           />
                         </div>

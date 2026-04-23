@@ -273,13 +273,13 @@ function AgentRunsVisual() {
   return (
     <VisualCard>
       <FlickeringGrid />
-      <div className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-white p-1 shadow-[inset_0_2px_6px_rgba(113,113,122,0.22),inset_0_-1px_3px_rgba(113,113,122,0.1),0_2px_4px_rgba(12,20,40,0.06),0_10px_20px_-6px_rgba(12,20,40,0.18),0_22px_40px_-10px_rgba(12,20,40,0.2)] ring-1 ring-zinc-900/[0.08]">
+      <div className="absolute left-1/2 top-1/2 flex size-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
         <Image
           src="/nl-logo.png"
           alt="Neatlogs"
-          width={56}
-          height={56}
-          className="size-full rounded-xl"
+          width={64}
+          height={64}
+          className="size-full rounded-[22%] object-contain ring-1 ring-zinc-900/10 drop-shadow-[0_10px_20px_rgba(12,20,40,0.22)]"
         />
       </div>
     </VisualCard>
