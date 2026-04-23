@@ -206,7 +206,7 @@ export function Integrations() {
                       <motion.div
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="flex size-9 sm:size-16 cursor-pointer items-center justify-center rounded-xl sm:rounded-2xl bg-white shadow-[0_4px_16px_rgba(0,0,0,0.04)] ring-1 ring-zinc-900/5 transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
+                        className="flex size-9 sm:size-16 cursor-pointer items-center justify-center rounded bg-white shadow-[0_4px_16px_rgba(0,0,0,0.04)] ring-1 ring-zinc-900/5 transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
                         title={app.name}
                       >
                         {app.icon}

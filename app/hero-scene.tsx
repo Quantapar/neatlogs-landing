@@ -44,23 +44,28 @@ export function HeroScene() {
     restDelta: 0.001,
   });
 
-  // Depth-graded speeds — ratios picked so each layer moves noticeably slower
-  // than the one in front of it. Sky creeps, skyline floats, fog drifts.
-  // Bridge keeps a small lead over the ground (+15) so it feels like it's
-  // moving — but the delta stays tight so the right tower doesn't detach
-  // from the hill. Ground hides any overshoot at the base via z-order clipping.
-  const groundDistance = 115;
-  const skyY = useParallax(smoothProgress, 15 * scale);
-  const warmDriftY = useParallax(smoothProgress, 55 * scale);
-  const skylineY = useParallax(smoothProgress, 135 * scale);
-  const skylineMistY = useParallax(smoothProgress, 145 * scale);
-  const blueDriftY = useParallax(smoothProgress, 110 * scale);
-  const midBayFogY = useParallax(smoothProgress, 140 * scale);
-  const mainBayFogY = useParallax(smoothProgress, 165 * scale);
-  const bridgeBaseDriftY = useParallax(smoothProgress, groundDistance * scale);
-  const bridgeY = useParallax(smoothProgress, (groundDistance + 15) * scale);
-  const liveBridgeMistY = useParallax(smoothProgress, (groundDistance + 25) * scale);
+  // Depth-graded speeds, sorted back → front (slow → fast). The layer closest
+  // to the viewer (ground foliage) moves the most, the sky barely creeps.
+  // Spread is wide (~14× between slowest and fastest) so the effect actually
+  // reads — anything tighter feels static. Bridge + live-bridge-mist are
+  // tethered to groundDistance so they drift as a cohesive group.
+  const groundDistance = 290;
+  const skyY = useParallax(smoothProgress, 20 * scale);
+  const skylineY = useParallax(smoothProgress, (groundDistance - 45) * scale);
+  const skylineMistY = useParallax(smoothProgress, (groundDistance - 30) * scale);
+  const warmDriftY = useParallax(smoothProgress, 80 * scale);
+  const blueDriftY = useParallax(smoothProgress, 115 * scale);
+  const midBayFogY = useParallax(smoothProgress, 150 * scale);
+  const mainBayFogY = useParallax(smoothProgress, 185 * scale);
+  const bridgeBaseDriftY = useParallax(smoothProgress, (groundDistance - 80) * scale);
+  const bridgeY = useParallax(smoothProgress, (groundDistance - 60) * scale);
+  const liveBridgeMistY = useParallax(smoothProgress, (groundDistance - 35) * scale);
   const groundY = useParallax(smoothProgress, groundDistance * scale);
+
+  // Bottom white guard — invisible at rest so the scene reads clean, fades in
+  // as the ground parallaxes up so the sky's warm wash doesn't leak through
+  // the newly-exposed bottom of the hero.
+  const bottomGuardOpacity = useTransform(smoothProgress, [0, 0.3, 1], [0, 0, 1]);
 
   return (
     <div
@@ -82,6 +87,21 @@ export function HeroScene() {
           className="object-cover"
         />
       </motion.div>
+
+      {/* Bottom white guard — sits in front of the sky. As scroll progresses
+          and the ground parallaxes up, this fade-in masks the pink/cream sky
+          wash that would otherwise leak through the exposed bottom. Every
+          subsequent scene layer (fog, bridge, ground) paints on top of this,
+          so nothing is obscured at rest. */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[42%]"
+        style={{
+          opacity: bottomGuardOpacity,
+          background:
+            "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.75) 42%, rgba(255,255,255,1) 82%)",
+        }}
+      />
 
       {/* Distant city skyline — small + far-away on the left, veiled by the fog layers that come after it. */}
       <motion.div
@@ -362,15 +382,17 @@ export function HeroScene() {
         />
       </motion.div>
 
-      {/* === LAYER 4a: LEFT-END BRIDGE MIST — subtle drifting veil where the deck trails off === */}
+      {/* === LAYER 4a: LEFT-END BRIDGE MIST — cloud wave that stretches from
+           the bridge's trailing deck across the open sky, filling the gap that
+           opens up when the ground parallaxes upward on scroll. === */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute top-[77%] right-[30%] h-[12%] w-[26%] overflow-hidden mix-blend-screen motion-reduce:hidden sm:right-[32%] sm:w-[22%] lg:right-[34%] lg:w-[20%]"
+        className="pointer-events-none absolute top-[77%] right-[30%] h-[12%] w-[68%] overflow-hidden mix-blend-screen motion-reduce:hidden sm:right-[32%] sm:w-[66%] lg:right-[34%] lg:w-[64%]"
         style={{
           maskImage:
-            "linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%), linear-gradient(to right, #000 0%, #000 45%, rgba(0,0,0,0.7) 72%, transparent 100%)",
+            "linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%), linear-gradient(to right, transparent 0%, rgba(0,0,0,0.35) 6%, rgba(0,0,0,0.75) 18%, #000 32%, #000 58%, rgba(0,0,0,0.7) 78%, transparent 100%)",
           WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%), linear-gradient(to right, #000 0%, #000 45%, rgba(0,0,0,0.7) 72%, transparent 100%)",
+            "linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%), linear-gradient(to right, transparent 0%, rgba(0,0,0,0.35) 6%, rgba(0,0,0,0.75) 18%, #000 32%, #000 58%, rgba(0,0,0,0.7) 78%, transparent 100%)",
           maskComposite: "intersect",
           WebkitMaskComposite: "source-in",
           y: liveBridgeMistY,

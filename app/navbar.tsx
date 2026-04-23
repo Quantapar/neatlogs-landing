@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const NAV_LINKS = [
   { href: "#features", label: "Features" },
-  { href: "#how-it-works", label: "How it works" },
+  { href: "#how-it-works", label: "Workflow" },
   { href: "#integrations", label: "Integrations" },
   { href: "#pricing", label: "Pricing" },
   { href: "#faq", label: "FAQ" },
@@ -18,7 +18,7 @@ export function Navbar() {
 
   return (
     <header className="absolute inset-x-0 top-0 z-50 w-full">
-      <div className="relative mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-5 sm:h-[68px] sm:px-7 lg:px-10">
+      <div className="relative mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-5 sm:h-17 sm:px-7 lg:px-10">
         <Link
           href="/"
           aria-label="Neatlogs home"
@@ -48,12 +48,13 @@ export function Navbar() {
                   e.preventDefault();
                   const prefersReducedMotion =
                     typeof window !== "undefined" &&
-                    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                    window.matchMedia("(prefers-reduced-motion: reduce)")
+                      .matches;
                   document.querySelector(href)?.scrollIntoView({
                     behavior: prefersReducedMotion ? "auto" : "smooth",
                   });
                 }}
-                className="font-ui cursor-pointer text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
+                className="font-ui cursor-pointer text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 ease-out hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
               >
                 {label}
               </a>
@@ -61,7 +62,7 @@ export function Navbar() {
               <Link
                 key={href}
                 href={href}
-                className="font-ui cursor-pointer text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
+                className="font-ui cursor-pointer text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 ease-out hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
               >
                 {label}
               </Link>
@@ -139,7 +140,7 @@ export function Navbar() {
       >
         <div className="overflow-hidden">
           <div
-            className={`mx-4 -mt-1 rounded-2xl bg-(--glass-bg) ring-1 ring-zinc-900/10 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] backdrop-blur-md transition-[opacity,transform] duration-[220ms] ease-snap ${
+            className={`mx-4 -mt-1 rounded bg-(--glass-bg) ring-1 ring-zinc-900/10 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] backdrop-blur-md transition-[opacity,transform] duration-[220ms] ease-snap ${
               open
                 ? "opacity-100 translate-y-0"
                 : "pointer-events-none -translate-y-2 opacity-0"
@@ -157,7 +158,8 @@ export function Navbar() {
                       setOpen(false);
                       const prefersReducedMotion =
                         typeof window !== "undefined" &&
-                        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                        window.matchMedia("(prefers-reduced-motion: reduce)")
+                          .matches;
                       document.querySelector(href)?.scrollIntoView({
                         behavior: prefersReducedMotion ? "auto" : "smooth",
                       });
