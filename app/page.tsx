@@ -299,7 +299,7 @@ export default function () {
         {/* Layer 4: Bridge — on top of all fog so the fog never brightens the bridge. Anchored to the right; right tower + deck end over the two pillars on the right hill. Ground layer (above bridge in z-order) clips the overlap. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-[52%] right-[-8%] h-[43%] w-[64%] sm:right-[-6%] sm:w-[58%] lg:right-[-4%] lg:w-[54%]"
+          className="pointer-events-none absolute top-[54%] right-[-6%] h-[43%] w-[64%] sm:right-[-4%] sm:w-[58%] lg:right-[-2%] lg:w-[54%]"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
