@@ -9,7 +9,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 type NavLink = { href: string; label: string; external?: boolean };
 
@@ -60,31 +60,6 @@ export function Navbar() {
   const navPadSm = useMotionTemplate`${padSm}px`;
   const navPadLg = useMotionTemplate`${padLg}px`;
 
-  // Measure the nav's natural (right-cluster) position, then translate it left
-  // by the delta to the viewport center when progress=0. Using offsetLeft walk
-  // keeps the reading immune to the element's own current translateX.
-  const navRef = useRef<HTMLElement>(null);
-  const [navRestOffset, setNavRestOffset] = useState(0);
-  useLayoutEffect(() => {
-    if (typeof window === "undefined") return;
-    const measure = () => {
-      const el = navRef.current;
-      if (!el) return;
-      let docLeft = 0;
-      let cursor: HTMLElement | null = el;
-      while (cursor) {
-        docLeft += cursor.offsetLeft;
-        cursor = cursor.offsetParent as HTMLElement | null;
-      }
-      const natCenter = docLeft + el.offsetWidth / 2;
-      setNavRestOffset(window.innerWidth / 2 - natCenter);
-    };
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
-  const navX = useTransform(progress, [0, 1], [navRestOffset, 0]);
-
   return (
     <motion.header
       style={{ backgroundColor, backdropFilter, borderBottomColor }}
@@ -116,35 +91,34 @@ export function Navbar() {
           />
         </Link>
 
+        <nav
+          aria-label="Primary"
+          className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-7 md:flex lg:gap-9"
+        >
+          {NAV_LINKS.map(({ href, label, external }) =>
+            external ? (
+              <a
+                key={href}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-ui cursor-pointer whitespace-nowrap text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 ease-out hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
+              >
+                {label}
+              </a>
+            ) : (
+              <Link
+                key={href}
+                href={href}
+                className="font-ui cursor-pointer whitespace-nowrap text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 ease-out hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
+              >
+                {label}
+              </Link>
+            ),
+          )}
+        </nav>
+
         <div className="hidden shrink-0 items-center md:flex">
-          <motion.nav
-            ref={navRef}
-            aria-label="Primary"
-            style={{ x: navX }}
-            className="flex items-center gap-7 pr-6 lg:gap-9 lg:pr-8"
-          >
-            {NAV_LINKS.map(({ href, label, external }) =>
-              external ? (
-                <a
-                  key={href}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-ui cursor-pointer whitespace-nowrap text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 ease-out hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
-                >
-                  {label}
-                </a>
-              ) : (
-                <Link
-                  key={href}
-                  href={href}
-                  className="font-ui cursor-pointer whitespace-nowrap text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 ease-out hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
-                >
-                  {label}
-                </Link>
-              ),
-            )}
-          </motion.nav>
           <div className="flex items-center gap-2">
             <Link
               href="/demo"
