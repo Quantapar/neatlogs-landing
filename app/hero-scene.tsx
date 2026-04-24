@@ -58,7 +58,11 @@ export function HeroScene() {
   // gently (easeInOut) so by ~30% scroll the full parallax is back to its
   // normal rhythm. Until BG_START, the scroll effectively hijacks into a
   // reveal: only the land rises, covering everything behind it.
-  const groundDistance = 170;
+  // Ground rises by ~80% of the land image's height during the hijack.
+  // 400px is roughly 80% of the visible portion of the image at a typical
+  // desktop viewport — enough that the land reads as fully scrolled up
+  // before the hijack releases and normal scrolling resumes.
+  const groundDistance = 400;
   const BG_START = 0.6;
   const skyY = useParallax(smoothProgress, 8 * scale, BG_START);
   const warmDriftY = useParallax(smoothProgress, 26 * scale, BG_START);
@@ -71,14 +75,12 @@ export function HeroScene() {
   const bridgeY = useParallax(smoothProgress, 88 * scale, BG_START);
   const liveBridgeMistY = useParallax(smoothProgress, 95 * scale, BG_START);
 
-  // Ground front-loads its rise so it reaches the target position by 40% of
-  // scroll, then holds. That cap is what keeps the hard bottom edge of the
-  // PNG from ever scrolling into view — after 40% the land is pinned in place
-  // while the bridge + skyline continue to rise through normal parallax.
-  const GROUND_STOP = 0.6;
+  // Ground completes its rise during the sticky phase (progress 0 → 0.5, which
+  // matches when sticky releases on a 200vh outer). After that it's locked —
+  // no further travel — so the hard bottom edge of the PNG never scrolls in.
   const groundY = useTransform(
     smoothProgress,
-    [0, GROUND_STOP, 1],
+    [0, BG_START, 1],
     [0, -groundDistance * scale, -groundDistance * scale],
   );
 
@@ -89,11 +91,10 @@ export function HeroScene() {
   const groundFilter = useTransform(groundBlurPx, (v) => `blur(${v}px)`);
 
   return (
-    // Outer = 250vh scroll track. Inner sticks at top:0 for the first 150vh
-    // of scroll (60% of progress), during which the land rises but the viewport
-    // stays pinned — scroll-hijack. Once sticky releases (progress > 0.6),
-    // normal page scroll resumes and the bridge + sky parallax into view as
-    // the inner stage slides upward with the page.
+    // Outer = 250vh scroll track. Inner `sticky top-0` pins for 150vh of scroll
+    // (progress 0 → 0.6) during which the land rises 80% of its height while
+    // the viewport stays locked. Once sticky releases, the page scrolls
+    // normally — bridge/sky parallax into view as the inner slides upward.
     <div ref={heroRef} className="relative w-full h-[250vh]">
       <div className="sticky top-0 w-full min-h-[680px] overflow-hidden md:min-h-0 md:h-screen md:max-h-[920px]">
       {/* Layer 1: Sky wash — furthest back, slowest parallax. */}
