@@ -42,6 +42,10 @@ export function Navbar() {
   const backgroundColor = useMotionTemplate`rgba(255, 255, 255, ${bgAlpha})`;
   const blurPx = useTransform(progress, [0, 1], [0, 12]);
   const backdropFilter = useMotionTemplate`blur(${blurPx}px)`;
+  // Hairline under the navbar fades in together with the bg wash — no line at
+  // page top, gently appears as the white blur layer becomes visible.
+  const borderAlpha = useTransform(progress, [0, 1], [0, 0.1]);
+  const borderBottomColor = useMotionTemplate`rgba(9, 9, 11, ${borderAlpha})`;
 
   const maxWidthMv = useTransform(progress, (p) => {
     if (typeof window === "undefined") return 1280;
@@ -83,8 +87,8 @@ export function Navbar() {
 
   return (
     <motion.header
-      style={{ backgroundColor, backdropFilter }}
-      className="fixed inset-x-0 top-0 z-50 w-full border-b border-zinc-900/10"
+      style={{ backgroundColor, backdropFilter, borderBottomColor }}
+      className="fixed inset-x-0 top-0 z-50 w-full border-b border-transparent"
     >
       <motion.div
         style={

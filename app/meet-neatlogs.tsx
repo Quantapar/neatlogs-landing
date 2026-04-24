@@ -22,8 +22,6 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "./reveal";
 
-const ACCENT = "#E8462F";
-
 export function MeetNeatlogs() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
@@ -40,8 +38,7 @@ export function MeetNeatlogs() {
       <div className="mx-auto max-w-6xl px-6 text-center">
         <span
           translate="no"
-          className="font-ui text-2xl sm:text-3xl font-semibold tracking-tight"
-          style={{ color: ACCENT }}
+          className="font-pixel text-2xl sm:text-3xl font-semibold tracking-tight"
         >
           <Reveal progress={scrollYProgress} from={0.05} to={0.1}>
             Meet Neatlogs
