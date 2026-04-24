@@ -36,16 +36,39 @@ export function MeetNeatlogs() {
       className="bg-[#FAFAFA] pt-10 sm:pt-14 lg:pt-16"
     >
       <div className="mx-auto max-w-6xl px-6 text-center">
-        <h2 className="font-pixel-circle text-balance text-4xl tracking-tight text-zinc-950 sm:text-5xl md:text-[56px]">
-          <Reveal
-            progress={scrollYProgress}
-            from={0.08}
-            to={0.15}
-            style={{ color: "rgb(9,9,11)" }}
-            baseColor="#ADB2B7"
-          >
-            From feedback to fix, in one place
+        <span
+          translate="no"
+          className="font-pixel-circle text-4xl sm:text-5xl tracking-tight"
+        >
+          <Reveal progress={scrollYProgress} from={0.05} to={0.1}>
+            meet neatlogs
           </Reveal>
+        </span>
+
+        <h2 className="mt-5 text-balance text-[22px] font-semibold leading-[1.2] tracking-tight sm:text-5xl sm:tracking-tighter md:text-[56px]">
+          <span className="text-zinc-950">
+            <Reveal
+              progress={scrollYProgress}
+              from={0.08}
+              to={0.15}
+              style={{ color: "rgb(9,9,11)" }}
+              baseColor="#ADB2B7"
+            >
+              the shared workspace for agent teams
+            </Reveal>
+          </span>
+          <br />
+          <span className="text-zinc-950">
+            <Reveal
+              progress={scrollYProgress}
+              from={0.15}
+              to={0.22}
+              style={{ color: "rgb(9,9,11)" }}
+              baseColor="#ADB2B7"
+            >
+              from bug to fix in one thread
+            </Reveal>
+          </span>
         </h2>
       </div>
 
