@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useRef } from "react";
 import {
-  easeInOut,
   motion,
   useReducedMotion,
   useScroll,
@@ -24,12 +23,10 @@ function useParallax(
   distance: number,
   startAt: number = 0,
 ) {
-  // Delayed layers get easeInOut so they ramp up from rest and taper at the
-  // end — avoids the velocity jump at `startAt` that caused visible jerk.
-  // Zero-delay layers stay linear so the ground tracks scroll 1:1.
-  return useTransform(value, [startAt, 1], [0, -distance], {
-    ease: startAt > 0 ? easeInOut : undefined,
-  });
+  // Linear map past `startAt` — delayed layers pick up immediately, so by the
+  // time the user has scrolled a touch past BG_START the parallax reads as
+  // "normal" rather than easing in from a near-stop.
+  return useTransform(value, [startAt, 1], [0, -distance]);
 }
 
 export function HeroScene() {
@@ -57,11 +54,12 @@ export function HeroScene() {
   // Depth-graded speeds — ratios picked so each layer moves noticeably slower
   // than the one in front of it. Sky creeps, skyline floats, fog drifts.
   // Ground moves from scroll start with a lively travel; every other layer
-  // stays locked until the ground is 50% through its travel, then catches up
-  // gently over the remaining window (distances kept small + easeInOut so
-  // the entry feels soft, not jerky).
+  // stays locked until the ground is 20% through its travel, then catches up
+  // gently (easeInOut) so by ~30% scroll the full parallax is back to its
+  // normal rhythm. Until BG_START, the scroll effectively hijacks into a
+  // reveal: only the land rises, covering everything behind it.
   const groundDistance = 170;
-  const BG_START = 0.3;
+  const BG_START = 0.6;
   const skyY = useParallax(smoothProgress, 8 * scale, BG_START);
   const warmDriftY = useParallax(smoothProgress, 26 * scale, BG_START);
   const skylineY = useParallax(smoothProgress, 62 * scale, BG_START);
@@ -72,7 +70,17 @@ export function HeroScene() {
   const bridgeBaseDriftY = useParallax(smoothProgress, 78 * scale, BG_START);
   const bridgeY = useParallax(smoothProgress, 88 * scale, BG_START);
   const liveBridgeMistY = useParallax(smoothProgress, 95 * scale, BG_START);
-  const groundY = useParallax(smoothProgress, groundDistance * scale);
+
+  // Ground front-loads its rise so it reaches the target position by 40% of
+  // scroll, then holds. That cap is what keeps the hard bottom edge of the
+  // PNG from ever scrolling into view — after 40% the land is pinned in place
+  // while the bridge + skyline continue to rise through normal parallax.
+  const GROUND_STOP = 0.6;
+  const groundY = useTransform(
+    smoothProgress,
+    [0, GROUND_STOP, 1],
+    [0, -groundDistance * scale, -groundDistance * scale],
+  );
 
   // Subtle blur on the land at rest so the bridge reads as the focal point.
   // Clears out within the first sliver of scroll — the moment the land starts
@@ -81,10 +89,13 @@ export function HeroScene() {
   const groundFilter = useTransform(groundBlurPx, (v) => `blur(${v}px)`);
 
   return (
-    <div
-      ref={heroRef}
-      className="relative w-full min-h-[680px] overflow-hidden md:min-h-0 md:h-screen md:max-h-[920px]"
-    >
+    // Outer = 250vh scroll track. Inner sticks at top:0 for the first 150vh
+    // of scroll (60% of progress), during which the land rises but the viewport
+    // stays pinned — scroll-hijack. Once sticky releases (progress > 0.6),
+    // normal page scroll resumes and the bridge + sky parallax into view as
+    // the inner stage slides upward with the page.
+    <div ref={heroRef} className="relative w-full h-[250vh]">
+      <div className="sticky top-0 w-full min-h-[680px] overflow-hidden md:min-h-0 md:h-screen md:max-h-[920px]">
       {/* Layer 1: Sky wash — furthest back, slowest parallax. */}
       <motion.div
         className="absolute inset-0"
@@ -514,6 +525,7 @@ export function HeroScene() {
       />
 
       <HeroIntro />
+      </div>
     </div>
   );
 }
