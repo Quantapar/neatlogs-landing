@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 import {
+  easeInOut,
   motion,
   useReducedMotion,
   useScroll,
@@ -12,14 +13,23 @@ import {
 } from "motion/react";
 import { HeroIntro } from "./hero-intro";
 
-// Parallax rule of thumb: farther = slower, closer = faster. Each layer's
-// distance is the pixel amount it moves UP as the user scrolls through the
-// hero (scrollYProgress 0 → 1). Sky moves the least, ground the most.
+// Parallax rule of thumb: farther = slower, closer = faster. `distance` is
+// the pixel amount a layer moves UP as the user scrolls through the hero
+// (scrollYProgress 0 → 1). Sky moves the least, ground the most.
 // All layers derive from a single *spring-smoothed* scrollYProgress — one
-// physics simulation drives every layer, which matches the Motion tutorial's
-// pattern and is cheaper than smoothing each value individually.
-function useParallax(progress: MotionValue<number>, distance: number) {
-  return useTransform(progress, [0, 1], [0, -distance]);
+// physics simulation drives every layer, which is cheaper than smoothing each
+// value individually and matches Motion's parallax tutorial.
+function useParallax(
+  value: MotionValue<number>,
+  distance: number,
+  startAt: number = 0,
+) {
+  // Delayed layers get easeInOut so they ramp up from rest and taper at the
+  // end — avoids the velocity jump at `startAt` that caused visible jerk.
+  // Zero-delay layers stay linear so the ground tracks scroll 1:1.
+  return useTransform(value, [startAt, 1], [0, -distance], {
+    ease: startAt > 0 ? easeInOut : undefined,
+  });
 }
 
 export function HeroScene() {
@@ -46,21 +56,29 @@ export function HeroScene() {
 
   // Depth-graded speeds — ratios picked so each layer moves noticeably slower
   // than the one in front of it. Sky creeps, skyline floats, fog drifts.
-  // Bridge keeps a small lead over the ground (+15) so it feels like it's
-  // moving — but the delta stays tight so the right tower doesn't detach
-  // from the hill. Ground hides any overshoot at the base via z-order clipping.
-  const groundDistance = 115;
-  const skyY = useParallax(smoothProgress, 15 * scale);
-  const warmDriftY = useParallax(smoothProgress, 55 * scale);
-  const skylineY = useParallax(smoothProgress, 135 * scale);
-  const skylineMistY = useParallax(smoothProgress, 145 * scale);
-  const blueDriftY = useParallax(smoothProgress, 110 * scale);
-  const midBayFogY = useParallax(smoothProgress, 140 * scale);
-  const mainBayFogY = useParallax(smoothProgress, 165 * scale);
-  const bridgeBaseDriftY = useParallax(smoothProgress, groundDistance * scale);
-  const bridgeY = useParallax(smoothProgress, (groundDistance + 15) * scale);
-  const liveBridgeMistY = useParallax(smoothProgress, (groundDistance + 25) * scale);
+  // Ground moves from scroll start with a lively travel; every other layer
+  // stays locked until the ground is 50% through its travel, then catches up
+  // gently over the remaining window (distances kept small + easeInOut so
+  // the entry feels soft, not jerky).
+  const groundDistance = 170;
+  const BG_START = 0.3;
+  const skyY = useParallax(smoothProgress, 8 * scale, BG_START);
+  const warmDriftY = useParallax(smoothProgress, 26 * scale, BG_START);
+  const skylineY = useParallax(smoothProgress, 62 * scale, BG_START);
+  const skylineMistY = useParallax(smoothProgress, 68 * scale, BG_START);
+  const blueDriftY = useParallax(smoothProgress, 50 * scale, BG_START);
+  const midBayFogY = useParallax(smoothProgress, 65 * scale, BG_START);
+  const mainBayFogY = useParallax(smoothProgress, 78 * scale, BG_START);
+  const bridgeBaseDriftY = useParallax(smoothProgress, 78 * scale, BG_START);
+  const bridgeY = useParallax(smoothProgress, 88 * scale, BG_START);
+  const liveBridgeMistY = useParallax(smoothProgress, 95 * scale, BG_START);
   const groundY = useParallax(smoothProgress, groundDistance * scale);
+
+  // Subtle blur on the land at rest so the bridge reads as the focal point.
+  // Clears out within the first sliver of scroll — the moment the land starts
+  // moving it should feel sharp again.
+  const groundBlurPx = useTransform(smoothProgress, [0, 0.12], [1.6, 0]);
+  const groundFilter = useTransform(groundBlurPx, (v) => `blur(${v}px)`);
 
   return (
     <div
@@ -131,8 +149,7 @@ export function HeroScene() {
             alt=""
             className="h-full w-1/2 object-cover object-center scale-y-125"
             style={{
-              filter:
-                "blur(3px) saturate(0.7) brightness(1.25) contrast(1.15)",
+              filter: "blur(3px) saturate(0.7) brightness(1.25) contrast(1.15)",
             }}
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -141,8 +158,7 @@ export function HeroScene() {
             alt=""
             className="h-full w-1/2 object-cover object-center scale-y-125"
             style={{
-              filter:
-                "blur(3px) saturate(0.7) brightness(1.25) contrast(1.15)",
+              filter: "blur(3px) saturate(0.7) brightness(1.25) contrast(1.15)",
             }}
           />
         </div>
@@ -169,8 +185,7 @@ export function HeroScene() {
             alt=""
             className="h-full w-1/2 object-cover object-center -scale-x-100 scale-y-150"
             style={{
-              filter:
-                "blur(8px) saturate(0.6) brightness(1.22) contrast(1.1)",
+              filter: "blur(8px) saturate(0.6) brightness(1.22) contrast(1.1)",
             }}
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -179,8 +194,7 @@ export function HeroScene() {
             alt=""
             className="h-full w-1/2 object-cover object-center -scale-x-100 scale-y-150"
             style={{
-              filter:
-                "blur(8px) saturate(0.6) brightness(1.22) contrast(1.1)",
+              filter: "blur(8px) saturate(0.6) brightness(1.22) contrast(1.1)",
             }}
           />
         </div>
@@ -219,8 +233,7 @@ export function HeroScene() {
             alt=""
             className="h-full w-1/2 object-cover object-center scale-y-100"
             style={{
-              filter:
-                "blur(4px) saturate(0.65) brightness(1.2) contrast(1.08)",
+              filter: "blur(4px) saturate(0.65) brightness(1.2) contrast(1.08)",
             }}
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -229,8 +242,7 @@ export function HeroScene() {
             alt=""
             className="h-full w-1/2 object-cover object-center scale-y-100"
             style={{
-              filter:
-                "blur(4px) saturate(0.65) brightness(1.2) contrast(1.08)",
+              filter: "blur(4px) saturate(0.65) brightness(1.2) contrast(1.08)",
             }}
           />
         </div>
@@ -269,8 +281,7 @@ export function HeroScene() {
             alt=""
             className="h-full w-1/2 object-cover object-center scale-y-150"
             style={{
-              filter:
-                "blur(3px) saturate(0.7) brightness(1.28) contrast(1.1)",
+              filter: "blur(3px) saturate(0.7) brightness(1.28) contrast(1.1)",
             }}
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -279,8 +290,7 @@ export function HeroScene() {
             alt=""
             className="h-full w-1/2 object-cover object-center scale-y-150"
             style={{
-              filter:
-                "blur(3px) saturate(0.7) brightness(1.28) contrast(1.1)",
+              filter: "blur(3px) saturate(0.7) brightness(1.28) contrast(1.1)",
             }}
           />
         </div>
@@ -466,18 +476,19 @@ export function HeroScene() {
       {/* Layer 5: Ground — hills in foreground, closest to viewer. Parallaxes fastest. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <motion.img
-        src="/scene/ground-v5.png"
+        src="/scene/land-v1.png"
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-[-19%] h-auto w-full"
-        style={{ y: groundY }}
+        className="pointer-events-none absolute inset-x-0 bottom-[-48%] h-auto w-full"
+        style={{
+          y: groundY,
+          filter: groundFilter,
+          willChange: "filter, transform",
+        }}
       />
 
       {/* SVG color-matrix filter kept for reuse. */}
-      <svg
-        aria-hidden="true"
-        className="pointer-events-none absolute h-0 w-0"
-      >
+      <svg aria-hidden="true" className="pointer-events-none absolute h-0 w-0">
         <defs>
           <filter id="defringe-purple" colorInterpolationFilters="sRGB">
             <feColorMatrix

@@ -4,20 +4,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-const NAV_LINKS = [
-  { href: "#features", label: "Features" },
-  { href: "#how-it-works", label: "Workflow" },
-  { href: "#integrations", label: "Integrations" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#faq", label: "FAQ" },
-  { href: "/docs", label: "Docs" },
+type NavLink = { href: string; label: string; external?: boolean };
+
+const NAV_LINKS: NavLink[] = [
+  { href: "https://docs.neatlogs.com", label: "Docs", external: true },
+  {
+    href: "https://www.notion.so/Open-Roles-Neatlogs-56f30dad43af832db26f812c6fc0207b",
+    label: "Careers",
+    external: true,
+  },
+  { href: "/changelog", label: "Changelog" },
 ];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50 w-full">
+    <header className="fixed inset-x-0 top-0 z-50 w-full">
       <div className="relative mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-5 sm:h-17 sm:px-7 lg:px-10">
         <Link
           href="/"
@@ -38,22 +41,13 @@ export function Navbar() {
           aria-label="Primary"
           className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 md:flex lg:gap-9"
         >
-          {NAV_LINKS.map(({ href, label }) => {
-            const isAnchor = href.startsWith("#");
-            return isAnchor ? (
+          {NAV_LINKS.map(({ href, label, external }) =>
+            external ? (
               <a
                 key={href}
                 href={href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  const prefersReducedMotion =
-                    typeof window !== "undefined" &&
-                    window.matchMedia("(prefers-reduced-motion: reduce)")
-                      .matches;
-                  document.querySelector(href)?.scrollIntoView({
-                    behavior: prefersReducedMotion ? "auto" : "smooth",
-                  });
-                }}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="font-ui cursor-pointer text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 ease-out hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
               >
                 {label}
@@ -66,8 +60,8 @@ export function Navbar() {
               >
                 {label}
               </Link>
-            );
-          })}
+            ),
+          )}
         </nav>
 
         <div className="hidden shrink-0 items-center gap-2 md:flex">
@@ -90,10 +84,10 @@ export function Navbar() {
             </svg>
           </Link>
           <Link
-            href="/signup"
+            href="/waitlist"
             className="font-ui inline-flex h-10 cursor-pointer items-center justify-center rounded bg-zinc-950/80 px-5 text-sm font-medium text-white shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.18)] ring-1 ring-white/15 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-out touch-manipulation hover:bg-zinc-950/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
           >
-            Sign Up
+            Join the Waitlist
           </Link>
         </div>
 
@@ -147,23 +141,14 @@ export function Navbar() {
             }`}
           >
             <div className="flex flex-col gap-0.5 p-4">
-              {NAV_LINKS.map(({ href, label }) => {
-                const isAnchor = href.startsWith("#");
-                return isAnchor ? (
+              {NAV_LINKS.map(({ href, label, external }) =>
+                external ? (
                   <a
                     key={href}
                     href={href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setOpen(false);
-                      const prefersReducedMotion =
-                        typeof window !== "undefined" &&
-                        window.matchMedia("(prefers-reduced-motion: reduce)")
-                          .matches;
-                      document.querySelector(href)?.scrollIntoView({
-                        behavior: prefersReducedMotion ? "auto" : "smooth",
-                      });
-                    }}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setOpen(false)}
                     className="font-ui cursor-pointer rounded-lg px-3 py-3 text-[15px] font-medium text-zinc-700 transition-[color,background-color,transform] duration-150 ease-snap hover:bg-zinc-900/[0.04] hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
                   >
                     {label}
@@ -177,8 +162,8 @@ export function Navbar() {
                   >
                     {label}
                   </Link>
-                );
-              })}
+                ),
+              )}
               <div className="mt-4 flex flex-col gap-2.5 border-t border-zinc-900/[0.06] pt-4">
                 <Link
                   href="/demo"
@@ -200,11 +185,11 @@ export function Navbar() {
                   </svg>
                 </Link>
                 <Link
-                  href="/signup"
+                  href="/waitlist"
                   onClick={() => setOpen(false)}
                   className="font-ui inline-flex h-11 cursor-pointer items-center justify-center rounded bg-zinc-950/80 px-6 text-sm font-medium text-white shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.18)] ring-1 ring-white/15 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-snap touch-manipulation hover-hover:hover:bg-zinc-950/90 active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
                 >
-                  Sign Up
+                  Join the Waitlist
                 </Link>
               </div>
             </div>
