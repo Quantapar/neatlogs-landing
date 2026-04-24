@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
-import { GeistPixelSquare } from "geist/font/pixel";
+import { GeistPixelSquare, GeistPixelCircle } from "geist/font/pixel";
 import { Navbar } from "./navbar";
 import "./globals.css";
 
@@ -26,7 +26,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistPixelSquare.variable} h-full antialiased`}
+      className={`${GeistSans.variable} ${GeistPixelSquare.variable} ${GeistPixelCircle.variable} h-full antialiased`}
     >
       <body suppressHydrationWarning className="relative min-h-full flex flex-col">
         <Navbar />

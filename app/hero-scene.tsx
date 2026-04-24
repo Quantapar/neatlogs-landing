@@ -542,7 +542,7 @@ export function HeroScene() {
         className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-[10%] bg-[linear-gradient(to_bottom,transparent_0%,rgba(250,250,250,0.7)_70%,#FAFAFA_100%)]"
       />
 
-      <HeroIntro />
+      <HeroIntro scrollProgress={smoothProgress} />
       </div>
     </div>
   );

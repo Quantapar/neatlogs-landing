@@ -58,13 +58,13 @@ export function HeroHeadline() {
       style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontWeight: 500 }}
       className="mt-5 max-w-4xl text-balance text-center text-5xl leading-[1.04] tracking-tighter text-zinc-950 sm:text-6xl md:text-7xl lg:text-[80px]"
     >
-      <Word variants={variants}>Get</Word>{" "}
-      <Word variants={variants}>to</Word>{" "}
-      <Word variants={variants}>production</Word>{" "}
-      <Word variants={variants}>fast.</Word>
-      <br />
-      <Word variants={variants}>Stay</Word>{" "}
-      <Word variants={variants}>there.</Word>
+      <span className="font-pixel-circle">
+        <Word variants={variants}>from</Word>{" "}
+        <Word variants={variants}>feedback</Word>{" "}
+        <Word variants={variants}>to</Word>{" "}
+        <Word variants={variants}>fix,</Word>
+      </span>{" "}
+      <Word variants={variants}>fast</Word>
     </motion.h1>
   );
 }

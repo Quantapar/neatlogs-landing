@@ -45,6 +45,11 @@ h2 {
     font-family: var(--font-geist-pixel-square), ui-monospace, monospace !important;
     letter-spacing: 0;
   }
+
+  .font-pixel-circle {
+    font-family: var(--font-geist-pixel-circle), ui-monospace, monospace !important;
+    letter-spacing: 0;
+  }
 }
 
 .font-pixel {
