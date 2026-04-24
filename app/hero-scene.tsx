@@ -505,7 +505,7 @@ export function HeroScene() {
            (z-10) — the text hides behind the hills as the land scrolls up. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <motion.img
-        src="/scene/landscapenew.png"
+        src="/scene/lll.png"
         alt=""
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 bottom-[-48%] z-20 h-auto w-full"

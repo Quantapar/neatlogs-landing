@@ -22,14 +22,10 @@ export function CycleLoop() {
         <div className="grid items-start gap-8 lg:grid-cols-[5fr_4fr] lg:gap-10">
           <div className="flex flex-col gap-6 sm:gap-7 lg:-mt-8 lg:gap-8 lg:self-center">
             <motion.h2
-              initial={
-                reducedMotion
-                  ? false
-                  : { opacity: 0, y: 14, filter: "blur(6px)" }
-              }
-              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              initial={reducedMotion ? false : { opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, ease: easings.snap }}
+              transition={{ duration: 0.95, ease: easings.snap }}
               className="font-pixel-circle text-balance text-left text-2xl leading-[1.1] tracking-tight text-zinc-950 sm:text-3xl md:text-4xl"
             >
               your agent worked in the demo
@@ -43,15 +39,11 @@ export function CycleLoop() {
             </motion.h2>
 
             <motion.ul
-              initial={
-                reducedMotion
-                  ? false
-                  : { opacity: 0, y: 14, filter: "blur(6px)" }
-              }
-              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              initial={reducedMotion ? false : { opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, delay: 0.12, ease: easings.snap }}
-              className="font-ui flex flex-col gap-3 text-[16px] leading-relaxed text-zinc-700 sm:text-[17px]"
+              transition={{ duration: 0.95, delay: 0.18, ease: easings.snap }}
+              className="font-ui flex flex-col gap-3 text-[16px] font-normal leading-relaxed text-zinc-700 sm:text-[17px]"
             >
               {POINTS.map((point) => (
                 <li key={point} className="relative pl-6">
@@ -67,14 +59,10 @@ export function CycleLoop() {
           </div>
 
           <motion.div
-            initial={
-              reducedMotion
-                ? false
-                : { opacity: 0, scale: 0.97, filter: "blur(6px)" }
-            }
-            whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+            initial={reducedMotion ? false : { opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7, delay: 0.06, ease: easings.snap }}
+            transition={{ duration: 1.05, delay: 0.1, ease: easings.snap }}
             style={{
               maskImage:
                 "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.25) 4%, rgba(0,0,0,0.65) 10%, black 18%, black 82%, rgba(0,0,0,0.65) 90%, rgba(0,0,0,0.25) 96%, transparent 100%), linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.25) 4%, rgba(0,0,0,0.65) 10%, black 18%, black 82%, rgba(0,0,0,0.65) 90%, rgba(0,0,0,0.25) 96%, transparent 100%)",
@@ -97,15 +85,11 @@ export function CycleLoop() {
         </div>
 
         <motion.p
-          initial={
-            reducedMotion
-              ? false
-              : { opacity: 0, y: 14, filter: "blur(6px)" }
-          }
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={reducedMotion ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: easings.snap }}
-          className="mt-6 max-w-4xl text-left text-4xl leading-[1.04] tracking-tighter text-zinc-950 sm:mt-8 sm:text-5xl md:text-[56px]"
+          transition={{ duration: 0.95, ease: easings.snap }}
+          className="mt-20 max-w-4xl text-left text-4xl leading-[1.04] tracking-tighter text-zinc-950 sm:mt-28 sm:text-5xl md:mt-36 md:text-[56px]"
         >
           <span className="font-pixel-circle">
             that&rsquo;s not a model problem,
@@ -115,19 +99,16 @@ export function CycleLoop() {
         </motion.p>
 
         <motion.p
-          initial={
-            reducedMotion
-              ? false
-              : { opacity: 0, y: 14, filter: "blur(6px)" }
-          }
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={reducedMotion ? false : { opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55, delay: 0.12, ease: easings.snap }}
+          transition={{ duration: 0.9, delay: 0.18, ease: easings.snap }}
           className="font-ui mt-6 w-full max-w-4xl text-[15px] font-medium leading-relaxed text-zinc-700 sm:mt-8 sm:text-base"
         >
           the people who can spot the issue and the people who can fix it are
-          not working in different tools, and they don&rsquo;t have the same
-          context
+          not working in different tools,
+          <br />
+          and they don&rsquo;t have the same context
         </motion.p>
       </div>
     </section>
