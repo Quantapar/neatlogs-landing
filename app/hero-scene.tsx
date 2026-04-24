@@ -505,7 +505,7 @@ export function HeroScene() {
            (z-10) — the text hides behind the hills as the land scrolls up. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <motion.img
-        src="/scene/land-v1.png"
+        src="/scene/landscapenew.png"
         alt=""
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 bottom-[-48%] z-20 h-auto w-full"
@@ -539,7 +539,7 @@ export function HeroScene() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-[10%] bg-[linear-gradient(to_bottom,transparent_0%,rgba(250,250,250,0.7)_70%,#FAFAFA_100%)]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-[32%] bg-[linear-gradient(to_bottom,transparent_0%,rgba(252,248,238,0.06)_18%,rgba(252,249,240,0.18)_34%,rgba(252,250,243,0.36)_50%,rgba(253,251,247,0.58)_66%,rgba(253,252,250,0.8)_80%,rgba(252,252,251,0.94)_92%,#FAFAFA_100%)]"
       />
 
       <HeroIntro scrollProgress={smoothProgress} />

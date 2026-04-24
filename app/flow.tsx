@@ -56,19 +56,18 @@ export function Flow() {
         <div className="mx-auto max-w-5xl text-center">
           <span
             translate="no"
-            className="font-ui text-2xl sm:text-3xl font-semibold tracking-tight"
-            style={{ color: "#E9462E" }}
+            className="font-pixel-circle text-4xl sm:text-5xl tracking-tight"
           >
-            Built for both sides of the table
+            built for both sides of the table
           </span>
           <h2 className="mt-5 text-balance text-[22px] font-semibold leading-[1.2] tracking-tight text-zinc-950 sm:text-5xl sm:leading-[1.04] sm:tracking-tighter md:text-[56px]">
-            Built for the people<br className="sm:hidden" /> who spot the problem
+            built for the people<br className="sm:hidden" /> who spot the problem
             <br />
-            <span>and the people who fix it.</span>
+            <span>and the people who fix it</span>
           </h2>
-          <p className="font-ui mx-auto mt-6 max-w-2xl text-pretty text-[15px] leading-relaxed text-zinc-600 sm:text-base">
-            Different depth for domain experts and devs. Shared context all the
-            way through.
+          <p className="font-ui mx-auto mt-6 max-w-4xl text-balance text-center text-[15px] font-medium leading-relaxed text-zinc-700 sm:text-base">
+            different depth for domain experts and devs. shared context all the
+            way through
           </p>
         </div>
 

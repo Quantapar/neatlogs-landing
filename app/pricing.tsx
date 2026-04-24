@@ -23,16 +23,15 @@ export function Pricing() {
       <div className="mx-auto max-w-2xl text-center mb-16 sm:mb-20">
         <span
           translate="no"
-          className="font-ui text-2xl sm:text-3xl font-semibold tracking-tight"
-          style={{ color: "#E9462E" }}
+          className="font-pixel-circle text-4xl sm:text-5xl tracking-tight"
         >
-          Pricing
+          pricing
         </span>
         <h2 className="mt-5 text-balance text-[28px] font-semibold tracking-tight text-zinc-950 sm:text-5xl sm:tracking-tighter md:text-[56px]">
-          Start free. Scale when ready.
+          start free, scale when ready
         </h2>
-        <p className="font-ui mt-4 text-pretty text-lg text-zinc-600">
-          Every team gets full access to start. Upgrade when your AI agents are in production.
+        <p className="font-ui mx-auto mt-6 max-w-4xl text-balance text-center text-[15px] font-medium leading-relaxed text-zinc-700 sm:text-base">
+          every team gets full access to start. upgrade when your ai agents are in production
         </p>
       </div>
 

@@ -6,10 +6,10 @@ export function CTA() {
       <div className="mx-auto flex max-w-5xl flex-col gap-8 md:flex-row md:items-end md:justify-between md:gap-12">
         <div>
           <h2 className="text-balance text-[28px] font-semibold tracking-tight text-zinc-950 sm:text-5xl sm:tracking-tighter md:text-[56px]">
-            Start debugging together.
+            start debugging together
           </h2>
-          <p className="font-ui mt-4 text-pretty text-lg text-zinc-600">
-            Free to start. No credit card required.
+          <p className="font-ui mt-6 max-w-4xl text-balance text-[15px] font-medium leading-relaxed text-zinc-700 sm:text-base">
+            free to start, no credit card required
           </p>
         </div>
         <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center md:shrink-0">

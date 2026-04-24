@@ -41,23 +41,22 @@ export const Features = () => {
           <div className="relative z-10 max-w-6xl mx-auto mb-10 sm:mb-16 text-center">
             <span
               translate="no"
-              className="font-ui text-2xl sm:text-3xl font-semibold tracking-tight"
-              style={{ color: "#E9462E" }}
+              className="font-pixel-circle text-4xl sm:text-5xl tracking-tight"
             >
-              Why Neatlogs
+              why neatlogs
             </span>
             <h2 className="mt-5 text-balance text-[22px] sm:text-5xl md:text-[56px] leading-[1.2] sm:leading-[1.08] tracking-tight sm:tracking-tighter text-zinc-950 mx-auto font-sans">
               <span className="font-semibold">
-                Most teams don't have<br className="sm:hidden" /> a visibility problem.
+                most teams don't have<br className="sm:hidden" /> a visibility problem
               </span>
               <br />
               <span className="font-semibold tracking-tight">
-                They have a handoff problem.
+                they have a handoff problem
               </span>
             </h2>
-            <p className="font-ui mx-auto mt-6 max-w-2xl text-pretty text-[15px] leading-relaxed text-zinc-600 sm:text-base px-4">
-              The issue gets spotted in one place, discussed in another, and
-              fixed in a third. Neatlogs closes that loop.
+            <p className="font-ui mx-auto mt-6 max-w-2xl text-pretty text-[15px] font-medium leading-relaxed text-zinc-700 sm:text-base px-4">
+              the issue gets spotted in one place, discussed in another, and
+              fixed in a third. neatlogs closes that loop
             </p>
           </div>
 
@@ -356,8 +355,8 @@ export const Features = () => {
 
             {/* Card 4: Monitor for recurrence */}
             <CardWrapper
-              title="Monitor for recurrence"
-              subtitle="After the fix ships, Neatlogs watches for the same pattern so you know if it comes back."
+              title="monitor for recurrence"
+              subtitle="after the fix ships, neatlogs watches for the same pattern so you know if it comes back"
               className="lg:col-span-3"
             >
               <div className="w-full bg-slate-50/50 border border-gray-100 rounded-2xl p-1 lg:p-[6px] shadow-[0_2px_14px_rgba(0,0,0,0.02)] select-none">

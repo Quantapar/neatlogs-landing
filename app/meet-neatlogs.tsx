@@ -38,10 +38,10 @@ export function MeetNeatlogs() {
       <div className="mx-auto max-w-6xl px-6 text-center">
         <span
           translate="no"
-          className="font-pixel text-2xl sm:text-3xl font-semibold tracking-tight"
+          className="font-pixel-circle text-4xl sm:text-5xl tracking-tight"
         >
           <Reveal progress={scrollYProgress} from={0.05} to={0.1}>
-            Meet Neatlogs
+            meet neatlogs
           </Reveal>
         </span>
 
@@ -54,7 +54,7 @@ export function MeetNeatlogs() {
               style={{ color: "rgb(9,9,11)" }}
               baseColor="#ADB2B7"
             >
-              The shared workspace for agent teams.
+              the shared workspace for agent teams
             </Reveal>
           </span>
           <br />
@@ -66,7 +66,7 @@ export function MeetNeatlogs() {
               style={{ color: "rgb(9,9,11)" }}
               baseColor="#ADB2B7"
             >
-              From bug to fix in one thread.
+              from bug to fix in one thread
             </Reveal>
           </span>
         </h2>

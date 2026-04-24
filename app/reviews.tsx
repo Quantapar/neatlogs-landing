@@ -11,16 +11,12 @@ export const Reviews = () => {
     <section className="w-full bg-[#FAFAFA] border-t border-zinc-900/5 px-6 py-24 sm:py-28 lg:py-32 flex flex-col items-center">
       <span
         translate="no"
-        className="font-ui text-2xl sm:text-3xl font-semibold tracking-tight"
-        style={{ color: "#E9462E" }}
+        className="font-pixel-circle text-4xl sm:text-5xl tracking-tight"
       >
-        Reviews
+        reviews
       </span>
-      <p
-        className="font-ui mt-4 text-pretty text-lg"
-        style={{ color: "#52525D" }}
-      >
-        What teams are saying
+      <p className="font-ui mx-auto mt-6 max-w-4xl text-balance text-center text-[15px] font-medium leading-relaxed text-zinc-700 sm:text-base">
+        what teams are saying
       </p>
 
       <div className="mt-6 sm:mt-8 flex w-full max-w-3xl flex-col items-center text-center">

@@ -168,17 +168,16 @@ export function Integrations() {
         <div className="mx-auto max-w-2xl text-center">
           <span
             translate="no"
-            className="font-ui text-2xl sm:text-3xl font-semibold tracking-tight"
-            style={{ color: "#E9462E" }}
+            className="font-pixel-circle text-4xl sm:text-5xl tracking-tight"
           >
             Integrations
           </span>
           <h2 className="mt-5 text-balance text-[28px] font-semibold tracking-tight text-zinc-950 sm:text-5xl sm:tracking-tighter md:text-[56px]">
             Fits into the way your team works
           </h2>
-          <p className="font-ui mt-4 text-pretty text-zinc-600 sm:text-lg">
-            Neatlogs plugs into your existing stack — from agent frameworks and
-            notifications to tickets and coding agents.
+          <p className="font-ui mx-auto mt-6 max-w-4xl text-balance text-center text-[15px] font-medium leading-relaxed text-zinc-700 sm:text-base">
+            neatlogs plugs into your existing stack — from agent frameworks and
+            notifications to tickets and coding agents
           </p>
         </div>
 

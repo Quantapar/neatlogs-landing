@@ -134,18 +134,17 @@ export const FAQ = () => {
                 <div className="lg:w-1/3 lg:sticky lg:top-32 h-fit">
                     <span
                       translate="no"
-                      className="font-ui text-2xl sm:text-3xl font-semibold tracking-tight"
-                      style={{ color: "#E9462E" }}
+                      className="font-pixel-circle text-4xl sm:text-5xl tracking-tight"
                     >
-                      FAQ
+                      faq
                     </span>
                     <h2 className="mt-5 -ml-[2px] text-[28px] font-semibold leading-[1.15] tracking-tight text-zinc-950 sm:text-5xl sm:leading-[1.04] sm:tracking-tighter md:text-[56px]">
-                        Common <br />
-                        Questions.
+                        common <br />
+                        questions
                     </h2>
 
-                    <p className="font-ui mt-6 max-w-[300px] text-pretty text-[15px] leading-relaxed text-zinc-600 sm:text-base">
-                        You've got questions about how Neatlogs drops into your workflow. Here are the answers.
+                    <p className="font-ui mt-6 max-w-4xl text-balance text-[15px] font-medium leading-relaxed text-zinc-700 sm:text-base">
+                        you've got questions about how neatlogs drops into your workflow. here are the answers
                     </p>
                 </div>
 
@@ -168,10 +167,10 @@ export const FAQ = () => {
                     <div className="mt-12 rounded ring-1 ring-zinc-900/5 bg-white/60 backdrop-blur-xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_14px_36px_-20px_rgba(12,20,40,0.08)]">
                         <div>
                             <h3 className="font-ui text-[20px] font-semibold text-zinc-950 tracking-tight">
-                                Still need help?
+                                still need help?
                             </h3>
-                            <p className="font-ui mt-1.5 text-[14.5px] text-zinc-600">
-                                We're happy to jump on a call and dive into your stack.
+                            <p className="font-ui mt-1.5 max-w-4xl text-balance text-[15px] font-medium leading-relaxed text-zinc-700 sm:text-base">
+                                we're happy to jump on a call and dive into your stack
                             </p>
                         </div>
                         <Link

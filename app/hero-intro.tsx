@@ -62,7 +62,7 @@ export function HeroIntro({ scrollProgress }: Props) {
           className="font-ui mt-5 max-w-4xl text-balance text-center text-[15px] font-medium leading-relaxed text-zinc-700 sm:text-base"
         >
           one workspace for teams to find issues, align on failures, and ship
-          fixes together
+          fixes together.
           <br />
           get agents to production faster and keep them reliable after launch
         </motion.p>
