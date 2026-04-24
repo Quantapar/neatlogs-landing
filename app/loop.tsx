@@ -20,7 +20,7 @@ export function CycleLoop() {
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="grid items-start gap-8 lg:grid-cols-[5fr_4fr] lg:gap-10">
-          <div className="flex flex-col gap-6 sm:gap-7 lg:gap-8">
+          <div className="flex flex-col gap-6 sm:gap-7 lg:-mt-8 lg:gap-8 lg:self-center">
             <motion.h2
               initial={
                 reducedMotion
@@ -105,7 +105,7 @@ export function CycleLoop() {
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: easings.snap }}
-          className="mt-2 max-w-4xl text-left text-4xl leading-[1.04] tracking-tighter text-zinc-950 sm:mt-3 sm:text-5xl md:text-[56px]"
+          className="mt-6 max-w-4xl text-left text-4xl leading-[1.04] tracking-tighter text-zinc-950 sm:mt-8 sm:text-5xl md:text-[56px]"
         >
           <span className="font-pixel-circle">
             that&rsquo;s not a model problem,
