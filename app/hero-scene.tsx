@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 import {
+  easeOut,
   motion,
   useReducedMotion,
   useScroll,
@@ -44,11 +45,13 @@ export function HeroScene() {
   });
 
   // One spring to rule them all — smooths the raw scroll into a soothing
-  // physics-driven value. Values lifted straight from the Motion tutorial.
+  // physics-driven value. Higher damping + lower mass = tight follow with no
+  // visible oscillation, which is what you want for scroll-linked animation.
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
+    stiffness: 120,
+    damping: 45,
+    mass: 0.3,
+    restDelta: 0.0005,
   });
 
   // Depth-graded speeds — ratios picked so each layer moves noticeably slower
@@ -66,29 +69,41 @@ export function HeroScene() {
   const BG_START = 0.6;
   const skyY = useParallax(smoothProgress, 8 * scale, BG_START);
   const warmDriftY = useParallax(smoothProgress, 26 * scale, BG_START);
-  const skylineY = useParallax(smoothProgress, 62 * scale, BG_START);
-  const skylineMistY = useParallax(smoothProgress, 68 * scale, BG_START);
+  // Buildings + bridge get a subtle head-start parallax (no BG_START gate) so
+  // the user sees some motion from scroll 0. Buildings move slowly; the bridge
+  // moves a touch faster. Both eventually get covered as the land rises past.
+  const skylineY = useParallax(smoothProgress, 42 * scale);
+  const skylineMistY = useParallax(smoothProgress, 48 * scale);
   const blueDriftY = useParallax(smoothProgress, 50 * scale, BG_START);
   const midBayFogY = useParallax(smoothProgress, 65 * scale, BG_START);
   const mainBayFogY = useParallax(smoothProgress, 78 * scale, BG_START);
-  const bridgeBaseDriftY = useParallax(smoothProgress, 78 * scale, BG_START);
-  const bridgeY = useParallax(smoothProgress, 88 * scale, BG_START);
-  const liveBridgeMistY = useParallax(smoothProgress, 95 * scale, BG_START);
+  const bridgeBaseDriftY = useParallax(smoothProgress, 90 * scale);
+  const bridgeY = useParallax(smoothProgress, 105 * scale);
+  const liveBridgeMistY = useParallax(smoothProgress, 115 * scale);
 
-  // Ground completes its rise during the sticky phase (progress 0 → 0.5, which
-  // matches when sticky releases on a 200vh outer). After that it's locked —
-  // no further travel — so the hard bottom edge of the PNG never scrolls in.
+  // Ground completes its rise during the sticky phase, then locks. `easeOut`
+  // smooths the approach to the lock point so the land decelerates gracefully
+  // into its final position instead of slamming to a stop at BG_START (which
+  // reads as jerk on fast scroll).
   const groundY = useTransform(
     smoothProgress,
     [0, BG_START, 1],
     [0, -groundDistance * scale, -groundDistance * scale],
+    { ease: easeOut },
   );
 
-  // Subtle blur on the land at rest so the bridge reads as the focal point.
-  // Clears out within the first sliver of scroll — the moment the land starts
-  // moving it should feel sharp again.
+  // Focus swap driven by scroll: at rest the land is softly blurred and the
+  // bridge is sharp (bridge = focal point). As the land starts moving, blur
+  // transfers onto the bridge so the land reads crisp and the bridge recedes.
   const groundBlurPx = useTransform(smoothProgress, [0, 0.12], [1.6, 0]);
   const groundFilter = useTransform(groundBlurPx, (v) => `blur(${v}px)`);
+  const bridgeBlurPx = useTransform(smoothProgress, [0, 0.12], [0, 1.6]);
+  const bridgeFilter = useTransform(bridgeBlurPx, (v) => `blur(${v}px)`);
+  // Buildings pick up a softer blur once the land is on its way up — subtler
+  // than the bridge's fade-out so the skyline doesn't disappear into the fog
+  // before the bridge does.
+  const skylineBlurPx = useTransform(smoothProgress, [0, 0.12], [0.5, 1.0]);
+  const skylineFilter = useTransform(skylineBlurPx, (v) => `blur(${v}px)`);
 
   return (
     // Outer = 250vh scroll track. Inner `sticky top-0` pins for 150vh of scroll
@@ -119,7 +134,7 @@ export function HeroScene() {
         className="pointer-events-none absolute left-[9%] right-[-4%] top-[43%] h-[42%] sm:left-[11%] sm:right-[-3%] sm:h-[41%] lg:left-[13%] lg:right-[-1%] lg:h-[40%]"
         style={{
           opacity: 0.55,
-          filter: "blur(0.5px)",
+          filter: skylineFilter,
           y: skylineY,
         }}
       >
@@ -373,7 +388,7 @@ export function HeroScene() {
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute top-[54%] right-[-6%] h-[43%] w-[64%] sm:right-[-4%] sm:w-[58%] lg:right-[-2%] lg:w-[54%]"
-        style={{ y: bridgeY }}
+        style={{ y: bridgeY, filter: bridgeFilter }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -485,13 +500,15 @@ export function HeroScene() {
         />
       </motion.div>
 
-      {/* Layer 5: Ground — hills in foreground, closest to viewer. Parallaxes fastest. */}
+      {/* Layer 5: Ground — hills in foreground, closest to viewer. Parallaxes
+           fastest. Sits at z-20 so as it rises it covers the HeroIntro text
+           (z-10) — the text hides behind the hills as the land scrolls up. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <motion.img
         src="/scene/land-v1.png"
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-[-48%] h-auto w-full"
+        className="pointer-events-none absolute inset-x-0 bottom-[-48%] z-20 h-auto w-full"
         style={{
           y: groundY,
           filter: groundFilter,
@@ -522,7 +539,7 @@ export function HeroScene() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[10%] bg-[linear-gradient(to_bottom,transparent_0%,rgba(250,250,250,0.7)_70%,#FAFAFA_100%)]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-[10%] bg-[linear-gradient(to_bottom,transparent_0%,rgba(250,250,250,0.7)_70%,#FAFAFA_100%)]"
       />
 
       <HeroIntro />

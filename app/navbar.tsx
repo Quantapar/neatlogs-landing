@@ -1,8 +1,15 @@
 "use client";
 
+import {
+  motion,
+  useMotionTemplate,
+  useScroll,
+  useTransform,
+} from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import type { CSSProperties } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 type NavLink = { href: string; label: string; external?: boolean };
 
@@ -18,10 +25,78 @@ const NAV_LINKS: NavLink[] = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  // Continuous 0..1 progress tied to scroll: stays 0 over the hero, ramps to 1
+  // as the user scrolls roughly half a viewport past the sticky-release point.
+  // Drives the bg fade + the nav's translateX so the links physically slide
+  // from center to right-cluster in lockstep with scroll.
+  const { scrollY } = useScroll();
+  const progress = useTransform(scrollY, (y) => {
+    if (typeof window === "undefined") return 0;
+    const vh = window.innerHeight;
+    const start = vh * 1.4;
+    const end = vh * 1.9;
+    return Math.max(0, Math.min(1, (y - start) / (end - start)));
+  });
+
+  const bgAlpha = useTransform(progress, [0, 1], [0, 0.85]);
+  const backgroundColor = useMotionTemplate`rgba(255, 255, 255, ${bgAlpha})`;
+  const blurPx = useTransform(progress, [0, 1], [0, 12]);
+  const backdropFilter = useMotionTemplate`blur(${blurPx}px)`;
+
+  const maxWidthMv = useTransform(progress, (p) => {
+    if (typeof window === "undefined") return 1280;
+    return 1280 + (window.innerWidth - 1280) * p;
+  });
+  const maxWidth = useMotionTemplate`${maxWidthMv}px`;
+
+  const padBase = useTransform(progress, [0, 1], [20, 24]);
+  const padSm = useTransform(progress, [0, 1], [28, 40]);
+  const padLg = useTransform(progress, [0, 1], [40, 56]);
+  const navPadBase = useMotionTemplate`${padBase}px`;
+  const navPadSm = useMotionTemplate`${padSm}px`;
+  const navPadLg = useMotionTemplate`${padLg}px`;
+
+  // Measure the nav's natural (right-cluster) position, then translate it left
+  // by the delta to the viewport center when progress=0. Using offsetLeft walk
+  // keeps the reading immune to the element's own current translateX.
+  const navRef = useRef<HTMLElement>(null);
+  const [navRestOffset, setNavRestOffset] = useState(0);
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") return;
+    const measure = () => {
+      const el = navRef.current;
+      if (!el) return;
+      let docLeft = 0;
+      let cursor: HTMLElement | null = el;
+      while (cursor) {
+        docLeft += cursor.offsetLeft;
+        cursor = cursor.offsetParent as HTMLElement | null;
+      }
+      const natCenter = docLeft + el.offsetWidth / 2;
+      setNavRestOffset(window.innerWidth / 2 - natCenter);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+  const navX = useTransform(progress, [0, 1], [navRestOffset, 0]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 w-full">
-      <div className="relative mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-5 sm:h-17 sm:px-7 lg:px-10">
+    <motion.header
+      style={{ backgroundColor, backdropFilter }}
+      className="fixed inset-x-0 top-0 z-50 w-full border-b border-zinc-900/10"
+    >
+      <motion.div
+        style={
+          {
+            maxWidth,
+            "--nav-pad": navPadBase,
+            "--nav-pad-sm": navPadSm,
+            "--nav-pad-lg": navPadLg,
+          } as unknown as CSSProperties
+        }
+        className="relative mx-auto flex h-16 w-full items-center justify-between gap-4 px-(--nav-pad) sm:h-17 sm:px-(--nav-pad-sm) lg:px-(--nav-pad-lg)"
+      >
         <Link
           href="/"
           aria-label="Neatlogs home"
@@ -37,58 +112,61 @@ export function Navbar() {
           />
         </Link>
 
-        <nav
-          aria-label="Primary"
-          className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 md:flex lg:gap-9"
-        >
-          {NAV_LINKS.map(({ href, label, external }) =>
-            external ? (
-              <a
-                key={href}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-ui cursor-pointer text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 ease-out hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
-              >
-                {label}
-              </a>
-            ) : (
-              <Link
-                key={href}
-                href={href}
-                className="font-ui cursor-pointer text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 ease-out hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
-              >
-                {label}
-              </Link>
-            ),
-          )}
-        </nav>
-
-        <div className="hidden shrink-0 items-center gap-2 md:flex">
-          <Link
-            href="/demo"
-            className="font-ui group inline-flex h-10 cursor-pointer items-center gap-1.5 rounded bg-(--glass-bg) px-4 text-sm font-medium text-zinc-950 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-zinc-900/10 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-out touch-manipulation hover:bg-white/8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
+        <div className="hidden shrink-0 items-center md:flex">
+          <motion.nav
+            ref={navRef}
+            aria-label="Primary"
+            style={{ x: navX }}
+            className="flex items-center gap-7 pr-6 lg:gap-9 lg:pr-8"
           >
-            Book a Demo
-            <svg
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="size-3.5 text-zinc-500 transition-transform duration-200 ease-out hover-hover:group-hover:translate-x-0.5 group-hover:text-zinc-900 motion-reduce:transition-none"
-              aria-hidden="true"
+            {NAV_LINKS.map(({ href, label, external }) =>
+              external ? (
+                <a
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-ui cursor-pointer whitespace-nowrap text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 ease-out hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
+                >
+                  {label}
+                </a>
+              ) : (
+                <Link
+                  key={href}
+                  href={href}
+                  className="font-ui cursor-pointer whitespace-nowrap text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 ease-out hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
+                >
+                  {label}
+                </Link>
+              ),
+            )}
+          </motion.nav>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/demo"
+              className="font-ui group inline-flex h-10 cursor-pointer items-center gap-1.5 rounded bg-(--glass-bg) px-4 text-sm font-medium text-zinc-950 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-zinc-900/10 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-out touch-manipulation hover:bg-white/8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
             >
-              <path
-                fillRule="evenodd"
-                d="M4 10a.75.75 0 0 1 .75-.75h8.69l-2.22-2.22a.75.75 0 1 1 1.06-1.06l3.5 3.5a.75.75 0 0 1 0 1.06l-3.5 3.5a.75.75 0 1 1-1.06-1.06l2.22-2.22H4.75A.75.75 0 0 1 4 10Z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </Link>
-          <Link
-            href="/waitlist"
-            className="font-ui inline-flex h-10 cursor-pointer items-center justify-center rounded bg-zinc-950/80 px-5 text-sm font-medium text-white shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.18)] ring-1 ring-white/15 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-out touch-manipulation hover:bg-zinc-950/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
-          >
-            Join the Waitlist
-          </Link>
+              Book a Demo
+              <svg
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="size-3.5 text-zinc-500 transition-transform duration-200 ease-out hover-hover:group-hover:translate-x-0.5 group-hover:text-zinc-900 motion-reduce:transition-none"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M4 10a.75.75 0 0 1 .75-.75h8.69l-2.22-2.22a.75.75 0 1 1 1.06-1.06l3.5 3.5a.75.75 0 0 1 0 1.06l-3.5 3.5a.75.75 0 1 1-1.06-1.06l2.22-2.22H4.75A.75.75 0 0 1 4 10Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </Link>
+            <Link
+              href="/waitlist"
+              className="font-ui inline-flex h-10 cursor-pointer items-center justify-center rounded bg-zinc-950/80 px-5 text-sm font-medium text-white shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.18)] ring-1 ring-white/15 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-out touch-manipulation hover:bg-zinc-950/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
+            >
+              Join the Waitlist
+            </Link>
+          </div>
         </div>
 
         <button
@@ -123,7 +201,7 @@ export function Navbar() {
             )}
           </svg>
         </button>
-      </div>
+      </motion.div>
 
       <div
         id="mobile-nav"
@@ -196,6 +274,6 @@ export function Navbar() {
           </div>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }
