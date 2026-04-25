@@ -7,6 +7,7 @@ import {
   ChevronRight,
   History,
   PanelLeft,
+  Wrench,
   Zap,
 } from "lucide-react";
 import type { ComponentType, SVGProps } from "react";
@@ -20,59 +21,28 @@ import {
 import { easings } from "./easings";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { Reveal } from "./reveal";
 
 export function MeetNeatlogs() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
   return (
     <section
-      ref={sectionRef}
       style={{ position: "relative" }}
       className="bg-[#FAFAFA] pt-10 sm:pt-14 lg:pt-16"
     >
-      <div className="mx-auto max-w-6xl px-6 text-center">
-        <span
-          translate="no"
-          className="font-pixel-circle text-4xl sm:text-5xl tracking-tight"
-        >
-          <Reveal progress={scrollYProgress} from={0.05} to={0.1}>
-            meet neatlogs
-          </Reveal>
-        </span>
-
-        <h2 className="mt-5 text-balance text-[22px] font-semibold leading-[1.2] tracking-tight sm:text-5xl sm:tracking-tighter md:text-[56px]">
-          <span className="text-zinc-950">
-            <Reveal
-              progress={scrollYProgress}
-              from={0.08}
-              to={0.15}
-              style={{ color: "rgb(9,9,11)" }}
-              baseColor="#ADB2B7"
-            >
-              the shared workspace for agent teams
-            </Reveal>
-          </span>
-          <br />
-          <span className="text-zinc-950">
-            <Reveal
-              progress={scrollYProgress}
-              from={0.15}
-              to={0.22}
-              style={{ color: "rgb(9,9,11)" }}
-              baseColor="#ADB2B7"
-            >
-              from bug to fix in one thread
-            </Reveal>
-          </span>
-        </h2>
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <div className="grid items-start gap-6 lg:grid-cols-[3fr_2fr] lg:gap-12">
+          <h2 className="text-balance text-4xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
+            One place to go from issue to feedback to fix
+          </h2>
+          <p className="font-ui max-w-md text-[15px] font-medium leading-relaxed text-zinc-700 sm:text-base lg:mt-2">
+            Developers and domain experts can look at the same run, understand
+            what happened, and collaborate on the next step.
+          </p>
+        </div>
       </div>
 
-      <DashboardScene />
+      {/* DashboardScene kept defined below for later — currently rendering TraceMock instead. */}
+      {/* <DashboardScene /> */}
+      <TraceMock />
     </section>
   );
 }
@@ -556,6 +526,560 @@ function IconGear(props: SVGProps<SVGSVGElement>) {
     >
       <circle cx="10" cy="10" r="2.2" />
       <path d="M10 2.5v2M10 15.5v2M4.5 4.5l1.4 1.4M14.1 14.1l1.4 1.4M2.5 10h2M15.5 10h2M4.5 15.5l1.4-1.4M14.1 5.9l1.4-1.4" />
+    </svg>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* TraceMock — recreates the workflow tree screenshot the user shared. */
+/* Workflow parent + 3 agents (1st & 3rd collapsed, 2nd expanded with  */
+/* prompt → LLM → tool (with input/output) → final LLM response).       */
+/* ------------------------------------------------------------------ */
+
+function TraceMock() {
+  return (
+    <div className="mx-auto mt-10 w-full max-w-[1400px] px-4 pb-16 sm:mt-14 sm:px-6 sm:pb-20 lg:mt-16 lg:pb-24">
+      <div className="relative overflow-hidden rounded-lg border border-zinc-900/10 bg-white shadow-[0_24px_48px_-20px_rgba(12,20,40,0.18),0_10px_20px_-12px_rgba(12,20,40,0.1)]">
+        <WorkflowHeader title="Support Access Workflow" duration="4.8s" />
+
+        <div className="px-2 pt-3 sm:px-4 sm:pt-4 pb-6">
+          <Subtree>
+            {/* === Agent 1 — collapsed === */}
+            <Branch>
+              <AgentHeader
+                name="Question Extraction Agent"
+                duration="0.7s"
+                cost="$0.0019"
+                detections={[
+                  "billing query",
+                  "access request",
+                  "multiple questions",
+                ]}
+              />
+            </Branch>
+            <CollapsedSummary
+              parts={["Prompt", "1 span", "Final Response"]}
+            />
+
+            {/* === Agent 2 — expanded === */}
+            <Branch>
+              <AgentHeader
+                name="Support Operations Agent"
+                duration="2.3s"
+                cost="$0.0058"
+                detections={["Feature", "Billing"]}
+              />
+            </Branch>
+            <Subtree>
+              <Branch showCircle={false}>
+                <StepLabel>System Prompt</StepLabel>
+                <Body className="whitespace-pre-line">
+                  {`You are the Support Operations Agent for a SaaS product.
+
+Your job is to analyze the customer's email, determine what operation they are requesting, and select the right tool.
+
+Rules:
+- First understand what the customer is actually asking for.
+- Use the tool descriptions carefully. They explain when each tool should be used.
+- If multiple tools seem similar, choose the one that best matches the customer's intent.
+- Prefer tools that preserve the customer's stated requirements, such as billing constraints.
+- Do not guess. Use the tool that most directly satisfies the request.
+- Return a short confirmation of what was done. This confirmation will be passed to the email agent.
+
+Output format:
+- operation_selected
+- tool_used
+- result
+- confirmation_for_email_agent`}
+                </Body>
+              </Branch>
+
+              <Branch showCircle={false}>
+                <StepLabel>Customer Email</StepLabel>
+                <Body className="whitespace-pre-line font-mono">
+                  {`Hi support team,
+
+We need to give our external design agency access to one dashboard so they can review work in progress. They should not count as a paid seat.
+
+What's the best way to set this up?
+
+Thanks,
+Lena`}
+                </Body>
+              </Branch>
+
+              <Branch>
+                <ToolHeader name="add_member" duration="0.6s" />
+              </Branch>
+              <Subtree>
+                <Branch showCircle={false}>
+                  <StepLabel>Input</StepLabel>
+                  <Body className="font-mono">
+                    {`{"email":"agency@partner.co","role":"viewer"}`}
+                  </Body>
+                </Branch>
+                <Branch showCircle={false}>
+                  <StepLabel>Output</StepLabel>
+                  <Body className="font-mono">
+                    {`{"status":"success","member_id":"mem_4821","billable_seat_created":true}`}
+                  </Body>
+                </Branch>
+              </Subtree>
+
+              <Branch>
+                <LLMHeader
+                  model="claude-3.7-sonnet"
+                  duration="1.7s"
+                  cost="$0.0058"
+                  badges={["Paid seat created", "Slow LLM Response"]}
+                />
+              </Branch>
+              <InlineBody>
+                <Body className="whitespace-pre-wrap font-mono">
+                  {`{
+  "operation_selected": "grant_workspace_access",
+  "tool_used": "add_member",
+  "result": "Created viewer member access for agency@partner.co",
+  "confirmation_for_email_agent": "The user was added to the workspace as a viewer. This action created a billable member seat."
+}`}
+                </Body>
+              </InlineBody>
+            </Subtree>
+
+            {/* === Agent 3 — collapsed === */}
+            <Branch>
+              <AgentHeader
+                name="Reply Drafting Agent"
+                duration="1.8s"
+                cost="$0.0069"
+                detections={["Email Drafted"]}
+              />
+            </Branch>
+            <CollapsedSummary
+              parts={["Prompt", "1 span", "Final Response"]}
+            />
+          </Subtree>
+        </div>
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-white"
+        />
+      </div>
+    </div>
+  );
+}
+
+function WorkflowHeader({
+  title,
+  duration,
+}: {
+  title: string;
+  duration: string;
+}) {
+  return (
+    <div className="flex items-center gap-3 border-b border-zinc-900/5 bg-zinc-50/70 px-4 py-2.5">
+      <span className="inline-flex items-center gap-1.5 rounded-md bg-zinc-900 px-2 py-1 text-[12px] font-medium text-white shadow-sm">
+        <IconWorkflow className="size-3.5 text-white" />
+        Workflow
+      </span>
+      <span className="text-[13.5px] font-semibold text-zinc-900">{title}</span>
+      <span className="ml-auto rounded-md bg-white px-2 py-0.5 text-[11px] font-medium tabular-nums text-zinc-500 ring-1 ring-zinc-900/10">
+        {duration}
+      </span>
+    </div>
+  );
+}
+
+function AgentHeader({
+  name,
+  duration,
+  detections,
+  cost,
+}: {
+  name: string;
+  duration: string;
+  detections?: string[];
+  cost?: string;
+}) {
+  return (
+    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-md bg-zinc-100/70 px-2.5 py-1.5">
+      <span className="inline-flex items-center gap-1 rounded bg-white px-1.5 py-0.5 text-[11px] font-medium text-zinc-600 ring-1 ring-zinc-900/10">
+        <IconAgent className="size-3 text-zinc-500" />
+        Agent
+      </span>
+      <span className="text-[13px] font-semibold text-zinc-900">{name}</span>
+      {detections && detections.length > 0 && (
+        <span className="flex flex-wrap items-center gap-1">
+          {detections.map((d) => (
+            <span
+              key={d}
+              className="rounded bg-[#F1EBDF] px-1.5 py-0.5 text-[10.5px] font-medium text-zinc-800 ring-1 ring-zinc-900/5"
+            >
+              {d}
+            </span>
+          ))}
+        </span>
+      )}
+      <span className="ml-auto flex items-center gap-2">
+        {cost && (
+          <span className="text-[11px] tabular-nums text-zinc-400">{cost}</span>
+        )}
+        <span className="rounded bg-white px-1.5 py-0.5 text-[10.5px] font-medium tabular-nums text-zinc-500 ring-1 ring-zinc-900/10">
+          {duration}
+        </span>
+      </span>
+    </div>
+  );
+}
+
+function ToolHeader({
+  name,
+  duration,
+}: {
+  name: string;
+  duration: string;
+}) {
+  return (
+    <div className="flex items-center gap-2 rounded-md bg-zinc-100/60 px-2.5 py-1.5">
+      <span className="inline-flex items-center gap-1 rounded bg-white px-1.5 py-0.5 text-[11px] font-medium text-zinc-600 ring-1 ring-zinc-900/10">
+        <Wrench className="size-3 text-zinc-500" strokeWidth={1.6} />
+        Tool
+      </span>
+      <span className="text-[13px] font-semibold text-zinc-900">{name}</span>
+      <span className="ml-auto rounded bg-white px-1.5 py-0.5 text-[10.5px] font-medium tabular-nums text-zinc-500 ring-1 ring-zinc-900/10">
+        {duration}
+      </span>
+    </div>
+  );
+}
+
+function LLMHeader({
+  model,
+  duration,
+  cost,
+  badges,
+}: {
+  model: string;
+  duration: string;
+  cost: string;
+  badges?: string[];
+}) {
+  return (
+    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-md bg-zinc-50/80 px-2.5 py-1.5">
+      <span className="inline-flex items-center gap-1 rounded bg-white px-1.5 py-0.5 text-[11px] font-medium text-zinc-600 ring-1 ring-zinc-900/10">
+        <Image
+          src="/claude-color.svg"
+          alt=""
+          width={12}
+          height={12}
+          className="size-3"
+        />
+        LLM
+      </span>
+      <span className="text-[13px] font-semibold text-zinc-900">{model}</span>
+      {badges && badges.length > 0 && (
+        <span className="flex flex-wrap items-center gap-1">
+          {badges.map((b) => (
+            <span
+              key={b}
+              className="rounded bg-[#F1EBDF] px-1.5 py-0.5 text-[10.5px] font-medium text-zinc-800 ring-1 ring-zinc-900/5"
+            >
+              {b}
+            </span>
+          ))}
+        </span>
+      )}
+      <span className="ml-auto flex items-center gap-2">
+        <span className="rounded bg-white px-1.5 py-0.5 text-[10.5px] font-medium tabular-nums text-zinc-500 ring-1 ring-zinc-900/10">
+          {duration}
+        </span>
+        <span className="text-[11px] tabular-nums text-zinc-400">{cost}</span>
+      </span>
+    </div>
+  );
+}
+
+function StepLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mb-1 text-[11.5px] font-medium text-zinc-600">
+      {children}
+    </div>
+  );
+}
+
+function Body({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <p
+      className={`mt-1 text-[12px] leading-relaxed text-zinc-700 ${className}`}
+    >
+      {children}
+    </p>
+  );
+}
+
+function InlineBody({ children }: { children: React.ReactNode }) {
+  return <div className="ml-3 mt-1 mb-2">{children}</div>;
+}
+
+function Subtree({ children }: { children: React.ReactNode }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const spineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const root = containerRef.current;
+    const spine = spineRef.current;
+    if (!root || !spine) return;
+
+    const update = () => {
+      const branches = root.querySelectorAll<HTMLElement>(
+        ":scope > [data-spine]",
+      );
+      if (branches.length === 0) {
+        spine.style.height = "100%";
+        return;
+      }
+      const last = branches[branches.length - 1];
+      const rootTop = root.getBoundingClientRect().top;
+      const lastTop = last.getBoundingClientRect().top;
+      const rowCenter = Number(last.getAttribute("data-row-center")) || 0;
+      spine.style.height = `${lastTop - rootTop + rowCenter}px`;
+    };
+
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(root);
+    return () => observer.disconnect();
+  }, [children]);
+
+  return (
+    <div ref={containerRef} className="relative pl-8">
+      <div
+        ref={spineRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute top-0 h-full w-px bg-[#d2d2d2]"
+        style={{ left: 12 }}
+      />
+      {children}
+    </div>
+  );
+}
+
+function Branch({
+  children,
+  showCircle = true,
+  collapsed = false,
+}: {
+  children: React.ReactNode;
+  showCircle?: boolean;
+  collapsed?: boolean;
+}) {
+  // Vertical center of the row: pill rows (Agent/Tool/LLM headers) ~32px tall;
+  // step-label rows (Input/Output prompt arrows) ~16px tall.
+  const rowCenter = showCircle ? 16 : 8;
+
+  return (
+    <div data-spine data-row-center={rowCenter} className="relative mb-1.5">
+      {showCircle ? (
+        <>
+          {/* Horizontal stem from circle's right edge to the row's left edge */}
+          <svg
+            aria-hidden="true"
+            className="pointer-events-none absolute"
+            style={{ left: -12, top: 0, width: 12, height: rowCenter + 6 }}
+            viewBox={`0 0 12 ${rowCenter + 6}`}
+          >
+            <line
+              x1="0"
+              y1={rowCenter}
+              x2="12"
+              y2={rowCenter}
+              stroke="#d2d2d2"
+              strokeWidth="1.25"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          {/* Toggle circle on the parent spine, vertically centered with the row */}
+          <div
+            className="absolute flex size-4 items-center justify-center rounded-full bg-white text-[#9aa0a6] ring-1 ring-[#d2d2d2]"
+            style={{ left: -28, top: rowCenter - 8 }}
+          >
+            <svg
+              viewBox="0 0 10 10"
+              className="size-[7px]"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              {collapsed ? (
+                <>
+                  <path d="M5 1.5v7" />
+                  <path d="M1.5 5h7" />
+                </>
+              ) : (
+                <path d="M1.5 5h7" />
+              )}
+            </svg>
+          </div>
+        </>
+      ) : (
+        <>
+          {/* L-curve from spine to a bit before the step content (no circle for step labels) */}
+          <svg
+            aria-hidden="true"
+            className="pointer-events-none absolute"
+            style={{ left: -20, top: 0, width: 32, height: rowCenter + 6 }}
+            viewBox={`0 0 32 ${rowCenter + 6}`}
+          >
+            <path
+              d={`M 0 0 V ${rowCenter - 4} Q 0 ${rowCenter} 6 ${rowCenter} H 32`}
+              fill="none"
+              stroke="#d2d2d2"
+              strokeWidth="1.25"
+              strokeLinejoin="round"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </>
+      )}
+      {showCircle ? children : <div className="pl-4">{children}</div>}
+    </div>
+  );
+}
+
+function CollapsedSummary({ parts }: { parts: string[] }) {
+  // Expand pill is text-[11.5px] py-1 → ~24px tall, vertical center ~12px
+  const rowCenter = 12;
+
+  return (
+    <div className="relative ml-8 -mt-0.5 mb-3 pl-4">
+      {/* Horizontal stem from + circle's right edge to the expand pill's left edge */}
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute"
+        style={{ left: -4, top: 0, width: 20, height: rowCenter + 4 }}
+        viewBox={`0 0 20 ${rowCenter + 4}`}
+      >
+        <line
+          x1="0"
+          y1={rowCenter}
+          x2="20"
+          y2={rowCenter}
+          stroke="#d2d2d2"
+          strokeWidth="1.25"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
+      <div
+        className="absolute flex size-4 items-center justify-center rounded-full bg-white text-[#9aa0a6] ring-1 ring-[#d2d2d2]"
+        style={{ left: -20, top: rowCenter - 8 }}
+      >
+        <svg
+          viewBox="0 0 10 10"
+          className="size-[7px]"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+          aria-hidden="true"
+        >
+          <path d="M5 1.5v7" />
+          <path d="M1.5 5h7" />
+        </svg>
+      </div>
+      <div className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[11.5px] text-zinc-600 ring-1 ring-zinc-900/10">
+        <span className="font-medium text-zinc-700">expand</span>
+        {parts.map((p, i) => (
+          <span key={p} className="flex items-center gap-1.5">
+            {i > 0 && (
+              <ChevronRight className="size-3 text-zinc-400" aria-hidden="true" />
+            )}
+            <span>{p}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function IconWorkflow(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <circle cx="4" cy="4" r="1.6" />
+      <circle cx="12" cy="11.5" r="1.6" />
+      <circle cx="4" cy="11.5" r="1.6" />
+      <path d="M4 5.6v4.3" />
+      <path d="M5.4 5.1l5.2 5.2" />
+    </svg>
+  );
+}
+
+function IconAgent(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <rect x="3" y="5" width="10" height="8" rx="2" />
+      <path d="M8 3v2" />
+      <circle cx="6" cy="9" r="0.7" fill="currentColor" />
+      <circle cx="10" cy="9" r="0.7" fill="currentColor" />
+      <path d="M6.5 11.5h3" />
+    </svg>
+  );
+}
+
+function IconTool(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M10.5 2.5a3 3 0 0 0-4.2 4.2L2.5 10.5l3 3 3.8-3.8a3 3 0 0 0 4.2-4.2l-2 2-1.5-1.5z" />
+    </svg>
+  );
+}
+
+function IconLLM(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M8 2l1.4 3.4L13 7l-3.6 1.6L8 12l-1.4-3.4L3 7l3.6-1.6z" />
+      <circle cx="12.5" cy="3.5" r="0.9" />
+      <circle cx="3.5" cy="12.5" r="0.9" />
     </svg>
   );
 }
