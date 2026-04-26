@@ -1,13 +1,17 @@
 "use client";
 
 import {
+  ArrowRight,
   ArrowUp,
   Check,
   ChevronDown,
   ChevronRight,
   History,
   PanelLeft,
+  SmilePlus,
+  Sparkles,
   Wrench,
+  X,
   Zap,
 } from "lucide-react";
 import type { ComponentType, SVGProps } from "react";
@@ -538,8 +542,9 @@ function IconGear(props: SVGProps<SVGSVGElement>) {
 
 function TraceMock() {
   return (
-    <div className="mx-auto mt-10 w-full max-w-[1200px] px-4 pb-16 sm:mt-14 sm:px-6 sm:pb-20 lg:mt-16 lg:pb-24">
-      <div className="relative overflow-hidden rounded-lg border border-zinc-900/10 bg-white shadow-[0_24px_48px_-20px_rgba(12,20,40,0.18),0_10px_20px_-12px_rgba(12,20,40,0.1)]">
+    <div className="mx-auto mt-10 w-full max-w-7xl px-6 pb-16 sm:mt-14 sm:pb-20 lg:mt-16 lg:px-10 lg:pb-24">
+      <div className="relative">
+      <div className="relative max-w-[1200px] overflow-hidden rounded-lg border border-zinc-900/10 bg-white shadow-[0_24px_48px_-20px_rgba(12,20,40,0.18),0_10px_20px_-12px_rgba(12,20,40,0.1)]">
         <WorkflowHeader title="Support Access Workflow" duration="4.8s" />
 
         <div className="px-2 pt-3 sm:px-4 sm:pt-4 pb-6">
@@ -629,7 +634,7 @@ Lena`}
 
               <Branch>
                 <LLMHeader
-                  model="claude-3.7-sonnet"
+                  model="model"
                   duration="1.7s"
                   cost="$0.0058"
                   badges={["Paid seat created", "Slow LLM Response"]}
@@ -667,6 +672,225 @@ Lena`}
           className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-white"
         />
       </div>
+        <CommentsPanel />
+      </div>
+    </div>
+  );
+}
+
+function CommentsPanel() {
+  return (
+    <div className="absolute right-0 top-14 hidden w-[360px] lg:block">
+      <div className="overflow-hidden rounded-lg border border-zinc-900/10 bg-white shadow-[0_30px_60px_-20px_rgba(12,20,40,0.28),0_12px_24px_-12px_rgba(12,20,40,0.16)]">
+        <div className="flex items-center justify-between px-4 py-3">
+          <span className="text-[15px] font-normal tracking-tight text-zinc-950">
+            Comments
+          </span>
+          <button
+            type="button"
+            aria-label="Close"
+            className="cursor-pointer text-zinc-400 transition-colors hover:text-zinc-700"
+          >
+            <X className="size-4" strokeWidth={1.6} />
+          </button>
+        </div>
+
+        <div className="flex flex-col gap-3 px-3 pb-4">
+          <CommentGroup
+            icon={<IconAgent className="size-3.5 text-zinc-700" />}
+            label="Support Operations Agent"
+          >
+            <div className="flex flex-col gap-4">
+              <CommentItem
+                initials="S"
+                color="bg-rose-500"
+                author="Sara"
+                role="Domain Expert"
+                time="2h ago"
+              >
+                I found the issue. This request should have gone through the{" "}
+                <strong className="font-normal text-zinc-950">
+                  guest invite
+                </strong>{" "}
+                flow. The agent used <Code>add_member</Code>, which is why the
+                customer got billed for a paid seat.
+              </CommentItem>
+
+              <CommentItem
+                initials="M"
+                color="bg-indigo-500"
+                author="Marcus"
+                role="Developer"
+                time="1h ago"
+              >
+                That makes sense. @Neatlogs, can you check why it chose{" "}
+                <Code>add_member</Code> instead of <Code>invite_guest</Code>?
+              </CommentItem>
+
+              <CommentItem isAI author="Neatlogs AI" time="58m ago">
+                I found the likely cause. The tool descriptions are too vague.
+                They explain what each tool does, but not when one should be
+                used instead of the other.
+              </CommentItem>
+
+              <CommentItem isAI author="Neatlogs AI" time="56m ago">
+                <Code>add_member</Code> and <Code>invite_guest</Code> both look
+                like valid ways to give someone access. Nothing in the
+                descriptions tells the model that external, non-billable access
+                should go through <Code>invite_guest</Code>.
+              </CommentItem>
+
+              <CommentItem isAI author="Neatlogs AI" time="54m ago">
+                I can make changes to the tool descriptions so the model can
+                distinguish{" "}
+                <strong className="font-normal text-zinc-950">
+                  billable members
+                </strong>{" "}
+                from{" "}
+                <strong className="font-normal text-zinc-950">
+                  non-billable guests
+                </strong>{" "}
+                before making the call.
+              </CommentItem>
+
+              <button
+                type="button"
+                className="mt-1 cursor-pointer rounded-md bg-[#F4ECD8] px-3 py-2 text-left text-[12px] font-normal text-[#B48900] ring-1 ring-zinc-900/5 transition-colors hover:bg-[#dfceA0]"
+              >
+                [Approve Code Fix Suggestion]
+              </button>
+            </div>
+            <CommentInput />
+          </CommentGroup>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CommentGroup({
+  icon,
+  label,
+  children,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="overflow-hidden rounded-md border border-zinc-900/10">
+      <div className="flex items-center gap-2 border-b border-zinc-900/5 bg-zinc-50/70 px-3 py-2">
+        {icon}
+        <span className="text-[12.5px] font-normal text-zinc-900">{label}</span>
+      </div>
+      <div className="px-3 py-3">{children}</div>
+    </div>
+  );
+}
+
+function CommentItem({
+  initials,
+  color,
+  author,
+  role,
+  time,
+  quote,
+  reactions,
+  isAI,
+  children,
+}: {
+  initials?: string;
+  color?: string;
+  author: string;
+  role?: string;
+  time: string;
+  quote?: string;
+  reactions?: { emoji: string; count: number }[];
+  isAI?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex items-start gap-2.5">
+      {isAI ? (
+        <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-white">
+          <Sparkles className="size-3.5" strokeWidth={1.6} />
+        </div>
+      ) : (
+        <div
+          className={`flex size-7 shrink-0 items-center justify-center rounded-full text-[10.5px] font-normal text-white ${color}`}
+        >
+          {initials}
+        </div>
+      )}
+      <div className="min-w-0 flex-1">
+        <div className="flex items-baseline justify-between gap-2">
+          <div className="flex min-w-0 items-baseline gap-1.5">
+            <span className="text-[12.5px] font-normal text-zinc-950">{author}</span>
+            {role && (
+              <span className="truncate text-[10.5px] font-normal text-zinc-400">
+                {role}
+              </span>
+            )}
+          </div>
+          <span className="shrink-0 text-[10.5px] font-normal text-zinc-400">
+            {time}
+          </span>
+        </div>
+        {quote && (
+          <div className="mt-1 border-l-2 border-violet-300 bg-violet-50/60 px-2 py-1 font-mono text-[11px] font-normal leading-relaxed text-zinc-700">
+            {quote}
+          </div>
+        )}
+        <p className="mt-1 text-[12px] font-normal leading-relaxed text-zinc-700">
+          {children}
+        </p>
+        <div className="mt-2 flex items-center gap-1">
+          {reactions?.map((r) => (
+            <span
+              key={r.emoji}
+              className="inline-flex items-center gap-1 rounded-full bg-zinc-100 px-1.5 py-0.5 text-[10.5px]"
+            >
+              <span>{r.emoji}</span>
+              <span className="font-normal text-zinc-700">{r.count}</span>
+            </span>
+          ))}
+          <button
+            type="button"
+            aria-label="Add reaction"
+            className="cursor-pointer rounded-full p-1 text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-700"
+          >
+            <SmilePlus className="size-3" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Code({ children }: { children: React.ReactNode }) {
+  return (
+    <code className="rounded bg-zinc-100 px-1 py-0.5 font-mono text-[11px] font-normal text-zinc-800 ring-1 ring-zinc-900/5">
+      {children}
+    </code>
+  );
+}
+
+function CommentInput() {
+  return (
+    <div className="mt-3 flex items-center gap-1.5 rounded-md border border-zinc-900/10 px-2.5 py-1.5">
+      <input
+        type="text"
+        readOnly
+        placeholder="Add a comment, @ to mention"
+        className="flex-1 bg-transparent text-[11.5px] text-zinc-700 outline-none placeholder:text-zinc-400"
+      />
+      <button
+        type="button"
+        aria-label="Send"
+        className="flex size-5 cursor-pointer items-center justify-center rounded bg-zinc-200 text-zinc-600 transition-colors hover:bg-zinc-300"
+      >
+        <ArrowRight className="size-3" strokeWidth={2} />
+      </button>
     </div>
   );
 }
@@ -680,12 +904,12 @@ function WorkflowHeader({
 }) {
   return (
     <div className="flex items-center gap-3 border-b border-zinc-900/5 bg-zinc-50/70 px-4 py-2.5">
-      <span className="inline-flex items-center gap-1.5 rounded-md bg-zinc-900 px-2 py-1 text-[12px] font-medium text-white shadow-sm">
+      <span className="inline-flex items-center gap-1.5 rounded-md bg-zinc-900 px-2 py-1 text-[12px] font-normal text-white shadow-sm">
         <IconWorkflow className="size-3.5 text-white" />
         Workflow
       </span>
-      <span className="text-[13.5px] font-semibold text-zinc-900">{title}</span>
-      <span className="ml-auto rounded-md bg-white px-2 py-0.5 text-[11px] font-medium tabular-nums text-zinc-500 ring-1 ring-zinc-900/10">
+      <span className="text-[13.5px] font-normal text-zinc-900">{title}</span>
+      <span className="rounded-md bg-white px-2 py-0.5 text-[11px] font-normal tabular-nums text-zinc-500 ring-1 ring-zinc-900/10">
         {duration}
       </span>
     </div>
@@ -705,31 +929,29 @@ function AgentHeader({
 }) {
   return (
     <div className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-md bg-zinc-100/70 px-2.5 py-1.5">
-      <span className="inline-flex items-center gap-1 rounded bg-white px-1.5 py-0.5 text-[11px] font-medium text-zinc-600 ring-1 ring-zinc-900/10">
+      <span className="inline-flex items-center gap-1 rounded bg-white px-1.5 py-0.5 text-[11px] font-normal text-zinc-600 ring-1 ring-zinc-900/10">
         <IconAgent className="size-3 text-zinc-500" />
         Agent
       </span>
-      <span className="text-[13px] font-semibold text-zinc-900">{name}</span>
+      <span className="text-[13px] font-normal text-zinc-900">{name}</span>
       {detections && detections.length > 0 && (
         <span className="flex flex-wrap items-center gap-1">
           {detections.map((d) => (
             <span
               key={d}
-              className="rounded bg-[#F1EBDF] px-1.5 py-0.5 text-[10.5px] font-medium text-zinc-800 ring-1 ring-zinc-900/5"
+              className="rounded bg-[#F4ECD8] px-1.5 py-0.5 text-[10.5px] font-normal text-[#B48900] ring-1 ring-zinc-900/5"
             >
               {d}
             </span>
           ))}
         </span>
       )}
-      <span className="ml-auto flex items-center gap-2">
-        {cost && (
-          <span className="text-[11px] tabular-nums text-zinc-400">{cost}</span>
-        )}
-        <span className="rounded bg-white px-1.5 py-0.5 text-[10.5px] font-medium tabular-nums text-zinc-500 ring-1 ring-zinc-900/10">
-          {duration}
-        </span>
+      <span className="rounded bg-white px-1.5 py-0.5 text-[10.5px] font-normal tabular-nums text-zinc-500 ring-1 ring-zinc-900/10">
+        {duration}
       </span>
+      {cost && (
+        <span className="text-[11px] font-normal tabular-nums text-zinc-400">{cost}</span>
+      )}
     </div>
   );
 }
@@ -743,12 +965,12 @@ function ToolHeader({
 }) {
   return (
     <div className="flex items-center gap-2 rounded-md bg-zinc-100/60 px-2.5 py-1.5">
-      <span className="inline-flex items-center gap-1 rounded bg-white px-1.5 py-0.5 text-[11px] font-medium text-zinc-600 ring-1 ring-zinc-900/10">
+      <span className="inline-flex items-center gap-1 rounded bg-white px-1.5 py-0.5 text-[11px] font-normal text-zinc-600 ring-1 ring-zinc-900/10">
         <Wrench className="size-3 text-zinc-500" strokeWidth={1.6} />
         Tool
       </span>
-      <span className="text-[13px] font-semibold text-zinc-900">{name}</span>
-      <span className="ml-auto rounded bg-white px-1.5 py-0.5 text-[10.5px] font-medium tabular-nums text-zinc-500 ring-1 ring-zinc-900/10">
+      <span className="text-[13px] font-normal text-zinc-900">{name}</span>
+      <span className="rounded bg-white px-1.5 py-0.5 text-[10.5px] font-normal tabular-nums text-zinc-500 ring-1 ring-zinc-900/10">
         {duration}
       </span>
     </div>
@@ -768,7 +990,7 @@ function LLMHeader({
 }) {
   return (
     <div className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-md bg-zinc-50/80 px-2.5 py-1.5">
-      <span className="inline-flex items-center gap-1 rounded bg-white px-1.5 py-0.5 text-[11px] font-medium text-zinc-600 ring-1 ring-zinc-900/10">
+      <span className="inline-flex items-center gap-1 rounded bg-white px-1.5 py-0.5 text-[11px] font-normal text-zinc-600 ring-1 ring-zinc-900/10">
         <Image
           src="/claude-color.svg"
           alt=""
@@ -778,32 +1000,30 @@ function LLMHeader({
         />
         LLM
       </span>
-      <span className="text-[13px] font-semibold text-zinc-900">{model}</span>
+      <span className="text-[13px] font-normal text-zinc-900">{model}</span>
       {badges && badges.length > 0 && (
         <span className="flex flex-wrap items-center gap-1">
           {badges.map((b) => (
             <span
               key={b}
-              className="rounded bg-[#F1EBDF] px-1.5 py-0.5 text-[10.5px] font-medium text-zinc-800 ring-1 ring-zinc-900/5"
+              className="rounded bg-[#F4ECD8] px-1.5 py-0.5 text-[10.5px] font-normal text-[#B48900] ring-1 ring-zinc-900/5"
             >
               {b}
             </span>
           ))}
         </span>
       )}
-      <span className="ml-auto flex items-center gap-2">
-        <span className="rounded bg-white px-1.5 py-0.5 text-[10.5px] font-medium tabular-nums text-zinc-500 ring-1 ring-zinc-900/10">
-          {duration}
-        </span>
-        <span className="text-[11px] tabular-nums text-zinc-400">{cost}</span>
+      <span className="rounded bg-white px-1.5 py-0.5 text-[10.5px] font-normal tabular-nums text-zinc-500 ring-1 ring-zinc-900/10">
+        {duration}
       </span>
+      <span className="text-[11px] font-normal tabular-nums text-zinc-400">{cost}</span>
     </div>
   );
 }
 
 function StepLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mb-1 text-[11.5px] font-medium text-zinc-600">
+    <div className="mb-1 text-[11.5px] font-normal text-zinc-600">
       {children}
     </div>
   );
@@ -818,7 +1038,7 @@ function Body({
 }) {
   return (
     <p
-      className={`mt-1 text-[12px] leading-relaxed text-zinc-700 ${className}`}
+      className={`mt-1 text-[12px] leading-relaxed text-zinc-700 lg:max-w-[720px] ${className}`}
     >
       {children}
     </p>
