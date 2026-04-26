@@ -538,7 +538,7 @@ function IconGear(props: SVGProps<SVGSVGElement>) {
 
 function TraceMock() {
   return (
-    <div className="mx-auto mt-10 w-full max-w-[1400px] px-4 pb-16 sm:mt-14 sm:px-6 sm:pb-20 lg:mt-16 lg:pb-24">
+    <div className="mx-auto mt-10 w-full max-w-[1200px] px-4 pb-16 sm:mt-14 sm:px-6 sm:pb-20 lg:mt-16 lg:pb-24">
       <div className="relative overflow-hidden rounded-lg border border-zinc-900/10 bg-white shadow-[0_24px_48px_-20px_rgba(12,20,40,0.18),0_10px_20px_-12px_rgba(12,20,40,0.1)]">
         <WorkflowHeader title="Support Access Workflow" duration="4.8s" />
 
@@ -572,7 +572,7 @@ function TraceMock() {
             </Branch>
             <Subtree>
               <Branch showCircle={false}>
-                <StepLabel>System Prompt</StepLabel>
+                <StepLabel>Prompt</StepLabel>
                 <Body className="whitespace-pre-line">
                   {`You are the Support Operations Agent for a SaaS product.
 
@@ -595,9 +595,10 @@ Output format:
               </Branch>
 
               <Branch showCircle={false}>
-                <StepLabel>Customer Email</StepLabel>
-                <Body className="whitespace-pre-line font-mono">
-                  {`Hi support team,
+                <StepLabel>Context</StepLabel>
+                <Body className="whitespace-pre-line">
+                  {`Customer email:
+Hi support team,
 
 We need to give our external design agency access to one dashboard so they can review work in progress. They should not count as a paid seat.
 
