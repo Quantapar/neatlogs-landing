@@ -115,7 +115,7 @@ export function Navbar() {
     const padding = vw >= 1024 ? 40 + (56 - 40) * p : vw >= 640 ? 28 + (40 - 28) * p : 20 + (24 - 20) * p;
     const buttonsApprox = 280; // Book a Demo + Join the Waitlist + inner gap
     const navApprox = 200; // 3 links + gaps
-    const clusterGap = 36; // gap between nav and buttons (matches lg:gap-9)
+    const clusterGap = 16; // gap between nav and buttons (matches lg:gap-4)
     const naturalNavCenterX =
       wrapperLeft +
       wrapperW -
@@ -162,7 +162,7 @@ export function Navbar() {
           />
         </Link>
 
-        <div className="hidden shrink-0 items-center gap-0 md:flex lg:gap-0.5">
+        <div className="hidden shrink-0 items-center gap-3 md:flex lg:gap-4">
           <motion.nav
             aria-label="Primary"
             style={{ x: navOffsetX }}

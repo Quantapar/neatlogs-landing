@@ -46,7 +46,7 @@ export function HeroIntro({ scrollProgress }: Props) {
             ? undefined
             : { filter: ctaFilter, opacity: ctaOpacity }
         }
-        className="flex w-full flex-col items-center"
+        className="flex w-full flex-col items-center sm:-translate-x-8"
       >
         <motion.span
           {...fade(0)}

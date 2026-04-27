@@ -59,7 +59,7 @@ export function HeroHeadline() {
         fontFamily: "var(--font-geist-sans), sans-serif",
         fontWeight: 500,
       }}
-      className="mt-5 w-full text-center text-5xl leading-[1.04] tracking-tighter text-zinc-950 sm:w-max sm:max-w-full sm:text-6xl md:text-7xl lg:text-[80px]"
+      className="mt-5 w-full text-center text-5xl leading-[1.04] tracking-tighter text-zinc-950 sm:text-6xl md:text-7xl lg:text-[80px]"
     >
       <span className="font-pixel-circle">
         <Word variants={variants}>feedback</Word>{" "}
