@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   easeOut,
   motion,
@@ -37,7 +37,17 @@ export function HeroScene() {
   // collapses to 0 so the scene is static but all other visuals (fog drift,
   // image content) are preserved.
   const shouldReduceMotion = useReducedMotion();
-  const scale = shouldReduceMotion ? 0 : 1;
+  // On mobile we drop the landscape asset and disable scroll-driven parallax —
+  // the layered movement reads as noise rather than depth on small viewports.
+  // Fog/cloud CSS animations stay alive (they don't depend on scroll).
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const update = () => setIsMobile(window.innerWidth < 640);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+  const scale = shouldReduceMotion || isMobile ? 0 : 1;
 
   // Disable browser scroll restoration on this page — when users back-button
   // here from another route (e.g. /changelog) the restored scroll can leave
@@ -443,7 +453,7 @@ export function HeroScene() {
       {/* Layer 4: Bridge */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute top-[52%] right-[-6%] h-[43%] w-[64%] sm:right-[-4%] sm:w-[58%] lg:right-[-2%] lg:w-[54%]"
+        className="pointer-events-none absolute bottom-0 right-[-6%] h-[43%] w-[64%] sm:bottom-auto sm:top-[52%] sm:right-[-4%] sm:w-[58%] lg:right-[-2%] lg:w-[54%]"
         style={{ y: bridgeY, filter: bridgeFilter }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -581,7 +591,7 @@ export function HeroScene() {
         width={2576}
         height={1717}
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-[-47%] z-20 h-auto w-full"
+        className="pointer-events-none absolute inset-x-0 bottom-[-47%] z-20 hidden h-auto w-full sm:block"
         style={{
           y: groundY,
           filter: groundFilter,
