@@ -14,7 +14,12 @@ import { usePathname } from "next/navigation";
 import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 
-type NavLink = { href: string; label: string; external?: boolean };
+type NavLink = {
+  href: string;
+  label: string;
+  external?: boolean;
+  disabled?: boolean;
+};
 
 const NAV_LINKS: NavLink[] = [
   { href: "https://docs.neatlogs.com", label: "Docs", external: true },
@@ -23,7 +28,7 @@ const NAV_LINKS: NavLink[] = [
     label: "Careers",
     external: true,
   },
-  { href: "/changelog", label: "Changelog" },
+  { href: "/changelog", label: "Changelog", disabled: true },
 ];
 
 export function Navbar() {
@@ -160,8 +165,16 @@ export function Navbar() {
             className="flex items-center gap-7 lg:gap-9"
             suppressHydrationWarning
           >
-            {NAV_LINKS.map(({ href, label, external }) =>
-              external ? (
+            {NAV_LINKS.map(({ href, label, external, disabled }) =>
+              disabled ? (
+                <span
+                  key={href}
+                  aria-disabled="true"
+                  className="font-ui pointer-events-none whitespace-nowrap text-sm font-medium text-zinc-400"
+                >
+                  {label}
+                </span>
+              ) : external ? (
                 <a
                   key={href}
                   href={href}
@@ -263,8 +276,16 @@ export function Navbar() {
             }`}
           >
             <div className="flex flex-col gap-0.5 p-4">
-              {NAV_LINKS.map(({ href, label, external }) =>
-                external ? (
+              {NAV_LINKS.map(({ href, label, external, disabled }) =>
+                disabled ? (
+                  <span
+                    key={href}
+                    aria-disabled="true"
+                    className="font-ui pointer-events-none rounded-lg px-3 py-3 text-[15px] font-medium text-zinc-400"
+                  >
+                    {label}
+                  </span>
+                ) : external ? (
                   <a
                     key={href}
                     href={href}

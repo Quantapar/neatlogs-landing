@@ -63,6 +63,10 @@ function CollabScene() {
   const devX = useTransform(scrollYProgress, [0, 0.85], ["-100%", "1%"]);
   const bizX = useTransform(scrollYProgress, [0, 0.85], ["100%", "-1%"]);
   const fadeIn = useTransform(scrollYProgress, [0, 0.3, 0.85], [0, 0.9, 1]);
+  // Start zoomed in on the reaching hands (dev's right edge, biz's left edge)
+  // and zoom out to full body as the scene fully assembles.
+  const devScale = useTransform(scrollYProgress, [0, 0.85], [1.9, 1]);
+  const bizScale = useTransform(scrollYProgress, [0, 0.85], [1.9, 1]);
 
   return (
     <div className="mx-auto mt-6 w-full max-w-[1500px] px-2 pb-12 sm:mt-8 sm:px-3 sm:pb-16 lg:mt-10 lg:px-4 lg:pb-20">
@@ -77,8 +81,12 @@ function CollabScene() {
         className="relative aspect-[3/2] w-full overflow-hidden bg-[#FAFAFA]"
       >
         <motion.div
-          style={reducedMotion ? undefined : { x: devX, opacity: fadeIn }}
-          className="pointer-events-none absolute bottom-[-5%] left-0 w-[58%] max-w-[760px] select-none"
+          style={
+            reducedMotion
+              ? undefined
+              : { x: devX, scale: devScale, opacity: fadeIn, transformOrigin: "right center" }
+          }
+          className="pointer-events-none absolute bottom-[-15%] left-0 w-[58%] max-w-[760px] select-none"
         >
           <video
             src="/leftman.mp4"
@@ -93,8 +101,12 @@ function CollabScene() {
         </motion.div>
 
         <motion.div
-          style={reducedMotion ? undefined : { x: bizX, opacity: fadeIn }}
-          className="pointer-events-none absolute right-0 top-[-42%] w-[56%] max-w-[720px] select-none"
+          style={
+            reducedMotion
+              ? undefined
+              : { x: bizX, scale: bizScale, opacity: fadeIn, transformOrigin: "left center" }
+          }
+          className="pointer-events-none absolute right-0 top-[-32%] w-[56%] max-w-[720px] select-none"
         >
           <video
             src="/Untitled.mp4"
