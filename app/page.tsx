@@ -4,7 +4,7 @@ import { HowItWorks } from "./how-it-works";
 import { CycleLoop } from "./loop";
 import { MeetNeatlogs } from "./meet-neatlogs";
 import { Integrations } from "./integrations";
-import { Reviews } from "./reviews";
+// import { Reviews } from "./reviews";
 import { Pricing } from "./pricing";
 import { FAQ } from "./faq";
 import Footer2 from "./footer";
@@ -23,7 +23,7 @@ export default function () {
       <HowItWorks />
       <Flow />
       <Integrations />
-      <Reviews />
+      {/* <Reviews /> */}
       <Pricing />
       <CTA />
       <FAQ />
