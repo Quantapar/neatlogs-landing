@@ -39,7 +39,7 @@ export function HeroIntro({ scrollProgress }: Props) {
         };
 
   return (
-    <section className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-[28%] sm:pt-[14%]">
+    <section className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-[42%] sm:pt-[14%]">
       <motion.div
         style={
           reducedMotion
@@ -50,7 +50,7 @@ export function HeroIntro({ scrollProgress }: Props) {
       >
         <motion.span
           {...fade(0)}
-          className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-900/85"
+          className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-900/85 sm:-translate-x-9"
         >
           For teams shipping agents
         </motion.span>
