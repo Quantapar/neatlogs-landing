@@ -132,10 +132,7 @@ export function Navbar() {
       style={{ backgroundColor, backdropFilter }}
       className="fixed inset-x-0 top-0 z-50 w-full"
     >
-      <motion.div
-        style={{ borderBottomColor }}
-        className="border-b border-transparent"
-      >
+      <div className="relative">
       <motion.div
         style={
           {
@@ -263,7 +260,12 @@ export function Navbar() {
           </svg>
         </button>
       </motion.div>
-      </motion.div>
+      <motion.div
+        aria-hidden="true"
+        style={{ borderBottomColor }}
+        className={`pointer-events-none absolute inset-x-0 bottom-0 border-b border-transparent transition-opacity duration-200 ${open ? "opacity-0" : "opacity-100"}`}
+      />
+      </div>
 
       <div
         id="mobile-nav"
@@ -274,7 +276,7 @@ export function Navbar() {
       >
         <div className="overflow-hidden">
           <div
-            className={`mx-4 -mt-1 rounded bg-white ring-1 ring-zinc-900/10 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] transition-[opacity,transform] duration-[220ms] ease-snap ${
+            className={`mx-4 my-1 rounded bg-white ring-1 ring-zinc-900/10 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] transition-[opacity,transform] duration-[220ms] ease-snap ${
               open
                 ? "opacity-100 translate-y-0"
                 : "pointer-events-none -translate-y-2 opacity-0"

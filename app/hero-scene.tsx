@@ -122,14 +122,12 @@ export function HeroScene() {
   // Focus swap driven by scroll: at rest the land is softly blurred and the
   // bridge is sharp (bridge = focal point). As the land starts moving, blur
   // transfers onto the bridge so the land reads crisp and the bridge recedes.
-  const groundBlurPx = useTransform(smoothProgress, [0, 0.12], [1.6, 0]);
+  // On mobile we keep everything sharp — no scroll-driven blur swap.
+  const groundBlurPx = useTransform(smoothProgress, [0, 0.12], isMobile ? [0, 0] : [1.6, 0]);
   const groundFilter = useTransform(groundBlurPx, (v) => `blur(${v}px)`);
-  const bridgeBlurPx = useTransform(smoothProgress, [0, 0.12], [0, 1.6]);
+  const bridgeBlurPx = useTransform(smoothProgress, [0, 0.12], isMobile ? [0, 0] : [0, 1.6]);
   const bridgeFilter = useTransform(bridgeBlurPx, (v) => `blur(${v}px)`);
-  // Buildings pick up a softer blur once the land is on its way up — subtler
-  // than the bridge's fade-out so the skyline doesn't disappear into the fog
-  // before the bridge does.
-  const skylineBlurPx = useTransform(smoothProgress, [0, 0.12], [0.5, 1.0]);
+  const skylineBlurPx = useTransform(smoothProgress, [0, 0.12], isMobile ? [0, 0] : [0.5, 1.0]);
   const skylineFilter = useTransform(skylineBlurPx, (v) => `blur(${v}px)`);
 
   // Bottom fade only kicks in as the user scrolls — at rest (scroll=0) the
@@ -143,7 +141,7 @@ export function HeroScene() {
     // (progress 0 → 0.6) during which the land rises 80% of its height while
     // the viewport stays locked. Once sticky releases, the page scrolls
     // normally — bridge/sky parallax into view as the inner slides upward.
-    <div ref={heroRef} className="relative w-full h-[250vh]">
+    <div ref={heroRef} className="relative w-full h-[100svh] sm:h-[250vh]">
       <div className="sticky top-0 w-full h-[100svh] min-h-[560px] overflow-hidden md:h-screen md:min-h-0 md:max-h-[920px]">
       {/* Layer 1: Sky wash — furthest back, slowest parallax. */}
       <motion.div
@@ -185,7 +183,7 @@ export function HeroScene() {
       {/* === LAYER 1: MAIN BAY FOG — wide, dense, sits under the bridge deck === */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[84%] h-[16%] mix-blend-screen motion-reduce:hidden motion-safe:animate-[fog-breath_10s_ease-in-out_infinite]"
+        className="pointer-events-none absolute inset-x-0 top-[100%] h-[16%] sm:top-[84%] mix-blend-screen motion-reduce:hidden motion-safe:animate-[fog-breath_10s_ease-in-out_infinite]"
         style={{
           background:
             "radial-gradient(ellipse 95% 60% at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(240,244,250,0.6) 55%, rgba(255,255,255,0) 95%)",
@@ -196,7 +194,7 @@ export function HeroScene() {
 
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[83%] h-[15%] overflow-hidden mix-blend-screen motion-reduce:hidden"
+        className="pointer-events-none absolute inset-x-0 top-[99%] h-[15%] sm:top-[83%] overflow-hidden mix-blend-screen motion-reduce:hidden"
         style={{
           maskImage:
             "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 15%, #000 35%, #000 65%, rgba(0,0,0,0.55) 85%, transparent 100%)",
@@ -235,7 +233,7 @@ export function HeroScene() {
 
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[86%] h-[14%] overflow-hidden mix-blend-screen motion-reduce:hidden"
+        className="pointer-events-none absolute inset-x-0 top-[102%] h-[14%] sm:top-[86%] overflow-hidden mix-blend-screen motion-reduce:hidden"
         style={{
           maskImage:
             "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 20%, #000 45%, #000 65%, rgba(0,0,0,0.45) 85%, transparent 100%)",
@@ -278,7 +276,7 @@ export function HeroScene() {
       {/* === LAYER 2: SKYLINE MIST — thin, distant band behind the skyline base === */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[76%] h-[8%] mix-blend-screen motion-reduce:hidden motion-safe:animate-[fog-breath_14s_ease-in-out_infinite]"
+        className="pointer-events-none absolute inset-x-0 top-[92%] h-[8%] sm:top-[76%] mix-blend-screen motion-reduce:hidden motion-safe:animate-[fog-breath_14s_ease-in-out_infinite]"
         style={{
           background:
             "radial-gradient(ellipse 100% 70% at 50% 50%, rgba(255,255,255,0.6) 0%, rgba(240,244,250,0.35) 58%, rgba(255,255,255,0) 98%)",
@@ -289,7 +287,7 @@ export function HeroScene() {
 
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[75%] h-[9%] overflow-hidden mix-blend-screen motion-reduce:hidden"
+        className="pointer-events-none absolute inset-x-0 top-[91%] h-[9%] sm:top-[75%] overflow-hidden mix-blend-screen motion-reduce:hidden"
         style={{
           maskImage:
             "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.45) 20%, #000 45%, #000 65%, rgba(0,0,0,0.45) 85%, transparent 100%)",
@@ -332,7 +330,7 @@ export function HeroScene() {
       {/* === LAYER 3: MID-BAY DRIFT === */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[79%] h-[10%] mix-blend-screen motion-reduce:hidden motion-safe:animate-[fog-breath_12s_ease-in-out_infinite]"
+        className="pointer-events-none absolute inset-x-0 top-[95%] h-[10%] sm:top-[79%] mix-blend-screen motion-reduce:hidden motion-safe:animate-[fog-breath_12s_ease-in-out_infinite]"
         style={{
           background:
             "radial-gradient(ellipse 90% 80% at 50% 50%, rgba(255,255,255,0.85) 0%, rgba(240,244,250,0.55) 55%, rgba(255,255,255,0) 98%)",
@@ -343,7 +341,7 @@ export function HeroScene() {
 
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[78%] h-[13%] overflow-hidden mix-blend-screen motion-reduce:hidden"
+        className="pointer-events-none absolute inset-x-0 top-[94%] h-[13%] sm:top-[78%] overflow-hidden mix-blend-screen motion-reduce:hidden"
         style={{
           maskImage:
             "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 20%, #000 45%, #000 65%, rgba(0,0,0,0.5) 85%, transparent 100%)",
@@ -386,7 +384,7 @@ export function HeroScene() {
       {/* === LAYER 3a: WARM CREAM DRIFT === */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[71%] h-[14%] overflow-hidden motion-reduce:hidden"
+        className="pointer-events-none absolute inset-x-0 top-[87%] h-[14%] sm:top-[71%] overflow-hidden motion-reduce:hidden"
         style={{
           maskImage:
             "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 25%, rgba(0,0,0,0.65) 55%, rgba(0,0,0,0.4) 85%, transparent 100%)",
@@ -453,7 +451,7 @@ export function HeroScene() {
       {/* Layer 4: Bridge */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-0 right-[-6%] h-[43%] w-[64%] sm:bottom-auto sm:top-[52%] sm:right-[-4%] sm:w-[58%] lg:right-[-2%] lg:w-[54%]"
+        className="pointer-events-none absolute bottom-[6%] right-[-14%] h-[43%] w-[64%] [mask-image:linear-gradient(to_bottom,black_0%,black_75%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_75%,transparent_100%)] sm:bottom-auto sm:top-[52%] sm:right-[-4%] sm:w-[58%] sm:[mask-image:none] sm:[-webkit-mask-image:none] lg:right-[-2%] lg:w-[54%]"
         style={{ y: bridgeY, filter: bridgeFilter }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -561,7 +559,7 @@ export function HeroScene() {
       {/* === LAYER 4c: SKY-BLUE DRIFT === */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-[76%] h-[13%] overflow-hidden motion-reduce:hidden"
+        className="pointer-events-none absolute inset-x-0 top-[92%] h-[13%] sm:top-[76%] overflow-hidden motion-reduce:hidden"
         style={{
           maskImage:
             "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.55) 25%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.35) 85%, transparent 100%)",
@@ -591,7 +589,7 @@ export function HeroScene() {
         width={2576}
         height={1717}
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-[-47%] z-20 hidden h-auto w-full sm:block"
+        className="pointer-events-none absolute inset-x-0 bottom-[-32%] z-20 h-auto w-full [mask-image:linear-gradient(to_bottom,black_0%,black_55%,transparent_85%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_55%,transparent_85%)] sm:bottom-[-47%] sm:[mask-image:none] sm:[-webkit-mask-image:none]"
         style={{
           y: groundY,
           filter: groundFilter,
