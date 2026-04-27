@@ -173,12 +173,12 @@ export const FAQ = () => {
                                 we're happy to jump on a call and dive into your stack
                             </p>
                         </div>
-                        <Link
-                            href="/contact"
+                        <a
+                            href="mailto:hello@neatlogs.com"
                             className="font-ui group inline-flex h-11 shrink-0 cursor-pointer items-center justify-center rounded-full bg-zinc-950 px-6 text-[14.5px] font-medium text-white shadow-[0_1px_0_0_rgba(255,255,255,0.12)_inset,0_1px_2px_rgba(0,0,0,0.18)] transition-all duration-[200ms] ease-out hover:bg-zinc-800 active:scale-[0.97]"
                         >
                             Contact Support
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </div>

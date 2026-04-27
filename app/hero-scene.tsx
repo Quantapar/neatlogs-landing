@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import {
   easeOut,
   motion,
@@ -38,6 +38,23 @@ export function HeroScene() {
   // image content) are preserved.
   const shouldReduceMotion = useReducedMotion();
   const scale = shouldReduceMotion ? 0 : 1;
+
+  // Disable browser scroll restoration on this page — when users back-button
+  // here from another route (e.g. /changelog) the restored scroll can leave
+  // them mid-hero with the CTA already faded out by scroll-linked opacity.
+  // Forcing a top-on-mount means the hero always reads correctly on return.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if ("scrollRestoration" in window.history) {
+      const previous = window.history.scrollRestoration;
+      window.history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+      return () => {
+        window.history.scrollRestoration = previous;
+      };
+    }
+    window.scrollTo(0, 0);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: heroRef,

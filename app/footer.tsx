@@ -47,7 +47,9 @@ export default function Footer2() {
           <div className="flex flex-col gap-3 mb-6 md:mb-0">
             <div className="flex gap-4 items-center">
               <a
-                href="#"
+                href="https://www.linkedin.com/company/neatlogs/posts/?feedView=all"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="LinkedIn"
                 className="cursor-pointer transition-transform duration-150 active:scale-[0.97] motion-reduce:active:scale-100"
               >
@@ -58,7 +60,9 @@ export default function Footer2() {
                 />
               </a>
               <a
-                href="#"
+                href="https://x.com/neatlogs"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="X (Twitter)"
                 className="cursor-pointer transition-transform duration-150 active:scale-[0.97] motion-reduce:active:scale-100"
               >
@@ -69,7 +73,9 @@ export default function Footer2() {
                 />
               </a>
               <a
-                href="#"
+                href="https://github.com/neatlogs/neatlogs"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="GitHub"
                 className="cursor-pointer transition-transform duration-150 active:scale-[0.97] motion-reduce:active:scale-100"
               >
@@ -81,33 +87,39 @@ export default function Footer2() {
               </a>
             </div>
             <span className="text-[8px] sm:text-[9px] opacity-50 tracking-wider">
-              © NEATLOGS INC. 2026
+              © 2026 Neatlogs, All rights reserved
             </span>
           </div>
 
           <div className="flex flex-wrap gap-x-8 gap-y-4 pt-1">
             <a
-              href="#"
+              href="/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
               className="cursor-pointer hover:text-black flex items-center gap-1.5 group transition-transform duration-150 active:scale-[0.97] motion-reduce:active:scale-100"
             >
-              Features{" "}
+              Privacy Policy{" "}
               <ArrowUpRight
                 className="w-3.5 h-3.5 text-zinc-900 transition-transform hover-hover:group-hover:-translate-y-0.5 hover-hover:group-hover:translate-x-0.5"
                 strokeWidth={1.75}
               />
             </a>
             <a
-              href="#"
+              href="/terms"
+              target="_blank"
+              rel="noopener noreferrer"
               className="cursor-pointer hover:text-black flex items-center gap-1.5 group transition-transform duration-150 active:scale-[0.97] motion-reduce:active:scale-100"
             >
-              Pricing{" "}
+              Terms of Service{" "}
               <ArrowUpRight
                 className="w-3.5 h-3.5 text-zinc-900 transition-transform hover-hover:group-hover:-translate-y-0.5 hover-hover:group-hover:translate-x-0.5"
                 strokeWidth={1.75}
               />
             </a>
             <a
-              href="#"
+              href="https://docs.neatlogs.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="cursor-pointer hover:text-black flex items-center gap-1.5 group transition-transform duration-150 active:scale-[0.97] motion-reduce:active:scale-100"
             >
               Docs{" "}
@@ -117,7 +129,7 @@ export default function Footer2() {
               />
             </a>
             <a
-              href="#"
+              href="mailto:hello@neatlogs.com"
               className="cursor-pointer hover:text-black flex items-center gap-1.5 group transition-transform duration-150 active:scale-[0.97] motion-reduce:active:scale-100"
             >
               Contact{" "}

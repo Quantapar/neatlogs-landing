@@ -1,15 +1,18 @@
 "use client";
 
 import {
+  animate,
   motion,
   useMotionTemplate,
+  useMotionValue,
   useScroll,
   useTransform,
 } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { CSSProperties } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type NavLink = { href: string; label: string; external?: boolean };
 
@@ -25,18 +28,53 @@ const NAV_LINKS: NavLink[] = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  // Window dimensions read into state so server-render and client-first-render
+  // produce identical output (avoids hydration mismatch on non-home pages
+  // where progress=1 immediately uses these values). Real values get filled in
+  // after mount, then updated on resize.
+  const [viewport, setViewport] = useState({ width: 1280, height: 800 });
+  useEffect(() => {
+    const update = () =>
+      setViewport({ width: window.innerWidth, height: window.innerHeight });
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
   // Continuous 0..1 progress tied to scroll: stays 0 over the hero, ramps to 1
   // as the user scrolls roughly half a viewport past the sticky-release point.
   // Drives the bg fade + the nav's translateX so the links physically slide
-  // from center to right-cluster in lockstep with scroll.
+  // from center to right-cluster in lockstep with scroll. On non-home pages
+  // there's no hero, so we lock progress at 1 to keep the navbar opaque from
+  // scroll=0 instead of the transparent home-page intro state.
   const { scrollY } = useScroll();
-  const progress = useTransform(scrollY, (y) => {
-    if (typeof window === "undefined") return 0;
-    const vh = window.innerHeight;
+  // Scroll-derived 0..1 — only meaningful on the home page where there's a hero
+  // to scroll past. On other routes we don't read this; the route-driven value
+  // takes over.
+  const scrollProgress = useTransform(scrollY, (y) => {
+    const vh = viewport.height;
     const start = vh * 1.4;
     const end = vh * 1.9;
     return Math.max(0, Math.min(1, (y - start) / (end - start)));
   });
+  // Route-driven 0..1 — animates between 0 (home) and 1 (any other page) so the
+  // navbar bg doesn't snap on navigation. 220ms ease-out matches the rest of
+  // the navbar's motion language.
+  const routeProgress = useMotionValue(isHome ? 0 : 1);
+  useEffect(() => {
+    const controls = animate(routeProgress, isHome ? 0 : 1, {
+      duration: 0.22,
+      ease: [0.22, 1, 0.36, 1],
+    });
+    return () => controls.stop();
+  }, [isHome, routeProgress]);
+  // Final progress = max of scroll and route, so on home the scroll behavior
+  // works exactly like before, and on other routes we sit at 1.
+  const progress = useTransform(
+    [scrollProgress, routeProgress],
+    ([s, r]: number[]) => Math.max(s, r),
+  );
 
   const bgAlpha = useTransform(progress, [0, 1], [0, 0.85]);
   const backgroundColor = useMotionTemplate`rgba(255, 255, 255, ${bgAlpha})`;
@@ -48,8 +86,7 @@ export function Navbar() {
   const borderBottomColor = useMotionTemplate`rgba(9, 9, 11, ${borderAlpha})`;
 
   const maxWidthMv = useTransform(progress, (p) => {
-    if (typeof window === "undefined") return 1280;
-    return 1280 + (window.innerWidth - 1280) * p;
+    return 1280 + (viewport.width - 1280) * p;
   });
   const maxWidth = useMotionTemplate`${maxWidthMv}px`;
 
@@ -61,26 +98,27 @@ export function Navbar() {
   const navPadLg = useMotionTemplate`${padLg}px`;
 
   // On scroll: nav links slide from viewport center to their natural slot
-  // (just left of the right-side button cluster). At p=0 the wrapper is
-  // max-w-7xl (1280) centered in viewport, so natural nav slot lives inside
-  // that 1280 box — using `vw` directly would mis-place the start.
+  // (just left of the right-side button cluster). The wrapper width itself
+  // animates from max-w-7xl (1280) to full viewport, so the natural slot
+  // moves with it — the offset has to track the *current* wrapper width,
+  // not the start width, otherwise links drift mid-scroll on viewports
+  // wider than 1280.
   const navOffsetX = useTransform(progress, (p) => {
-    if (typeof window === "undefined") return 0;
-    const vw = window.innerWidth;
-    const startWrapperW = Math.min(1280, vw);
-    const startWrapperLeft = (vw - startWrapperW) / 2;
-    const startPadding = vw >= 1024 ? 40 : vw >= 640 ? 28 : 20;
+    const vw = viewport.width;
+    const wrapperW = Math.min(vw, 1280 + (vw - 1280) * p);
+    const wrapperLeft = (vw - wrapperW) / 2;
+    const padding = vw >= 1024 ? 40 + (56 - 40) * p : vw >= 640 ? 28 + (40 - 28) * p : 20 + (24 - 20) * p;
     const buttonsApprox = 280; // Book a Demo + Join the Waitlist + inner gap
     const navApprox = 200; // 3 links + gaps
     const clusterGap = 36; // gap between nav and buttons (matches lg:gap-9)
-    const startNaturalNavCenterX =
-      startWrapperLeft +
-      startWrapperW -
-      startPadding -
+    const naturalNavCenterX =
+      wrapperLeft +
+      wrapperW -
+      padding -
       buttonsApprox -
       clusterGap -
       navApprox / 2;
-    const distanceToCenter = vw / 2 - startNaturalNavCenterX;
+    const distanceToCenter = vw / 2 - naturalNavCenterX;
     return (1 - p) * distanceToCenter;
   });
 
@@ -103,7 +141,7 @@ export function Navbar() {
         <Link
           href="/"
           aria-label="Neatlogs home"
-          className="group flex shrink-0 cursor-pointer items-center rounded-xl outline-none -mx-1 px-1 py-1 focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5]"
+          className="group flex shrink-0 cursor-pointer items-center rounded-xl outline-none -mx-1 px-1 py-1 transition-transform duration-150 ease-out active:scale-[0.97] motion-reduce:active:scale-100 focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5]"
         >
           <Image
             src="/nl-wordmark.png"
@@ -146,8 +184,10 @@ export function Navbar() {
           </motion.nav>
 
           <div className="flex items-center gap-2">
-            <Link
-              href="/demo"
+            <a
+              href="https://calendly.com/ajay-yadav-neatlogs/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               className="font-ui group inline-flex h-10 cursor-pointer items-center gap-1.5 rounded bg-(--glass-bg) px-4 text-sm font-medium text-zinc-950 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-zinc-900/10 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-out touch-manipulation hover:bg-white/8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
             >
               Book a Demo
@@ -163,7 +203,7 @@ export function Navbar() {
                   clipRule="evenodd"
                 />
               </svg>
-            </Link>
+            </a>
             <Link
               href="/waitlist"
               className="font-ui inline-flex h-10 cursor-pointer items-center justify-center rounded bg-zinc-950/80 px-5 text-sm font-medium text-white shadow-[0_4px_14px_-4px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.18)] ring-1 ring-white/15 backdrop-blur-xs transition-[transform,background-color] duration-150 ease-out touch-manipulation hover:bg-zinc-950/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-[#A4A8C5] active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
@@ -247,8 +287,10 @@ export function Navbar() {
                 ),
               )}
               <div className="mt-4 flex flex-col gap-2.5 border-t border-zinc-900/[0.06] pt-4">
-                <Link
-                  href="/demo"
+                <a
+                  href="https://calendly.com/ajay-yadav-neatlogs/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setOpen(false)}
                   className="font-ui inline-flex h-11 cursor-pointer items-center justify-center gap-1.5 rounded border border-zinc-900/10 bg-white/80 px-5 text-sm font-medium text-zinc-900 transition-[background-color,transform] duration-150 ease-snap hover:bg-white active:scale-[0.97] motion-reduce:active:scale-100"
                 >
@@ -265,7 +307,7 @@ export function Navbar() {
                       clipRule="evenodd"
                     />
                   </svg>
-                </Link>
+                </a>
                 <Link
                   href="/waitlist"
                   onClick={() => setOpen(false)}

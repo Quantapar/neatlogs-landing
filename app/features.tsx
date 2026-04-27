@@ -39,18 +39,12 @@ export const Features = () => {
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-darken pointer-events-none" />
 
           <div className="relative z-10 max-w-6xl mx-auto mb-10 sm:mb-16 text-center">
-            <span
-              translate="no"
-              className="font-pixel-circle text-4xl sm:text-5xl tracking-tight"
-            >
-              why neatlogs
-            </span>
-            <h2 className="mt-5 text-balance text-[22px] sm:text-5xl md:text-[56px] leading-[1.2] sm:leading-[1.08] tracking-tight sm:tracking-tighter text-zinc-950 mx-auto font-sans">
-              <span className="font-semibold">
+            <h2 className="text-balance text-[22px] sm:text-5xl md:text-[56px] leading-[1.2] sm:leading-[1.08] tracking-tight sm:tracking-tighter text-zinc-950 mx-auto">
+              <span className="font-pixel-circle">
                 most teams don't have<br className="sm:hidden" /> a visibility problem
               </span>
               <br />
-              <span className="font-semibold tracking-tight">
+              <span className="font-semibold tracking-tight font-sans">
                 they have a handoff problem
               </span>
             </h2>
