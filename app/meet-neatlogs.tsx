@@ -35,6 +35,17 @@ export function MeetNeatlogs() {
       {/* DashboardScene kept defined below for later — currently rendering TraceMock instead. */}
       {/* <DashboardScene /> */}
       <TraceMock />
+      <div className="mx-auto mt-12 max-w-7xl px-6 text-center sm:mt-16 lg:mt-20 lg:px-10">
+        <h2 className="text-balance mx-auto max-w-3xl text-4xl leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
+          <span className="font-pixel-circle">One place to go from</span>
+          <br />
+          issue to feedback to fix
+        </h2>
+        <p className="font-ui mx-auto mt-4 max-w-xl text-[15px] font-medium leading-relaxed text-zinc-700 sm:text-base">
+          Developers and domain experts can look at the same run, understand
+          what happened, and collaborate on the next step.
+        </p>
+      </div>
       <CollabScene />
     </section>
   );
@@ -54,7 +65,7 @@ function CollabScene() {
   const fadeIn = useTransform(scrollYProgress, [0, 0.3, 0.85], [0, 0.9, 1]);
 
   return (
-    <div className="mx-auto mt-12 w-full max-w-[1500px] px-2 pb-12 sm:mt-16 sm:px-3 sm:pb-16 lg:mt-20 lg:px-4 lg:pb-20">
+    <div className="mx-auto mt-6 w-full max-w-[1500px] px-2 pb-12 sm:mt-8 sm:px-3 sm:pb-16 lg:mt-10 lg:px-4 lg:pb-20">
       <div
         ref={ref}
         style={{
@@ -97,24 +108,6 @@ function CollabScene() {
           />
         </motion.div>
 
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-[6%] bg-gradient-to-b from-[#FAFAFA] via-[#FAFAFA]/70 to-transparent"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[10%] bg-gradient-to-t from-[#FAFAFA] via-[#FAFAFA]/80 to-transparent"
-        />
-
-        <div className="pointer-events-none absolute inset-x-0 bottom-[8%] z-10 mx-auto flex w-full max-w-5xl flex-col items-center gap-3 px-6 text-center sm:bottom-[10%] sm:gap-4 lg:px-10">
-          <h2 className="text-balance text-3xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-4xl md:text-5xl lg:text-[56px]">
-            One place to go from issue to feedback to fix
-          </h2>
-          <p className="font-ui max-w-xl text-[14px] font-medium leading-relaxed text-zinc-700 sm:text-[15px] md:text-base">
-            Developers and domain experts can look at the same run, understand
-            what happened, and collaborate on the next step.
-          </p>
-        </div>
       </div>
     </div>
   );

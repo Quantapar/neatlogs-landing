@@ -32,7 +32,7 @@ export const Features = () => {
   return (
     <section
       id="features"
-      className="w-full bg-[#FAFAFA] flex flex-col pt-8 pb-20 sm:pt-12 sm:pb-24 lg:pt-16 lg:pb-28"
+      className="relative z-10 -mt-48 w-full bg-[#FAFAFA] flex flex-col pt-8 pb-20 sm:-mt-64 sm:pt-12 sm:pb-24 lg:-mt-80 lg:pt-16 lg:pb-28"
     >
       <LayoutWrapper showBorderAccents={false} className="pb-10 pt-2 flex-1">
         <div className="relative w-full mx-auto backdrop-blur-2xl overflow-hidden px-6 md:px-8 pb-6 md:pb-8 pt-2 md:pt-4">
