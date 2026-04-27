@@ -7,9 +7,9 @@ import {
   ChevronDown,
   ChevronRight,
   History,
+  MessageSquare,
   PanelLeft,
   SmilePlus,
-  Sparkles,
   Wrench,
   X,
   Zap,
@@ -47,7 +47,78 @@ export function MeetNeatlogs() {
       {/* DashboardScene kept defined below for later — currently rendering TraceMock instead. */}
       {/* <DashboardScene /> */}
       <TraceMock />
+      <CollabScene />
     </section>
+  );
+}
+
+function CollabScene() {
+  const ref = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 90%", "center 65%"],
+  });
+
+  const devX = useTransform(scrollYProgress, [0, 0.85], ["-100%", "1%"]);
+  const bizX = useTransform(scrollYProgress, [0, 0.85], ["100%", "-1%"]);
+  const fadeIn = useTransform(scrollYProgress, [0, 0.3, 0.85], [0, 0.9, 1]);
+
+  return (
+    <div className="mx-auto mt-12 w-full max-w-[1500px] px-2 pb-12 sm:mt-16 sm:px-3 sm:pb-16 lg:mt-20 lg:px-4 lg:pb-20">
+      <div
+        ref={ref}
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.25) 4%, rgba(0,0,0,0.6) 8%, rgba(0,0,0,0.9) 14%, black 18%, black 82%, rgba(0,0,0,0.9) 86%, rgba(0,0,0,0.6) 92%, rgba(0,0,0,0.25) 96%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.25) 4%, rgba(0,0,0,0.6) 8%, rgba(0,0,0,0.9) 14%, black 18%, black 82%, rgba(0,0,0,0.9) 86%, rgba(0,0,0,0.6) 92%, rgba(0,0,0,0.25) 96%, transparent 100%)",
+        }}
+        className="relative aspect-[3/2] w-full overflow-hidden bg-[#FAFAFA]"
+      >
+        <motion.div
+          style={reducedMotion ? undefined : { x: devX, opacity: fadeIn }}
+          className="pointer-events-none absolute bottom-[-15%] left-0 w-[58%] max-w-[760px] select-none"
+        >
+          <video
+            src="/leftman.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-label="Developer reaching out"
+            className="block h-auto w-full"
+          />
+        </motion.div>
+
+        <motion.div
+          style={reducedMotion ? undefined : { x: bizX, opacity: fadeIn }}
+          className="pointer-events-none absolute right-0 top-[-32%] w-[56%] max-w-[720px] select-none"
+        >
+          <video
+            src="/Untitled.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-label="Domain expert reaching out"
+            className="block h-auto w-full"
+          />
+        </motion.div>
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-[6%] bg-gradient-to-b from-[#FAFAFA] via-[#FAFAFA]/70 to-transparent"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[10%] bg-gradient-to-t from-[#FAFAFA] via-[#FAFAFA]/80 to-transparent"
+        />
+      </div>
+    </div>
   );
 }
 
@@ -542,9 +613,9 @@ function IconGear(props: SVGProps<SVGSVGElement>) {
 
 function TraceMock() {
   return (
-    <div className="mx-auto mt-10 w-full max-w-7xl px-6 pb-16 sm:mt-14 sm:pb-20 lg:mt-16 lg:px-10 lg:pb-24">
+    <div className="mx-auto mt-10 w-full max-w-[1440px] px-6 pb-16 sm:mt-14 sm:pb-20 lg:mt-16 lg:px-10 lg:pb-24">
       <div className="relative">
-      <div className="relative max-w-[1200px] overflow-hidden rounded-lg border border-zinc-900/10 bg-white shadow-[0_24px_48px_-20px_rgba(12,20,40,0.18),0_10px_20px_-12px_rgba(12,20,40,0.1)]">
+      <div className="relative max-w-[1360px] overflow-hidden rounded-lg border border-zinc-900/10 bg-white shadow-[0_24px_48px_-20px_rgba(12,20,40,0.18),0_10px_20px_-12px_rgba(12,20,40,0.1)] lg:min-h-[1000px]">
         <WorkflowHeader title="Support Access Workflow" duration="4.8s" />
 
         <div className="px-2 pt-3 sm:px-4 sm:pt-4 pb-6">
@@ -573,6 +644,7 @@ function TraceMock() {
                 duration="2.3s"
                 cost="$0.0058"
                 detections={["Feature", "Billing"]}
+                commentCount={5}
               />
             </Branch>
             <Subtree>
@@ -586,16 +658,10 @@ Your job is to analyze the customer's email, determine what operation they are r
 Rules:
 - First understand what the customer is actually asking for.
 - Use the tool descriptions carefully. They explain when each tool should be used.
-- If multiple tools seem similar, choose the one that best matches the customer's intent.
-- Prefer tools that preserve the customer's stated requirements, such as billing constraints.
-- Do not guess. Use the tool that most directly satisfies the request.
-- Return a short confirmation of what was done. This confirmation will be passed to the email agent.
-
-Output format:
-- operation_selected
-- tool_used
-- result
-- confirmation_for_email_agent`}
+`}
+                  <span className="block text-[18px] font-semibold leading-none tracking-[0.15em] text-zinc-400">
+                    …
+                  </span>
                 </Body>
               </Branch>
 
@@ -606,11 +672,10 @@ Output format:
 Hi support team,
 
 We need to give our external design agency access to one dashboard so they can review work in progress. They should not count as a paid seat.
-
-What's the best way to set this up?
-
-Thanks,
-Lena`}
+`}
+                  <span className="block text-[18px] font-semibold leading-none tracking-[0.15em] text-zinc-400">
+                    …
+                  </span>
                 </Body>
               </Branch>
 
@@ -702,8 +767,7 @@ function CommentsPanel() {
           >
             <div className="flex flex-col gap-4">
               <CommentItem
-                initials="S"
-                color="bg-rose-500"
+                avatar="/sara-v4.png"
                 author="Sara"
                 role="Domain Expert"
                 time="2h ago"
@@ -717,8 +781,7 @@ function CommentsPanel() {
               </CommentItem>
 
               <CommentItem
-                initials="M"
-                color="bg-indigo-500"
+                avatar="/marcus-v3.png"
                 author="Marcus"
                 role="Developer"
                 time="1h ago"
@@ -751,14 +814,15 @@ function CommentsPanel() {
                   non-billable guests
                 </strong>{" "}
                 before making the call.
+                <div className="mt-2.5">
+                  <button
+                    type="button"
+                    className="font-ui inline-flex cursor-pointer items-center justify-center rounded-md bg-zinc-950/95 px-3 py-1.5 text-[11.5px] font-medium text-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.14)] ring-1 ring-white/10 transition-colors hover:bg-zinc-950"
+                  >
+                    Approve Code Fix Suggestion
+                  </button>
+                </div>
               </CommentItem>
-
-              <button
-                type="button"
-                className="mt-1 cursor-pointer rounded-md bg-[#F4ECD8] px-3 py-2 text-left text-[12px] font-normal text-[#B48900] ring-1 ring-zinc-900/5 transition-colors hover:bg-[#dfceA0]"
-              >
-                [Approve Code Fix Suggestion]
-              </button>
             </div>
             <CommentInput />
           </CommentGroup>
@@ -791,6 +855,7 @@ function CommentGroup({
 function CommentItem({
   initials,
   color,
+  avatar,
   author,
   role,
   time,
@@ -801,6 +866,7 @@ function CommentItem({
 }: {
   initials?: string;
   color?: string;
+  avatar?: string;
   author: string;
   role?: string;
   time: string;
@@ -812,9 +878,21 @@ function CommentItem({
   return (
     <div className="flex items-start gap-2.5">
       {isAI ? (
-        <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-white">
-          <Sparkles className="size-3.5" strokeWidth={1.6} />
-        </div>
+        <Image
+          src="/nl-logo.png"
+          alt=""
+          width={28}
+          height={28}
+          className="size-7 shrink-0 rounded"
+        />
+      ) : avatar ? (
+        <Image
+          src={avatar}
+          alt=""
+          width={28}
+          height={28}
+          className="size-7 shrink-0 rounded-full object-cover"
+        />
       ) : (
         <div
           className={`flex size-7 shrink-0 items-center justify-center rounded-full text-[10.5px] font-normal text-white ${color}`}
@@ -841,9 +919,9 @@ function CommentItem({
             {quote}
           </div>
         )}
-        <p className="mt-1 text-[12px] font-normal leading-relaxed text-zinc-700">
+        <div className="mt-1 text-[12px] font-normal leading-relaxed text-zinc-700">
           {children}
-        </p>
+        </div>
         <div className="mt-2 flex items-center gap-1">
           {reactions?.map((r) => (
             <span
@@ -921,14 +999,23 @@ function AgentHeader({
   duration,
   detections,
   cost,
+  commentCount,
 }: {
   name: string;
   duration: string;
   detections?: string[];
   cost?: string;
+  commentCount?: number;
 }) {
+  const highlighted = !!commentCount && commentCount > 0;
   return (
-    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-md bg-zinc-100/70 px-2.5 py-1.5">
+    <div
+      className={`flex flex-wrap items-center gap-x-2 gap-y-1 rounded-md px-2.5 py-1.5 ${
+        highlighted
+          ? "bg-violet-50/70 ring-1 ring-violet-300/60"
+          : "bg-zinc-100/70"
+      }`}
+    >
       <span className="inline-flex items-center gap-1 rounded bg-white px-1.5 py-0.5 text-[11px] font-normal text-zinc-600 ring-1 ring-zinc-900/10">
         <IconAgent className="size-3 text-zinc-500" />
         Agent
@@ -951,6 +1038,12 @@ function AgentHeader({
       </span>
       {cost && (
         <span className="text-[11px] font-normal tabular-nums text-zinc-400">{cost}</span>
+      )}
+      {highlighted && (
+        <span className="inline-flex items-center gap-1 rounded-full bg-violet-100 px-1.5 py-0.5 text-[10.5px] font-normal text-violet-700 ring-1 ring-violet-200/70">
+          <MessageSquare className="size-3" strokeWidth={1.6} />
+          {commentCount} {commentCount === 1 ? "comment" : "comments"}
+        </span>
       )}
     </div>
   );

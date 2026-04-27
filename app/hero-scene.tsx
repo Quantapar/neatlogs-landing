@@ -105,6 +105,12 @@ export function HeroScene() {
   const skylineBlurPx = useTransform(smoothProgress, [0, 0.12], [0.5, 1.0]);
   const skylineFilter = useTransform(skylineBlurPx, (v) => `blur(${v}px)`);
 
+  // Bottom fade only kicks in as the user scrolls — at rest (scroll=0) the
+  // landscape is fully visible. As scroll begins, the land rises and its
+  // bottom edge approaches the viewport bottom; the fade ramps in to mask
+  // that edge before it reaches a visible position.
+  const bottomFadeOpacity = useTransform(smoothProgress, [0, 0.18, 0.4], [0, 0.45, 1]);
+
   return (
     // Outer = 250vh scroll track. Inner `sticky top-0` pins for 150vh of scroll
     // (progress 0 → 0.6) during which the land rises 80% of its height while
@@ -387,7 +393,7 @@ export function HeroScene() {
       {/* Layer 4: Bridge */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute top-[54%] right-[-6%] h-[43%] w-[64%] sm:right-[-4%] sm:w-[58%] lg:right-[-2%] lg:w-[54%]"
+        className="pointer-events-none absolute top-[52%] right-[-6%] h-[43%] w-[64%] sm:right-[-4%] sm:w-[58%] lg:right-[-2%] lg:w-[54%]"
         style={{ y: bridgeY, filter: bridgeFilter }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -505,10 +511,10 @@ export function HeroScene() {
            (z-10) — the text hides behind the hills as the land scrolls up. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <motion.img
-        src="/scene/land-v1.png"
+        src="/scene/land-v3.png"
         alt=""
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-[-48%] z-20 h-auto w-full"
+        className="pointer-events-none absolute inset-x-0 bottom-[-47%] z-20 h-auto w-full"
         style={{
           y: groundY,
           filter: groundFilter,
@@ -537,9 +543,10 @@ export function HeroScene() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_50%_38%,rgba(250,250,250,0.32),transparent_72%)]"
       />
 
-      <div
+      <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-[32%] bg-[linear-gradient(to_bottom,transparent_0%,rgba(252,248,238,0.06)_18%,rgba(252,249,240,0.18)_34%,rgba(252,250,243,0.36)_50%,rgba(253,251,247,0.58)_66%,rgba(253,252,250,0.8)_80%,rgba(252,252,251,0.94)_92%,#FAFAFA_100%)]"
+        style={{ opacity: bottomFadeOpacity }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-[68%] bg-[linear-gradient(to_bottom,rgba(250,250,250,0)_0%,rgba(250,250,250,0.005)_10%,rgba(250,250,250,0.012)_20%,rgba(250,250,250,0.025)_30%,rgba(250,250,250,0.045)_40%,rgba(250,250,250,0.075)_48%,rgba(250,250,250,0.115)_55%,rgba(250,250,250,0.17)_61%,rgba(250,250,250,0.24)_66%,rgba(250,250,250,0.33)_71%,rgba(250,250,250,0.44)_75%,rgba(250,250,250,0.57)_79%,rgba(250,250,250,0.70)_83%,rgba(250,250,250,0.82)_86%,rgba(250,250,250,0.91)_89%,rgba(250,250,250,0.97)_93%,rgba(250,250,250,1)_97%,#FAFAFA_100%)]"
       />
 
       <HeroIntro scrollProgress={smoothProgress} />

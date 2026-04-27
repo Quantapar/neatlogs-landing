@@ -55,11 +55,13 @@ export function HeroHeadline() {
       variants={parentVariants}
       initial={reducedMotion ? "visible" : "hidden"}
       animate="visible"
-      style={{ fontFamily: "var(--font-geist-sans), sans-serif", fontWeight: 500 }}
+      style={{
+        fontFamily: "var(--font-geist-sans), sans-serif",
+        fontWeight: 500,
+      }}
       className="mt-5 w-max max-w-full text-center text-5xl leading-[1.04] tracking-tighter text-zinc-950 sm:text-6xl md:text-7xl lg:text-[80px]"
     >
       <span className="font-pixel-circle">
-        <Word variants={variants}>from</Word>{" "}
         <Word variants={variants}>feedback</Word>{" "}
         <Word variants={variants}>to</Word>{" "}
         <Word variants={variants}>fix,</Word>

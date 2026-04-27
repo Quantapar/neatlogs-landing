@@ -60,6 +60,30 @@ export function Navbar() {
   const navPadSm = useMotionTemplate`${padSm}px`;
   const navPadLg = useMotionTemplate`${padLg}px`;
 
+  // On scroll: nav links slide from viewport center to their natural slot
+  // (just left of the right-side button cluster). At p=0 the wrapper is
+  // max-w-7xl (1280) centered in viewport, so natural nav slot lives inside
+  // that 1280 box — using `vw` directly would mis-place the start.
+  const navOffsetX = useTransform(progress, (p) => {
+    if (typeof window === "undefined") return 0;
+    const vw = window.innerWidth;
+    const startWrapperW = Math.min(1280, vw);
+    const startWrapperLeft = (vw - startWrapperW) / 2;
+    const startPadding = vw >= 1024 ? 40 : vw >= 640 ? 28 : 20;
+    const buttonsApprox = 280; // Book a Demo + Join the Waitlist + inner gap
+    const navApprox = 200; // 3 links + gaps
+    const clusterGap = 36; // gap between nav and buttons (matches lg:gap-9)
+    const startNaturalNavCenterX =
+      startWrapperLeft +
+      startWrapperW -
+      startPadding -
+      buttonsApprox -
+      clusterGap -
+      navApprox / 2;
+    const distanceToCenter = vw / 2 - startNaturalNavCenterX;
+    return (1 - p) * distanceToCenter;
+  });
+
   return (
     <motion.header
       style={{ backgroundColor, backdropFilter, borderBottomColor }}
@@ -91,34 +115,36 @@ export function Navbar() {
           />
         </Link>
 
-        <nav
-          aria-label="Primary"
-          className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-7 md:flex lg:gap-9"
-        >
-          {NAV_LINKS.map(({ href, label, external }) =>
-            external ? (
-              <a
-                key={href}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-ui cursor-pointer whitespace-nowrap text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 ease-out hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
-              >
-                {label}
-              </a>
-            ) : (
-              <Link
-                key={href}
-                href={href}
-                className="font-ui cursor-pointer whitespace-nowrap text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 ease-out hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
-              >
-                {label}
-              </Link>
-            ),
-          )}
-        </nav>
+        <div className="hidden shrink-0 items-center gap-7 md:flex lg:gap-9">
+          <motion.nav
+            aria-label="Primary"
+            style={{ x: navOffsetX }}
+            className="flex items-center gap-7 lg:gap-9"
+            suppressHydrationWarning
+          >
+            {NAV_LINKS.map(({ href, label, external }) =>
+              external ? (
+                <a
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-ui cursor-pointer whitespace-nowrap text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 ease-out hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
+                >
+                  {label}
+                </a>
+              ) : (
+                <Link
+                  key={href}
+                  href={href}
+                  className="font-ui cursor-pointer whitespace-nowrap text-sm font-medium text-zinc-700 transition-[color,transform] duration-150 ease-out hover:text-zinc-950 active:scale-[0.97] motion-reduce:active:scale-100"
+                >
+                  {label}
+                </Link>
+              ),
+            )}
+          </motion.nav>
 
-        <div className="hidden shrink-0 items-center md:flex">
           <div className="flex items-center gap-2">
             <Link
               href="/demo"
