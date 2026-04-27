@@ -108,7 +108,7 @@ function CollabScene() {
                   x: devX,
                   scale: isMobile ? 0.85 : devScale,
                   opacity: fadeIn,
-                  transformOrigin: "right bottom",
+                  transformOrigin: isMobile ? "right bottom" : "right center",
                 }
           }
           className="pointer-events-none absolute bottom-[3%] left-0 w-[58%] max-w-[760px] select-none sm:bottom-[-15%]"
