@@ -50,7 +50,7 @@ export function HeroIntro({ scrollProgress }: Props) {
       >
         <motion.span
           {...fade(0)}
-          className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-900/85 sm:-translate-x-9"
+          className="font-ui text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-900/85"
         >
           For teams shipping agents
         </motion.span>

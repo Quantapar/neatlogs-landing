@@ -162,7 +162,7 @@ export function Navbar() {
           />
         </Link>
 
-        <div className="hidden shrink-0 items-center gap-7 md:flex lg:gap-9">
+        <div className="hidden shrink-0 items-center gap-0 md:flex lg:gap-0.5">
           <motion.nav
             aria-label="Primary"
             style={{ x: navOffsetX }}
