@@ -74,6 +74,7 @@ const FAQItem = ({
                 >
                     <svg
                         viewBox="0 0 24 24"
+                        aria-hidden="true"
                         className={`size-4 transition-colors duration-[400ms] ${isOpen ? "stroke-white" : "stroke-zinc-600"
                             }`}
                         fill="none"

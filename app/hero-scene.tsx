@@ -165,6 +165,9 @@ export function HeroScene() {
         <img
           src="/scene/skyline-v4.png"
           alt=""
+          width={2576}
+          height={232}
+          loading="lazy"
           className="h-full w-full object-contain object-bottom-right"
         />
       </motion.div>
@@ -197,6 +200,9 @@ export function HeroScene() {
           <img
             src="/scene/clouds-strip.png"
             alt=""
+            width={1635}
+            height={82}
+            loading="lazy"
             className="h-full w-1/2 object-cover object-center scale-y-125"
             style={{
               filter: "blur(3px) saturate(0.7) brightness(1.25) contrast(1.15)",
@@ -206,6 +212,9 @@ export function HeroScene() {
           <img
             src="/scene/clouds-strip.png"
             alt=""
+            width={1635}
+            height={82}
+            loading="lazy"
             className="h-full w-1/2 object-cover object-center scale-y-125"
             style={{
               filter: "blur(3px) saturate(0.7) brightness(1.25) contrast(1.15)",
@@ -233,6 +242,9 @@ export function HeroScene() {
           <img
             src="/scene/clouds-strip.png"
             alt=""
+            width={1635}
+            height={82}
+            loading="lazy"
             className="h-full w-1/2 object-cover object-center -scale-x-100 scale-y-150"
             style={{
               filter: "blur(8px) saturate(0.6) brightness(1.22) contrast(1.1)",
@@ -242,6 +254,9 @@ export function HeroScene() {
           <img
             src="/scene/clouds-strip.png"
             alt=""
+            width={1635}
+            height={82}
+            loading="lazy"
             className="h-full w-1/2 object-cover object-center -scale-x-100 scale-y-150"
             style={{
               filter: "blur(8px) saturate(0.6) brightness(1.22) contrast(1.1)",
@@ -281,6 +296,9 @@ export function HeroScene() {
           <img
             src="/scene/clouds-strip.png"
             alt=""
+            width={1635}
+            height={82}
+            loading="lazy"
             className="h-full w-1/2 object-cover object-center scale-y-100"
             style={{
               filter: "blur(4px) saturate(0.65) brightness(1.2) contrast(1.08)",
@@ -290,6 +308,9 @@ export function HeroScene() {
           <img
             src="/scene/clouds-strip.png"
             alt=""
+            width={1635}
+            height={82}
+            loading="lazy"
             className="h-full w-1/2 object-cover object-center scale-y-100"
             style={{
               filter: "blur(4px) saturate(0.65) brightness(1.2) contrast(1.08)",
@@ -329,6 +350,9 @@ export function HeroScene() {
           <img
             src="/scene/clouds-strip.png"
             alt=""
+            width={1635}
+            height={82}
+            loading="lazy"
             className="h-full w-1/2 object-cover object-center scale-y-150"
             style={{
               filter: "blur(3px) saturate(0.7) brightness(1.28) contrast(1.1)",
@@ -338,6 +362,9 @@ export function HeroScene() {
           <img
             src="/scene/clouds-strip.png"
             alt=""
+            width={1635}
+            height={82}
+            loading="lazy"
             className="h-full w-1/2 object-cover object-center scale-y-150"
             style={{
               filter: "blur(3px) saturate(0.7) brightness(1.28) contrast(1.1)",
@@ -390,6 +417,9 @@ export function HeroScene() {
           <img
             src="/scene/clouds-strip.png"
             alt=""
+            width={1635}
+            height={82}
+            loading="lazy"
             className="h-full w-1/2 object-cover object-center scale-y-110"
             style={{
               filter: "blur(3px) saturate(0.7) brightness(1.25) contrast(1.1)",
@@ -399,6 +429,9 @@ export function HeroScene() {
           <img
             src="/scene/clouds-strip.png"
             alt=""
+            width={1635}
+            height={82}
+            loading="lazy"
             className="h-full w-1/2 object-cover object-center scale-y-110"
             style={{
               filter: "blur(3px) saturate(0.7) brightness(1.25) contrast(1.1)",
@@ -417,6 +450,9 @@ export function HeroScene() {
         <img
           src="/scene/bridge-v3.png"
           alt=""
+          width={2576}
+          height={1349}
+          loading="lazy"
           className="h-full w-full object-contain"
           style={{ objectPosition: "right bottom" }}
         />
@@ -446,6 +482,9 @@ export function HeroScene() {
           <img
             src="/scene/clouds-strip.png"
             alt=""
+            width={1635}
+            height={82}
+            loading="lazy"
             className="h-full w-1/2 object-cover object-center"
             style={{ filter: "blur(1.8px) saturate(0.6) brightness(1.3)" }}
           />
@@ -453,6 +492,9 @@ export function HeroScene() {
           <img
             src="/scene/clouds-strip.png"
             alt=""
+            width={1635}
+            height={82}
+            loading="lazy"
             className="h-full w-1/2 object-cover object-center"
             style={{ filter: "blur(1.8px) saturate(0.6) brightness(1.3)" }}
           />
@@ -481,6 +523,9 @@ export function HeroScene() {
           <img
             src="/scene/clouds-strip.png"
             alt=""
+            width={1635}
+            height={82}
+            loading="lazy"
             className="h-full w-1/2 object-cover object-center scale-y-125"
             style={{
               filter:
@@ -491,6 +536,9 @@ export function HeroScene() {
           <img
             src="/scene/clouds-strip.png"
             alt=""
+            width={1635}
+            height={82}
+            loading="lazy"
             className="h-full w-1/2 object-cover object-center scale-y-125"
             style={{
               filter:
@@ -530,6 +578,8 @@ export function HeroScene() {
       <motion.img
         src="/scene/land-v3.png"
         alt=""
+        width={2576}
+        height={1717}
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 bottom-[-47%] z-20 h-auto w-full"
         style={{

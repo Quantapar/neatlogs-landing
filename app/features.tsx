@@ -85,6 +85,9 @@ export const Features = () => {
                           <img
                             src="https://i.pinimg.com/736x/91/53/5b/91535bc90a800b532116028457cdd0f9.jpg"
                             alt="Developer"
+                            width={72}
+                            height={72}
+                            loading="lazy"
                             className="w-full h-full object-cover"
                           />
                         </div>
@@ -137,6 +140,9 @@ export const Features = () => {
                           <img
                             src="https://i.pinimg.com/736x/35/c8/37/35c837bf48912b33d03c93e0d2be7c9b.jpg"
                             alt="Manager"
+                            width={72}
+                            height={72}
+                            loading="lazy"
                             className="w-full h-full object-cover object-top"
                           />
                         </div>
@@ -162,6 +168,9 @@ export const Features = () => {
                   <img
                     src="/nl-logo.png"
                     alt="Neatlogs"
+                    width={52}
+                    height={52}
+                    loading="lazy"
                     className="size-full rounded object-contain"
                   />
                 </div>
@@ -517,6 +526,9 @@ export const Features = () => {
                           <img
                             src="/nl-logo.png"
                             alt="Neatlogs"
+                            width={44}
+                            height={44}
+                            loading="lazy"
                             className="size-full rounded object-contain"
                             style={{ filter: "invert(42%)" }}
                           />

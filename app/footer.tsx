@@ -55,7 +55,10 @@ export default function Footer2() {
               >
                 <img
                   src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/LinkedIn_icon.svg/3840px-LinkedIn_icon.svg.png"
-                  alt="LinkedIn"
+                  alt=""
+                  width={16}
+                  height={16}
+                  loading="lazy"
                   className="w-4 h-4 object-contain"
                 />
               </a>
@@ -68,7 +71,10 @@ export default function Footer2() {
               >
                 <img
                   src="https://img.freepik.com/free-vector/new-2023-twitter-logo-x-icon-design_1017-45418.jpg?w=360"
-                  alt="X (Twitter)"
+                  alt=""
+                  width={16}
+                  height={16}
+                  loading="lazy"
                   className="w-4 h-4 object-contain"
                 />
               </a>
@@ -81,7 +87,10 @@ export default function Footer2() {
               >
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-                  alt="GitHub"
+                  alt=""
+                  width={16}
+                  height={16}
+                  loading="lazy"
                   className="w-4 h-4 object-contain"
                 />
               </a>

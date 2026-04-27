@@ -164,18 +164,18 @@ export function Integrations() {
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto max-w-5xl px-6">
-        <div className="mx-auto max-w-2xl text-center">
+      <div className="relative mx-auto max-w-7xl px-6">
+        <div className="text-center">
           <span
             translate="no"
             className="font-pixel-circle text-4xl sm:text-5xl tracking-tight"
           >
             Integrations
           </span>
-          <h2 className="mt-5 text-balance text-[28px] font-semibold tracking-tight text-zinc-950 sm:whitespace-nowrap sm:text-5xl sm:tracking-tighter md:text-[56px]">
+          <h2 className="mt-5 text-[28px] font-semibold tracking-tight text-zinc-950 sm:whitespace-nowrap sm:text-5xl sm:tracking-tighter md:text-[56px]">
             Fits into the way your team works
           </h2>
-          <p className="font-ui mx-auto mt-6 max-w-4xl text-balance text-center text-[15px] font-medium leading-relaxed text-zinc-700 sm:text-base">
+          <p className="font-ui mx-auto mt-6 max-w-2xl text-balance text-[15px] font-medium leading-relaxed text-zinc-700 sm:text-base">
             neatlogs plugs into your existing stack — from agent frameworks and
             notifications to tickets and coding agents
           </p>

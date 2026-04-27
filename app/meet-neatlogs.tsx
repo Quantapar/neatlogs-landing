@@ -249,7 +249,7 @@ function Sidebar() {
               Manu
             </span>
             <span className="truncate text-[10px] leading-tight text-zinc-500">
-              Manushrama2462@gmail...
+              Manushrama2462@gmail…
             </span>
           </div>
         </div>
@@ -355,7 +355,7 @@ function MainArea() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Ask anything..."
+            placeholder="Ask anything…"
             className="font-pixel w-full bg-transparent text-[13.5px] font-normal text-zinc-950 outline-none placeholder:text-zinc-400"
           />
           <div className="mt-3 flex items-center gap-1.5">
