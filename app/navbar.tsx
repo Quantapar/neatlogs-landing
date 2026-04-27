@@ -274,7 +274,7 @@ export function Navbar() {
       >
         <div className="overflow-hidden">
           <div
-            className={`mx-4 -mt-1 rounded bg-(--glass-bg) ring-1 ring-zinc-900/10 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] backdrop-blur-md transition-[opacity,transform] duration-[220ms] ease-snap ${
+            className={`mx-4 -mt-1 rounded bg-white ring-1 ring-zinc-900/10 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.6)] transition-[opacity,transform] duration-[220ms] ease-snap ${
               open
                 ? "opacity-100 translate-y-0"
                 : "pointer-events-none -translate-y-2 opacity-0"
