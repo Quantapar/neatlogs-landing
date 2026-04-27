@@ -39,7 +39,7 @@ export function HeroIntro({ scrollProgress }: Props) {
         };
 
   return (
-    <section className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-[12%] sm:pt-[14%]">
+    <section className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 pt-[28%] sm:pt-[14%]">
       <motion.div
         style={
           reducedMotion
@@ -69,7 +69,7 @@ export function HeroIntro({ scrollProgress }: Props) {
 
         <motion.div
           {...fade(0.6)}
-          className="mt-40 flex flex-col items-stretch gap-3 sm:mt-14 sm:flex-row sm:items-center"
+          className="mt-8 flex flex-col items-stretch gap-3 sm:mt-14 sm:flex-row sm:items-center"
         >
           <a
             href="https://calendly.com/ajay-yadav-neatlogs/30min"

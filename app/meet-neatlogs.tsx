@@ -30,7 +30,7 @@ export function MeetNeatlogs() {
   return (
     <section
       style={{ position: "relative" }}
-      className="bg-[#FAFAFA] pt-10 sm:pt-14 lg:pt-16"
+      className="bg-[#FAFAFA] pt-2 sm:pt-14 lg:pt-16"
     >
       {/* DashboardScene kept defined below for later — currently rendering TraceMock instead. */}
       {/* <DashboardScene /> */}
@@ -54,14 +54,34 @@ export function MeetNeatlogs() {
 function CollabScene() {
   const ref = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
+  // Disable the hand-zoom effect on small screens — videos don't have room
+  // to be cropped on hand-detail and the figures end up cut at top/bottom.
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const update = () => setIsMobile(window.innerWidth < 640);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start 90%", "center 65%"],
   });
 
-  const devX = useTransform(scrollYProgress, [0, 0.85], ["-100%", "1%"]);
-  const bizX = useTransform(scrollYProgress, [0, 0.85], ["100%", "-1%"]);
+  // On mobile the videos are at scale 1 (no hand-zoom), so the figures take
+  // more visible width — cap their end positions so they stop near each other
+  // instead of overlapping like they would with the desktop end values.
+  const devX = useTransform(
+    scrollYProgress,
+    [0, 0.85],
+    ["-100%", isMobile ? "-15%" : "1%"],
+  );
+  const bizX = useTransform(
+    scrollYProgress,
+    [0, 0.85],
+    ["100%", isMobile ? "15%" : "-1%"],
+  );
   const fadeIn = useTransform(scrollYProgress, [0, 0.3, 0.85], [0, 0.9, 1]);
   // Start zoomed in on the reaching hands (dev's right edge, biz's left edge)
   // and zoom out to full body as the scene fully assembles.
@@ -84,9 +104,14 @@ function CollabScene() {
           style={
             reducedMotion
               ? undefined
-              : { x: devX, scale: devScale, opacity: fadeIn, transformOrigin: "right center" }
+              : {
+                  x: devX,
+                  scale: isMobile ? 0.85 : devScale,
+                  opacity: fadeIn,
+                  transformOrigin: "right bottom",
+                }
           }
-          className="pointer-events-none absolute bottom-[-15%] left-0 w-[58%] max-w-[760px] select-none"
+          className="pointer-events-none absolute bottom-[3%] left-0 w-[58%] max-w-[760px] select-none sm:bottom-[-15%]"
         >
           <video
             src="/leftman.mp4"
@@ -104,9 +129,14 @@ function CollabScene() {
           style={
             reducedMotion
               ? undefined
-              : { x: bizX, scale: bizScale, opacity: fadeIn, transformOrigin: "left center" }
+              : {
+                  x: bizX,
+                  scale: isMobile ? 1 : bizScale,
+                  opacity: fadeIn,
+                  transformOrigin: "left center",
+                }
           }
-          className="pointer-events-none absolute right-0 top-[-32%] w-[56%] max-w-[720px] select-none"
+          className="pointer-events-none absolute right-0 top-[-45%] w-[56%] max-w-[720px] select-none sm:top-[-32%]"
         >
           <video
             src="/Untitled.mp4"
@@ -616,9 +646,9 @@ function IconGear(props: SVGProps<SVGSVGElement>) {
 
 function TraceMock() {
   return (
-    <div className="mx-auto mt-10 w-full max-w-[1440px] px-6 pb-16 sm:mt-14 sm:pb-20 lg:mt-16 lg:px-10 lg:pb-24">
-      <div className="relative">
-      <div className="relative max-w-[1360px] overflow-hidden rounded-lg border border-zinc-900/10 bg-white shadow-[0_24px_48px_-20px_rgba(12,20,40,0.18),0_10px_20px_-12px_rgba(12,20,40,0.1)] lg:min-h-[1000px]">
+    <div className="mx-auto -mt-12 w-full max-w-[1440px] px-6 pb-6 sm:mt-14 sm:pb-20 lg:mt-16 lg:px-10 lg:pb-24">
+      <div className="relative [zoom:0.32] sm:[zoom:0.55] md:[zoom:0.75] lg:[zoom:1]">
+      <div className="relative max-w-[1360px] overflow-hidden rounded-lg border border-zinc-900/10 bg-white shadow-[0_24px_48px_-20px_rgba(12,20,40,0.18),0_10px_20px_-12px_rgba(12,20,40,0.1)] min-h-[1000px]">
         <WorkflowHeader title="Support Access Workflow" duration="4.8s" />
 
         <div className="px-2 pt-3 sm:px-4 sm:pt-4 pb-6">
@@ -748,7 +778,7 @@ We need to give our external design agency access to one dashboard so they can r
 
 function CommentsPanel() {
   return (
-    <div className="absolute right-0 top-14 hidden w-[360px] lg:block">
+    <div className="absolute right-0 top-14 block w-[360px]">
       <div className="overflow-hidden rounded-lg border border-zinc-900/10 bg-white shadow-[0_30px_60px_-20px_rgba(12,20,40,0.28),0_12px_24px_-12px_rgba(12,20,40,0.16)]">
         <div className="flex items-center justify-between px-4 py-3">
           <span className="text-[15px] font-normal tracking-tight text-zinc-950">

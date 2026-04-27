@@ -134,7 +134,7 @@ export function HeroScene() {
     // the viewport stays locked. Once sticky releases, the page scrolls
     // normally — bridge/sky parallax into view as the inner slides upward.
     <div ref={heroRef} className="relative w-full h-[250vh]">
-      <div className="sticky top-0 w-full min-h-[680px] overflow-hidden md:min-h-0 md:h-screen md:max-h-[920px]">
+      <div className="sticky top-0 w-full h-[100svh] min-h-[560px] overflow-hidden md:h-screen md:min-h-0 md:max-h-[920px]">
       {/* Layer 1: Sky wash — furthest back, slowest parallax. */}
       <motion.div
         className="absolute inset-0"

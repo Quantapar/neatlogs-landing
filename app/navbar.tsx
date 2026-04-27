@@ -129,9 +129,13 @@ export function Navbar() {
 
   return (
     <motion.header
-      style={{ backgroundColor, backdropFilter, borderBottomColor }}
-      className="fixed inset-x-0 top-0 z-50 w-full border-b border-transparent"
+      style={{ backgroundColor, backdropFilter }}
+      className="fixed inset-x-0 top-0 z-50 w-full"
     >
+      <motion.div
+        style={{ borderBottomColor }}
+        className="border-b border-transparent"
+      >
       <motion.div
         style={
           {
@@ -258,6 +262,7 @@ export function Navbar() {
             )}
           </svg>
         </button>
+      </motion.div>
       </motion.div>
 
       <div

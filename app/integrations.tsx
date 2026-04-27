@@ -172,7 +172,7 @@ export function Integrations() {
           >
             Integrations
           </span>
-          <h2 className="mt-5 whitespace-nowrap text-[28px] font-semibold tracking-tight text-zinc-950 sm:text-5xl sm:tracking-tighter md:text-[56px]">
+          <h2 className="mt-5 text-balance text-[28px] font-semibold tracking-tight text-zinc-950 sm:whitespace-nowrap sm:text-5xl sm:tracking-tighter md:text-[56px]">
             Fits into the way your team works
           </h2>
           <p className="font-ui mx-auto mt-6 max-w-4xl text-balance text-center text-[15px] font-medium leading-relaxed text-zinc-700 sm:text-base">

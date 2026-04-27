@@ -26,9 +26,9 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistPixelSquare.variable} ${GeistPixelCircle.variable} h-full antialiased`}
+      className={`${GeistSans.variable} ${GeistPixelSquare.variable} ${GeistPixelCircle.variable} h-full overflow-x-clip antialiased`}
     >
-      <body suppressHydrationWarning className="relative min-h-full flex flex-col">
+      <body suppressHydrationWarning className="relative min-h-full flex flex-col overflow-x-clip">
         <Navbar />
         {children}
       </body>
