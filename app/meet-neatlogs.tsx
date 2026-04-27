@@ -32,18 +32,6 @@ export function MeetNeatlogs() {
       style={{ position: "relative" }}
       className="bg-[#FAFAFA] pt-10 sm:pt-14 lg:pt-16"
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="grid items-start gap-6 lg:grid-cols-[3fr_2fr] lg:gap-12">
-          <h2 className="text-balance text-4xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-5xl md:text-[56px]">
-            One place to go from issue to feedback to fix
-          </h2>
-          <p className="font-ui max-w-md text-[15px] font-medium leading-relaxed text-zinc-700 sm:text-base lg:mt-2">
-            Developers and domain experts can look at the same run, understand
-            what happened, and collaborate on the next step.
-          </p>
-        </div>
-      </div>
-
       {/* DashboardScene kept defined below for later — currently rendering TraceMock instead. */}
       {/* <DashboardScene /> */}
       <TraceMock />
@@ -79,7 +67,7 @@ function CollabScene() {
       >
         <motion.div
           style={reducedMotion ? undefined : { x: devX, opacity: fadeIn }}
-          className="pointer-events-none absolute bottom-[-15%] left-0 w-[58%] max-w-[760px] select-none"
+          className="pointer-events-none absolute bottom-[-5%] left-0 w-[58%] max-w-[760px] select-none"
         >
           <video
             src="/leftman.mp4"
@@ -95,7 +83,7 @@ function CollabScene() {
 
         <motion.div
           style={reducedMotion ? undefined : { x: bizX, opacity: fadeIn }}
-          className="pointer-events-none absolute right-0 top-[-32%] w-[56%] max-w-[720px] select-none"
+          className="pointer-events-none absolute right-0 top-[-42%] w-[56%] max-w-[720px] select-none"
         >
           <video
             src="/Untitled.mp4"
@@ -117,6 +105,16 @@ function CollabScene() {
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 bottom-0 h-[10%] bg-gradient-to-t from-[#FAFAFA] via-[#FAFAFA]/80 to-transparent"
         />
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-[8%] z-10 mx-auto flex w-full max-w-5xl flex-col items-center gap-3 px-6 text-center sm:bottom-[10%] sm:gap-4 lg:px-10">
+          <h2 className="text-balance text-3xl font-semibold leading-[1.04] tracking-tighter text-zinc-950 sm:text-4xl md:text-5xl lg:text-[56px]">
+            One place to go from issue to feedback to fix
+          </h2>
+          <p className="font-ui max-w-xl text-[14px] font-medium leading-relaxed text-zinc-700 sm:text-[15px] md:text-base">
+            Developers and domain experts can look at the same run, understand
+            what happened, and collaborate on the next step.
+          </p>
+        </div>
       </div>
     </div>
   );
