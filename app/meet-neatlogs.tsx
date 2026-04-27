@@ -106,12 +106,12 @@ function CollabScene() {
               ? undefined
               : {
                   x: devX,
-                  scale: isMobile ? 0.85 : devScale,
+                  scale: isMobile ? 0.7 : devScale,
                   opacity: fadeIn,
                   transformOrigin: isMobile ? "right bottom" : "right center",
                 }
           }
-          className="pointer-events-none absolute bottom-[3%] left-0 w-[58%] max-w-[760px] select-none sm:bottom-[-15%]"
+          className="pointer-events-none absolute bottom-[22%] left-0 w-[58%] max-w-[760px] select-none sm:bottom-[-15%]"
         >
           <video
             src="/leftman.mp4"
@@ -131,12 +131,12 @@ function CollabScene() {
               ? undefined
               : {
                   x: bizX,
-                  scale: isMobile ? 1 : bizScale,
+                  scale: isMobile ? 0.7 : bizScale,
                   opacity: fadeIn,
-                  transformOrigin: "left center",
+                  transformOrigin: isMobile ? "left top" : "left center",
                 }
           }
-          className="pointer-events-none absolute right-0 top-[-45%] w-[56%] max-w-[720px] select-none sm:top-[-32%]"
+          className="pointer-events-none absolute right-0 top-[-33%] w-[56%] max-w-[720px] select-none sm:top-[-32%]"
         >
           <video
             src="/Untitled.mp4"
